@@ -2307,3 +2307,2025 @@ Index: []
 10:35:59,499 Experiment INFO Continuous monitoring stopped by user
 10:35:59,502 Experiment INFO Experiment status updated to: offline
 10:35:59,504 Experiment INFO Continuous monitoring terminated - status set to offline
+14:04:57,431 Experiment INFO Init
+14:04:57,437 Experiment INFO Tasks loaded successfully:    Scope                                                   Fluidics                Experiment
+0   SetInitialFocus*[['A1', 'A2','A3','B1']]*Manua...                                     NaN
+1   Acquire*[['A1', 'A2','A3','B1']]*preview      ...                                     NaN
+2   FilterPositions*[['A1', 'A2','A3','B1']]*Draw ...                                     NaN
+3   SetFocus*[['A1', 'A2','A3','B1']]*RelativePlan...                                     NaN
+4                                                 ...        hybe*[A,B]*hybe1             NaN
+..                                                ...                         ...         ...
+72  Acquire*[['A3', 'B1']]*strip17                ...        hybe*[A,B]*hybe18            NaN
+73  Acquire*[['A1', 'A2']]*hybe18                 ...        hybe*[C,D]*hybe18            NaN
+74  Acquire*[['A3', 'B1']]*hybe18                 ...        strip*[A,B]*strip18          NaN
+75  Acquire*[['A1', 'A2']]*strip18                ...        strip*[C,D]*strip18          NaN
+76  Acquire*[['A3', 'B1']]*strip18                ...                                     NaN
+
+[77 rows x 3 columns]
+14:04:57,444 Experiment INFO Positions loaded successfully:     position_name well        X         Y    Z
+0  WellA1_Xi0_Yi0   A1   9000.0  119500.0  0.0
+1  WellA2_Xi0_Yi0   A2  10000.0  119500.0  0.0
+2  WellA3_Xi0_Yi0   A3  11000.0  119500.0  0.0
+3  WellB1_Xi0_Yi0   B1   9000.0  120500.0  0.0
+14:04:57,450 Experiment INFO Experiment status updated to: Idle
+14:05:03,630 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:05:03,631 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+15:31:41,511 Experiment INFO Init
+15:31:41,513 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+15:31:41,515 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+15:31:47,964 Experiment INFO Init
+15:31:47,966 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+15:31:47,969 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+15:31:47,975 Experiment INFO Experiment status updated to: Idle
+15:31:50,302 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:31:50,302 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+15:35:00,643 Experiment INFO Init
+15:35:00,645 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+15:35:00,678 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+15:35:03,522 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:35:03,522 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+15:40:54,157 Experiment INFO Init
+15:40:54,159 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+15:40:54,191 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+15:40:57,76 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:40:57,77 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+15:42:43,59 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:42:43,60 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes', 'position_filtering', 'preview_focus', 'acquisition_focus', 'autofocus_method', 'steps']
+15:42:43,81 Experiment INFO Creating tasks with:
+15:42:43,82 Experiment INFO   Groups: ['Group 1']
+15:42:43,82 Experiment INFO   Protocols: ['strip', 'hybe']
+15:42:43,82 Experiment INFO   Rounds: 18
+15:42:43,83 Experiment INFO   Group assignments: {'A': 'Group 1'}
+15:42:43,83 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+15:42:43,85 Experiment INFO   Available wells: ['A']
+15:42:43,86 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+15:42:43,104 Experiment INFO Tasks created and saved successfully
+15:43:14,425 Experiment INFO Init
+15:43:14,434 Experiment INFO Tasks loaded successfully:                         Scope           Fluidics  Experiment
+0                         NaN   strip*[A]*strip1         NaN
+1    Acquire*[Group 1]*strip1                NaN         NaN
+2                         NaN     hybe*[A]*hybe1         NaN
+3     Acquire*[Group 1]*hybe1                NaN         NaN
+4                         NaN   strip*[A]*strip2         NaN
+..                        ...                ...         ...
+67   Acquire*[Group 1]*hybe17                NaN         NaN
+68                        NaN  strip*[A]*strip18         NaN
+69  Acquire*[Group 1]*strip18                NaN         NaN
+70                        NaN    hybe*[A]*hybe18         NaN
+71   Acquire*[Group 1]*hybe18                NaN         NaN
+
+[72 rows x 3 columns]
+15:43:14,448 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+15:43:14,455 Experiment INFO Experiment status updated to: Idle
+15:45:10,67 Experiment INFO Init
+15:45:10,69 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+15:45:10,71 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+15:47:58,469 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:47:58,470 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+15:48:10,451 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:48:10,451 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+15:48:58,263 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:48:58,264 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+15:51:10,561 Experiment INFO Init
+15:51:10,563 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+15:51:10,597 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+15:51:13,402 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:51:13,403 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+15:53:23,556 Experiment INFO Init
+15:53:23,557 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+15:53:23,572 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+15:53:23,589 Experiment INFO Experiment status updated to: Idle
+15:53:25,397 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:53:25,397 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+15:54:41,908 Experiment INFO Init
+15:54:41,910 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+15:54:41,913 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+15:54:44,625 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:54:44,625 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+15:56:18,723 Experiment INFO Init
+15:56:18,725 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+15:56:18,727 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+15:56:20,825 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:56:20,825 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+15:58:25,435 Experiment INFO Init
+15:58:25,437 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+15:58:25,439 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+15:58:28,586 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:58:28,586 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:00:01,521 Experiment INFO Init
+16:00:01,523 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:00:01,556 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:00:04,265 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:00:04,265 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:02:22,477 Experiment INFO Init
+16:02:22,480 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:02:22,516 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:02:25,225 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:02:25,226 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:04:00,291 Experiment INFO Init
+16:04:00,293 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:04:00,324 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:04:02,811 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:04:02,811 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:06:25,560 Experiment INFO Init
+16:06:25,562 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:06:25,593 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:06:28,55 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:06:28,56 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:07:33,160 Experiment INFO Init
+16:07:33,162 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:07:33,200 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:07:35,151 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:07:35,151 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:11:34,767 Experiment INFO Init
+16:11:34,769 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:11:34,801 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:11:37,420 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:11:37,420 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:16:22,769 Experiment INFO Init
+16:16:22,771 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:16:22,806 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:16:25,274 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:16:25,275 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:18:25,421 Experiment INFO Init
+16:18:25,423 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:18:25,455 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:18:28,394 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:18:28,394 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:18:41,45 Experiment INFO Init
+16:18:41,48 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:18:41,85 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:18:43,554 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:18:43,554 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:19:06,860 Experiment INFO Init
+16:19:06,862 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:19:06,896 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:19:10,236 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:19:10,236 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:20:23,66 Experiment INFO Init
+16:20:23,69 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:20:23,83 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:20:25,336 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:20:25,336 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:20:40,378 Experiment INFO Init
+16:20:40,381 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:20:40,425 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:20:42,618 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:20:42,619 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:23:22,467 Experiment INFO Init
+16:23:22,469 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:23:22,500 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:23:25,233 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:23:25,234 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:24:36,296 Experiment INFO Init
+16:24:36,299 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:24:36,336 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:24:38,685 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:24:38,686 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:25:05,848 Experiment INFO Init
+16:25:05,850 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:25:05,882 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:25:08,353 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:25:08,354 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:28:34,760 Experiment INFO Init
+16:28:34,762 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:28:34,794 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:28:38,225 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:28:38,225 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:30:09,523 Experiment INFO Init
+16:30:09,525 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:30:09,560 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:30:12,387 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:30:12,388 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:31:08,142 Experiment INFO Init
+16:31:08,144 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:31:08,190 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:31:10,671 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:31:10,671 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:32:46,754 Experiment INFO Init
+16:32:46,756 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:32:46,793 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:32:49,8 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:32:49,8 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:34:24,217 Experiment INFO Init
+16:34:24,219 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:34:24,251 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:34:26,952 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:34:26,952 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:36:34,881 Experiment INFO Init
+16:36:34,883 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:36:34,917 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:36:36,888 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:36:36,889 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:38:16,225 Experiment INFO Init
+16:38:16,227 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:38:16,264 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:38:19,93 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:38:19,93 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:38:51,710 Experiment INFO Init
+16:38:51,712 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:38:51,748 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:38:54,461 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:38:54,461 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:40:38,405 Experiment INFO Init
+16:40:38,407 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:40:38,437 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:40:41,271 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:40:41,272 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+16:41:13,123 Experiment INFO Init
+16:41:13,124 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+16:41:13,159 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+16:41:15,661 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:41:15,661 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']

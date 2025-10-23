@@ -854,3 +854,644 @@
 10:35:57,522 Scope INFO Continuous monitoring stopped by user
 10:35:57,523 Scope INFO Scope status updated to: offline
 10:35:57,524 Scope INFO Continuous monitoring terminated - status set to offline
+14:04:57,451 Scope INFO Scope status updated to: Idle
+15:31:41,516 Scope INFO Scope initialization
+15:31:41,517 Scope INFO Scope initialization complete
+15:31:41,517 Scope INFO CyanScope initialization complete
+15:31:47,976 Scope INFO Scope status updated to: Idle
+15:35:00,681 Scope INFO Scope initialization
+15:35:00,682 Scope INFO Scope initialization complete
+15:35:00,682 Scope INFO CyanScope initialization complete
+15:40:54,195 Scope INFO Scope initialization
+15:40:54,196 Scope DEBUG Found channel: Green
+15:40:54,196 Scope DEBUG Found channel: Green
+15:40:54,196 Scope DEBUG Found channel: Orange
+15:40:54,196 Scope DEBUG Found channel: Orange
+15:40:54,197 Scope DEBUG Found channel: UltraViolet
+15:40:54,197 Scope DEBUG Found channel: UltraViolet
+15:40:54,197 Scope DEBUG Found channel: DeepBlue
+15:40:54,197 Scope DEBUG Found channel: DeepBlue
+15:40:54,198 Scope DEBUG Found channel: FarRed
+15:40:54,198 Scope DEBUG Found channel: FarRed
+15:40:54,198 Scope DEBUG Found channel: InfraRed
+15:40:54,198 Scope DEBUG Found channel: InfraRed
+15:40:54,199 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+15:40:54,199 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+15:40:54,200 Scope INFO Scope initialization complete
+15:40:54,200 Scope INFO CyanScope initialization complete
+15:40:59,504 Scope DEBUG Found channel: Green
+15:40:59,504 Scope DEBUG Found channel: Green
+15:40:59,504 Scope DEBUG Found channel: Orange
+15:40:59,504 Scope DEBUG Found channel: Orange
+15:40:59,505 Scope DEBUG Found channel: UltraViolet
+15:40:59,505 Scope DEBUG Found channel: UltraViolet
+15:40:59,505 Scope DEBUG Found channel: DeepBlue
+15:40:59,505 Scope DEBUG Found channel: DeepBlue
+15:40:59,506 Scope DEBUG Found channel: FarRed
+15:40:59,506 Scope DEBUG Found channel: FarRed
+15:40:59,506 Scope DEBUG Found channel: InfraRed
+15:40:59,507 Scope DEBUG Found channel: InfraRed
+15:40:59,507 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+15:42:43,33 Scope DEBUG Found channel: Green
+15:42:43,34 Scope DEBUG Found channel: Green
+15:42:43,35 Scope DEBUG Found channel: Orange
+15:42:43,36 Scope DEBUG Found channel: Orange
+15:42:43,38 Scope DEBUG Found channel: UltraViolet
+15:42:43,39 Scope DEBUG Found channel: UltraViolet
+15:42:43,40 Scope DEBUG Found channel: DeepBlue
+15:42:43,41 Scope DEBUG Found channel: DeepBlue
+15:42:43,43 Scope DEBUG Found channel: FarRed
+15:42:43,44 Scope DEBUG Found channel: FarRed
+15:42:43,45 Scope DEBUG Found channel: InfraRed
+15:42:43,46 Scope DEBUG Found channel: InfraRed
+15:42:43,48 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+15:43:14,455 Scope INFO Scope status updated to: Idle
+15:45:10,72 Scope INFO Scope initialization
+15:45:10,73 Scope DEBUG Found channel: Green
+15:45:10,73 Scope DEBUG Found channel: Green
+15:45:10,74 Scope DEBUG Found channel: Orange
+15:45:10,74 Scope DEBUG Found channel: Orange
+15:45:10,74 Scope DEBUG Found channel: UltraViolet
+15:45:10,74 Scope DEBUG Found channel: UltraViolet
+15:45:10,75 Scope DEBUG Found channel: DeepBlue
+15:45:10,75 Scope DEBUG Found channel: DeepBlue
+15:45:10,75 Scope DEBUG Found channel: FarRed
+15:45:10,75 Scope DEBUG Found channel: FarRed
+15:45:10,75 Scope DEBUG Found channel: InfraRed
+15:45:10,76 Scope DEBUG Found channel: InfraRed
+15:45:10,76 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+15:45:10,76 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+15:45:10,76 Scope INFO Scope initialization complete
+15:45:10,77 Scope INFO CyanScope initialization complete
+15:48:04,519 Scope DEBUG Found channel: Green
+15:48:04,519 Scope DEBUG Found channel: Green
+15:48:04,520 Scope DEBUG Found channel: Orange
+15:48:04,520 Scope DEBUG Found channel: Orange
+15:48:04,520 Scope DEBUG Found channel: UltraViolet
+15:48:04,520 Scope DEBUG Found channel: UltraViolet
+15:48:04,520 Scope DEBUG Found channel: DeepBlue
+15:48:04,521 Scope DEBUG Found channel: DeepBlue
+15:48:04,521 Scope DEBUG Found channel: FarRed
+15:48:04,521 Scope DEBUG Found channel: FarRed
+15:48:04,521 Scope DEBUG Found channel: InfraRed
+15:48:04,521 Scope DEBUG Found channel: InfraRed
+15:48:04,521 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+15:48:47,753 Scope DEBUG Found channel: Green
+15:48:47,754 Scope DEBUG Found channel: Green
+15:48:47,754 Scope DEBUG Found channel: Orange
+15:48:47,754 Scope DEBUG Found channel: Orange
+15:48:47,755 Scope DEBUG Found channel: UltraViolet
+15:48:47,755 Scope DEBUG Found channel: UltraViolet
+15:48:47,756 Scope DEBUG Found channel: DeepBlue
+15:48:47,756 Scope DEBUG Found channel: DeepBlue
+15:48:47,757 Scope DEBUG Found channel: FarRed
+15:48:47,757 Scope DEBUG Found channel: FarRed
+15:48:47,757 Scope DEBUG Found channel: InfraRed
+15:48:47,758 Scope DEBUG Found channel: InfraRed
+15:48:47,758 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+15:51:10,601 Scope INFO Scope initialization
+15:51:10,602 Scope DEBUG Found channel: Green
+15:51:10,602 Scope DEBUG Found channel: Green
+15:51:10,602 Scope DEBUG Found channel: Orange
+15:51:10,602 Scope DEBUG Found channel: Orange
+15:51:10,603 Scope DEBUG Found channel: UltraViolet
+15:51:10,603 Scope DEBUG Found channel: UltraViolet
+15:51:10,603 Scope DEBUG Found channel: DeepBlue
+15:51:10,604 Scope DEBUG Found channel: DeepBlue
+15:51:10,604 Scope DEBUG Found channel: FarRed
+15:51:10,604 Scope DEBUG Found channel: FarRed
+15:51:10,604 Scope DEBUG Found channel: InfraRed
+15:51:10,604 Scope DEBUG Found channel: InfraRed
+15:51:10,605 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+15:51:10,605 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+15:51:10,605 Scope INFO Scope initialization complete
+15:51:10,605 Scope INFO CyanScope initialization complete
+15:52:12,895 Scope DEBUG Found channel: Green
+15:52:12,895 Scope DEBUG Found channel: Green
+15:52:12,895 Scope DEBUG Found channel: Orange
+15:52:12,896 Scope DEBUG Found channel: Orange
+15:52:12,896 Scope DEBUG Found channel: UltraViolet
+15:52:12,896 Scope DEBUG Found channel: UltraViolet
+15:52:12,897 Scope DEBUG Found channel: DeepBlue
+15:52:12,897 Scope DEBUG Found channel: DeepBlue
+15:52:12,897 Scope DEBUG Found channel: FarRed
+15:52:12,897 Scope DEBUG Found channel: FarRed
+15:52:12,898 Scope DEBUG Found channel: InfraRed
+15:52:12,898 Scope DEBUG Found channel: InfraRed
+15:52:12,898 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+15:53:23,590 Scope INFO Scope status updated to: Idle
+15:54:41,916 Scope INFO Scope initialization
+15:54:41,917 Scope DEBUG Found channel: Green
+15:54:41,917 Scope DEBUG Found channel: Green
+15:54:41,918 Scope DEBUG Found channel: Orange
+15:54:41,918 Scope DEBUG Found channel: Orange
+15:54:41,918 Scope DEBUG Found channel: UltraViolet
+15:54:41,919 Scope DEBUG Found channel: UltraViolet
+15:54:41,919 Scope DEBUG Found channel: DeepBlue
+15:54:41,919 Scope DEBUG Found channel: DeepBlue
+15:54:41,920 Scope DEBUG Found channel: FarRed
+15:54:41,920 Scope DEBUG Found channel: FarRed
+15:54:41,920 Scope DEBUG Found channel: InfraRed
+15:54:41,920 Scope DEBUG Found channel: InfraRed
+15:54:41,921 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+15:54:41,921 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+15:54:41,921 Scope INFO Scope initialization complete
+15:54:41,922 Scope INFO CyanScope initialization complete
+15:56:18,728 Scope INFO Scope initialization
+15:56:18,729 Scope DEBUG Found channel: Green
+15:56:18,730 Scope DEBUG Found channel: Green
+15:56:18,730 Scope DEBUG Found channel: Orange
+15:56:18,730 Scope DEBUG Found channel: Orange
+15:56:18,730 Scope DEBUG Found channel: UltraViolet
+15:56:18,731 Scope DEBUG Found channel: UltraViolet
+15:56:18,731 Scope DEBUG Found channel: DeepBlue
+15:56:18,731 Scope DEBUG Found channel: DeepBlue
+15:56:18,731 Scope DEBUG Found channel: FarRed
+15:56:18,732 Scope DEBUG Found channel: FarRed
+15:56:18,732 Scope DEBUG Found channel: InfraRed
+15:56:18,732 Scope DEBUG Found channel: InfraRed
+15:56:18,732 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+15:56:18,733 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+15:56:18,733 Scope INFO Scope initialization complete
+15:56:18,733 Scope INFO CyanScope initialization complete
+15:58:25,440 Scope INFO Scope initialization
+15:58:25,441 Scope DEBUG Found channel: Green
+15:58:25,441 Scope DEBUG Found channel: Green
+15:58:25,442 Scope DEBUG Found channel: Orange
+15:58:25,442 Scope DEBUG Found channel: Orange
+15:58:25,442 Scope DEBUG Found channel: UltraViolet
+15:58:25,442 Scope DEBUG Found channel: UltraViolet
+15:58:25,443 Scope DEBUG Found channel: DeepBlue
+15:58:25,443 Scope DEBUG Found channel: DeepBlue
+15:58:25,443 Scope DEBUG Found channel: FarRed
+15:58:25,443 Scope DEBUG Found channel: FarRed
+15:58:25,444 Scope DEBUG Found channel: InfraRed
+15:58:25,444 Scope DEBUG Found channel: InfraRed
+15:58:25,444 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+15:58:25,444 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+15:58:25,444 Scope INFO Scope initialization complete
+15:58:25,445 Scope INFO CyanScope initialization complete
+15:58:32,404 Scope DEBUG Found channel: Green
+15:58:32,404 Scope DEBUG Found channel: Green
+15:58:32,405 Scope DEBUG Found channel: Orange
+15:58:32,405 Scope DEBUG Found channel: Orange
+15:58:32,405 Scope DEBUG Found channel: UltraViolet
+15:58:32,405 Scope DEBUG Found channel: UltraViolet
+15:58:32,406 Scope DEBUG Found channel: DeepBlue
+15:58:32,406 Scope DEBUG Found channel: DeepBlue
+15:58:32,406 Scope DEBUG Found channel: FarRed
+15:58:32,406 Scope DEBUG Found channel: FarRed
+15:58:32,407 Scope DEBUG Found channel: InfraRed
+15:58:32,407 Scope DEBUG Found channel: InfraRed
+15:58:32,407 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:00:01,560 Scope INFO Scope initialization
+16:00:01,560 Scope DEBUG Found channel: Green
+16:00:01,561 Scope DEBUG Found channel: Green
+16:00:01,561 Scope DEBUG Found channel: Orange
+16:00:01,561 Scope DEBUG Found channel: Orange
+16:00:01,562 Scope DEBUG Found channel: UltraViolet
+16:00:01,562 Scope DEBUG Found channel: UltraViolet
+16:00:01,562 Scope DEBUG Found channel: DeepBlue
+16:00:01,563 Scope DEBUG Found channel: DeepBlue
+16:00:01,563 Scope DEBUG Found channel: FarRed
+16:00:01,563 Scope DEBUG Found channel: FarRed
+16:00:01,563 Scope DEBUG Found channel: InfraRed
+16:00:01,564 Scope DEBUG Found channel: InfraRed
+16:00:01,564 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:00:01,565 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:00:01,565 Scope INFO Scope initialization complete
+16:00:01,565 Scope INFO CyanScope initialization complete
+16:00:26,941 Scope DEBUG Found channel: Green
+16:00:26,941 Scope DEBUG Found channel: Green
+16:00:26,941 Scope DEBUG Found channel: Orange
+16:00:26,941 Scope DEBUG Found channel: Orange
+16:00:26,942 Scope DEBUG Found channel: UltraViolet
+16:00:26,942 Scope DEBUG Found channel: UltraViolet
+16:00:26,942 Scope DEBUG Found channel: DeepBlue
+16:00:26,942 Scope DEBUG Found channel: DeepBlue
+16:00:26,943 Scope DEBUG Found channel: FarRed
+16:00:26,943 Scope DEBUG Found channel: FarRed
+16:00:26,943 Scope DEBUG Found channel: InfraRed
+16:00:26,943 Scope DEBUG Found channel: InfraRed
+16:00:26,943 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:02:22,521 Scope INFO Scope initialization
+16:02:22,522 Scope DEBUG Found channel: Green
+16:02:22,522 Scope DEBUG Found channel: Green
+16:02:22,525 Scope DEBUG Found channel: Orange
+16:02:22,525 Scope DEBUG Found channel: Orange
+16:02:22,525 Scope DEBUG Found channel: UltraViolet
+16:02:22,526 Scope DEBUG Found channel: UltraViolet
+16:02:22,526 Scope DEBUG Found channel: DeepBlue
+16:02:22,526 Scope DEBUG Found channel: DeepBlue
+16:02:22,526 Scope DEBUG Found channel: FarRed
+16:02:22,527 Scope DEBUG Found channel: FarRed
+16:02:22,528 Scope DEBUG Found channel: InfraRed
+16:02:22,529 Scope DEBUG Found channel: InfraRed
+16:02:22,529 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:02:22,530 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:02:22,530 Scope INFO Scope initialization complete
+16:02:22,530 Scope INFO CyanScope initialization complete
+16:04:00,328 Scope INFO Scope initialization
+16:04:00,328 Scope DEBUG Found channel: Green
+16:04:00,329 Scope DEBUG Found channel: Green
+16:04:00,329 Scope DEBUG Found channel: Orange
+16:04:00,329 Scope DEBUG Found channel: Orange
+16:04:00,329 Scope DEBUG Found channel: UltraViolet
+16:04:00,330 Scope DEBUG Found channel: UltraViolet
+16:04:00,330 Scope DEBUG Found channel: DeepBlue
+16:04:00,330 Scope DEBUG Found channel: DeepBlue
+16:04:00,330 Scope DEBUG Found channel: FarRed
+16:04:00,331 Scope DEBUG Found channel: FarRed
+16:04:00,331 Scope DEBUG Found channel: InfraRed
+16:04:00,331 Scope DEBUG Found channel: InfraRed
+16:04:00,331 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:04:00,332 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:04:00,332 Scope INFO Scope initialization complete
+16:04:00,332 Scope INFO CyanScope initialization complete
+16:06:25,597 Scope INFO Scope initialization
+16:06:25,597 Scope DEBUG Found channel: Green
+16:06:25,597 Scope DEBUG Found channel: Green
+16:06:25,598 Scope DEBUG Found channel: Orange
+16:06:25,598 Scope DEBUG Found channel: Orange
+16:06:25,598 Scope DEBUG Found channel: UltraViolet
+16:06:25,598 Scope DEBUG Found channel: UltraViolet
+16:06:25,599 Scope DEBUG Found channel: DeepBlue
+16:06:25,599 Scope DEBUG Found channel: DeepBlue
+16:06:25,599 Scope DEBUG Found channel: FarRed
+16:06:25,599 Scope DEBUG Found channel: FarRed
+16:06:25,600 Scope DEBUG Found channel: InfraRed
+16:06:25,600 Scope DEBUG Found channel: InfraRed
+16:06:25,600 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:06:25,600 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:06:25,600 Scope INFO Scope initialization complete
+16:06:25,601 Scope INFO CyanScope initialization complete
+16:07:33,203 Scope INFO Scope initialization
+16:07:33,204 Scope DEBUG Found channel: Green
+16:07:33,204 Scope DEBUG Found channel: Green
+16:07:33,204 Scope DEBUG Found channel: Orange
+16:07:33,204 Scope DEBUG Found channel: Orange
+16:07:33,205 Scope DEBUG Found channel: UltraViolet
+16:07:33,205 Scope DEBUG Found channel: UltraViolet
+16:07:33,205 Scope DEBUG Found channel: DeepBlue
+16:07:33,205 Scope DEBUG Found channel: DeepBlue
+16:07:33,206 Scope DEBUG Found channel: FarRed
+16:07:33,206 Scope DEBUG Found channel: FarRed
+16:07:33,206 Scope DEBUG Found channel: InfraRed
+16:07:33,207 Scope DEBUG Found channel: InfraRed
+16:07:33,207 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:07:33,207 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:07:33,207 Scope INFO Scope initialization complete
+16:07:33,208 Scope INFO CyanScope initialization complete
+16:11:34,805 Scope INFO Scope initialization
+16:11:34,805 Scope DEBUG Found channel: Green
+16:11:34,806 Scope DEBUG Found channel: Green
+16:11:34,806 Scope DEBUG Found channel: Orange
+16:11:34,806 Scope DEBUG Found channel: Orange
+16:11:34,807 Scope DEBUG Found channel: UltraViolet
+16:11:34,807 Scope DEBUG Found channel: UltraViolet
+16:11:34,807 Scope DEBUG Found channel: DeepBlue
+16:11:34,807 Scope DEBUG Found channel: DeepBlue
+16:11:34,808 Scope DEBUG Found channel: FarRed
+16:11:34,808 Scope DEBUG Found channel: FarRed
+16:11:34,808 Scope DEBUG Found channel: InfraRed
+16:11:34,809 Scope DEBUG Found channel: InfraRed
+16:11:34,809 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:11:34,809 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:11:34,810 Scope INFO Scope initialization complete
+16:11:34,810 Scope INFO CyanScope initialization complete
+16:12:06,195 Scope DEBUG Found channel: Green
+16:12:06,196 Scope DEBUG Found channel: Green
+16:12:06,196 Scope DEBUG Found channel: Orange
+16:12:06,196 Scope DEBUG Found channel: Orange
+16:12:06,196 Scope DEBUG Found channel: UltraViolet
+16:12:06,197 Scope DEBUG Found channel: UltraViolet
+16:12:06,198 Scope DEBUG Found channel: DeepBlue
+16:12:06,198 Scope DEBUG Found channel: DeepBlue
+16:12:06,198 Scope DEBUG Found channel: FarRed
+16:12:06,198 Scope DEBUG Found channel: FarRed
+16:12:06,199 Scope DEBUG Found channel: InfraRed
+16:12:06,199 Scope DEBUG Found channel: InfraRed
+16:12:06,199 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:16:22,809 Scope INFO Scope initialization
+16:16:22,810 Scope DEBUG Found channel: Green
+16:16:22,810 Scope DEBUG Found channel: Green
+16:16:22,810 Scope DEBUG Found channel: Orange
+16:16:22,811 Scope DEBUG Found channel: Orange
+16:16:22,811 Scope DEBUG Found channel: UltraViolet
+16:16:22,811 Scope DEBUG Found channel: UltraViolet
+16:16:22,811 Scope DEBUG Found channel: DeepBlue
+16:16:22,812 Scope DEBUG Found channel: DeepBlue
+16:16:22,812 Scope DEBUG Found channel: FarRed
+16:16:22,812 Scope DEBUG Found channel: FarRed
+16:16:22,813 Scope DEBUG Found channel: InfraRed
+16:16:22,813 Scope DEBUG Found channel: InfraRed
+16:16:22,813 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:16:22,814 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:16:22,814 Scope INFO Scope initialization complete
+16:16:22,814 Scope INFO CyanScope initialization complete
+16:18:25,459 Scope INFO Scope initialization
+16:18:25,460 Scope DEBUG Found channel: Green
+16:18:25,460 Scope DEBUG Found channel: Green
+16:18:25,460 Scope DEBUG Found channel: Orange
+16:18:25,461 Scope DEBUG Found channel: Orange
+16:18:25,461 Scope DEBUG Found channel: UltraViolet
+16:18:25,461 Scope DEBUG Found channel: UltraViolet
+16:18:25,462 Scope DEBUG Found channel: DeepBlue
+16:18:25,462 Scope DEBUG Found channel: DeepBlue
+16:18:25,462 Scope DEBUG Found channel: FarRed
+16:18:25,462 Scope DEBUG Found channel: FarRed
+16:18:25,463 Scope DEBUG Found channel: InfraRed
+16:18:25,463 Scope DEBUG Found channel: InfraRed
+16:18:25,463 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:18:25,463 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:18:25,463 Scope INFO Scope initialization complete
+16:18:25,464 Scope INFO CyanScope initialization complete
+16:18:41,89 Scope INFO Scope initialization
+16:18:41,89 Scope DEBUG Found channel: Green
+16:18:41,90 Scope DEBUG Found channel: Green
+16:18:41,90 Scope DEBUG Found channel: Orange
+16:18:41,90 Scope DEBUG Found channel: Orange
+16:18:41,90 Scope DEBUG Found channel: UltraViolet
+16:18:41,91 Scope DEBUG Found channel: UltraViolet
+16:18:41,91 Scope DEBUG Found channel: DeepBlue
+16:18:41,91 Scope DEBUG Found channel: DeepBlue
+16:18:41,92 Scope DEBUG Found channel: FarRed
+16:18:41,92 Scope DEBUG Found channel: FarRed
+16:18:41,92 Scope DEBUG Found channel: InfraRed
+16:18:41,92 Scope DEBUG Found channel: InfraRed
+16:18:41,93 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:18:41,93 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:18:41,93 Scope INFO Scope initialization complete
+16:18:41,94 Scope INFO CyanScope initialization complete
+16:19:06,900 Scope INFO Scope initialization
+16:19:06,900 Scope DEBUG Found channel: Green
+16:19:06,900 Scope DEBUG Found channel: Green
+16:19:06,901 Scope DEBUG Found channel: Orange
+16:19:06,901 Scope DEBUG Found channel: Orange
+16:19:06,901 Scope DEBUG Found channel: UltraViolet
+16:19:06,901 Scope DEBUG Found channel: UltraViolet
+16:19:06,902 Scope DEBUG Found channel: DeepBlue
+16:19:06,902 Scope DEBUG Found channel: DeepBlue
+16:19:06,902 Scope DEBUG Found channel: FarRed
+16:19:06,902 Scope DEBUG Found channel: FarRed
+16:19:06,903 Scope DEBUG Found channel: InfraRed
+16:19:06,903 Scope DEBUG Found channel: InfraRed
+16:19:06,903 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:19:06,904 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:19:06,904 Scope INFO Scope initialization complete
+16:19:06,904 Scope INFO CyanScope initialization complete
+16:20:23,87 Scope INFO Scope initialization
+16:20:23,87 Scope DEBUG Found channel: Green
+16:20:23,88 Scope DEBUG Found channel: Green
+16:20:23,88 Scope DEBUG Found channel: Orange
+16:20:23,88 Scope DEBUG Found channel: Orange
+16:20:23,88 Scope DEBUG Found channel: UltraViolet
+16:20:23,89 Scope DEBUG Found channel: UltraViolet
+16:20:23,89 Scope DEBUG Found channel: DeepBlue
+16:20:23,89 Scope DEBUG Found channel: DeepBlue
+16:20:23,89 Scope DEBUG Found channel: FarRed
+16:20:23,90 Scope DEBUG Found channel: FarRed
+16:20:23,90 Scope DEBUG Found channel: InfraRed
+16:20:23,90 Scope DEBUG Found channel: InfraRed
+16:20:23,90 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:20:23,91 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:20:23,91 Scope INFO Scope initialization complete
+16:20:23,91 Scope INFO CyanScope initialization complete
+16:20:40,435 Scope INFO Scope initialization
+16:20:40,436 Scope DEBUG Found channel: Green
+16:20:40,436 Scope DEBUG Found channel: Green
+16:20:40,436 Scope DEBUG Found channel: Orange
+16:20:40,437 Scope DEBUG Found channel: Orange
+16:20:40,437 Scope DEBUG Found channel: UltraViolet
+16:20:40,437 Scope DEBUG Found channel: UltraViolet
+16:20:40,437 Scope DEBUG Found channel: DeepBlue
+16:20:40,438 Scope DEBUG Found channel: DeepBlue
+16:20:40,438 Scope DEBUG Found channel: FarRed
+16:20:40,438 Scope DEBUG Found channel: FarRed
+16:20:40,438 Scope DEBUG Found channel: InfraRed
+16:20:40,439 Scope DEBUG Found channel: InfraRed
+16:20:40,439 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:20:40,439 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:20:40,440 Scope INFO Scope initialization complete
+16:20:40,440 Scope INFO CyanScope initialization complete
+16:23:22,504 Scope INFO Scope initialization
+16:23:22,504 Scope DEBUG Found channel: Green
+16:23:22,505 Scope DEBUG Found channel: Green
+16:23:22,505 Scope DEBUG Found channel: Orange
+16:23:22,505 Scope DEBUG Found channel: Orange
+16:23:22,505 Scope DEBUG Found channel: UltraViolet
+16:23:22,506 Scope DEBUG Found channel: UltraViolet
+16:23:22,506 Scope DEBUG Found channel: DeepBlue
+16:23:22,507 Scope DEBUG Found channel: DeepBlue
+16:23:22,507 Scope DEBUG Found channel: FarRed
+16:23:22,507 Scope DEBUG Found channel: FarRed
+16:23:22,507 Scope DEBUG Found channel: InfraRed
+16:23:22,508 Scope DEBUG Found channel: InfraRed
+16:23:22,508 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:23:22,508 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:23:22,508 Scope INFO Scope initialization complete
+16:23:22,509 Scope INFO CyanScope initialization complete
+16:24:36,340 Scope INFO Scope initialization
+16:24:36,340 Scope DEBUG Found channel: Green
+16:24:36,341 Scope DEBUG Found channel: Green
+16:24:36,341 Scope DEBUG Found channel: Orange
+16:24:36,341 Scope DEBUG Found channel: Orange
+16:24:36,341 Scope DEBUG Found channel: UltraViolet
+16:24:36,342 Scope DEBUG Found channel: UltraViolet
+16:24:36,342 Scope DEBUG Found channel: DeepBlue
+16:24:36,342 Scope DEBUG Found channel: DeepBlue
+16:24:36,342 Scope DEBUG Found channel: FarRed
+16:24:36,343 Scope DEBUG Found channel: FarRed
+16:24:36,343 Scope DEBUG Found channel: InfraRed
+16:24:36,343 Scope DEBUG Found channel: InfraRed
+16:24:36,344 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:24:36,344 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:24:36,344 Scope INFO Scope initialization complete
+16:24:36,344 Scope INFO CyanScope initialization complete
+16:25:05,886 Scope INFO Scope initialization
+16:25:05,886 Scope DEBUG Found channel: Green
+16:25:05,886 Scope DEBUG Found channel: Green
+16:25:05,887 Scope DEBUG Found channel: Orange
+16:25:05,887 Scope DEBUG Found channel: Orange
+16:25:05,887 Scope DEBUG Found channel: UltraViolet
+16:25:05,887 Scope DEBUG Found channel: UltraViolet
+16:25:05,887 Scope DEBUG Found channel: DeepBlue
+16:25:05,888 Scope DEBUG Found channel: DeepBlue
+16:25:05,888 Scope DEBUG Found channel: FarRed
+16:25:05,888 Scope DEBUG Found channel: FarRed
+16:25:05,889 Scope DEBUG Found channel: InfraRed
+16:25:05,889 Scope DEBUG Found channel: InfraRed
+16:25:05,889 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:25:05,890 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:25:05,890 Scope INFO Scope initialization complete
+16:25:05,890 Scope INFO CyanScope initialization complete
+16:28:34,798 Scope INFO Scope initialization
+16:28:34,799 Scope DEBUG Found channel: Green
+16:28:34,800 Scope DEBUG Found channel: Green
+16:28:34,800 Scope DEBUG Found channel: Orange
+16:28:34,800 Scope DEBUG Found channel: Orange
+16:28:34,801 Scope DEBUG Found channel: UltraViolet
+16:28:34,801 Scope DEBUG Found channel: UltraViolet
+16:28:34,801 Scope DEBUG Found channel: DeepBlue
+16:28:34,801 Scope DEBUG Found channel: DeepBlue
+16:28:34,802 Scope DEBUG Found channel: FarRed
+16:28:34,802 Scope DEBUG Found channel: FarRed
+16:28:34,802 Scope DEBUG Found channel: InfraRed
+16:28:34,802 Scope DEBUG Found channel: InfraRed
+16:28:34,802 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:28:34,802 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:28:34,802 Scope INFO Scope initialization complete
+16:28:34,803 Scope INFO CyanScope initialization complete
+16:30:09,564 Scope INFO Scope initialization
+16:30:09,564 Scope DEBUG Found channel: Green
+16:30:09,564 Scope DEBUG Found channel: Green
+16:30:09,565 Scope DEBUG Found channel: Orange
+16:30:09,565 Scope DEBUG Found channel: Orange
+16:30:09,565 Scope DEBUG Found channel: UltraViolet
+16:30:09,565 Scope DEBUG Found channel: UltraViolet
+16:30:09,566 Scope DEBUG Found channel: DeepBlue
+16:30:09,566 Scope DEBUG Found channel: DeepBlue
+16:30:09,566 Scope DEBUG Found channel: FarRed
+16:30:09,566 Scope DEBUG Found channel: FarRed
+16:30:09,567 Scope DEBUG Found channel: InfraRed
+16:30:09,567 Scope DEBUG Found channel: InfraRed
+16:30:09,567 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:30:09,567 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:30:09,568 Scope INFO Scope initialization complete
+16:30:09,568 Scope INFO CyanScope initialization complete
+16:31:08,194 Scope INFO Scope initialization
+16:31:08,195 Scope DEBUG Found channel: Green
+16:31:08,195 Scope DEBUG Found channel: Green
+16:31:08,196 Scope DEBUG Found channel: Orange
+16:31:08,196 Scope DEBUG Found channel: Orange
+16:31:08,196 Scope DEBUG Found channel: UltraViolet
+16:31:08,197 Scope DEBUG Found channel: UltraViolet
+16:31:08,197 Scope DEBUG Found channel: DeepBlue
+16:31:08,197 Scope DEBUG Found channel: DeepBlue
+16:31:08,198 Scope DEBUG Found channel: FarRed
+16:31:08,198 Scope DEBUG Found channel: FarRed
+16:31:08,198 Scope DEBUG Found channel: InfraRed
+16:31:08,199 Scope DEBUG Found channel: InfraRed
+16:31:08,199 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:31:08,199 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:31:08,200 Scope INFO Scope initialization complete
+16:31:08,200 Scope INFO CyanScope initialization complete
+16:32:46,798 Scope INFO Scope initialization
+16:32:46,798 Scope DEBUG Found channel: Green
+16:32:46,799 Scope DEBUG Found channel: Green
+16:32:46,799 Scope DEBUG Found channel: Orange
+16:32:46,799 Scope DEBUG Found channel: Orange
+16:32:46,800 Scope DEBUG Found channel: UltraViolet
+16:32:46,800 Scope DEBUG Found channel: UltraViolet
+16:32:46,800 Scope DEBUG Found channel: DeepBlue
+16:32:46,800 Scope DEBUG Found channel: DeepBlue
+16:32:46,801 Scope DEBUG Found channel: FarRed
+16:32:46,802 Scope DEBUG Found channel: FarRed
+16:32:46,802 Scope DEBUG Found channel: InfraRed
+16:32:46,803 Scope DEBUG Found channel: InfraRed
+16:32:46,803 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:32:46,803 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:32:46,804 Scope INFO Scope initialization complete
+16:32:46,805 Scope INFO CyanScope initialization complete
+16:34:24,256 Scope INFO Scope initialization
+16:34:24,257 Scope DEBUG Found channel: Green
+16:34:24,257 Scope DEBUG Found channel: Green
+16:34:24,257 Scope DEBUG Found channel: Orange
+16:34:24,258 Scope DEBUG Found channel: Orange
+16:34:24,258 Scope DEBUG Found channel: UltraViolet
+16:34:24,258 Scope DEBUG Found channel: UltraViolet
+16:34:24,259 Scope DEBUG Found channel: DeepBlue
+16:34:24,259 Scope DEBUG Found channel: DeepBlue
+16:34:24,259 Scope DEBUG Found channel: FarRed
+16:34:24,259 Scope DEBUG Found channel: FarRed
+16:34:24,260 Scope DEBUG Found channel: InfraRed
+16:34:24,260 Scope DEBUG Found channel: InfraRed
+16:34:24,260 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:34:24,260 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:34:24,261 Scope INFO Scope initialization complete
+16:34:24,261 Scope INFO CyanScope initialization complete
+16:36:34,921 Scope INFO Scope initialization
+16:36:34,921 Scope DEBUG Found channel: Green
+16:36:34,921 Scope DEBUG Found channel: Green
+16:36:34,922 Scope DEBUG Found channel: Orange
+16:36:34,922 Scope DEBUG Found channel: Orange
+16:36:34,922 Scope DEBUG Found channel: UltraViolet
+16:36:34,922 Scope DEBUG Found channel: UltraViolet
+16:36:34,923 Scope DEBUG Found channel: DeepBlue
+16:36:34,923 Scope DEBUG Found channel: DeepBlue
+16:36:34,923 Scope DEBUG Found channel: FarRed
+16:36:34,923 Scope DEBUG Found channel: FarRed
+16:36:34,924 Scope DEBUG Found channel: InfraRed
+16:36:34,924 Scope DEBUG Found channel: InfraRed
+16:36:34,925 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:36:34,925 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:36:34,925 Scope INFO Scope initialization complete
+16:36:34,926 Scope INFO CyanScope initialization complete
+16:38:16,268 Scope INFO Scope initialization
+16:38:16,269 Scope DEBUG Found channel: Green
+16:38:16,269 Scope DEBUG Found channel: Green
+16:38:16,270 Scope DEBUG Found channel: Orange
+16:38:16,270 Scope DEBUG Found channel: Orange
+16:38:16,271 Scope DEBUG Found channel: UltraViolet
+16:38:16,271 Scope DEBUG Found channel: UltraViolet
+16:38:16,272 Scope DEBUG Found channel: DeepBlue
+16:38:16,272 Scope DEBUG Found channel: DeepBlue
+16:38:16,272 Scope DEBUG Found channel: FarRed
+16:38:16,273 Scope DEBUG Found channel: FarRed
+16:38:16,273 Scope DEBUG Found channel: InfraRed
+16:38:16,273 Scope DEBUG Found channel: InfraRed
+16:38:16,274 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:38:16,274 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:38:16,274 Scope INFO Scope initialization complete
+16:38:16,274 Scope INFO CyanScope initialization complete
+16:38:51,751 Scope INFO Scope initialization
+16:38:51,752 Scope DEBUG Found channel: Green
+16:38:51,752 Scope DEBUG Found channel: Green
+16:38:51,752 Scope DEBUG Found channel: Orange
+16:38:51,753 Scope DEBUG Found channel: Orange
+16:38:51,753 Scope DEBUG Found channel: UltraViolet
+16:38:51,753 Scope DEBUG Found channel: UltraViolet
+16:38:51,754 Scope DEBUG Found channel: DeepBlue
+16:38:51,754 Scope DEBUG Found channel: DeepBlue
+16:38:51,754 Scope DEBUG Found channel: FarRed
+16:38:51,755 Scope DEBUG Found channel: FarRed
+16:38:51,755 Scope DEBUG Found channel: InfraRed
+16:38:51,756 Scope DEBUG Found channel: InfraRed
+16:38:51,757 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:38:51,757 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:38:51,757 Scope INFO Scope initialization complete
+16:38:51,758 Scope INFO CyanScope initialization complete
+16:40:38,441 Scope INFO Scope initialization
+16:40:38,442 Scope DEBUG Found channel: Green
+16:40:38,442 Scope DEBUG Found channel: Green
+16:40:38,442 Scope DEBUG Found channel: Orange
+16:40:38,442 Scope DEBUG Found channel: Orange
+16:40:38,442 Scope DEBUG Found channel: UltraViolet
+16:40:38,443 Scope DEBUG Found channel: UltraViolet
+16:40:38,443 Scope DEBUG Found channel: DeepBlue
+16:40:38,443 Scope DEBUG Found channel: DeepBlue
+16:40:38,444 Scope DEBUG Found channel: FarRed
+16:40:38,444 Scope DEBUG Found channel: FarRed
+16:40:38,444 Scope DEBUG Found channel: InfraRed
+16:40:38,445 Scope DEBUG Found channel: InfraRed
+16:40:38,445 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:40:38,445 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:40:38,445 Scope INFO Scope initialization complete
+16:40:38,446 Scope INFO CyanScope initialization complete
+16:41:13,163 Scope INFO Scope initialization
+16:41:13,163 Scope DEBUG Found channel: Green
+16:41:13,163 Scope DEBUG Found channel: Green
+16:41:13,163 Scope DEBUG Found channel: Orange
+16:41:13,164 Scope DEBUG Found channel: Orange
+16:41:13,164 Scope DEBUG Found channel: UltraViolet
+16:41:13,164 Scope DEBUG Found channel: UltraViolet
+16:41:13,164 Scope DEBUG Found channel: DeepBlue
+16:41:13,165 Scope DEBUG Found channel: DeepBlue
+16:41:13,165 Scope DEBUG Found channel: FarRed
+16:41:13,165 Scope DEBUG Found channel: FarRed
+16:41:13,165 Scope DEBUG Found channel: InfraRed
+16:41:13,166 Scope DEBUG Found channel: InfraRed
+16:41:13,166 Scope INFO Extracted 6 channels from config: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:41:13,166 Scope INFO Updated channel limits: ['Green', 'Orange', 'UltraViolet', 'DeepBlue', 'FarRed', 'InfraRed']
+16:41:13,166 Scope INFO Scope initialization complete
+16:41:13,166 Scope INFO CyanScope initialization complete

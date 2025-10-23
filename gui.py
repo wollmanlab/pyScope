@@ -954,6 +954,20 @@ class SystemGUI:
         """Log messages using FileHandler's logging system."""
         self.file_handler.log(message, level=level, system_prefix='GUI')
     
+    def on_skip_first_fluidics_changed(self):
+        """Handle checkbox state change and save to experiment state."""
+        try:
+            skip_first = self.skip_first_fluidics_var.get()
+            
+            # Update experiment state
+            updates = {'skip_first_fluidics_task': skip_first}
+            self.file_handler.update_state(system_prefix='Experiment', updates=updates)
+            
+            self.log(f"Skip first fluidics task set to: {skip_first}")
+            
+        except Exception as e:
+            self.log(f"Error updating skip first fluidics task: {e}", level='error')
+    
     def create_main_layout(self):
         """Create the main layout with all blocks."""
         # Main container
@@ -1226,7 +1240,7 @@ class SystemGUI:
         # Second row: Shape and dimensions
         tk.Label(well_geometry_frame, text="Shape:", bg=GUI_COLORS['frame'], fg=GUI_COLORS['text']).grid(row=1, column=0, sticky='w', padx=5, pady=2)
         shape_var = tk.StringVar(value="circle")
-        shape_dropdown = ttk.Combobox(well_geometry_frame, textvariable=shape_var, values=["circle", "rectangle"], state="readonly", style='Dark.TCombobox',width=8)
+        shape_dropdown = ttk.Combobox(well_geometry_frame, textvariable=shape_var, values=["circle", "rectangle"], state="readonly", style='Light.TCombobox',width=8)
         shape_dropdown.grid(row=1, column=1, padx=5, pady=2)
         
         # Dimensions section on the same row
@@ -2463,7 +2477,14 @@ class SystemGUI:
         self.channels_vars = []
         self.channel_exposure_vars = []
         self.channel_delay_vars = []
-        available_channels = ['FarRed', 'DeepBlue', 'Green', 'Orange']
+        
+        # Get available channels from Scope configuration
+        try:
+            available_channels = self.scope.available_channels
+            self.log(f"Using channels from Scope config: {available_channels}")
+        except Exception as e:
+            self.log(f"Error getting channels from Scope: {e}, using fallback", level='warning')
+            available_channels = ['FarRed', 'DeepBlue', 'Green', 'Orange']
         
         # Create header row
         header_frame = tk.Frame(acquisition_frame, bg=GUI_COLORS['frame'])
@@ -2597,31 +2618,67 @@ class SystemGUI:
         self.hybe_var.set(True)
         self.strip_var.set(True)
         
-        hybe_frame = tk.Frame(protocols_frame, bg=GUI_COLORS['frame'])
-        hybe_frame.pack(side='left', padx=10)
+        protocol_1_frame = tk.Frame(protocols_frame, bg=GUI_COLORS['frame'])
+        protocol_1_frame.pack(side='left', padx=10)
         
-        strip_frame = tk.Frame(protocols_frame, bg=GUI_COLORS['frame'])
-        strip_frame.pack(side='left', padx=10)
+        protocol_2_frame = tk.Frame(protocols_frame, bg=GUI_COLORS['frame'])
+        protocol_2_frame.pack(side='left', padx=10)
         
-        tk.Checkbutton(hybe_frame, variable=self.hybe_var, 
+        tk.Checkbutton(protocol_1_frame, variable=self.hybe_var, 
                       bg=GUI_COLORS['checkbox_bg'], fg=GUI_COLORS['text'],
                       selectcolor=GUI_COLORS['checkbox_select'], 
                       activebackground=GUI_COLORS['checkbox_active'], 
                       activeforeground=GUI_COLORS['text']).pack(side='left')
-        hybe_entry = tk.Entry(hybe_frame, bg=GUI_COLORS['entry'], 
-                             fg=GUI_COLORS['text'], insertbackground=GUI_COLORS['text'], width=15)
-        hybe_entry.pack(side='left', padx=(5, 0))
-        hybe_entry.insert(0, "hybe")
         
-        tk.Checkbutton(strip_frame, variable=self.strip_var, 
+        # Get available protocols from Protocol class
+        from Fluidics.Protocols.Protocol import Protocol
+        protocol_instance = Protocol()
+        available_protocols = list(protocol_instance.protocols.keys())
+        
+        self.protocol_1_var = tk.StringVar()
+        self.protocol_1_dropdown = ttk.Combobox(protocol_1_frame, 
+                                               textvariable=self.protocol_1_var,
+                                               values=available_protocols,
+                                               style='Dark.TCombobox', width=15)
+        self.protocol_1_dropdown.pack(side='left', padx=(5, 0))
+        self.protocol_1_dropdown.set("Strip")
+        
+        tk.Checkbutton(protocol_2_frame, variable=self.strip_var, 
                       bg=GUI_COLORS['checkbox_bg'], fg=GUI_COLORS['text'],
                       selectcolor=GUI_COLORS['checkbox_select'], 
                       activebackground=GUI_COLORS['checkbox_active'], 
                       activeforeground=GUI_COLORS['text']).pack(side='left')
-        strip_entry = tk.Entry(strip_frame, bg=GUI_COLORS['entry'], 
-                              fg=GUI_COLORS['text'], insertbackground=GUI_COLORS['text'], width=15)
-        strip_entry.pack(side='left', padx=(5, 0))
-        strip_entry.insert(0, "strip")
+        
+        self.protocol_2_var = tk.StringVar()
+        self.protocol_2_dropdown = ttk.Combobox(protocol_2_frame, 
+                                               textvariable=self.protocol_2_var,
+                                               values=available_protocols,
+                                               style='Dark.TCombobox', width=15)
+        self.protocol_2_dropdown.pack(side='left', padx=(5, 0))
+        self.protocol_2_dropdown.set("Hybe")
+        
+        # Skip first fluidics task checkbox
+        skip_first_frame = tk.Frame(protocols_section, bg=GUI_COLORS['frame'])
+        skip_first_frame.pack(fill='x', pady=(5, 0))
+        
+        self.skip_first_fluidics_var = tk.BooleanVar()
+        
+        # Load initial state from experiment state
+        try:
+            experiment_state = self.file_handler.get_state('Experiment')
+            skip_first = experiment_state.get('skip_first_fluidics_task', False)
+            self.skip_first_fluidics_var.set(skip_first)
+        except:
+            self.skip_first_fluidics_var.set(False)
+        
+        tk.Checkbutton(skip_first_frame, text="Skip first fluidics task", 
+                      variable=self.skip_first_fluidics_var,
+                      command=self.on_skip_first_fluidics_changed,
+                      bg=GUI_COLORS['checkbox_bg'], fg=GUI_COLORS['text'],
+                      selectcolor=GUI_COLORS['checkbox_select'], 
+                      activebackground=GUI_COLORS['checkbox_active'], 
+                      activeforeground=GUI_COLORS['text'],
+                      font=GUI_FONTS['body']).pack(side='left')
         
         # Position Refinement
         position_refinement_frame = tk.LabelFrame(right_panel, text="Position Refinement", 
@@ -2735,7 +2792,12 @@ class SystemGUI:
                     fluidics_well_assignments[well] = fluidics_well_name
             
             # Get selected channels from GUI
-            available_channels = ['FarRed', 'DeepBlue', 'Green', 'Orange']
+            try:
+                available_channels = self.scope.available_channels
+            except Exception as e:
+                self.log(f"Error getting channels from Scope: {e}, using fallback", level='warning')
+                available_channels = ['FarRed', 'DeepBlue', 'Green', 'Orange']
+            
             selected_channels = [channel for channel, var in zip(available_channels, self.channels_vars) if var.get()]
             
             # Get channel exposure values from GUI
@@ -2777,9 +2839,13 @@ class SystemGUI:
             # Get fluidics protocols from GUI
             selected_fluidics = []
             if self.hybe_var.get():
-                selected_fluidics.append("hybe")
+                protocol_1_name = self.protocol_1_var.get()
+                if protocol_1_name:
+                    selected_fluidics.append(protocol_1_name.lower())
             if self.strip_var.get():
-                selected_fluidics.append("strip")
+                protocol_2_name = self.protocol_2_var.get()
+                if protocol_2_name:
+                    selected_fluidics.append(protocol_2_name.lower())
             
             if not selected_fluidics:
                 selected_fluidics = ['none']
@@ -3055,7 +3121,15 @@ class SystemGUI:
         self.save_path_entry = tk.Entry(path_input_frame, bg=GUI_COLORS['entry'],
                                        fg=GUI_COLORS['text'], font=GUI_FONTS['entry'])
         self.save_path_entry.pack(side='left', fill='x', expand=True)
-        self.save_path_entry.insert(0, "")  # Empty by default
+        
+        # Set default save path to 'D:/Images' if it exists, otherwise empty
+        default_save_path = 'D:/Images'
+        if os.path.exists(default_save_path):
+            self.save_path_entry.insert(0, default_save_path)
+            self.log(f"Set default save path to: {default_save_path}")
+        else:
+            self.save_path_entry.insert(0, "")  # Empty if path doesn't exist
+            self.log(f"Default save path '{default_save_path}' does not exist, leaving empty")
         
         browse_btn = create_button(path_input_frame, "Browse", 
                                  command=self.browse_save_path)
@@ -3134,7 +3208,7 @@ class SystemGUI:
         
         self.config_type_var = tk.StringVar()
         self.config_type_dropdown = ttk.Combobox(dropdown_frame, textvariable=self.config_type_var, 
-                                                style='Dark.TCombobox', state='readonly')
+                                                style='Light.TCombobox', state='readonly')
         self.config_type_dropdown.pack(side='left', fill='x', expand=True, padx=(0, 10))
         
         # Populate dropdown with available options

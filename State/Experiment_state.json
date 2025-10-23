@@ -1,60 +1,7 @@
 {
-    "experiment_name": "Cyan_Testing",
-    "user_name": "Zach",
-    "project_name": "PyScope",
-    "save_path": "",
-    "system_name": "Cyan",
-    "group_assignments": {
-        "A1": "Group 1",
-        "A2": "Group 1",
-        "A3": "Group 2",
-        "B1": "Group 2",
-        "B2": "None",
-        "B3": "None"
-    },
-    "groups": [
-        "Group 1",
-        "None",
-        "Group 2"
-    ],
-    "fluidics_well_assignments": {
-        "A1": "A",
-        "A2": "B",
-        "A3": "C",
-        "B1": "D",
-        "B2": "E",
-        "B3": "F"
-    },
-    "selected_channels": [
-        "FarRed",
-        "DeepBlue",
-        "Green",
-        "Orange"
-    ],
-    "channel_exposure": {
-        "FarRed": 500,
-        "DeepBlue": 500,
-        "Green": 500,
-        "Orange": 500
-    },
-    "channel_delay": {
-        "FarRed": 0.0,
-        "DeepBlue": 0.0,
-        "Green": 0.0,
-        "Orange": 0.0
-    },
-    "fluidics_protocols": [
-        "hybe",
-        "strip"
-    ],
-    "num_hybes": 18,
-    "position_filtering": "Draw",
-    "preview_focus": "Manual Well",
-    "acquisition_focus": "Plane",
-    "autofocus_method": "Relative",
-    "steps": {
-        "start": 0.0,
-        "end": 0.0,
-        "dz": 0.0
-    }
+    "experiment_name": "New_Experiment",
+    "user_name": "User",
+    "project_name": "New_Project",
+    "save_path": "D:/Images",
+    "system_name": "Cyan"
 }

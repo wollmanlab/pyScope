@@ -30,13 +30,16 @@ class Scope:
         self.blocking = True
         self.remember_state = True
 
+        self.config = {}
+        self.config['MM_config_path'] = 'C:\GitRepos\pyScope\Configs\Scope_config.cfg'
+
 
         self.tolerance = {'X': 0.1, 'Y': 0.1, 'Z': 0.1,'Exposure': 0.1}
         self.overtime_warning = 0
         self.limits = {
             'X': (0, 10000), 'Y': (0, 10000), 'Z': (0, 10000), 
             'Exposure': (0, 10000), 'Binning': ['1', '2', '4'], 
-            'Channel': ['FarRed', 'DeepBlue', 'Green', 'Orange'], 
+            'Channel': [],  # Will be populated dynamically from config
             'Time': (0, 1e8)
         }
         self.offsets = {'X': 0, 'Y': 0, 'Z': 0}
@@ -59,7 +62,82 @@ class Scope:
         # self.monitoring_active = False
         # self.monitoring_interval = 1.0  # seconds
         
+        # Update channel limits from config file
+        self._update_channel_limits()
+        
         self.log('Scope initialization complete')
+    
+    def _update_channel_limits(self):
+        """Update the channel limits from the configuration file."""
+        try:
+            channels = self.get_available_channels_from_config()
+            if channels:
+                self.limits['Channel'] = channels
+                self.log(f"Updated channel limits: {channels}")
+            else:
+                # Fallback to default channels
+                self.limits['Channel'] = ['FarRed', 'DeepBlue', 'Green', 'Orange']
+                self.log("Using default channel limits", level='warning')
+        except Exception as e:
+            self.log(f"Error updating channel limits: {e}", level='error')
+            # Fallback to default channels
+            self.limits['Channel'] = ['FarRed', 'DeepBlue', 'Green', 'Orange']
+    
+    def get_available_channels_from_config(self):
+        """
+        Parse the Micro-Manager configuration file to extract available channels.
+        
+        Returns:
+            list: List of available channel names
+            
+        Raises:
+            FileNotFoundError: If the config file doesn't exist
+            ValueError: If the config file format is invalid
+        """
+        try:
+            config_path = self.config.get('MM_config_path')
+            if not config_path:
+                self.log("No MM_config_path specified in config", level='warning')
+                return []
+            
+            if not os.path.exists(config_path):
+                self.log(f"Config file not found: {config_path}", level='warning')
+                return []
+            
+            channels = []
+            
+            with open(config_path, 'r') as f:
+                for line_num, line in enumerate(f, 1):
+                    line = line.strip()
+                    
+                    # Skip empty lines and comments
+                    if not line or line.startswith('#'):
+                        continue
+                    
+                    # Look for ConfigGroup lines with Channel presets
+                    if line.startswith('ConfigGroup,Channel,'):
+                        try:
+                            parts = line.split(',')
+                            if len(parts) >= 3:
+                                channel_name = parts[2]  # Third part is the channel name
+                                channels.append(channel_name)
+                                self.log(f"Found channel: {channel_name}", level='debug')
+                        except Exception as e:
+                            self.log(f"Error parsing line {line_num}: {line} - {e}", level='warning')
+                            continue
+            
+            # Remove duplicates while preserving order
+            unique_channels = []
+            for channel in channels:
+                if channel not in unique_channels:
+                    unique_channels.append(channel)
+            
+            self.log(f"Extracted {len(unique_channels)} channels from config: {unique_channels}")
+            return unique_channels
+            
+        except Exception as e:
+            self.log(f"Error reading config file {config_path}: {e}", level='error')
+            return []
     
     def log(self, message, level='info'):
         """Log messages using FileHandler's logging system."""
@@ -114,7 +192,7 @@ class Scope:
             if not self.simulate:
                 for idx,task in tasks.iterrows():
                     self.file_handler.save_task_idx("Scope", idx)
-                    self.execute_task(task) #FIXME
+                    # self.execute_task(task) #FIXME
         else:
             self.log(f"Unknown protocol: {protocol}", level='warning')
                 
@@ -787,6 +865,16 @@ class Scope:
         print(self.config)
         print(self.image_width_um, self.image_height_um, self.overlap)
         return {'X': self.image_width_um, 'Y': self.image_height_um, 'Overlap': self.overlap}
+    
+    @property
+    def available_channels(self):
+        """Get available channels from the Micro-Manager configuration file."""
+        channels = self.get_available_channels_from_config()
+        if not channels:
+            # Fallback to hardcoded channels if config parsing fails
+            self.log("Using fallback channel list", level='warning')
+            return ['FarRed', 'DeepBlue', 'Green', 'Orange']
+        return channels
     
     @property
     def status(self):

@@ -1083,3 +1083,13 @@
 10:39:59,856 Fluidics INFO Fluidics status updated to: Idle
 10:39:59,856 Fluidics INFO Fluidics status updated to: Finished:Valve*[A]*TBS+1
 10:40:00,867 Fluidics INFO New Message: Finished:Valve*[A]*TBS+1
+14:04:57,452 Fluidics INFO Fluidics status updated to: Idle
+14:04:58,17 Fluidics INFO New Message: Idle
+15:31:22,183 Fluidics INFO Fluidics status updated to: Stop
+15:31:22,648 Fluidics INFO New Message: Stop
+15:31:22,649 Fluidics INFO Continuous monitoring stopped by user
+15:31:22,650 Fluidics INFO Fluidics status updated to: offline
+15:31:22,651 Fluidics INFO Continuous monitoring terminated - status set to offline
+15:31:47,977 Fluidics INFO Fluidics status updated to: Idle
+15:43:14,457 Fluidics INFO Fluidics status updated to: Idle
+15:53:23,590 Fluidics INFO Fluidics status updated to: Idle

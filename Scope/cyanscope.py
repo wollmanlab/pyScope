@@ -17,7 +17,7 @@ class CyanScope(Scope):
         """
         super().__init__(enable_core)
         self.config = {}
-        self.config['MM_config_path'] = 'C:\Program Files\Micro-Manager-2.0beta\CyanScope_config.cfg'
+        self.config['MM_config_path'] = 'C:\GitRepos\pyScope\Configs\CyanScope_config.cfg'
         self.config['tolerance'] = {'X': 0.1, 'Y': 0.1, 'Z': 0.1,'Exposure': 0.1}
         self.config['limits'] = {
             'X': (6500, 92500), 'Y': (113000, 250000), 'Z': (0, 13000), 
