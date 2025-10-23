@@ -1,0 +1,2309 @@
+13:43:05,263 Experiment INFO Init
+13:43:08,7 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+13:43:08,7 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+13:43:08,10 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+13:43:08,10 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+13:43:08,10 Experiment INFO Experiment configuration saved
+13:43:12,901 Experiment INFO Positions saved successfully: 50 positions
+13:43:15,717 Experiment INFO Positions saved successfully: 50 positions
+13:43:15,728 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+13:43:15,729 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+13:43:15,731 Experiment INFO Experiment configuration saved
+13:43:15,733 Experiment INFO Creating tasks with:
+13:43:15,733 Experiment INFO   Groups: ['Group 1', 'Group 2']
+13:43:15,734 Experiment INFO   Protocols: ['hybe', 'strip']
+13:43:15,734 Experiment INFO   Rounds: 18
+13:43:15,734 Experiment INFO   Group assignments: {'circle_well_example': 'Group 1', 'rectangle_well_example': 'Group 2'}
+13:43:15,735 Experiment INFO   Fluidics well assignments: {'circle_well_example': 'A', 'rectangle_well_example': 'B'}
+13:43:15,738 Experiment INFO   Available wells: ['circle_well_example', 'rectangle_well_example']
+13:43:15,739 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,741 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,742 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,744 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,745 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,747 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,748 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,750 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,751 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,753 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,754 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,755 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,756 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,757 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,758 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,759 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,760 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,761 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,762 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,763 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,764 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,765 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,766 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,768 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,769 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,771 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,773 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,774 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,776 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,777 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,779 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,780 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,781 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,782 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,783 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,784 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,786 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,787 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,788 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,789 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,790 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,791 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,792 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,793 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,794 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,795 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,796 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,797 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,798 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,800 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,801 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,803 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,805 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,806 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,808 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,810 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,812 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,813 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,814 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,815 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,816 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,817 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,818 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,819 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,820 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,821 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,822 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,823 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,825 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,826 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,827 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:43:15,828 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:43:15,830 Experiment INFO Tasks created and saved successfully
+13:51:10,112 Experiment INFO Test message from Experiment
+13:51:48,207 Experiment INFO Init
+13:52:04,210 Experiment INFO Experiment status updated to: Idle
+13:52:07,366 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+13:52:07,367 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+13:52:07,374 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+13:52:07,376 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+13:52:07,377 Experiment INFO Experiment configuration saved
+13:52:10,915 Experiment INFO Positions saved successfully: 50 positions
+13:52:18,540 Experiment INFO Positions saved successfully: 50 positions
+13:52:18,541 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+13:52:18,541 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+13:52:18,544 Experiment INFO Experiment configuration saved
+13:52:18,546 Experiment INFO Creating tasks with:
+13:52:18,546 Experiment INFO   Groups: ['Group 1', 'Group 2']
+13:52:18,546 Experiment INFO   Protocols: ['hybe', 'strip']
+13:52:18,546 Experiment INFO   Rounds: 18
+13:52:18,546 Experiment INFO   Group assignments: {'circle_well_example': 'Group 1', 'rectangle_well_example': 'Group 2'}
+13:52:18,547 Experiment INFO   Fluidics well assignments: {'circle_well_example': 'A', 'rectangle_well_example': 'B'}
+13:52:18,550 Experiment INFO   Available wells: ['circle_well_example', 'rectangle_well_example']
+13:52:18,550 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,552 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,553 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,553 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,554 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,555 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,556 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,557 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,558 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,559 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,560 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,562 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,563 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,564 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,565 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,566 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,568 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,570 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,571 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,573 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,574 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,575 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,576 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,577 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,578 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,579 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,581 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,582 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,583 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,584 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,585 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,586 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,587 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,588 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,589 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,590 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,591 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,592 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,593 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,595 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,596 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,598 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,600 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,601 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,602 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,603 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,604 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,605 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,606 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,607 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,609 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,610 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,611 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,612 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,613 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,614 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,615 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,616 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,617 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,618 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,619 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,620 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,621 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,622 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,624 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,625 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,627 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,629 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,631 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,632 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,633 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+13:52:18,634 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+13:52:18,637 Experiment INFO Tasks created and saved successfully
+14:10:17,637 Experiment INFO Init
+14:10:20,274 Experiment INFO Experiment status updated to: Idle
+14:10:24,61 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:10:24,62 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+14:10:24,66 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:10:24,67 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+14:10:24,67 Experiment INFO Experiment configuration saved
+14:13:01,962 Experiment INFO Init
+14:13:05,467 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:13:05,468 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+14:13:05,470 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:13:05,470 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+14:13:05,470 Experiment INFO Experiment configuration saved
+14:13:08,512 Experiment INFO Positions saved successfully: 50 positions
+14:13:12,276 Experiment INFO Positions saved successfully: 50 positions
+14:13:12,279 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:13:12,280 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+14:13:12,286 Experiment INFO Experiment configuration saved
+14:13:12,289 Experiment INFO Creating tasks with:
+14:13:12,289 Experiment INFO   Groups: ['Group 2', 'Group 1']
+14:13:12,290 Experiment INFO   Protocols: ['hybe', 'strip']
+14:13:12,290 Experiment INFO   Rounds: 18
+14:13:12,290 Experiment INFO   Group assignments: {'circle_well_example': 'Group 1', 'rectangle_well_example': 'Group 2'}
+14:13:12,291 Experiment INFO   Fluidics well assignments: {'circle_well_example': 'A', 'rectangle_well_example': 'B'}
+14:13:12,293 Experiment INFO   Available wells: ['circle_well_example', 'rectangle_well_example']
+14:13:12,294 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,295 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,296 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,297 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,298 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,299 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,300 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,301 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,303 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,304 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,305 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,306 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,307 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,308 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,309 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,311 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,313 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,314 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,316 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,318 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,319 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,320 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,321 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,322 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,323 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,325 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,326 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,326 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,327 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,329 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,330 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,331 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,332 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,333 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,335 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,336 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,337 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,338 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,339 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,340 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,342 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,343 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,345 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,346 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,348 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,349 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,350 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,351 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,352 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,353 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,355 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,356 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,357 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,358 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,359 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,361 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,362 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,363 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,364 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,365 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,366 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,367 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,368 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,369 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,370 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,371 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,373 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,375 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,376 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,377 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,379 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:13:12,380 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:13:12,382 Experiment INFO Tasks created and saved successfully
+14:37:16,114 Experiment INFO Init
+14:39:04,782 Experiment INFO Init
+14:39:07,937 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:39:07,937 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+14:39:07,940 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:39:07,940 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+14:39:07,941 Experiment INFO Experiment configuration saved
+14:39:12,230 Experiment INFO Positions saved successfully: 50 positions
+14:39:16,291 Experiment INFO Positions saved successfully: 50 positions
+14:39:16,292 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:39:16,292 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+14:39:16,296 Experiment INFO Experiment configuration saved
+14:39:16,299 Experiment INFO Creating tasks with:
+14:39:16,299 Experiment INFO   Groups: ['Group 2', 'Group 1']
+14:39:16,300 Experiment INFO   Protocols: ['hybe', 'strip']
+14:39:16,300 Experiment INFO   Rounds: 18
+14:39:16,301 Experiment INFO   Group assignments: {'circle_well_example': 'Group 1', 'rectangle_well_example': 'Group 2'}
+14:39:16,301 Experiment INFO   Fluidics well assignments: {'circle_well_example': 'A', 'rectangle_well_example': 'B'}
+14:39:16,304 Experiment INFO   Available wells: ['circle_well_example', 'rectangle_well_example']
+14:39:16,305 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,307 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,308 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,309 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,310 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,311 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,312 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,313 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,314 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,315 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,316 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,317 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,318 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,319 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,321 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,322 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,323 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,324 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,326 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,328 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,329 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,332 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,333 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,334 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,335 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,336 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,337 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,338 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,339 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,340 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,341 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,342 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,343 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,345 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,346 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,347 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,348 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,349 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,350 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,351 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,352 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,353 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,354 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,355 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,357 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,359 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,361 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,363 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,365 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,366 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,367 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,368 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,369 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,370 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,371 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,373 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,374 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,375 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,376 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,377 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,378 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,379 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,380 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,381 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,382 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,383 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,384 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,385 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,386 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,388 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,390 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:39:16,392 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:39:16,395 Experiment INFO Tasks created and saved successfully
+14:50:17,520 Experiment INFO Init
+14:54:01,960 Experiment INFO Init
+14:54:04,398 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:54:04,399 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+14:54:04,405 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:54:04,407 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+14:54:04,408 Experiment INFO Experiment configuration saved
+14:54:07,334 Experiment INFO Positions saved successfully: 50 positions
+14:54:10,837 Experiment INFO Positions saved successfully: 50 positions
+14:54:10,838 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:54:10,839 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+14:54:10,841 Experiment INFO Experiment configuration saved
+14:54:10,844 Experiment INFO Creating tasks with:
+14:54:10,844 Experiment INFO   Groups: ['Group 2', 'Group 1']
+14:54:10,844 Experiment INFO   Protocols: ['hybe', 'strip']
+14:54:10,844 Experiment INFO   Rounds: 18
+14:54:10,845 Experiment INFO   Group assignments: {'circle_well_example': 'Group 1', 'rectangle_well_example': 'Group 2'}
+14:54:10,845 Experiment INFO   Fluidics well assignments: {'circle_well_example': 'A', 'rectangle_well_example': 'B'}
+14:54:10,849 Experiment INFO   Available wells: ['circle_well_example', 'rectangle_well_example']
+14:54:10,849 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,851 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,852 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,853 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,854 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,855 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,856 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,858 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,859 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,861 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,863 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,864 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,866 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,867 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,869 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,870 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,871 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,872 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,874 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,875 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,876 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,877 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,878 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,879 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,879 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,880 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,882 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,883 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,884 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,885 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,886 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,887 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,888 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,890 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,891 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,893 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,894 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,896 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,898 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,899 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,900 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,901 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,902 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,903 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,904 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,904 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,906 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,908 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,909 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,910 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,911 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,911 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,913 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,913 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,914 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,915 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,916 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,917 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,919 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,921 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,922 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,924 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,926 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,927 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,928 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,929 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,930 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,931 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,932 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,934 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,935 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:54:10,936 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:54:10,938 Experiment INFO Tasks created and saved successfully
+14:56:22,79 Experiment INFO Init
+14:56:24,469 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:56:24,469 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+14:56:24,470 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:56:24,470 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+14:56:24,471 Experiment INFO Experiment configuration saved
+14:56:27,952 Experiment INFO Positions saved successfully: 50 positions
+14:56:31,87 Experiment INFO Positions saved successfully: 50 positions
+14:56:31,89 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:56:31,90 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+14:56:31,95 Experiment INFO Experiment configuration saved
+14:56:31,99 Experiment INFO Creating tasks with:
+14:56:31,100 Experiment INFO   Groups: ['Group 2', 'Group 1']
+14:56:31,100 Experiment INFO   Protocols: ['hybe', 'strip']
+14:56:31,101 Experiment INFO   Rounds: 18
+14:56:31,102 Experiment INFO   Group assignments: {'circle_well_example': 'Group 1', 'rectangle_well_example': 'Group 2'}
+14:56:31,103 Experiment INFO   Fluidics well assignments: {'circle_well_example': 'A', 'rectangle_well_example': 'B'}
+14:56:31,105 Experiment INFO   Available wells: ['circle_well_example', 'rectangle_well_example']
+14:56:31,106 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,108 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,109 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,110 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,111 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,112 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,113 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,115 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,116 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,117 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,118 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,119 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,120 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,121 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,122 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,123 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,124 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,126 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,127 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,128 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,129 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,130 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,132 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,133 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,135 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,137 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,139 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,140 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,141 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,142 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,143 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,144 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,145 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,146 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,148 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,149 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,150 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,151 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,152 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,153 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,154 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,155 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,156 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,157 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,158 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,159 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,160 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,162 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,164 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,166 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,169 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,170 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,171 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,172 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,173 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,175 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,176 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,177 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,178 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,179 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,181 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,182 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,183 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,184 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,185 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,186 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,187 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,188 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,189 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,190 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,191 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:56:31,192 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:56:31,195 Experiment INFO Tasks created and saved successfully
+14:57:08,924 Experiment INFO Init
+14:57:11,355 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:57:11,355 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+14:57:11,357 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:57:11,358 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+14:57:11,358 Experiment INFO Experiment configuration saved
+14:57:14,415 Experiment INFO Positions saved successfully: 50 positions
+14:57:17,589 Experiment INFO Positions saved successfully: 50 positions
+14:57:17,590 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:57:17,590 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+14:57:17,593 Experiment INFO Experiment configuration saved
+14:57:17,596 Experiment INFO Creating tasks with:
+14:57:17,596 Experiment INFO   Groups: ['Group 2', 'Group 1']
+14:57:17,596 Experiment INFO   Protocols: ['hybe', 'strip']
+14:57:17,597 Experiment INFO   Rounds: 18
+14:57:17,597 Experiment INFO   Group assignments: {'circle_well_example': 'Group 1', 'rectangle_well_example': 'Group 2'}
+14:57:17,598 Experiment INFO   Fluidics well assignments: {'circle_well_example': 'A', 'rectangle_well_example': 'B'}
+14:57:17,600 Experiment INFO   Available wells: ['circle_well_example', 'rectangle_well_example']
+14:57:17,600 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,602 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,603 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,605 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,607 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,608 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,610 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,611 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,612 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,613 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,614 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,615 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,616 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,617 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,619 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,620 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,621 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,622 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,623 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,624 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,625 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,626 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,627 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,628 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,629 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,631 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,632 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,633 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,634 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,636 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,637 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,639 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,640 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,642 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,644 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,645 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,646 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,647 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,648 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,649 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,650 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,651 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,652 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,654 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,655 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,656 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,657 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,658 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,659 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,660 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,661 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,662 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,663 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,664 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,665 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,667 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,669 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,671 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,674 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,675 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,676 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,678 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,679 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,680 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,681 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,682 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,683 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,684 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,685 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,686 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,687 Experiment INFO   Group 'Group 2' has wells: ['rectangle_well_example'], fluidics wells: 'B'
+14:57:17,688 Experiment INFO   Group 'Group 1' has wells: ['circle_well_example'], fluidics wells: 'A'
+14:57:17,690 Experiment INFO Tasks created and saved successfully
+14:57:19,25 Experiment INFO Experiment status updated to: Idle
+14:57:21,32 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:57:21,33 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+14:57:21,38 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:57:21,39 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+14:57:21,40 Experiment INFO Experiment configuration saved
+14:59:08,67 Experiment INFO Init
+14:59:10,291 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:59:10,292 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+14:59:10,298 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+14:59:10,300 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+14:59:10,301 Experiment INFO Experiment configuration saved
+15:15:38,892 Experiment INFO Init
+15:15:41,531 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:15:41,531 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:15:41,532 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:15:41,532 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:15:41,532 Experiment INFO Experiment configuration saved
+15:23:01,12 Experiment INFO Init
+15:23:03,449 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:23:03,450 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:23:03,452 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:23:03,453 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:23:03,454 Experiment INFO Experiment configuration saved
+15:24:09,206 Experiment INFO Init
+15:24:12,463 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:24:12,464 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:24:12,465 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:24:12,466 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:24:12,466 Experiment INFO Experiment configuration saved
+15:24:15,495 Experiment WARNING No positions to save
+15:25:10,257 Experiment INFO Experiment status updated to: Idle
+15:25:14,406 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:25:14,406 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:25:14,409 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:25:14,409 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:25:14,409 Experiment INFO Experiment configuration saved
+15:25:22,640 Experiment WARNING No positions to save
+15:26:24,393 Experiment INFO Init
+15:26:27,387 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:26:27,388 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:26:27,394 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:26:27,395 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:26:27,396 Experiment INFO Experiment configuration saved
+15:26:29,898 Experiment WARNING No positions to save
+15:29:16,96 Experiment INFO Experiment status updated to: Idle
+15:29:18,278 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:29:18,278 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:29:18,281 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:29:18,281 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:29:18,282 Experiment INFO Experiment configuration saved
+15:30:26,215 Experiment WARNING No positions to save
+15:30:32,77 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:30:32,78 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:30:32,81 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:30:32,82 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:30:32,82 Experiment INFO Experiment configuration saved
+15:31:08,607 Experiment WARNING No positions to save
+15:31:43,804 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:31:43,804 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:31:43,806 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:31:43,806 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:31:43,806 Experiment INFO Experiment configuration saved
+15:32:33,986 Experiment WARNING No positions to save
+15:34:42,725 Experiment INFO Init
+15:34:46,171 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:34:46,172 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:34:46,178 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:34:46,179 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:34:46,181 Experiment INFO Experiment configuration saved
+15:35:37,352 Experiment WARNING No positions to save
+15:39:08,318 Experiment INFO Init
+15:39:10,949 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:39:10,950 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:39:10,952 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:39:10,952 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:39:10,952 Experiment INFO Experiment configuration saved
+15:39:33,927 Experiment INFO Positions saved successfully: 57 positions
+15:39:42,2 Experiment INFO Positions saved successfully: 57 positions
+15:39:42,5 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:39:42,6 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+15:39:42,12 Experiment INFO Experiment configuration saved
+15:39:42,23 Experiment INFO Creating tasks with:
+15:39:42,23 Experiment INFO   Groups: ['Group 1']
+15:39:42,24 Experiment INFO   Protocols: ['hybe', 'strip']
+15:39:42,24 Experiment INFO   Rounds: 18
+15:39:42,24 Experiment INFO   Group assignments: {'A': 'Group 1'}
+15:39:42,25 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+15:39:42,27 Experiment INFO   Available wells: ['A']
+15:39:42,28 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+15:39:42,53 Experiment INFO Tasks created and saved successfully
+15:41:27,188 Experiment INFO Init
+15:41:30,383 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:41:30,383 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:41:30,385 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:41:30,385 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:41:30,386 Experiment INFO Experiment configuration saved
+15:46:48,507 Experiment INFO Init
+15:46:51,481 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:46:51,481 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:46:51,483 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:46:51,483 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:46:51,483 Experiment INFO Experiment configuration saved
+15:47:14,687 Experiment INFO Positions saved successfully: 57 positions
+15:47:17,531 Experiment INFO Positions saved successfully: 57 positions
+15:47:17,532 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:47:17,533 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+15:47:17,536 Experiment INFO Experiment configuration saved
+15:47:17,538 Experiment INFO Creating tasks with:
+15:47:17,539 Experiment INFO   Groups: ['Group 1']
+15:47:17,540 Experiment INFO   Protocols: ['hybe', 'strip']
+15:47:17,540 Experiment INFO   Rounds: 18
+15:47:17,541 Experiment INFO   Group assignments: {'A': 'Group 1'}
+15:47:17,541 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+15:47:17,543 Experiment INFO   Available wells: ['A']
+15:47:17,544 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+15:47:17,569 Experiment INFO Tasks created and saved successfully
+15:50:58,566 Experiment INFO Init
+15:51:01,329 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:51:01,329 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:51:01,330 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:51:01,330 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:51:01,331 Experiment INFO Experiment configuration saved
+15:51:23,938 Experiment INFO Positions saved successfully: 57 positions
+15:51:27,126 Experiment INFO Positions saved successfully: 57 positions
+15:51:27,127 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:51:27,127 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+15:51:27,130 Experiment INFO Experiment configuration saved
+15:51:27,132 Experiment INFO Creating tasks with:
+15:51:27,133 Experiment INFO   Groups: ['Group 1']
+15:51:27,133 Experiment INFO   Protocols: ['hybe', 'strip']
+15:51:27,134 Experiment INFO   Rounds: 18
+15:51:27,134 Experiment INFO   Group assignments: {'A': 'Group 1'}
+15:51:27,134 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+15:51:27,138 Experiment INFO   Available wells: ['A']
+15:51:27,138 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+15:51:27,164 Experiment INFO Tasks created and saved successfully
+15:54:59,942 Experiment INFO Init
+15:55:02,177 Experiment INFO Experiment status updated to: Idle
+15:55:04,20 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:55:04,21 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:55:04,23 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:55:04,23 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:55:04,23 Experiment INFO Experiment configuration saved
+15:55:27,99 Experiment INFO Positions saved successfully: 57 positions
+15:55:29,827 Experiment INFO Positions saved successfully: 57 positions
+15:55:29,831 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:55:29,832 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+15:55:29,842 Experiment INFO Experiment configuration saved
+15:55:29,846 Experiment INFO Creating tasks with:
+15:55:29,846 Experiment INFO   Groups: ['Group 1']
+15:55:29,847 Experiment INFO   Protocols: ['hybe', 'strip']
+15:55:29,847 Experiment INFO   Rounds: 18
+15:55:29,847 Experiment INFO   Group assignments: {'A': 'Group 1'}
+15:55:29,847 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+15:55:29,849 Experiment INFO   Available wells: ['A']
+15:55:29,850 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+15:55:29,875 Experiment INFO Tasks created and saved successfully
+15:56:05,132 Experiment INFO Init
+15:56:10,391 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:56:10,392 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:56:10,399 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:56:10,401 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:56:10,402 Experiment INFO Experiment configuration saved
+15:56:13,896 Experiment INFO Positions saved successfully: 57 positions
+15:56:16,933 Experiment INFO Positions saved successfully: 57 positions
+15:56:16,934 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:56:16,934 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+15:56:16,938 Experiment INFO Experiment configuration saved
+15:56:16,941 Experiment INFO Creating tasks with:
+15:56:16,942 Experiment INFO   Groups: ['Group 1']
+15:56:16,942 Experiment INFO   Protocols: ['hybe', 'strip']
+15:56:16,943 Experiment INFO   Rounds: 18
+15:56:16,943 Experiment INFO   Group assignments: {'A': 'Group 1'}
+15:56:16,944 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+15:56:16,947 Experiment INFO   Available wells: ['A']
+15:56:16,949 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+15:56:16,980 Experiment INFO Tasks created and saved successfully
+15:59:20,932 Experiment INFO Init
+15:59:22,849 Experiment INFO Experiment status updated to: Idle
+15:59:25,198 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:59:25,198 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:59:25,201 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+15:59:25,202 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+15:59:25,202 Experiment INFO Experiment configuration saved
+16:04:31,179 Experiment INFO Init
+16:04:36,21 Experiment INFO Experiment status updated to: Idle
+16:04:38,850 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:04:38,850 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:04:38,852 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:04:38,853 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:04:38,853 Experiment INFO Experiment configuration saved
+16:04:43,532 Experiment INFO Positions saved successfully: 57 positions
+16:04:46,265 Experiment INFO Positions saved successfully: 57 positions
+16:04:46,269 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:04:46,271 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+16:04:46,280 Experiment INFO Experiment configuration saved
+16:04:46,286 Experiment INFO Creating tasks with:
+16:04:46,287 Experiment INFO   Groups: ['Group 1']
+16:04:46,288 Experiment INFO   Protocols: ['hybe', 'strip']
+16:04:46,288 Experiment INFO   Rounds: 18
+16:04:46,289 Experiment INFO   Group assignments: {'A': 'Group 1'}
+16:04:46,289 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+16:04:46,294 Experiment INFO   Available wells: ['A']
+16:04:46,294 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+16:04:46,319 Experiment INFO Tasks created and saved successfully
+16:05:54,92 Experiment INFO Init
+16:05:57,28 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:05:57,29 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:05:57,36 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:05:57,38 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:05:57,39 Experiment INFO Experiment configuration saved
+16:05:58,360 Experiment INFO Experiment status updated to: Idle
+16:06:00,367 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:06:00,368 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:06:00,370 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:06:00,370 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:06:00,371 Experiment INFO Experiment configuration saved
+16:06:03,349 Experiment INFO Positions saved successfully: 57 positions
+16:06:05,627 Experiment INFO Positions saved successfully: 57 positions
+16:06:05,631 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:06:05,633 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+16:06:05,642 Experiment INFO Experiment configuration saved
+16:06:05,649 Experiment INFO Creating tasks with:
+16:06:05,650 Experiment INFO   Groups: ['Group 1']
+16:06:05,651 Experiment INFO   Protocols: ['hybe', 'strip']
+16:06:05,651 Experiment INFO   Rounds: 18
+16:06:05,652 Experiment INFO   Group assignments: {'A': 'Group 1'}
+16:06:05,653 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+16:06:05,658 Experiment INFO   Available wells: ['A']
+16:06:05,658 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+16:06:05,688 Experiment INFO Tasks created and saved successfully
+16:06:58,634 Experiment INFO Init
+16:07:00,453 Experiment INFO Experiment status updated to: Idle
+16:07:02,289 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:07:02,291 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:07:02,298 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:07:02,299 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:07:02,301 Experiment INFO Experiment configuration saved
+16:07:05,239 Experiment INFO Positions saved successfully: 57 positions
+16:07:07,681 Experiment INFO Positions saved successfully: 57 positions
+16:07:07,682 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:07:07,683 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+16:07:07,686 Experiment INFO Experiment configuration saved
+16:07:07,689 Experiment INFO Creating tasks with:
+16:07:07,689 Experiment INFO   Groups: ['Group 1']
+16:07:07,690 Experiment INFO   Protocols: ['hybe', 'strip']
+16:07:07,690 Experiment INFO   Rounds: 18
+16:07:07,691 Experiment INFO   Group assignments: {'A': 'Group 1'}
+16:07:07,691 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+16:07:07,694 Experiment INFO   Available wells: ['A']
+16:07:07,694 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+16:07:07,719 Experiment INFO Tasks created and saved successfully
+16:08:08,79 Experiment INFO Init
+16:08:09,855 Experiment INFO Experiment status updated to: Idle
+16:08:12,60 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:08:12,61 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:08:12,62 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:08:12,62 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:08:12,63 Experiment INFO Experiment configuration saved
+16:08:15,652 Experiment INFO Positions saved successfully: 57 positions
+16:08:18,661 Experiment INFO Positions saved successfully: 57 positions
+16:08:18,663 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:08:18,664 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+16:08:18,669 Experiment INFO Experiment configuration saved
+16:08:18,673 Experiment INFO Creating tasks with:
+16:08:18,674 Experiment INFO   Groups: ['Group 1']
+16:08:18,675 Experiment INFO   Protocols: ['hybe', 'strip']
+16:08:18,676 Experiment INFO   Rounds: 18
+16:08:18,676 Experiment INFO   Group assignments: {'A': 'Group 1'}
+16:08:18,677 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+16:08:18,682 Experiment INFO   Available wells: ['A']
+16:08:18,683 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+16:08:18,714 Experiment INFO Tasks created and saved successfully
+16:08:25,576 Experiment INFO Experiment status updated to: Idle
+16:14:18,927 Experiment INFO Init
+16:14:22,882 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:14:22,883 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:14:22,889 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:14:22,891 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:14:22,892 Experiment INFO Experiment configuration saved
+16:14:24,539 Experiment INFO Init
+16:14:24,543 Experiment INFO Experiment status updated to: Idle
+16:14:27,851 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:14:27,852 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:14:27,857 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:14:27,858 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:14:27,859 Experiment INFO Experiment configuration saved
+16:14:38,340 Experiment INFO Positions saved successfully: 57 positions
+16:14:41,258 Experiment INFO Positions saved successfully: 57 positions
+16:14:41,260 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:14:41,260 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+16:14:41,264 Experiment INFO Experiment configuration saved
+16:14:41,266 Experiment INFO Creating tasks with:
+16:14:41,267 Experiment INFO   Groups: ['Group 1']
+16:14:41,267 Experiment INFO   Protocols: ['hybe', 'strip']
+16:14:41,267 Experiment INFO   Rounds: 18
+16:14:41,268 Experiment INFO   Group assignments: {'A': 'Group 1'}
+16:14:41,268 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+16:14:41,270 Experiment INFO   Available wells: ['A']
+16:14:41,271 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+16:14:41,295 Experiment INFO Tasks created and saved successfully
+16:15:03,30 Experiment INFO Init
+16:15:06,688 Experiment INFO Init
+16:15:06,694 Experiment INFO Experiment status updated to: Idle
+16:15:09,704 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:15:09,705 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:15:09,712 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:15:09,715 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:15:09,715 Experiment INFO Experiment configuration saved
+16:15:13,710 Experiment INFO Positions saved successfully: 57 positions
+16:15:16,282 Experiment INFO Positions saved successfully: 57 positions
+16:15:16,286 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:15:16,288 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+16:15:16,298 Experiment INFO Experiment configuration saved
+16:15:16,304 Experiment INFO Creating tasks with:
+16:15:16,305 Experiment INFO   Groups: ['Group 1']
+16:15:16,305 Experiment INFO   Protocols: ['hybe', 'strip']
+16:15:16,306 Experiment INFO   Rounds: 18
+16:15:16,306 Experiment INFO   Group assignments: {'A': 'Group 1'}
+16:15:16,306 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+16:15:16,309 Experiment INFO   Available wells: ['A']
+16:15:16,310 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+16:15:16,335 Experiment INFO Tasks created and saved successfully
+16:15:22,574 Experiment INFO Init
+16:15:22,579 Experiment INFO Experiment status updated to: Idle
+16:32:02,86 Experiment INFO Init
+16:32:06,231 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:32:06,232 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:32:06,238 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:32:06,240 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:32:06,241 Experiment INFO Experiment configuration saved
+16:32:10,131 Experiment INFO Positions saved successfully: 57 positions
+16:32:12,455 Experiment INFO Positions saved successfully: 57 positions
+16:32:12,456 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:32:12,456 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+16:32:12,458 Experiment INFO Experiment configuration saved
+16:32:12,461 Experiment INFO Creating tasks with:
+16:32:12,461 Experiment INFO   Groups: ['Group 1']
+16:32:12,462 Experiment INFO   Protocols: ['hybe', 'strip']
+16:32:12,462 Experiment INFO   Rounds: 18
+16:32:12,462 Experiment INFO   Group assignments: {'A': 'Group 1'}
+16:32:12,462 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+16:32:12,466 Experiment INFO   Available wells: ['A']
+16:32:12,467 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+16:32:12,493 Experiment INFO Tasks created and saved successfully
+16:46:44,570 Experiment INFO Init
+16:46:47,884 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:46:47,885 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:46:47,886 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:46:47,887 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:46:47,887 Experiment INFO Experiment configuration saved
+16:46:51,404 Experiment INFO Positions saved successfully: 57 positions
+16:46:52,816 Experiment INFO Init
+16:46:52,828 Experiment INFO Experiment status updated to: Idle
+16:46:55,417 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:46:55,419 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:46:55,425 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:46:55,425 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:46:55,425 Experiment INFO Experiment configuration saved
+16:46:58,421 Experiment INFO Positions saved successfully: 57 positions
+16:47:01,786 Experiment INFO Positions saved successfully: 57 positions
+16:47:01,789 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:47:01,791 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+16:47:01,796 Experiment INFO Experiment configuration saved
+16:47:01,798 Experiment INFO Creating tasks with:
+16:47:01,799 Experiment INFO   Groups: ['Group 1']
+16:47:01,799 Experiment INFO   Protocols: ['hybe', 'strip']
+16:47:01,799 Experiment INFO   Rounds: 18
+16:47:01,800 Experiment INFO   Group assignments: {'A': 'Group 1'}
+16:47:01,800 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+16:47:01,802 Experiment INFO   Available wells: ['A']
+16:47:01,803 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+16:47:01,828 Experiment INFO Tasks created and saved successfully
+16:47:08,610 Experiment INFO Init
+16:47:08,616 Experiment INFO Experiment status updated to: Idle
+16:47:10,485 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:47:10,486 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:47:10,488 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:47:10,488 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:47:10,488 Experiment INFO Experiment configuration saved
+16:47:16,341 Experiment INFO Init
+16:47:16,351 Experiment INFO Experiment status updated to: Idle
+16:50:12,841 Experiment INFO Init
+16:50:18,161 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:50:18,162 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:50:18,163 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:50:18,164 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:50:18,164 Experiment INFO Experiment configuration saved
+16:50:21,936 Experiment INFO Positions saved successfully: 57 positions
+16:50:24,318 Experiment INFO Positions saved successfully: 57 positions
+16:50:24,319 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:50:24,319 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+16:50:24,321 Experiment INFO Experiment configuration saved
+16:50:24,324 Experiment INFO Creating tasks with:
+16:50:24,324 Experiment INFO   Groups: ['Group 1']
+16:50:24,324 Experiment INFO   Protocols: ['hybe', 'strip']
+16:50:24,325 Experiment INFO   Rounds: 18
+16:50:24,325 Experiment INFO   Group assignments: {'A': 'Group 1'}
+16:50:24,325 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+16:50:24,328 Experiment INFO   Available wells: ['A']
+16:50:24,329 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+16:50:24,354 Experiment INFO Tasks created and saved successfully
+16:53:06,815 Experiment INFO Init
+16:53:10,561 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:53:10,563 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:53:10,569 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:53:10,571 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:53:10,572 Experiment INFO Experiment configuration saved
+16:53:13,116 Experiment INFO Init
+16:53:13,128 Experiment INFO Experiment status updated to: Idle
+16:57:36,386 Experiment INFO Init
+16:57:39,855 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:57:39,856 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:57:39,863 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:57:39,864 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+16:57:39,865 Experiment INFO Experiment configuration saved
+16:57:43,432 Experiment INFO Positions saved successfully: 57 positions
+16:57:46,92 Experiment INFO Positions saved successfully: 57 positions
+16:57:46,94 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+16:57:46,95 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+16:57:46,100 Experiment INFO Experiment configuration saved
+16:57:46,105 Experiment INFO Creating tasks with:
+16:57:46,106 Experiment INFO   Groups: ['Group 1']
+16:57:46,107 Experiment INFO   Protocols: ['hybe', 'strip']
+16:57:46,107 Experiment INFO   Rounds: 18
+16:57:46,108 Experiment INFO   Group assignments: {'A': 'Group 1'}
+16:57:46,109 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+16:57:46,113 Experiment INFO   Available wells: ['A']
+16:57:46,113 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+16:57:46,138 Experiment INFO Tasks created and saved successfully
+16:59:24,973 Experiment INFO Init
+17:00:58,232 Experiment INFO Init
+17:01:00,321 Experiment INFO Init
+17:01:00,329 Experiment INFO Experiment status updated to: Idle
+17:01:02,470 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+17:01:02,470 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+17:01:02,472 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+17:01:02,472 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+17:01:02,472 Experiment INFO Experiment configuration saved
+17:01:04,965 Experiment INFO Positions saved successfully: 57 positions
+17:01:08,463 Experiment INFO Positions saved successfully: 57 positions
+17:01:08,464 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+17:01:08,465 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+17:01:08,468 Experiment INFO Experiment configuration saved
+17:01:08,471 Experiment INFO Creating tasks with:
+17:01:08,472 Experiment INFO   Groups: ['Group 1']
+17:01:08,472 Experiment INFO   Protocols: ['hybe', 'strip']
+17:01:08,473 Experiment INFO   Rounds: 18
+17:01:08,473 Experiment INFO   Group assignments: {'A': 'Group 1'}
+17:01:08,474 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+17:01:08,476 Experiment INFO   Available wells: ['A']
+17:01:08,477 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+17:01:08,502 Experiment INFO Tasks created and saved successfully
+17:03:24,112 Experiment INFO Init
+17:03:26,230 Experiment INFO Init
+17:03:26,235 Experiment INFO Experiment status updated to: Idle
+17:03:28,795 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+17:03:28,796 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+17:03:28,819 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+17:03:28,819 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+17:03:28,820 Experiment INFO Experiment configuration saved
+17:03:31,940 Experiment INFO Positions saved successfully: 57 positions
+17:03:34,947 Experiment INFO Positions saved successfully: 57 positions
+17:03:34,950 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+17:03:34,952 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+17:03:34,962 Experiment INFO Experiment configuration saved
+17:03:34,968 Experiment INFO Creating tasks with:
+17:03:34,969 Experiment INFO   Groups: ['Group 1']
+17:03:34,970 Experiment INFO   Protocols: ['hybe', 'strip']
+17:03:34,970 Experiment INFO   Rounds: 18
+17:03:34,971 Experiment INFO   Group assignments: {'A': 'Group 1'}
+17:03:34,971 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+17:03:34,975 Experiment INFO   Available wells: ['A']
+17:03:34,975 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+17:03:35,0 Experiment INFO Tasks created and saved successfully
+10:01:46,133 Experiment INFO Init
+10:01:50,533 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:01:50,534 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:01:50,542 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:01:50,543 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:01:50,543 Experiment INFO Experiment configuration saved
+10:02:11,29 Experiment INFO Init
+10:02:14,8 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:02:14,8 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:02:14,12 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:02:14,13 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:02:14,14 Experiment INFO Experiment configuration saved
+10:02:37,58 Experiment INFO Positions saved successfully: 4 positions
+10:02:44,662 Experiment INFO Positions saved successfully: 4 positions
+10:02:44,664 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:02:44,665 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+10:02:44,670 Experiment INFO Experiment configuration saved
+10:02:44,674 Experiment INFO Creating tasks with:
+10:02:44,675 Experiment INFO   Groups: ['Group 1']
+10:02:44,675 Experiment INFO   Protocols: ['hybe', 'strip']
+10:02:44,676 Experiment INFO   Rounds: 18
+10:02:44,676 Experiment INFO   Group assignments: {'A': 'Group 1'}
+10:02:44,676 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+10:02:44,680 Experiment INFO   Available wells: ['A']
+10:02:44,680 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+10:02:44,705 Experiment INFO Tasks created and saved successfully
+10:06:21,971 Experiment INFO Init
+10:06:25,526 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:06:25,526 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:06:25,528 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:06:25,529 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:06:25,529 Experiment INFO Experiment configuration saved
+10:06:49,97 Experiment INFO Positions saved successfully: 4 positions
+10:06:54,767 Experiment INFO Positions saved successfully: 4 positions
+10:06:54,769 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:06:54,770 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'fluidics_protocols', 'num_hybes']
+10:06:54,775 Experiment INFO Experiment configuration saved
+10:06:54,785 Experiment INFO Creating tasks with:
+10:06:54,786 Experiment INFO   Groups: ['Group 1']
+10:06:54,786 Experiment INFO   Protocols: ['hybe', 'strip']
+10:06:54,786 Experiment INFO   Rounds: 18
+10:06:54,787 Experiment INFO   Group assignments: {'A': 'Group 1'}
+10:06:54,787 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+10:06:54,789 Experiment INFO   Available wells: ['A']
+10:06:54,790 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+10:06:54,815 Experiment INFO Tasks created and saved successfully
+10:26:07,218 Experiment INFO Init
+10:26:07,225 Experiment INFO Experiment status updated to: Idle
+10:26:12,684 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:26:12,685 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:26:12,695 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:26:12,696 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:26:12,696 Experiment INFO Experiment configuration saved
+10:26:25,444 Experiment INFO Positions saved successfully: 57 positions
+10:29:01,412 Experiment INFO Init
+10:29:03,996 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:29:03,996 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:29:03,999 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:29:03,999 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:29:04,0 Experiment INFO Experiment configuration saved
+10:29:07,151 Experiment INFO Positions saved successfully: 57 positions
+10:29:27,546 Experiment INFO Init
+10:29:30,288 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:29:30,288 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:29:30,291 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:29:30,291 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:29:30,291 Experiment INFO Experiment configuration saved
+10:29:32,933 Experiment INFO Positions saved successfully: 57 positions
+10:29:39,896 Experiment INFO Positions saved successfully: 57 positions
+10:29:39,897 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:29:39,897 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes']
+10:29:39,900 Experiment INFO Experiment configuration saved
+10:29:39,911 Experiment INFO Creating tasks with:
+10:29:39,911 Experiment INFO   Groups: ['Group 1']
+10:29:39,911 Experiment INFO   Protocols: ['hybe', 'strip']
+10:29:39,912 Experiment INFO   Rounds: 18
+10:29:39,912 Experiment INFO   Group assignments: {'A': 'Group 1'}
+10:29:39,912 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+10:29:39,914 Experiment INFO   Available wells: ['A']
+10:29:39,915 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+10:29:39,940 Experiment INFO Tasks created and saved successfully
+10:30:12,86 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:30:12,87 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:30:12,88 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:30:12,88 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:30:12,89 Experiment INFO Experiment configuration saved
+10:30:14,411 Experiment INFO Positions saved successfully: 57 positions
+10:31:54,734 Experiment INFO Init
+10:31:57,594 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:31:57,594 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:31:57,596 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:31:57,596 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:31:57,597 Experiment INFO Experiment configuration saved
+10:31:59,969 Experiment INFO Positions saved successfully: 57 positions
+10:33:09,907 Experiment INFO Init
+10:33:13,136 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:33:13,136 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:33:13,138 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:33:13,138 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:33:13,138 Experiment INFO Experiment configuration saved
+10:33:15,990 Experiment INFO Positions saved successfully: 57 positions
+10:34:23,91 Experiment INFO Init
+10:34:25,825 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:34:25,825 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:34:25,827 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:34:25,827 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:34:25,827 Experiment INFO Experiment configuration saved
+10:34:28,319 Experiment INFO Positions saved successfully: 57 positions
+10:35:47,722 Experiment INFO Init
+10:35:50,613 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:35:50,615 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:35:50,621 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:35:50,622 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:35:50,624 Experiment INFO Experiment configuration saved
+10:35:53,202 Experiment INFO Positions saved successfully: 57 positions
+10:36:40,850 Experiment INFO Init
+10:36:43,376 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:36:43,377 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:36:43,383 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:36:43,385 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:36:43,386 Experiment INFO Experiment configuration saved
+10:36:45,866 Experiment INFO Positions saved successfully: 57 positions
+10:38:09,350 Experiment INFO Init
+10:38:11,981 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:38:11,982 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:38:11,984 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:38:11,984 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:38:11,984 Experiment INFO Experiment configuration saved
+10:38:14,274 Experiment INFO Positions saved successfully: 57 positions
+10:39:26,648 Experiment INFO Init
+10:39:29,138 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:39:29,139 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:39:29,140 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:39:29,141 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:39:29,141 Experiment INFO Experiment configuration saved
+10:39:31,819 Experiment INFO Positions saved successfully: 57 positions
+10:42:22,343 Experiment INFO Init
+10:42:25,184 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:42:25,185 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:42:25,187 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:42:25,188 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:42:25,188 Experiment INFO Experiment configuration saved
+10:42:28,598 Experiment INFO Positions saved successfully: 57 positions
+10:43:15,24 Experiment INFO Init
+10:43:17,987 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:43:17,988 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:43:17,990 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:43:17,991 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:43:17,991 Experiment INFO Experiment configuration saved
+10:43:20,859 Experiment INFO Positions saved successfully: 57 positions
+10:43:53,143 Experiment INFO Init
+10:43:55,589 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:43:55,590 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:43:55,591 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:43:55,591 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:43:55,592 Experiment INFO Experiment configuration saved
+10:43:57,935 Experiment INFO Positions saved successfully: 57 positions
+10:45:12,343 Experiment INFO Init
+10:45:16,923 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:45:16,923 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:45:16,928 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+10:45:16,928 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+10:45:16,929 Experiment INFO Experiment configuration saved
+10:45:19,483 Experiment INFO Positions saved successfully: 57 positions
+11:00:59,752 Experiment INFO Init
+11:01:02,455 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:01:02,456 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:01:02,461 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:01:02,462 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:01:02,463 Experiment INFO Experiment configuration saved
+11:01:05,109 Experiment INFO Positions saved successfully: 57 positions
+11:01:24,781 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:01:24,782 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:01:24,784 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:01:24,784 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:01:24,784 Experiment INFO Experiment configuration saved
+11:01:35,200 Experiment INFO Positions saved successfully: 57 positions
+11:03:14,565 Experiment INFO Init
+11:03:17,317 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:03:17,317 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:03:17,321 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:03:17,321 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:03:17,322 Experiment INFO Experiment configuration saved
+11:03:20,282 Experiment INFO Positions saved successfully: 57 positions
+11:04:31,192 Experiment INFO Init
+11:04:33,709 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:04:33,721 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:04:33,729 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:04:33,730 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:04:33,754 Experiment INFO Experiment configuration saved
+11:04:35,985 Experiment INFO Positions saved successfully: 57 positions
+11:07:57,431 Experiment INFO Init
+11:08:00,297 Experiment INFO Init
+11:08:00,302 Experiment INFO Experiment status updated to: Idle
+11:08:02,772 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:08:02,773 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:08:02,774 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:08:02,775 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:08:02,775 Experiment INFO Experiment configuration saved
+11:08:05,239 Experiment INFO Positions saved successfully: 57 positions
+11:10:23,477 Experiment INFO Init
+11:10:25,981 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:10:25,982 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:10:25,988 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:10:25,989 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:10:25,991 Experiment INFO Experiment configuration saved
+11:10:28,314 Experiment INFO Positions saved successfully: 57 positions
+11:11:03,608 Experiment INFO Init
+11:11:06,277 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:11:06,277 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:11:06,280 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:11:06,280 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:11:06,281 Experiment INFO Experiment configuration saved
+11:11:09,720 Experiment INFO Positions saved successfully: 57 positions
+11:12:16,66 Experiment INFO Init
+11:12:18,820 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:12:18,822 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:12:18,827 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:12:18,829 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:12:18,830 Experiment INFO Experiment configuration saved
+11:12:21,658 Experiment INFO Positions saved successfully: 57 positions
+11:13:32,398 Experiment INFO Init
+11:13:37,930 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:13:37,931 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:13:37,934 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:13:37,934 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:13:37,935 Experiment INFO Experiment configuration saved
+11:13:40,317 Experiment INFO Positions saved successfully: 57 positions
+11:14:57,835 Experiment INFO Init
+11:15:00,451 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:15:00,452 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:15:00,455 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:15:00,456 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:15:00,456 Experiment INFO Experiment configuration saved
+11:15:03,110 Experiment INFO Positions saved successfully: 57 positions
+11:15:22,647 Experiment WARNING No positions to save
+11:15:22,649 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:15:22,649 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes', 'position_refinement', 'steps']
+11:15:22,653 Experiment INFO Experiment configuration saved
+11:15:22,661 Experiment INFO Creating tasks with:
+11:15:22,661 Experiment INFO   Groups: ['None']
+11:15:22,661 Experiment INFO   Protocols: ['hybe', 'strip']
+11:15:22,662 Experiment INFO   Rounds: 18
+11:15:22,662 Experiment INFO   Group assignments: {'A': 'None'}
+11:15:22,663 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+11:15:22,664 Experiment INFO   Available wells: ['A']
+11:15:22,665 Experiment INFO   Single group 'None' has wells: ['A'], fluidics wells: 'A'
+11:15:22,689 Experiment INFO Tasks created and saved successfully
+11:18:42,673 Experiment INFO Init
+11:18:45,604 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:18:45,605 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:18:45,609 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:18:45,610 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:18:45,611 Experiment INFO Experiment configuration saved
+11:18:48,268 Experiment INFO Positions saved successfully: 57 positions
+11:18:52,36 Experiment WARNING No positions to save
+11:18:52,37 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:18:52,38 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes', 'position_filtering', 'preview_focus', 'acquisition_focus', 'autofocus_method', 'steps']
+11:18:52,42 Experiment INFO Experiment configuration saved
+11:18:52,52 Experiment INFO Creating tasks with:
+11:18:52,52 Experiment INFO   Groups: ['None']
+11:18:52,53 Experiment INFO   Protocols: ['hybe', 'strip']
+11:18:52,53 Experiment INFO   Rounds: 18
+11:18:52,53 Experiment INFO   Group assignments: {'A': 'None'}
+11:18:52,54 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+11:18:52,57 Experiment INFO   Available wells: ['A']
+11:18:52,57 Experiment INFO   Single group 'None' has wells: ['A'], fluidics wells: 'A'
+11:18:52,82 Experiment INFO Tasks created and saved successfully
+11:20:56,897 Experiment INFO Init
+11:20:59,694 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:20:59,695 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:20:59,696 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:20:59,697 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:20:59,697 Experiment INFO Experiment configuration saved
+11:21:02,399 Experiment INFO Positions saved successfully: 57 positions
+11:22:15,393 Experiment INFO Init
+11:22:18,134 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:22:18,135 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:22:18,137 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:22:18,137 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:22:18,138 Experiment INFO Experiment configuration saved
+11:22:20,794 Experiment INFO Positions saved successfully: 57 positions
+11:24:15,578 Experiment INFO Init
+11:24:17,793 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:24:17,794 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:24:17,800 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:24:17,801 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:24:17,803 Experiment INFO Experiment configuration saved
+11:24:20,128 Experiment INFO Positions saved successfully: 57 positions
+11:24:26,762 Experiment WARNING No positions to save
+11:24:26,763 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:24:26,764 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes', 'position_filtering', 'preview_focus', 'acquisition_focus', 'autofocus_method', 'steps']
+11:24:26,768 Experiment INFO Experiment configuration saved
+11:24:26,779 Experiment INFO Creating tasks with:
+11:24:26,779 Experiment INFO   Groups: ['None']
+11:24:26,779 Experiment INFO   Protocols: ['hybe', 'strip']
+11:24:26,780 Experiment INFO   Rounds: 18
+11:24:26,780 Experiment INFO   Group assignments: {'A': 'None'}
+11:24:26,780 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+11:24:26,782 Experiment INFO   Available wells: ['A']
+11:24:26,782 Experiment INFO   Single group 'None' has wells: ['A'], fluidics wells: 'A'
+11:24:26,808 Experiment INFO Tasks created and saved successfully
+11:26:15,401 Experiment INFO Init
+11:28:07,209 Experiment INFO Init
+11:28:07,213 Experiment INFO Experiment status updated to: Idle
+11:28:12,978 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:28:12,978 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:28:12,980 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:28:12,981 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name']
+11:28:12,981 Experiment INFO Experiment configuration saved
+11:28:59,274 Experiment INFO Init
+11:29:02,10 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:29:02,12 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path']
+11:29:02,38 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:29:02,39 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path']
+11:29:02,40 Experiment INFO Experiment configuration saved
+11:30:29,976 Experiment INFO Init
+11:30:29,981 Experiment INFO Experiment status updated to: Idle
+11:30:37,855 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:30:37,856 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path']
+11:30:37,858 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:30:37,858 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path']
+11:30:37,859 Experiment INFO Experiment configuration saved
+11:30:42,724 Experiment INFO Positions saved successfully: 57 positions
+11:30:47,628 Experiment INFO Positions saved successfully: 57 positions
+11:30:47,629 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:30:47,630 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes', 'position_filtering', 'preview_focus', 'acquisition_focus', 'autofocus_method', 'steps']
+11:30:47,634 Experiment INFO Experiment configuration saved
+11:30:47,641 Experiment INFO Creating tasks with:
+11:30:47,641 Experiment INFO   Groups: ['Group 1']
+11:30:47,642 Experiment INFO   Protocols: ['hybe', 'strip']
+11:30:47,642 Experiment INFO   Rounds: 18
+11:30:47,642 Experiment INFO   Group assignments: {'A': 'Group 1'}
+11:30:47,643 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+11:30:47,646 Experiment INFO   Available wells: ['A']
+11:30:47,646 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+11:30:47,671 Experiment INFO Tasks created and saved successfully
+11:32:55,888 Experiment INFO Init
+11:32:59,152 Experiment INFO Init
+11:32:59,161 Experiment INFO Experiment status updated to: Idle
+11:33:01,805 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:33:01,806 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+11:33:01,818 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:33:01,819 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+11:33:01,819 Experiment INFO Experiment configuration saved
+11:33:06,538 Experiment INFO Positions saved successfully: 57 positions
+11:33:09,860 Experiment INFO Positions saved successfully: 57 positions
+11:33:09,863 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:33:09,865 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes', 'position_filtering', 'preview_focus', 'acquisition_focus', 'autofocus_method', 'steps']
+11:33:09,881 Experiment INFO Experiment configuration saved
+11:33:09,894 Experiment INFO Creating tasks with:
+11:33:09,894 Experiment INFO   Groups: ['Group 1']
+11:33:09,894 Experiment INFO   Protocols: ['hybe', 'strip']
+11:33:09,894 Experiment INFO   Rounds: 18
+11:33:09,895 Experiment INFO   Group assignments: {'A': 'Group 1'}
+11:33:09,895 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+11:33:09,898 Experiment INFO   Available wells: ['A']
+11:33:09,898 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+11:33:09,923 Experiment INFO Tasks created and saved successfully
+11:33:48,320 Experiment INFO Init
+11:33:50,376 Experiment INFO Init
+11:33:50,382 Experiment INFO Experiment status updated to: Idle
+11:33:52,700 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:33:52,702 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+11:33:52,704 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:33:52,704 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+11:33:52,704 Experiment INFO Experiment configuration saved
+11:33:55,949 Experiment INFO Positions saved successfully: 57 positions
+11:33:59,530 Experiment INFO Positions saved successfully: 57 positions
+11:33:59,532 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+11:33:59,532 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes', 'position_filtering', 'preview_focus', 'acquisition_focus', 'autofocus_method', 'steps']
+11:33:59,539 Experiment INFO Experiment configuration saved
+11:33:59,542 Experiment INFO Creating tasks with:
+11:33:59,542 Experiment INFO   Groups: ['Group 1']
+11:33:59,542 Experiment INFO   Protocols: ['hybe', 'strip']
+11:33:59,542 Experiment INFO   Rounds: 18
+11:33:59,543 Experiment INFO   Group assignments: {'A': 'Group 1'}
+11:33:59,543 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+11:33:59,546 Experiment INFO   Available wells: ['A']
+11:33:59,547 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+11:33:59,572 Experiment INFO Tasks created and saved successfully
+11:45:56,589 Experiment INFO Init
+11:46:11,719 Experiment INFO Init
+11:48:48,381 Experiment INFO Init
+11:48:54,64 Experiment INFO Init
+11:48:54,68 Experiment INFO Continuous monitoring started
+11:48:54,69 Experiment INFO Continuous monitoring loop
+11:48:55,74 Experiment INFO Continuous monitoring loop
+11:48:56,90 Experiment INFO Continuous monitoring loop
+11:48:57,101 Experiment INFO Continuous monitoring loop
+11:48:58,113 Experiment INFO Continuous monitoring loop
+11:48:59,128 Experiment INFO Continuous monitoring loop
+11:49:00,143 Experiment INFO Continuous monitoring loop
+11:49:01,155 Experiment INFO Continuous monitoring loop
+11:49:02,168 Experiment INFO Continuous monitoring loop
+11:49:03,183 Experiment INFO Continuous monitoring loop
+11:49:04,197 Experiment INFO Continuous monitoring loop
+11:49:05,209 Experiment INFO Continuous monitoring loop
+11:49:06,219 Experiment INFO Continuous monitoring loop
+11:49:07,226 Experiment INFO Continuous monitoring loop
+11:49:08,240 Experiment INFO Continuous monitoring loop
+11:49:09,255 Experiment INFO Continuous monitoring loop
+11:49:10,267 Experiment INFO Continuous monitoring loop
+11:49:11,279 Experiment INFO Continuous monitoring loop
+11:49:12,291 Experiment INFO Continuous monitoring loop
+11:49:13,299 Experiment INFO Continuous monitoring loop
+11:49:14,304 Experiment INFO Continuous monitoring loop
+11:49:15,306 Experiment INFO Continuous monitoring loop
+11:49:16,319 Experiment INFO Continuous monitoring loop
+11:49:17,334 Experiment INFO Continuous monitoring loop
+11:49:18,348 Experiment INFO Continuous monitoring loop
+11:49:19,362 Experiment INFO Continuous monitoring loop
+11:49:20,378 Experiment INFO Continuous monitoring loop
+11:49:21,387 Experiment INFO Continuous monitoring loop
+11:49:22,401 Experiment INFO Continuous monitoring loop
+11:49:23,411 Experiment INFO Continuous monitoring loop
+11:49:24,422 Experiment INFO Continuous monitoring loop
+11:49:25,433 Experiment INFO Continuous monitoring loop
+11:49:26,447 Experiment INFO Continuous monitoring loop
+11:49:27,460 Experiment INFO Continuous monitoring loop
+11:49:28,474 Experiment INFO Continuous monitoring loop
+11:49:29,486 Experiment INFO Continuous monitoring loop
+11:49:30,500 Experiment INFO Continuous monitoring loop
+11:49:31,513 Experiment INFO Continuous monitoring loop
+11:49:32,526 Experiment INFO Continuous monitoring loop
+11:49:33,540 Experiment INFO Continuous monitoring loop
+11:49:34,549 Experiment INFO Continuous monitoring loop
+11:49:35,562 Experiment INFO Continuous monitoring loop
+11:49:36,574 Experiment INFO Continuous monitoring loop
+11:49:37,585 Experiment INFO Continuous monitoring loop
+11:49:38,599 Experiment INFO Continuous monitoring loop
+11:49:39,612 Experiment INFO Continuous monitoring loop
+11:49:40,624 Experiment INFO Continuous monitoring loop
+11:49:41,633 Experiment INFO Continuous monitoring loop
+11:49:42,647 Experiment INFO Continuous monitoring loop
+11:49:43,658 Experiment INFO Continuous monitoring loop
+11:49:44,669 Experiment INFO Continuous monitoring loop
+11:49:45,671 Experiment INFO Continuous monitoring loop
+11:49:46,689 Experiment INFO Continuous monitoring loop
+11:49:47,725 Experiment INFO Continuous monitoring loop
+11:49:48,770 Experiment INFO Continuous monitoring loop
+11:49:49,785 Experiment INFO Continuous monitoring loop
+11:49:50,800 Experiment INFO Continuous monitoring loop
+11:49:51,811 Experiment INFO Continuous monitoring loop
+11:49:52,826 Experiment INFO Continuous monitoring loop
+11:49:53,881 Experiment INFO Continuous monitoring loop
+11:49:54,244 Experiment INFO Experiment status updated to: Stop
+11:49:54,894 Experiment INFO Continuous monitoring loop
+11:49:55,906 Experiment INFO Continuous monitoring loop
+11:49:56,920 Experiment INFO Continuous monitoring loop
+11:49:57,932 Experiment INFO Continuous monitoring loop
+11:49:58,946 Experiment INFO Continuous monitoring loop
+11:49:59,955 Experiment INFO Continuous monitoring loop
+11:50:00,971 Experiment INFO Continuous monitoring loop
+11:50:01,978 Experiment INFO Continuous monitoring loop
+11:50:02,989 Experiment INFO Continuous monitoring loop
+11:50:04,2 Experiment INFO Continuous monitoring loop
+11:50:05,13 Experiment INFO Continuous monitoring loop
+11:50:06,25 Experiment INFO Continuous monitoring loop
+11:50:07,34 Experiment INFO Continuous monitoring loop
+11:50:08,43 Experiment INFO Continuous monitoring loop
+11:50:09,55 Experiment INFO Continuous monitoring loop
+11:50:10,68 Experiment INFO Continuous monitoring loop
+11:50:11,78 Experiment INFO Continuous monitoring loop
+11:50:12,93 Experiment INFO Continuous monitoring loop
+11:50:13,106 Experiment INFO Continuous monitoring loop
+11:50:14,118 Experiment INFO Continuous monitoring loop
+11:50:15,130 Experiment INFO Continuous monitoring loop
+11:50:16,145 Experiment INFO Continuous monitoring loop
+11:50:17,157 Experiment INFO Continuous monitoring loop
+11:50:18,168 Experiment INFO Continuous monitoring loop
+11:50:19,177 Experiment INFO Continuous monitoring loop
+11:50:20,191 Experiment INFO Continuous monitoring loop
+11:50:21,201 Experiment INFO Continuous monitoring loop
+11:50:22,215 Experiment INFO Continuous monitoring loop
+11:50:23,230 Experiment INFO Continuous monitoring loop
+11:50:24,238 Experiment INFO Continuous monitoring loop
+11:50:25,253 Experiment INFO Continuous monitoring loop
+11:50:26,268 Experiment INFO Continuous monitoring loop
+11:50:27,283 Experiment INFO Continuous monitoring loop
+11:50:28,284 Experiment INFO Continuous monitoring loop
+11:50:29,296 Experiment INFO Continuous monitoring loop
+11:50:30,307 Experiment INFO Continuous monitoring loop
+11:50:31,323 Experiment INFO Continuous monitoring loop
+11:50:32,339 Experiment INFO Continuous monitoring loop
+11:50:33,352 Experiment INFO Continuous monitoring loop
+11:50:34,366 Experiment INFO Continuous monitoring loop
+11:50:35,378 Experiment INFO Continuous monitoring loop
+11:50:36,389 Experiment INFO Continuous monitoring loop
+11:50:37,403 Experiment INFO Continuous monitoring loop
+11:50:38,419 Experiment INFO Continuous monitoring loop
+11:50:39,430 Experiment INFO Continuous monitoring loop
+11:50:40,446 Experiment INFO Continuous monitoring loop
+11:50:41,448 Experiment INFO Continuous monitoring loop
+11:50:42,463 Experiment INFO Continuous monitoring loop
+11:50:43,475 Experiment INFO Continuous monitoring loop
+11:50:44,478 Experiment INFO Continuous monitoring loop
+11:50:45,489 Experiment INFO Continuous monitoring loop
+11:50:46,498 Experiment INFO Continuous monitoring loop
+11:50:47,514 Experiment INFO Continuous monitoring loop
+11:50:48,521 Experiment INFO Continuous monitoring loop
+11:50:49,534 Experiment INFO Continuous monitoring loop
+11:50:50,548 Experiment INFO Continuous monitoring loop
+11:50:51,561 Experiment INFO Continuous monitoring loop
+11:50:52,576 Experiment INFO Continuous monitoring loop
+11:50:53,588 Experiment INFO Continuous monitoring loop
+11:50:54,589 Experiment INFO Continuous monitoring loop
+11:50:55,603 Experiment INFO Continuous monitoring loop
+11:50:56,617 Experiment INFO Continuous monitoring loop
+11:50:57,627 Experiment INFO Continuous monitoring loop
+11:50:58,644 Experiment INFO Continuous monitoring loop
+11:50:59,661 Experiment INFO Continuous monitoring loop
+11:51:00,672 Experiment INFO Continuous monitoring loop
+11:51:01,683 Experiment INFO Continuous monitoring loop
+11:51:02,697 Experiment INFO Continuous monitoring loop
+11:51:03,712 Experiment INFO Continuous monitoring loop
+11:51:04,716 Experiment INFO Continuous monitoring loop
+11:51:05,729 Experiment INFO Continuous monitoring loop
+11:51:06,729 Experiment INFO Continuous monitoring loop
+11:51:07,744 Experiment INFO Continuous monitoring loop
+11:51:08,757 Experiment INFO Continuous monitoring loop
+11:51:09,771 Experiment INFO Continuous monitoring loop
+11:51:10,785 Experiment INFO Continuous monitoring loop
+11:51:11,786 Experiment INFO Continuous monitoring loop
+11:51:12,801 Experiment INFO Continuous monitoring loop
+11:51:13,816 Experiment INFO Continuous monitoring loop
+11:51:14,816 Experiment INFO Continuous monitoring loop
+11:51:15,828 Experiment INFO Continuous monitoring loop
+11:51:16,830 Experiment INFO Continuous monitoring loop
+11:51:17,842 Experiment INFO Continuous monitoring loop
+11:51:18,856 Experiment INFO Continuous monitoring loop
+11:51:19,871 Experiment INFO Continuous monitoring loop
+11:51:20,883 Experiment INFO Continuous monitoring loop
+11:51:21,897 Experiment INFO Continuous monitoring loop
+11:51:22,910 Experiment INFO Continuous monitoring loop
+11:51:23,921 Experiment INFO Continuous monitoring loop
+11:51:24,935 Experiment INFO Continuous monitoring loop
+11:51:25,936 Experiment INFO Continuous monitoring loop
+11:51:26,948 Experiment INFO Continuous monitoring loop
+11:51:27,958 Experiment INFO Continuous monitoring loop
+11:51:28,973 Experiment INFO Continuous monitoring loop
+11:51:29,985 Experiment INFO Continuous monitoring loop
+11:51:30,998 Experiment INFO Continuous monitoring loop
+11:51:32,12 Experiment INFO Continuous monitoring loop
+11:51:33,27 Experiment INFO Continuous monitoring loop
+11:51:34,40 Experiment INFO Continuous monitoring loop
+11:51:35,41 Experiment INFO Continuous monitoring loop
+11:51:36,51 Experiment INFO Continuous monitoring loop
+11:51:37,64 Experiment INFO Continuous monitoring loop
+11:51:38,76 Experiment INFO Continuous monitoring loop
+11:51:39,155 Experiment INFO Continuous monitoring loop
+11:51:40,219 Experiment INFO Continuous monitoring loop
+11:51:41,232 Experiment INFO Continuous monitoring loop
+11:51:42,243 Experiment INFO Continuous monitoring loop
+11:51:43,255 Experiment INFO Continuous monitoring loop
+11:51:44,269 Experiment INFO Continuous monitoring loop
+11:51:45,284 Experiment INFO Continuous monitoring loop
+11:51:46,295 Experiment INFO Continuous monitoring loop
+11:51:47,296 Experiment INFO Continuous monitoring loop
+11:51:48,306 Experiment INFO Continuous monitoring loop
+11:51:49,308 Experiment INFO Continuous monitoring loop
+11:51:50,331 Experiment INFO Continuous monitoring loop
+11:51:51,337 Experiment INFO Continuous monitoring loop
+11:51:52,351 Experiment INFO Continuous monitoring loop
+11:51:53,363 Experiment INFO Continuous monitoring loop
+11:51:54,383 Experiment INFO Continuous monitoring loop
+11:51:55,424 Experiment INFO Continuous monitoring loop
+11:51:56,436 Experiment INFO Continuous monitoring loop
+11:51:57,448 Experiment INFO Continuous monitoring loop
+11:51:58,457 Experiment INFO Continuous monitoring loop
+11:51:59,469 Experiment INFO Continuous monitoring loop
+11:52:00,480 Experiment INFO Continuous monitoring loop
+11:52:01,491 Experiment INFO Continuous monitoring loop
+11:52:02,505 Experiment INFO Continuous monitoring loop
+11:52:03,519 Experiment INFO Continuous monitoring loop
+11:52:04,530 Experiment INFO Continuous monitoring loop
+11:52:05,542 Experiment INFO Continuous monitoring loop
+11:52:06,551 Experiment INFO Continuous monitoring loop
+11:52:07,563 Experiment INFO Continuous monitoring loop
+11:52:08,579 Experiment INFO Continuous monitoring loop
+11:52:09,588 Experiment INFO Continuous monitoring loop
+11:52:10,616 Experiment INFO Continuous monitoring loop
+11:52:11,629 Experiment INFO Continuous monitoring loop
+11:52:12,360 Experiment INFO Init
+11:52:12,365 Experiment INFO Experiment status updated to: Idle
+11:52:12,644 Experiment INFO Continuous monitoring loop
+11:52:13,652 Experiment INFO Continuous monitoring loop
+11:52:14,663 Experiment INFO Continuous monitoring loop
+11:52:15,672 Experiment INFO Continuous monitoring loop
+11:52:16,679 Experiment INFO Continuous monitoring loop
+11:52:17,688 Experiment INFO Continuous monitoring loop
+11:52:18,702 Experiment INFO Continuous monitoring loop
+11:52:19,716 Experiment INFO Continuous monitoring loop
+11:52:20,732 Experiment INFO Continuous monitoring loop
+11:52:21,746 Experiment INFO Continuous monitoring loop
+11:52:44,951 Experiment INFO Init
+11:53:02,609 Experiment INFO Init
+11:53:02,615 Experiment INFO Continuous monitoring started
+11:53:02,615 Experiment INFO Continuous monitoring loop
+11:53:03,625 Experiment INFO Continuous monitoring loop
+11:53:04,639 Experiment INFO Continuous monitoring loop
+11:53:05,652 Experiment INFO Continuous monitoring loop
+11:53:06,668 Experiment INFO Continuous monitoring loop
+11:53:07,684 Experiment INFO Continuous monitoring loop
+11:53:08,699 Experiment INFO Continuous monitoring loop
+11:53:09,710 Experiment INFO Continuous monitoring loop
+11:53:10,723 Experiment INFO Continuous monitoring loop
+11:53:11,736 Experiment INFO Continuous monitoring loop
+11:53:12,745 Experiment INFO Continuous monitoring loop
+11:53:12,825 Experiment INFO Experiment status updated to: Stop
+11:53:13,759 Experiment INFO Continuous monitoring loop
+11:53:14,770 Experiment INFO Continuous monitoring loop
+11:53:15,787 Experiment INFO Continuous monitoring loop
+11:53:16,790 Experiment INFO Continuous monitoring loop
+11:53:17,806 Experiment INFO Continuous monitoring loop
+11:53:18,821 Experiment INFO Continuous monitoring loop
+11:53:19,834 Experiment INFO Continuous monitoring loop
+11:53:20,845 Experiment INFO Continuous monitoring loop
+11:53:21,859 Experiment INFO Continuous monitoring loop
+11:53:22,870 Experiment INFO Continuous monitoring loop
+11:53:23,872 Experiment INFO Continuous monitoring loop
+11:53:24,886 Experiment INFO Continuous monitoring loop
+11:53:25,887 Experiment INFO Continuous monitoring loop
+11:53:26,901 Experiment INFO Continuous monitoring loop
+11:53:27,917 Experiment INFO Continuous monitoring loop
+11:53:28,920 Experiment INFO Continuous monitoring loop
+11:53:29,936 Experiment INFO Continuous monitoring loop
+11:53:30,947 Experiment INFO Continuous monitoring loop
+11:53:31,958 Experiment INFO Continuous monitoring loop
+11:53:32,971 Experiment INFO Continuous monitoring loop
+11:53:33,984 Experiment INFO Continuous monitoring loop
+11:53:34,996 Experiment INFO Continuous monitoring loop
+11:53:36,10 Experiment INFO Continuous monitoring loop
+11:53:37,19 Experiment INFO Continuous monitoring loop
+11:53:38,31 Experiment INFO Continuous monitoring loop
+11:53:39,48 Experiment INFO Continuous monitoring loop
+11:53:40,62 Experiment INFO Continuous monitoring loop
+11:53:41,63 Experiment INFO Continuous monitoring loop
+11:53:42,73 Experiment INFO Continuous monitoring loop
+11:53:43,83 Experiment INFO Continuous monitoring loop
+11:53:44,96 Experiment INFO Continuous monitoring loop
+11:53:45,97 Experiment INFO Continuous monitoring loop
+11:53:46,114 Experiment INFO Continuous monitoring loop
+11:53:47,122 Experiment INFO Continuous monitoring loop
+11:53:48,144 Experiment INFO Continuous monitoring loop
+11:53:49,163 Experiment INFO Continuous monitoring loop
+11:56:24,677 Experiment INFO Init
+11:56:26,569 Experiment INFO Init
+11:56:26,577 Experiment INFO Continuous monitoring started
+11:56:26,578 Experiment INFO Continuous monitoring loop
+11:56:26,579 Experiment INFO Continuous monitoring stopped by user
+11:56:38,523 Experiment INFO Init
+11:56:40,567 Experiment INFO Init
+11:56:40,569 Experiment INFO Continuous monitoring started
+11:56:40,570 Experiment INFO Continuous monitoring loop
+11:56:40,570 Experiment INFO Continuous monitoring stopped by user
+11:57:34,284 Experiment INFO Init
+11:57:36,858 Experiment INFO Init
+11:57:36,860 Experiment INFO Experiment status updated to: Idle
+11:57:36,861 Experiment INFO Continuous monitoring started
+11:57:36,861 Experiment INFO Continuous monitoring loop
+11:57:37,868 Experiment INFO Continuous monitoring loop
+11:57:38,348 Experiment INFO Experiment status updated to: Stop
+11:57:38,883 Experiment INFO Continuous monitoring loop
+11:57:38,884 Experiment INFO Continuous monitoring stopped by user
+11:58:03,49 Experiment INFO Init
+11:58:25,164 Experiment INFO Init
+11:58:55,839 Experiment INFO Init
+11:59:31,478 Experiment INFO Init
+12:00:28,820 Experiment INFO Init
+12:02:20,833 Experiment INFO Init
+12:07:07,793 Experiment INFO Init
+12:12:32,768 Experiment INFO Init
+12:13:03,651 Experiment INFO Init
+12:17:17,806 Experiment INFO Init
+12:17:52,889 Experiment INFO Init
+12:17:52,894 Experiment INFO Experiment status updated to: Idle
+12:17:52,895 Experiment INFO Continuous monitoring started
+12:17:52,896 Experiment INFO Continuous monitoring loop
+12:17:53,898 Experiment INFO Continuous monitoring loop
+12:17:54,909 Experiment INFO Continuous monitoring loop
+12:17:55,924 Experiment INFO Continuous monitoring loop
+12:17:55,973 Experiment INFO Experiment status updated to: Stop
+12:17:56,938 Experiment INFO Continuous monitoring loop
+12:17:56,940 Experiment INFO Continuous monitoring stopped by user
+12:17:58,415 Experiment INFO Init
+12:17:58,417 Experiment INFO Experiment status updated to: Idle
+12:17:58,418 Experiment INFO Continuous monitoring started
+12:17:58,419 Experiment INFO Continuous monitoring loop
+12:17:59,432 Experiment INFO Continuous monitoring loop
+12:18:00,442 Experiment INFO Continuous monitoring loop
+12:18:01,458 Experiment INFO Continuous monitoring loop
+12:18:02,473 Experiment INFO Continuous monitoring loop
+12:18:03,484 Experiment INFO Continuous monitoring loop
+12:18:04,499 Experiment INFO Continuous monitoring loop
+12:18:05,208 Experiment INFO Experiment status updated to: Stop
+12:18:05,515 Experiment INFO Continuous monitoring loop
+12:18:05,516 Experiment INFO Continuous monitoring stopped by user
+12:20:03,42 Experiment INFO Init
+12:40:47,850 Experiment INFO Init
+12:40:53,171 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+12:40:53,171 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+12:40:53,175 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+12:40:53,176 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+12:40:53,177 Experiment INFO Experiment configuration saved
+12:40:57,452 Experiment INFO Positions saved successfully: 57 positions
+12:41:01,338 Experiment INFO Positions saved successfully: 57 positions
+12:41:01,342 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+12:41:01,343 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes', 'position_filtering', 'preview_focus', 'acquisition_focus', 'autofocus_method', 'steps']
+12:41:01,349 Experiment INFO Experiment configuration saved
+12:41:01,352 Experiment INFO Creating tasks with:
+12:41:01,352 Experiment INFO   Groups: ['Group 1']
+12:41:01,353 Experiment INFO   Protocols: ['hybe', 'strip']
+12:41:01,353 Experiment INFO   Rounds: 18
+12:41:01,353 Experiment INFO   Group assignments: {'A': 'Group 1'}
+12:41:01,354 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+12:41:01,357 Experiment INFO   Available wells: ['A']
+12:41:01,358 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+12:41:01,383 Experiment INFO Tasks created and saved successfully
+12:50:13,265 Experiment INFO Init
+12:50:16,101 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+12:50:16,101 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+12:50:16,103 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+12:50:16,103 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+12:50:31,748 Experiment INFO Init
+12:50:34,629 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+12:50:34,629 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+12:50:34,631 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+12:50:34,631 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+12:50:39,297 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+12:50:39,298 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes', 'position_filtering', 'preview_focus', 'acquisition_focus', 'autofocus_method', 'steps']
+12:51:20,227 Experiment INFO Init
+12:51:22,944 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+12:51:22,945 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+12:51:22,948 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+12:51:22,948 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+12:51:28,141 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+12:51:28,141 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes', 'position_filtering', 'preview_focus', 'acquisition_focus', 'autofocus_method', 'steps']
+12:51:56,412 Experiment INFO Init
+12:51:58,702 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+12:51:58,702 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+12:51:58,704 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+12:51:58,705 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+12:52:03,665 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+12:52:03,666 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes', 'position_filtering', 'preview_focus', 'acquisition_focus', 'autofocus_method', 'steps']
+12:52:03,673 Experiment INFO Creating tasks with:
+12:52:03,673 Experiment INFO   Groups: ['Group 1']
+12:52:03,673 Experiment INFO   Protocols: ['hybe', 'strip']
+12:52:03,674 Experiment INFO   Rounds: 18
+12:52:03,674 Experiment INFO   Group assignments: {'A': 'Group 1'}
+12:52:03,675 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+12:52:03,678 Experiment INFO   Available wells: ['A']
+12:52:03,679 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+12:52:03,704 Experiment INFO Tasks created and saved successfully
+12:57:30,594 Experiment INFO Init
+12:57:32,378 Experiment INFO Init
+12:57:32,384 Experiment INFO Experiment status updated to: Idle
+12:57:34,789 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+12:57:34,791 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+12:57:40,710 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+12:57:40,711 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes', 'position_filtering', 'preview_focus', 'acquisition_focus', 'autofocus_method', 'steps']
+12:57:40,729 Experiment INFO Creating tasks with:
+12:57:40,730 Experiment INFO   Groups: ['Group 1']
+12:57:40,730 Experiment INFO   Protocols: ['hybe', 'strip']
+12:57:40,731 Experiment INFO   Rounds: 18
+12:57:40,731 Experiment INFO   Group assignments: {'A': 'Group 1'}
+12:57:40,732 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+12:57:40,735 Experiment INFO   Available wells: ['A']
+12:57:40,735 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+12:57:40,760 Experiment INFO Tasks created and saved successfully
+12:58:47,645 Experiment INFO Init
+12:58:50,24 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+12:58:50,25 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+12:58:54,420 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+12:58:54,421 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes', 'position_filtering', 'preview_focus', 'acquisition_focus', 'autofocus_method', 'steps']
+12:58:54,427 Experiment INFO Creating tasks with:
+12:58:54,428 Experiment INFO   Groups: ['Group 1']
+12:58:54,428 Experiment INFO   Protocols: ['hybe', 'strip']
+12:58:54,429 Experiment INFO   Rounds: 18
+12:58:54,430 Experiment INFO   Group assignments: {'A': 'Group 1'}
+12:58:54,430 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+12:58:54,432 Experiment INFO   Available wells: ['A']
+12:58:54,433 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+12:58:54,458 Experiment INFO Tasks created and saved successfully
+13:00:19,860 Experiment INFO Init
+13:00:22,118 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+13:00:22,120 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+13:00:27,416 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+13:00:27,417 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes', 'position_filtering', 'preview_focus', 'acquisition_focus', 'autofocus_method', 'steps']
+13:00:27,424 Experiment INFO Creating tasks with:
+13:00:27,425 Experiment INFO   Groups: ['Group 1']
+13:00:27,425 Experiment INFO   Protocols: ['hybe', 'strip']
+13:00:27,426 Experiment INFO   Rounds: 18
+13:00:27,426 Experiment INFO   Group assignments: {'A': 'Group 1'}
+13:00:27,426 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+13:00:27,429 Experiment INFO   Available wells: ['A']
+13:00:27,429 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+13:00:27,454 Experiment INFO Tasks created and saved successfully
+13:02:25,631 Experiment INFO Init
+13:02:31,131 Experiment INFO Init
+13:02:31,141 Experiment INFO Experiment status updated to: Idle
+13:02:36,487 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+13:02:36,487 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+13:02:42,245 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+13:02:42,246 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes', 'position_filtering', 'preview_focus', 'acquisition_focus', 'autofocus_method', 'steps']
+13:02:42,253 Experiment INFO Creating tasks with:
+13:02:42,254 Experiment INFO   Groups: ['Group 1']
+13:02:42,254 Experiment INFO   Protocols: ['hybe', 'strip']
+13:02:42,254 Experiment INFO   Rounds: 18
+13:02:42,254 Experiment INFO   Group assignments: {'A': 'Group 1'}
+13:02:42,255 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+13:02:42,257 Experiment INFO   Available wells: ['A']
+13:02:42,257 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+13:02:42,280 Experiment INFO Tasks created and saved successfully
+13:24:52,280 Experiment INFO Init
+13:25:32,460 Experiment INFO Init
+13:26:55,274 Experiment INFO Init
+13:27:15,443 Experiment INFO Init
+13:27:17,716 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+13:27:17,717 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+13:27:23,249 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+13:27:23,249 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes', 'position_filtering', 'preview_focus', 'acquisition_focus', 'autofocus_method', 'steps']
+13:27:23,257 Experiment INFO Creating tasks with:
+13:27:23,257 Experiment INFO   Groups: ['Group 1']
+13:27:23,258 Experiment INFO   Protocols: ['hybe', 'strip']
+13:27:23,258 Experiment INFO   Rounds: 18
+13:27:23,259 Experiment INFO   Group assignments: {'A': 'Group 1'}
+13:27:23,259 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+13:27:23,261 Experiment INFO   Available wells: ['A']
+13:27:23,262 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+13:27:23,287 Experiment INFO Tasks created and saved successfully
+13:27:29,831 Experiment INFO Init
+13:27:29,840 Experiment INFO Experiment status updated to: Idle
+13:27:31,869 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+13:27:31,871 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+13:27:37,794 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+13:27:37,795 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes', 'position_filtering', 'preview_focus', 'acquisition_focus', 'autofocus_method', 'steps']
+13:27:37,802 Experiment INFO Creating tasks with:
+13:27:37,803 Experiment INFO   Groups: ['Group 1']
+13:27:37,803 Experiment INFO   Protocols: ['hybe', 'strip']
+13:27:37,804 Experiment INFO   Rounds: 18
+13:27:37,804 Experiment INFO   Group assignments: {'A': 'Group 1'}
+13:27:37,805 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+13:27:37,807 Experiment INFO   Available wells: ['A']
+13:27:37,808 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+13:27:37,832 Experiment INFO Tasks created and saved successfully
+13:30:09,790 Experiment INFO Init
+13:31:10,586 Experiment INFO Init
+13:33:06,357 Experiment INFO Init
+13:33:14,470 Experiment INFO Init
+13:33:14,483 Experiment INFO Experiment status updated to: Idle
+13:33:14,485 Experiment INFO Continuous monitoring started
+13:33:14,486 Experiment INFO Continuous monitoring loop
+13:33:15,490 Experiment INFO Continuous monitoring loop
+13:33:16,495 Experiment INFO Continuous monitoring loop
+13:33:16,650 Experiment INFO Experiment status updated to: Stop
+13:33:17,507 Experiment INFO Continuous monitoring loop
+13:33:17,508 Experiment INFO Continuous monitoring stopped by user
+13:33:19,483 Experiment INFO Init
+13:33:19,489 Experiment INFO Experiment status updated to: Idle
+13:33:21,390 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+13:33:21,390 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+13:47:57,655 Experiment INFO Init
+13:47:57,657 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+13:47:57,660 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+13:49:30,50 Experiment INFO Init
+13:49:30,51 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+13:49:30,53 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+13:52:28,942 Experiment INFO Init
+13:52:28,945 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+13:52:28,946 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+13:53:06,676 Experiment INFO Init
+13:53:06,678 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+13:53:06,679 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+13:54:24,971 Experiment INFO Init
+13:54:24,973 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+13:54:24,974 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+14:09:54,198 Experiment INFO Init
+14:09:54,201 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+14:09:54,204 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+14:24:20,984 Experiment INFO Init
+14:24:20,985 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+14:24:20,987 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+14:26:35,328 Experiment INFO Init
+14:26:35,330 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+14:26:35,332 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+15:04:56,72 Experiment INFO Init
+15:04:56,74 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+15:04:56,75 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+15:15:28,350 Experiment INFO Init
+15:15:28,352 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+15:15:28,353 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+15:16:26,478 Experiment INFO Init
+15:16:26,480 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+15:16:26,481 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+15:17:29,331 Experiment INFO Init
+15:17:29,333 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+15:17:29,335 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+15:19:37,768 Experiment INFO Init
+15:19:37,770 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+15:19:37,772 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+15:24:07,696 Experiment INFO Init
+15:24:07,698 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+15:24:07,700 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+15:26:59,264 Experiment INFO Init
+15:26:59,266 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+15:26:59,268 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+15:27:14,44 Experiment INFO Init
+15:27:14,45 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+15:27:14,47 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+15:27:14,51 Experiment INFO Experiment status updated to: Idle
+18:51:49,511 Experiment INFO Init
+18:51:49,514 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+18:51:49,516 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+18:51:53,4 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+18:51:53,5 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+18:51:58,691 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+18:51:58,692 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes', 'position_filtering', 'preview_focus', 'acquisition_focus', 'autofocus_method', 'steps']
+18:51:58,705 Experiment INFO Creating tasks with:
+18:51:58,705 Experiment INFO   Groups: ['Group 1']
+18:51:58,706 Experiment INFO   Protocols: ['hybe', 'strip']
+18:51:58,706 Experiment INFO   Rounds: 18
+18:51:58,707 Experiment INFO   Group assignments: {'A': 'Group 1'}
+18:51:58,707 Experiment INFO   Fluidics well assignments: {'A': 'A'}
+18:51:58,717 Experiment INFO   Available wells: ['A']
+18:51:58,718 Experiment INFO   Single group 'Group 1' has wells: ['A'], fluidics wells: 'A'
+18:51:58,735 Experiment INFO Tasks created and saved successfully
+18:52:41,302 Experiment INFO Init
+18:52:41,311 Experiment INFO Tasks loaded successfully:                         Scope           Fluidics  Experiment
+0                         NaN     hybe*[A]*hybe1         NaN
+1     Acquire*[Group 1]*hybe1                NaN         NaN
+2                         NaN   strip*[A]*strip1         NaN
+3    Acquire*[Group 1]*strip1                NaN         NaN
+4                         NaN     hybe*[A]*hybe2         NaN
+..                        ...                ...         ...
+67  Acquire*[Group 1]*strip17                NaN         NaN
+68                        NaN    hybe*[A]*hybe18         NaN
+69   Acquire*[Group 1]*hybe18                NaN         NaN
+70                        NaN  strip*[A]*strip18         NaN
+71  Acquire*[Group 1]*strip18                NaN         NaN
+
+[72 rows x 3 columns]
+18:52:41,326 Experiment INFO Positions loaded successfully:       position_name well        X            Y       Z
+0   WellA_Xi-3_Yi-3    A   7221.7  116206.6944  1000.0
+1   WellA_Xi-3_Yi-2    A   7221.7  117471.1296  1000.0
+2   WellA_Xi-3_Yi-1    A   7221.7  118735.5648  1000.0
+3    WellA_Xi-3_Yi0    A   7221.7  120000.0000  1000.0
+4    WellA_Xi-3_Yi1    A   7221.7  121264.4352  1000.0
+5    WellA_Xi-3_Yi2    A   7221.7  122528.8704  1000.0
+6    WellA_Xi-3_Yi3    A   7221.7  123793.3056  1000.0
+7   WellA_Xi-2_Yi-3    A   8147.8  116206.6944  1000.0
+8   WellA_Xi-2_Yi-2    A   8147.8  117471.1296  1000.0
+9   WellA_Xi-2_Yi-1    A   8147.8  118735.5648  1000.0
+10   WellA_Xi-2_Yi0    A   8147.8  120000.0000  1000.0
+11   WellA_Xi-2_Yi1    A   8147.8  121264.4352  1000.0
+12   WellA_Xi-2_Yi2    A   8147.8  122528.8704  1000.0
+13   WellA_Xi-2_Yi3    A   8147.8  123793.3056  1000.0
+14  WellA_Xi-1_Yi-3    A   9073.9  116206.6944  1000.0
+15  WellA_Xi-1_Yi-2    A   9073.9  117471.1296  1000.0
+16  WellA_Xi-1_Yi-1    A   9073.9  118735.5648  1000.0
+17   WellA_Xi-1_Yi0    A   9073.9  120000.0000  1000.0
+18   WellA_Xi-1_Yi1    A   9073.9  121264.4352  1000.0
+19   WellA_Xi-1_Yi2    A   9073.9  122528.8704  1000.0
+20   WellA_Xi-1_Yi3    A   9073.9  123793.3056  1000.0
+21   WellA_Xi0_Yi-3    A  10000.0  116206.6944  1000.0
+22   WellA_Xi0_Yi-2    A  10000.0  117471.1296  1000.0
+23   WellA_Xi0_Yi-1    A  10000.0  118735.5648  1000.0
+24    WellA_Xi0_Yi0    A  10000.0  120000.0000  1000.0
+25    WellA_Xi0_Yi1    A  10000.0  121264.4352  1000.0
+26    WellA_Xi0_Yi2    A  10000.0  122528.8704  1000.0
+27    WellA_Xi0_Yi3    A  10000.0  123793.3056  1000.0
+28   WellA_Xi1_Yi-3    A  10926.1  116206.6944  1000.0
+29   WellA_Xi1_Yi-2    A  10926.1  117471.1296  1000.0
+30   WellA_Xi1_Yi-1    A  10926.1  118735.5648  1000.0
+31    WellA_Xi1_Yi0    A  10926.1  120000.0000  1000.0
+32    WellA_Xi1_Yi1    A  10926.1  121264.4352  1000.0
+33    WellA_Xi1_Yi2    A  10926.1  122528.8704  1000.0
+34    WellA_Xi1_Yi3    A  10926.1  123793.3056  1000.0
+35   WellA_Xi2_Yi-3    A  11852.2  116206.6944  1000.0
+36   WellA_Xi2_Yi-2    A  11852.2  117471.1296  1000.0
+37   WellA_Xi2_Yi-1    A  11852.2  118735.5648  1000.0
+38    WellA_Xi2_Yi0    A  11852.2  120000.0000  1000.0
+39    WellA_Xi2_Yi1    A  11852.2  121264.4352  1000.0
+40    WellA_Xi2_Yi2    A  11852.2  122528.8704  1000.0
+41    WellA_Xi2_Yi3    A  11852.2  123793.3056  1000.0
+42   WellA_Xi3_Yi-3    A  12778.3  116206.6944  1000.0
+43   WellA_Xi3_Yi-2    A  12778.3  117471.1296  1000.0
+44   WellA_Xi3_Yi-1    A  12778.3  118735.5648  1000.0
+45    WellA_Xi3_Yi0    A  12778.3  120000.0000  1000.0
+46    WellA_Xi3_Yi1    A  12778.3  121264.4352  1000.0
+47    WellA_Xi3_Yi2    A  12778.3  122528.8704  1000.0
+48    WellA_Xi3_Yi3    A  12778.3  123793.3056  1000.0
+49   WellA_Xi4_Yi-2    A  13704.4  117471.1296  1000.0
+50   WellA_Xi4_Yi-1    A  13704.4  118735.5648  1000.0
+51    WellA_Xi4_Yi0    A  13704.4  120000.0000  1000.0
+52    WellA_Xi4_Yi1    A  13704.4  121264.4352  1000.0
+53    WellA_Xi4_Yi2    A  13704.4  122528.8704  1000.0
+54   WellA_Xi5_Yi-1    A  14630.5  118735.5648  1000.0
+55    WellA_Xi5_Yi0    A  14630.5  120000.0000  1000.0
+56    WellA_Xi5_Yi1    A  14630.5  121264.4352  1000.0
+18:52:41,335 Experiment INFO Experiment status updated to: Idle
+18:55:08,873 Experiment INFO Init
+18:55:08,875 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+18:55:08,876 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+18:59:54,217 Experiment INFO Init
+18:59:54,219 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+18:59:54,220 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+19:02:03,29 Experiment INFO Init
+19:02:03,31 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+19:02:03,33 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+19:03:15,659 Experiment INFO Init
+19:03:15,661 Experiment INFO Tasks loaded successfully: Empty DataFrame
+Columns: []
+Index: []
+19:03:15,663 Experiment INFO Positions loaded successfully: Empty DataFrame
+Columns: [position_name, well, X, Y, Z]
+Index: []
+19:50:46,702 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+19:50:46,703 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+20:08:36,525 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+20:08:36,526 Experiment INFO Experiment state updated: ['experiment_name', 'user_name', 'project_name', 'save_path', 'system_name']
+20:15:22,691 Experiment INFO Experiment state saved to C:\GitRepos\pyScope\State\Experiment_state.json
+20:15:22,692 Experiment INFO Experiment state updated: ['group_assignments', 'groups', 'fluidics_well_assignments', 'selected_channels', 'channel_exposure', 'channel_delay', 'fluidics_protocols', 'num_hybes', 'position_filtering', 'preview_focus', 'acquisition_focus', 'autofocus_method', 'steps']
+20:15:22,705 Experiment INFO Creating tasks with:
+20:15:22,706 Experiment INFO   Groups: ['Group 1', 'None', 'Group 2']
+20:15:22,706 Experiment INFO   Protocols: ['hybe', 'strip']
+20:15:22,706 Experiment INFO   Rounds: 18
+20:15:22,706 Experiment INFO   Group assignments: {'A1': 'Group 1', 'A2': 'Group 1', 'A3': 'Group 2', 'B1': 'Group 2', 'B2': 'None', 'B3': 'None'}
+20:15:22,707 Experiment INFO   Fluidics well assignments: {'A1': 'A', 'A2': 'B', 'A3': 'C', 'B1': 'D', 'B2': 'E', 'B3': 'F'}
+20:15:22,714 Experiment INFO   Available wells: ['A1', 'A2', 'A3', 'B1']
+20:15:22,749 Experiment INFO Tasks created and saved successfully
+20:43:55,109 Experiment INFO Init
+20:43:55,116 Experiment INFO Tasks loaded successfully:     Scope                              Fluidics                Experiment
+0                                        hybe*[A,B]*hybe1             NaN
+1     Acquire*[['A1', 'A2']]*hybe1       hybe*[C,D]*hybe1             NaN
+2     Acquire*[['A3', 'B1']]*hybe1       strip*[A,B]*strip1           NaN
+3     Acquire*[['A1', 'A2']]*strip1      strip*[C,D]*strip1           NaN
+4     Acquire*[['A3', 'B1']]*strip1      hybe*[A,B]*hybe2             NaN
+..                                ...                     ...         ...
+68    Acquire*[['A3', 'B1']]*strip17     hybe*[A,B]*hybe18            NaN
+69    Acquire*[['A1', 'A2']]*hybe18      hybe*[C,D]*hybe18            NaN
+70    Acquire*[['A3', 'B1']]*hybe18      strip*[A,B]*strip18          NaN
+71    Acquire*[['A1', 'A2']]*strip18     strip*[C,D]*strip18          NaN
+72    Acquire*[['A3', 'B1']]*strip18                                  NaN
+
+[73 rows x 3 columns]
+20:43:55,122 Experiment INFO Positions loaded successfully:     position_name well        X         Y    Z
+0  WellA1_Xi0_Yi0   A1   9000.0  119500.0  0.0
+1  WellA2_Xi0_Yi0   A2  10000.0  119500.0  0.0
+2  WellA3_Xi0_Yi0   A3  11000.0  119500.0  0.0
+3  WellB1_Xi0_Yi0   B1   9000.0  120500.0  0.0
+20:43:55,123 Experiment INFO Continuous monitoring started
+20:43:55,124 Experiment INFO New Message: Idle
+20:45:35,367 Experiment INFO Experiment status updated to: Stop
+20:45:36,242 Experiment INFO New Message: Stop
+20:45:36,243 Experiment INFO Continuous monitoring stopped by user
+20:45:36,246 Experiment INFO Experiment status updated to: offline
+20:45:36,247 Experiment INFO Continuous monitoring terminated - status set to offline
+20:48:05,301 Experiment INFO Init
+20:48:05,309 Experiment INFO Tasks loaded successfully:     Scope                              Fluidics                Experiment
+0                                        hybe*[A,B]*hybe1             NaN
+1     Acquire*[['A1', 'A2']]*hybe1       hybe*[C,D]*hybe1             NaN
+2     Acquire*[['A3', 'B1']]*hybe1       strip*[A,B]*strip1           NaN
+3     Acquire*[['A1', 'A2']]*strip1      strip*[C,D]*strip1           NaN
+4     Acquire*[['A3', 'B1']]*strip1      hybe*[A,B]*hybe2             NaN
+..                                ...                     ...         ...
+68    Acquire*[['A3', 'B1']]*strip17     hybe*[A,B]*hybe18            NaN
+69    Acquire*[['A1', 'A2']]*hybe18      hybe*[C,D]*hybe18            NaN
+70    Acquire*[['A3', 'B1']]*hybe18      strip*[A,B]*strip18          NaN
+71    Acquire*[['A1', 'A2']]*strip18     strip*[C,D]*strip18          NaN
+72    Acquire*[['A3', 'B1']]*strip18                                  NaN
+
+[73 rows x 3 columns]
+20:48:05,316 Experiment INFO Positions loaded successfully:     position_name well        X         Y    Z
+0  WellA1_Xi0_Yi0   A1   9000.0  119500.0  0.0
+1  WellA2_Xi0_Yi0   A2  10000.0  119500.0  0.0
+2  WellA3_Xi0_Yi0   A3  11000.0  119500.0  0.0
+3  WellB1_Xi0_Yi0   B1   9000.0  120500.0  0.0
+20:50:07,694 Experiment INFO Init
+20:50:07,707 Experiment INFO Tasks loaded successfully:     Scope                              Fluidics                Experiment
+0                                        hybe*[A,B]*hybe1             NaN
+1     Acquire*[['A1', 'A2']]*hybe1       hybe*[C,D]*hybe1             NaN
+2     Acquire*[['A3', 'B1']]*hybe1       strip*[A,B]*strip1           NaN
+3     Acquire*[['A1', 'A2']]*strip1      strip*[C,D]*strip1           NaN
+4     Acquire*[['A3', 'B1']]*strip1      hybe*[A,B]*hybe2             NaN
+..                                ...                     ...         ...
+68    Acquire*[['A3', 'B1']]*strip17     hybe*[A,B]*hybe18            NaN
+69    Acquire*[['A1', 'A2']]*hybe18      hybe*[C,D]*hybe18            NaN
+70    Acquire*[['A3', 'B1']]*hybe18      strip*[A,B]*strip18          NaN
+71    Acquire*[['A1', 'A2']]*strip18     strip*[C,D]*strip18          NaN
+72    Acquire*[['A3', 'B1']]*strip18                                  NaN
+
+[73 rows x 3 columns]
+20:50:07,713 Experiment INFO Positions loaded successfully:     position_name well        X         Y    Z
+0  WellA1_Xi0_Yi0   A1   9000.0  119500.0  0.0
+1  WellA2_Xi0_Yi0   A2  10000.0  119500.0  0.0
+2  WellA3_Xi0_Yi0   A3  11000.0  119500.0  0.0
+3  WellB1_Xi0_Yi0   B1   9000.0  120500.0  0.0
+20:50:07,715 Experiment INFO Continuous monitoring started
+20:50:07,715 Experiment INFO New Message: offline
+10:35:58,571 Experiment INFO Experiment status updated to: Stop
+10:35:59,498 Experiment INFO New Message: Stop
+10:35:59,499 Experiment INFO Continuous monitoring stopped by user
+10:35:59,502 Experiment INFO Experiment status updated to: offline
+10:35:59,504 Experiment INFO Continuous monitoring terminated - status set to offline

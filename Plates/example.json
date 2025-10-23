@@ -1,0 +1,26 @@
+{
+  "circle_well_example": {
+    "center": {
+      "X": 1000,
+      "Y": 2000,
+      "Z": 50
+    },
+    "shape": "circle",
+    "dimensions": {
+      "radius": 500
+    }
+  },
+  "rectangle_well_example": {
+    "center": {
+      "X": 5500,
+      "Y": 2000,
+      "Z": 55
+    },
+    "shape": "rectangle",
+    "dimensions": {
+      "width": 1200,
+      "height": 800
+    },
+    "rotation": 30
+  }
+}

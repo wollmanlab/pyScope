@@ -1,0 +1,19 @@
+# Development dependencies for pyScope
+# Install with: pip install -r requirements.txt -r requirements-dev.txt
+
+# Testing
+pytest>=6.0
+pytest-cov>=2.0
+
+# Code formatting and linting
+black>=21.0
+flake8>=3.8
+mypy>=0.800
+
+# Documentation
+sphinx>=4.0
+sphinx-rtd-theme>=0.5
+
+# Additional development tools
+pre-commit>=2.0
+tox>=3.0

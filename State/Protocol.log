@@ -1,0 +1,111 @@
+15:03:04,837 Protocol INFO Executing Protocol:
+15:03:04,843 Protocol INFO     port volume speed pause direction time_estimate
+0      A      4   0.5     0   Reverse          20.0
+1  Waste      4   0.5     0   Forward          20.0
+2             0   0.5     1      Wait           2.0
+3    TBS    1.0   0.5     0   Reverse          5.75
+4      A    1.0   0.5     0   Forward          5.75
+5             0   0.5     1      Wait           2.0
+6             0   0.5   0.0      Wait           1.0
+15:05:13,687 Protocol INFO Executing Protocol:
+15:05:13,694 Protocol INFO     port volume speed pause direction time_estimate
+0      A      4   0.5     0   Reverse          20.0
+1  Waste      4   0.5     0   Forward          20.0
+2             0   0.5     1      Wait           2.0
+3    TBS    1.0   0.5     0   Reverse          5.75
+4      A    1.0   0.5     0   Forward          5.75
+5             0   0.5     1      Wait           2.0
+6             0   0.5   0.0      Wait           1.0
+15:12:33,744 Protocol INFO Executing Protocol:
+15:12:33,749 Protocol INFO     port volume speed pause direction time_estimate
+0      A      4   0.5     0   Reverse          20.0
+1  Waste      4   0.5     0   Forward          20.0
+2             0   0.5     1      Wait           2.0
+3    TBS    1.0   0.5     0   Reverse          5.75
+4      A    1.0   0.5     0   Forward          5.75
+5             0   0.5     1      Wait           2.0
+6             0   0.5   0.0      Wait           1.0
+15:17:41,857 Protocol INFO Executing Protocol:
+15:17:41,863 Protocol INFO     port volume speed pause direction time_estimate
+0      A      4   0.5     0   Reverse          20.0
+1  Waste      4   0.5     0   Forward          20.0
+2             0   0.5     1      Wait           2.0
+3    TBS    1.0   0.5     0   Reverse          5.75
+4      A    1.0   0.5     0   Forward          5.75
+5             0   0.5     1      Wait           2.0
+6             0   0.5   0.0      Wait           1.0
+15:19:57,10 Protocol INFO Executing Protocol:
+15:19:57,16 Protocol INFO     port volume speed pause direction time_estimate
+0      A      4   0.5     0   Reverse          20.0
+1  Waste      4   0.5     0   Forward          20.0
+2             0   0.5     1      Wait           2.0
+3    TBS    1.0   0.5     0   Reverse          5.75
+4      A    1.0   0.5     0   Forward          5.75
+5             0   0.5     1      Wait           2.0
+6             0   0.5   0.0      Wait           1.0
+15:27:40,700 Protocol INFO Executing Protocol:
+15:27:40,706 Protocol INFO     port volume speed pause direction time_estimate
+0      A      4   0.5     0   Reverse          20.0
+1  Waste      4   0.5     0   Forward          20.0
+2             0   0.5     1      Wait           2.0
+3    TBS    1.0   0.5     0   Reverse          5.75
+4      A    1.0   0.5     0   Forward          5.75
+5             0   0.5     1      Wait           2.0
+6             0   0.5   0.0      Wait           1.0
+15:37:58,672 Protocol INFO Executing Protocol:
+15:37:58,678 Protocol INFO      port volume speed pause direction time_estimate
+0       A      4   0.5     0   Reverse          20.0
+1   Waste      4   0.5     0   Forward          20.0
+2              0   0.5     1      Wait           2.0
+3     TBS    1.0   0.5     0   Reverse          5.75
+4       A    1.0   0.5     0   Forward          5.75
+5              0   0.5     1      Wait           2.0
+6       B      4   0.5     0   Reverse          20.0
+7   Waste      4   0.5     0   Forward          20.0
+8              0   0.5     1      Wait           2.0
+9     TBS    1.0   0.5     0   Reverse          5.75
+10      B    1.0   0.5     0   Forward          5.75
+11             0   0.5     1      Wait           2.0
+12      C      4   0.5     0   Reverse          20.0
+13  Waste      4   0.5     0   Forward          20.0
+14             0   0.5     1      Wait           2.0
+15    TBS    1.0   0.5     0   Reverse          5.75
+16      C    1.0   0.5     0   Forward          5.75
+17             0   0.5     1      Wait           2.0
+18             0   0.5   0.0      Wait           1.0
+20:31:14,664 Protocol INFO Executing Protocol:
+20:31:14,670 Protocol INFO     port volume speed pause direction time_estimate
+0      A      4   0.5     0   Reverse          20.0
+1  Waste      4   0.5     0   Forward          20.0
+2             0   0.5     1      Wait           2.0
+3    TBS    1.0   0.5     0   Reverse          5.75
+4      A    1.0   0.5     0   Forward          5.75
+5             0   0.5     1      Wait           2.0
+6             0   0.5   0.0      Wait           1.0
+20:33:27,580 Protocol INFO Executing Protocol:
+20:33:27,586 Protocol INFO     port volume speed pause direction time_estimate
+0      A      4   0.5     0   Reverse          20.0
+1  Waste      4   0.5     0   Forward          20.0
+2             0   0.5     1      Wait           2.0
+3    TBS    1.0   0.5     0   Reverse          5.75
+4      A    1.0   0.5     0   Forward          5.75
+5             0   0.5     1      Wait           2.0
+6             0   0.5   0.0      Wait           1.0
+10:37:36,332 Protocol INFO Executing Protocol:
+10:37:36,342 Protocol INFO     port volume speed pause direction time_estimate
+0      A      4   0.5     0   Reverse          20.0
+1  Waste      4   0.5     0   Forward          20.0
+2             0   0.5     1      Wait           2.0
+3    TBS    1.0   0.5     0   Reverse          5.75
+4      A    1.0   0.5     0   Forward          5.75
+5             0   0.5     1      Wait           2.0
+6             0   0.5   0.0      Wait           1.0
+10:38:48,616 Protocol INFO Executing Protocol:
+10:38:48,630 Protocol INFO     port volume speed pause direction time_estimate
+0      A      4   0.5     0   Reverse          20.0
+1  Waste      4   0.5     0   Forward          20.0
+2             0   0.5     1      Wait           2.0
+3    TBS    1.0   0.5     0   Reverse          5.75
+4      A    1.0   0.5     0   Forward          5.75
+5             0   0.5     1      Wait           2.0
+6             0   0.5   0.0      Wait           1.0

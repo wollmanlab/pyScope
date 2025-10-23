@@ -1,0 +1,46 @@
+{
+  "A1": {
+    "center": {
+      "X": 0,
+      "Y": 0,
+      "Z": 0
+    },
+    "shape": "circle",
+    "dimensions": {
+      "radius": 500
+    }
+  },
+  "A2": {
+    "center": {
+      "X": 1000,
+      "Y": 0,
+      "Z": 0
+    },
+    "shape": "circle",
+    "dimensions": {
+      "radius": 500
+    }
+  },
+  "B1": {
+    "center": {
+      "X": 0,
+      "Y": 1000,
+      "Z": 0
+    },
+    "shape": "circle",
+    "dimensions": {
+      "radius": 500
+    }
+  },
+  "B2": {
+    "center": {
+      "X": 1000,
+      "Y": 1000,
+      "Z": 0
+    },
+    "shape": "circle",
+    "dimensions": {
+      "radius": 500
+    }
+  }
+}
