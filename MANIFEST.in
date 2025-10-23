@@ -1,0 +1,31 @@
+# Include README and documentation
+include README.md
+include LICENSE
+include requirements.txt
+include requirements-dev.txt
+
+# Include batch files and scripts
+include run_experiment.bat
+include create_shortcut.ps1
+
+# Include all JSON configuration files
+recursive-include Plates *.json
+recursive-include State *.json *.csv *.txt *.log *.pos
+
+# Include Arduino code files
+recursive-include Fluidics/Pumps/Arduino_Syringe_V2 *.txt *.ino
+
+# Include diagram files
+recursive-include Fluidics/Diagrams *.png
+
+# Include example files
+recursive-include . *.py *.ipynb
+
+# Exclude cache and temporary files
+global-exclude __pycache__
+global-exclude *.py[co]
+global-exclude .DS_Store
+global-exclude .git*
+global-exclude .pytest_cache
+global-exclude .coverage
+global-exclude *.egg-info
