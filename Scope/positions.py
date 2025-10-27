@@ -67,14 +67,8 @@ class Positions:
                     if limits is None:
                         raise ValueError("limits are required")
                     self.limits = limits
-                    
-                    # Initialize file handler
                     self.file_handler = file_handler if file_handler is not None else FileHandler()
-                    
-                    # Initialize empty DataFrame with columns for positions only
-                    self.positions = pd.DataFrame(columns=[
-                        'position_name', 'well', 'X', 'Y', 'Z'
-                    ])
+                    self.positions = pd.DataFrame(columns=['position_name', 'well', 'X', 'Y', 'Z'])
                     
 
     def log(self, message, level='info'):
@@ -754,74 +748,3 @@ class Positions:
         return positions
 
 
-
-
-# --- Example Usage ---
-if __name__ == '__main__':
-    # Configure the root logger for the script
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        datefmt='%Y-%m-%d %H:%M:%S'
-    )
-
-    # Define microscope configuration
-    microscope_config = {
-        'fov_info': {
-            'X': 200, 
-            'Y': 200, 
-            'Overlap': 0.10
-        },
-        'offsets': {'X': 100, 'Y': 200, 'Z': 0},
-        'axis_mapping': {'stage_x': 'plate_x', 'stage_y': 'plate_y'},
-        'limits': {'X': (0, 10000), 'Y': (0, 10000), 'Z': (0, 1000)}
-    }
-    
-    # Create save directory if it doesn't exist
-    save_dir = "example_positions"
-    if not os.path.exists(save_dir):
-        os.makedirs(save_dir)
-        print(f"Created directory: {save_dir}")
-    
-    # Create a Positions object
-    positions = Positions(
-        fov_info=microscope_config['fov_info'],
-        offsets=microscope_config['offsets'],
-        axis_mapping=microscope_config['axis_mapping'],
-        limits=microscope_config['limits'],
-        save_dir=save_dir
-    )
-    
-    print("GUI functionality has been moved to SystemGUI.")
-    print("Please use 'python experiment.py' to access the consolidated GUI interface.")
-    
-    # Example of loading positions from position files (both .pos and .csv)
-    # well_file_mapping = {
-    #     'A1': 'State/PositionListA.pos',  # Micro-Manager .pos file
-    #     'A2': 'State/positions.csv'       # CSV file with same format as positions DataFrame
-    # }
-    # positions.load_positions_from_files(well_file_mapping)
-    
-    # For now, just create some example positions
-    result = {'type': 'example', 'total_positions': 0}
-    
-    if result:
-        print(f"\nSuccessfully created positions!")
-        print(f"Configuration: {result['type']}")
-        if result['type'] == 'existing_plate':
-            print(f"Plate: {result['plate_name']}")
-            print(f"Selected wells: {result['selected_wells']}")
-            print(f"Total positions: {result['total_positions']}")
-        elif result['type'] == 'custom_grid':
-            print(f"Selected wells: {result['selected_wells']}")
-            print(f"Total positions: {result['total_positions']}")
-        elif result['type'] == 'custom_manual':
-            print(f"Selected wells: {result['selected_wells']}")
-            print(f"Total positions: {result['total_positions']}")
-        
-        # Show position details
-        print(f"\nPosition Details:")
-        print(positions.positions.to_string(index=False))
-        
-    else:
-        print("Operation cancelled or failed.")

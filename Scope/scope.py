@@ -105,14 +105,10 @@ class Scope:
             if not os.path.exists(config_path):
                 self.log(f"Config file not found: {config_path}", level='warning')
                 return []
-            
             channels = []
-            
             with open(config_path, 'r') as f:
                 for line_num, line in enumerate(f, 1):
                     line = line.strip()
-                    
-                    # Skip empty lines and comments
                     if not line or line.startswith('#'):
                         continue
                     
@@ -144,6 +140,17 @@ class Scope:
     def log(self, message, level='info'):
         """Log messages using FileHandler's logging system."""
         self.file_handler.log(message, level=level, system_prefix='Scope')
+
+    def _initialize_core(self):
+        """Initialize Micro-Manager core connection."""
+        try:
+            self.core = Core()
+            self.core_enabled = True
+            self.log("Micro-Manager core connection established")
+        except Exception as e:
+            self.log(f"Micro-Manager is not running: {e}", level='warning')
+            self.core = None
+            self.core_enabled = False
 
     def continuous_monitoring(self):
         self.last_message = ''
@@ -179,37 +186,11 @@ class Scope:
         """Execute the protocol."""
         self.log(f"Executing Protocol: {message}")
         protocol,chambers,name,other = self.decode_message(message)
-
-        positions = self.file_handler.Positions
-        positions = positions[positions['well'].isin(chambers)]
-        # FIXME: Optimize order
-
-
-        acquisition_data = self.file_handler.get_state("Experiment")
-
-
-        channels = {}
-        selected_channels = acquisition_data['selected_channels']
-        for channel in selected_channels:
-            channels[channel] = {
-                'Channel': channel,
-                'Exposure': acquisition_data['channel_exposure'][channel],
-                'Delay': acquisition_data['channel_delay'][channel]
-            }
-
-        dZ = acquisition_data['steps']
-        if dZ['start'] == dZ['end']:
-            steps = [float(dZ['start'])]   
-        else:
-            steps = [float(i) for i in np.arange(dZ['start'], dZ['end'], dZ['dz'])]
-
-
         if protocol == 'SetInitialFocus': #FIXME "SetInitialFocus*[['A1', 'A2','A3','B1']]*ManualWell" 
             self.log(f"Setting initial focus for: {chambers}, {name}, {other}")
             self.set_initial_focus(chambers,name,other)
         elif protocol == 'FilterPositions': #FIXME "FilterPositions*[['A1', 'A2','A3','B1']]*Draw" 
             self.log(f"Filtering positions for: {chambers}, {name}, {other}")
-            self.log("Not implemented yet")
             # self.filter_positions(chambers,name,other)
         elif protocol == 'SetFocus': #FIXME "SetFocus*[['A1', 'A2','A3','B1']]*RelativePlane" 
             self.log(f"Setting focus for: {chambers}, {name}, {other}")
@@ -220,12 +201,28 @@ class Scope:
             self.acquire(chambers,name,other)
         else:
             self.log(f"Unknown protocol: {protocol}", level='warning')
-                
         # Clean up task files after protocol completion (both real and simulated)
         self.file_handler.save_task_idx("Scope", 0)
         self.file_handler.delete_tasks("Scope")
         self.status = "Idle"
         self.simulate = False
+
+    def decode_message(self, message):
+        """Decode the message."""
+        protocol,chambers,other = message.split('*')
+        if '+' in other:
+            name = other.split('+')[0]
+            other = other.split('+')[1]
+        else:
+            name = other
+            other = ''
+        chambers = chambers[1:-1].split(',')
+        if '!' in other:
+            other = other.split('!')[0]
+            self.simulate = True
+        else:
+            self.simulate = False
+        return protocol,chambers,name,other
 
     def acquire(self,chambers,acquisition_name,other,acquisition_data=None,positions=None):
         if acquisition_data is None:
@@ -261,8 +258,8 @@ class Scope:
             self.file_handler.setup_acquisition(chamber_acquisition_name)
             chamber_positions = positions[positions['well'] == chamber].copy()
             # chamber_positions = self.AutoFocus.update_focus(chamber_positions)#FIXME: self.autofocus()
-            for position in chamber_positions['position_name']:
-                self.log(f"Acquiring images for: {position}")
+            for _, position in chamber_positions.iterrows():
+                self.log(f"Acquiring images for: {position['position_name']}")
                 current_idx+=1
                 self.file_handler.save_task_idx("Scope", current_idx)
                 self.XYZ = (position['X'], position['Y'], position['Z'])
@@ -273,7 +270,7 @@ class Scope:
                     if step != 0:
                         Z = starting_Z + step
                         self.Z = Z
-                    for channel in channels:
+                    for channel_name, channel in channels.items():
                         self.Channel = channel['Channel']
                         self.Exposure = channel['Exposure']
                         if channel['Delay'] > 0:
@@ -288,7 +285,7 @@ class Scope:
                             self.Autoshutter = previous_autoshutter_state
                             self.Shutter = False
                         image_info = {}
-                        image_info['Position'] = position['name']
+                        image_info['Position'] = position['position_name']
                         image_info['Channel'] = channel['Channel']
                         image_info['Exposure'] = channel['Exposure']
                         image_info['PixelSize'] = self.PixelSize
@@ -304,141 +301,6 @@ class Scope:
                         image_info['TimestampImage'] = time_stamp_image
                         self.file_handler.save_image(image, image_info)
             self.file_handler.finalize_acquisition()
-
-    def decode_message(self, message):
-        """Decode the message."""
-        protocol,chambers,other = message.split('*')
-        if '+' in other:
-            name = other.split('+')[0]
-            other = other.split('+')[1]
-        else:
-            name = other
-            other = ''
-        chambers = chambers[1:-1].split(',')
-        if '!' in other:
-            other = other.split('!')[0]
-            self.simulate = True
-        else:
-            self.simulate = False
-        return protocol,chambers,name,other
-
-    def create_tasks(self, protocol, chambers, name, other):
-        """Create tasks based on the protocol, chambers, name, and other."""
-        self.log(f"Creating tasks for: Protocol={protocol}, Chambers={chambers}, Name={name}, Other={other}")
-        positions = self.file_handler.Positions
-        positions = positions[positions['well'].isin(chambers)]
-        # create tasks
-        tasks = self.create_imaging_tasks(self,positions=positions, channels=None, zindexes=None, timepoints=None, imaging_order='tpcz')
-        return tasks
-
-    def _initialize_core(self):
-        """Initialize Micro-Manager core connection."""
-        try:
-            self.core = Core()
-            self.core_enabled = True
-            self.log("Micro-Manager core connection established")
-        except Exception as e:
-            self.log(f"Micro-Manager is not running: {e}", level='warning')
-            self.core = None
-            self.core_enabled = False
-    
-    def create_imaging_tasks(self, well=None, positions=None, channels=None, zindexes=None, timepoints=None, imaging_order='tpcz'):
-        """        
-        Creates a pandas DataFrame of imaging tasks
-        Args:
-            well (str): The region of interest to image. makes positions if None
-            positions (dictionary): keys are names values are a dictionary of Position values (X,Y,Z)
-            channels (dictionary): keys are names values are a dictionary of Channel values (Channel,Exposure,Binning))
-            zindexes (dictionary): keys are names values are a dictionary of zindex values (Z).
-            timepoints (dictionary): keys are names values are a dictionary of timepoint values (Time).
-            imaging_order (str): The order of the imaging. (t=timepoint, p=position, c=channel, z=zindex)
-        Returns:
-            imaging_tasks: A pandas DataFrame of imaging tasks
-        """
-        self.log('Creating Imaging Tasks', level='warning')
-        if positions is None:
-            if well is None:
-                self.log('Using Current Position', level='info')
-                positions = {'Pos': {'X': self.X, 'Y': self.Y, 'Z': self.Z, 'X_index': 0, 'Y_index': 0, 'Z_index': 0}}
-            else:
-                self.log(f'Using Well: {well}', level='info')
-                well_positions = self.positions[self.positions['well'] == well]
-                if well_positions.empty:
-                    raise ValueError(f"Well '{well}' not found in positions.")
-                
-                # Convert to the expected dictionary format
-                positions = {}
-                for _, row in well_positions.iterrows():
-                    positions[row['position_name']] = {
-                        'X': row['X'], 
-                        'Y': row['Y'], 
-                        'Z': row['Z']
-                    }
-                self.log(f'Positions: {len(positions.keys())}', level='info')
-        else:
-            if not isinstance(positions, dict):
-                self.log(f'Positions must be a dictionary', level='error')
-                raise Exception(f'Positions must be a dictionary')
-            self.log(f'Positions: {len(positions.keys())}', level='info')
-
-        if channels is None:
-            self.log('Using Current Channel', level='info')
-            self.log('Using Current Exposure', level='info')
-            channels = {'Current': {'Channel': self.Channel, 'Exposure': self.Exposure, 'Binning': self.Binning}}
-        else:
-            if not isinstance(channels, dict):
-                self.log(f'Channels must be a dictionary', level='error')
-                raise Exception(f'Channels must be a dictionary')
-            self.log(f'Using Channels: {channels}', level='info')
-
-        if zindexes is None:
-            self.log('Using Single Z Index', level='info')
-            imaging_order = imaging_order.replace('z', '')
-            zindexes = {'0': {'Z_relative': 0, 'Z_index': 0}}
-        else:
-            if not isinstance(zindexes, dict):
-                self.log(f'Z Indexes must be a dictionary', level='error')
-                raise Exception(f'Z Indexes must be a dictionary')
-            self.log(f'Using Z Indexes: {zindexes}', level='info')
-
-        if timepoints is None:  # do only a single timepoint
-            self.log('Using Single Timepoint', level='info')
-            imaging_order = imaging_order.replace('t', '')
-            timepoints = {'0': {'Time': 0}}  # Relative
-        else:  # Use Timepoints
-            if not isinstance(timepoints, dict):
-                self.log(f'Timepoints must be a dictionary', level='error')
-                raise Exception(f'Timepoints must be a dictionary')
-        
-        order_mapper = {'p': positions, 'c': channels, 'z': zindexes, 't': timepoints}
-
-        # check that imaging_order is a valid order
-        if not all(order in order_mapper.keys() for order in imaging_order):
-            self.log(f'Invalid imaging order: {imaging_order}', level='error')
-            raise Exception(f'Invalid imaging order: {imaging_order}')
-
-        imaging_tasks = {'': {}}
-        for order in imaging_order:
-            new_imaging_tasks = {}
-            for previous_task_name, previous_task_values in imaging_tasks.items():
-                for task_name, task_values in order_mapper[order].items():
-                    new_task_name = f'{previous_task_name}_{task_name}'
-                    new_imaging_tasks[new_task_name] = previous_task_values
-                    for task_key, task_key_value in task_values.items():
-                        new_imaging_tasks[new_task_name][task_key] = task_key_value
-            imaging_tasks = new_imaging_tasks
-            del new_imaging_tasks
-        
-        # Convert dictionary to DataFrame
-        imaging_tasks_list = []
-        for task_name, task_values in imaging_tasks.items():
-            task_row = {'task_name': task_name}
-            task_row.update(task_values)
-            imaging_tasks_list.append(task_row)
-        
-        imaging_tasks_df = pd.DataFrame(imaging_tasks_list)
-        self.log(f'Imaging Tasks: {len(imaging_tasks_df)}', level='info')
-        return imaging_tasks_df
 
     def snapImage(self):
         """Capture an image using the microscope core."""
@@ -458,6 +320,72 @@ class Scope:
         except Exception as e:
             self.log(f"Error capturing image: {e}", level='error')
             raise
+
+    def set_initial_focus(self, chambers, name, other):
+        self.log(f"Setting initial focus for chambers: {chambers}, mode: {name}")
+        positions = self.file_handler.Positions
+        if name == 'ManualPlate':
+            self._show_focus_popup("Please adjust the focus for the plate using the microscope controls.\n\nClick OK when you are satisfied with the focus.")
+            current_z = self.Z
+            positions['Z'] = current_z
+            self.log(f"Updated all {len(positions)} positions with Z = {current_z}")
+        elif name == 'ManualWell':
+            for i, well in enumerate(chambers):
+                Z = self.Z
+                self.Z = self.limits['Z'][0] # move to bottom of the plate
+                self.X = positions[positions['well'] == well]['X'].median()
+                self.Y = positions[positions['well'] == well]['Y'].median()
+                self.Z = Z # move back to the original z position
+                self._show_focus_popup(f"Please adjust the focus for well {well} using the microscope controls.\n\nClick OK when you are satisfied with the focus.\n\nWell {i+1} of {len(chambers)}")
+                current_z = self.Z
+                well_mask = positions['well'] == well
+                positions.loc[well_mask, 'Z'] = current_z
+                self.log(f"Updated {well_mask.sum()} positions for well {well} with Z = {current_z}")
+        else:
+            self.log(f"Unknown focus mode: {name}", level='error')
+            return
+        
+        self.file_handler.save_positions(positions)
+        self.log("Initial focus setting completed and positions saved")
+
+    def _show_focus_popup(self, message):
+        """Show an independent popup window for focus adjustment."""
+        result = threading.Event()
+        popup_result = [None]
+        
+        def show_popup():
+            root = tk.Tk()
+            root.title("Manual Focus Adjustment")
+            root.geometry("400x200")
+            root.resizable(False, False)
+            root.attributes('-topmost', True)
+            
+            # Apply dark theme colors
+            root.configure(bg='#2b2b2b')
+            
+            frame = tk.Frame(root, bg='#2b2b2b')
+            frame.pack(expand=True, fill='both', padx=20, pady=20)
+            
+            label = tk.Label(frame, text=message, wraplength=350, justify='center',
+                           bg='#2b2b2b', fg='#ffffff', font=('Arial', 10))
+            label.pack(expand=True, fill='both')
+            
+            def on_ok():
+                popup_result[0] = True
+                root.destroy()
+                result.set()
+            
+            button = tk.Button(frame, text="OK", command=on_ok, width=10, height=2,
+                             bg='#404040', fg='#ffffff', font=('Arial', 10),
+                             activebackground='#606060', activeforeground='#ffffff')
+            button.pack(pady=10)
+            
+            root.protocol("WM_DELETE_WINDOW", on_ok)
+            root.mainloop()
+        
+        popup_thread = threading.Thread(target=show_popup, daemon=True)
+        popup_thread.start()
+        result.wait()
 
     def update_state(self, state=None):
         """Update the current microscope state."""
@@ -804,89 +732,8 @@ class Scope:
     def status(self, value):
         """Set scope status and save to file handler."""
         self.file_handler.save_status("Scope", value)
-
-    def set_initial_focus(self, chambers, name, other):
-        self.log(f"Setting initial focus for chambers: {chambers}, mode: {name}")
-        positions = self.file_handler.Positions
-        
-        if name == 'ManualPlate':
-            self._show_focus_popup("Please adjust the focus for the plate using the microscope controls.\n\nClick OK when you are satisfied with the focus.")
-            current_z = self.Z
-            positions['Z'] = current_z
-            self.log(f"Updated all {len(positions)} positions with Z = {current_z}")
-        elif name == 'ManualWell':
-            for i, well in enumerate(chambers):
-                self._show_focus_popup(f"Please adjust the focus for well {well} using the microscope controls.\n\nClick OK when you are satisfied with the focus.\n\nWell {i+1} of {len(chambers)}")
-                current_z = self.Z
-                well_mask = positions['well'] == well
-                positions.loc[well_mask, 'Z'] = current_z
-                self.log(f"Updated {well_mask.sum()} positions for well {well} with Z = {current_z}")
-        else:
-            self.log(f"Unknown focus mode: {name}", level='error')
-            return
-        
-        self.file_handler.save_positions(positions)
-        self.log("Initial focus setting completed and positions saved")
-
-    def _show_focus_popup(self, message):
-        """Show an independent popup window for focus adjustment."""
-        result = threading.Event()
-        popup_result = [None]
-        
-        def show_popup():
-            root = tk.Tk()
-            root.title("Manual Focus Adjustment")
-            root.geometry("400x200")
-            root.resizable(False, False)
-            root.attributes('-topmost', True)
-            
-            # Apply dark theme colors
-            root.configure(bg='#2b2b2b')
-            
-            frame = tk.Frame(root, bg='#2b2b2b')
-            frame.pack(expand=True, fill='both', padx=20, pady=20)
-            
-            label = tk.Label(frame, text=message, wraplength=350, justify='center',
-                           bg='#2b2b2b', fg='#ffffff', font=('Arial', 10))
-            label.pack(expand=True, fill='both')
-            
-            def on_ok():
-                popup_result[0] = True
-                root.destroy()
-                result.set()
-            
-            button = tk.Button(frame, text="OK", command=on_ok, width=10, height=2,
-                             bg='#404040', fg='#ffffff', font=('Arial', 10),
-                             activebackground='#606060', activeforeground='#ffffff')
-            button.pack(pady=10)
-            
-            root.protocol("WM_DELETE_WINDOW", on_ok)
-            root.mainloop()
-        
-        popup_thread = threading.Thread(target=show_popup, daemon=True)
-        popup_thread.start()
-        result.wait()
-
-
-# def main():
-#     """Main function for standalone scope execution."""
-#     import argparse
     
-#     parser = argparse.ArgumentParser(description='Autonomous Scope Controller')
-#     parser.add_argument('--no-core', action='store_true', help='Disable Micro-Manager core connection')
-#     args = parser.parse_args()
-#     try:
-#         # Initialize scope
-#         enable_core = not args.no_core
-#         scope = Scope( enable_core=enable_core)
-#         scope.continuous_monitoring()
-#     except KeyboardInterrupt:
-#         scope.log("Shutdown requested by user")
-#     except Exception as e:
-#         scope.log(f"Fatal error: {e}", level='error')
-#     finally:
-#         scope.log("Scope controller shutting down")
-
-
-# if __name__ == "__main__":
-#     main()
+    @property
+    def name(self):
+        """Get the name of the class."""
+        return self.__class__.__name__
