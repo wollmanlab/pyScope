@@ -77,7 +77,7 @@ class Fluidics(object):
 
     def interpret_command(self, current_message):
         """Interpret message from other software."""
-        self.log(f"Interpreting message: {current_message}")
+        self.log(f"Interpreting Command: {current_message}")
         self.busy = True
         # interpret message
         message = current_message.split(':')[-1]

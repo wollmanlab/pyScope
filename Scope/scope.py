@@ -152,11 +152,12 @@ class Scope:
                 if self.last_message!=status:
                     self.last_message = status
                     self.log(f"New Message: {status}")
-                if status == "Stop":
+                if 'stop' in status.lower():
                     self.log('Continuous monitoring stopped by user')
                     break
                 elif "Command" in status:
                     self.interpret_command(status)
+                
                 time.sleep(1)
         finally:
             self.status = "offline"
@@ -176,19 +177,28 @@ class Scope:
         """Execute the protocol."""
         self.log(f"Executing Protocol: {message}")
         protocol,chambers,name,other = self.decode_message(message)
+
+        positions = self.file_handler.Positions
+        positions = positions[positions['well'].isin(chambers)]
+        # FIXME: Optimize order
+
+
+
         if protocol == 'SetInitialFocus': #FIXME "SetInitialFocus*[['A1', 'A2','A3','B1']]*ManualWell" 
             self.log(f"Setting initial focus for: {chambers}, {name}, {other}")
             self.set_initial_focus(chambers,name,other)
         elif protocol == 'FilterPositions': #FIXME "FilterPositions*[['A1', 'A2','A3','B1']]*Draw" 
             self.log(f"Filtering positions for: {chambers}, {name}, {other}")
+            self.log("Not implemented yet")
             # self.filter_positions(chambers,name,other)
         elif protocol == 'SetFocus': #FIXME "SetFocus*[['A1', 'A2','A3','B1']]*RelativePlane" 
             self.log(f"Setting focus for: {chambers}, {name}, {other}")
+            self.log("Not implemented yet")
             # self.set_focus(chambers,name,other)
         elif protocol == 'Acquire': #FIXME "Acquire*[['A1', 'A2']]*hybe11" 
             tasks = self.create_tasks(protocol,chambers,name,other) #FIXME
             self.file_handler.save_tasks("Scope", tasks)
-            self.summarize_protocol(tasks) #FIXME
+            # self.summarize_protocol(tasks) #FIXME
             if not self.simulate:
                 for idx,task in tasks.iterrows():
                     self.file_handler.save_task_idx("Scope", idx)
@@ -222,7 +232,10 @@ class Scope:
     def create_tasks(self, protocol, chambers, name, other):
         """Create tasks based on the protocol, chambers, name, and other."""
         self.log(f"Creating tasks for: Protocol={protocol}, Chambers={chambers}, Name={name}, Other={other}")
-        tasks = self.create_imaging_tasks(self,positions=None, channels=None, zindexes=None, timepoints=None, imaging_order='tpcz')
+        positions = self.file_handler.Positions
+        positions = positions[positions['well'].isin(chambers)]
+        # create tasks
+        tasks = self.create_imaging_tasks(self,positions=positions, channels=None, zindexes=None, timepoints=None, imaging_order='tpcz')
         return tasks
 
     def _initialize_core(self):
@@ -236,216 +249,8 @@ class Scope:
             self.core = None
             self.core_enabled = False
     
-    # def start_autonomous_monitoring(self, use_threading=False):
-    #     """Start autonomous monitoring for scope tasks."""
-    #     if self.monitoring_active:
-    #         self.log("Monitoring is already active", level='warning')
-    #         return
-        
-    #     self.monitoring_active = True
-    #     self.log("Starting autonomous monitoring")
-        
-    #     if use_threading:
-    #         # Start monitoring in a separate thread (legacy mode)
-    #         import threading
-    #         self.monitoring_thread = threading.Thread(target=self._monitoring_loop, daemon=True)
-    #         self.monitoring_thread.start()
-    #     else:
-    #         # Run monitoring in foreground (default behavior)
-    #         self._monitoring_loop()
-    
-    # def _monitoring_loop(self):
-    #     """Internal monitoring loop that runs in foreground by default."""
-    #     try:
-    #         while self.monitoring_active:
-    #             # Check for scope task triggers
-    #             if self.process_scope_task():
-    #                 self.log("Task completed, continuing monitoring")
-                
-    #             # Sleep for monitoring interval
-    #             time.sleep(self.monitoring_interval)
-                
-    #     except Exception as e:
-    #         self.log(f"Error in monitoring loop: {e}", level='error')
-    #     finally:
-    #         self.stop_monitoring()
-    
-    # def stop_monitoring(self):
-    #     """Stop autonomous monitoring."""
-    #     self.monitoring_active = False
-    #     self.log("Stopping autonomous monitoring")
-        
-    #     # Wait for monitoring thread to finish if it exists (only in threading mode)
-    #     if hasattr(self, 'monitoring_thread') and self.monitoring_thread.is_alive():
-    #         self.monitoring_thread.join(timeout=2.0)  # Wait up to 2 seconds
-        
-    #     self.status = "Idle"
-    
-    # def process_scope_task(self):
-    #     """Process scope task by monitoring Experiment task_idx and status."""
-    #     try:
-    #         # Check if scope status allows execution
-    #         scope_status = self.file_handler.get_status("Scope")
-    #         if scope_status in ["stopped", "paused"]:
-    #             return False
-            
-    #         # Get current experiment task index
-    #         exp_task_idx = self.file_handler.get_task_idx("Experiment")
-            
-    #         # Get experiment tasks to see what task we should execute
-    #         exp_tasks = self.file_handler.get_tasks("Experiment")
-            
-    #         if exp_tasks.empty or exp_task_idx > len(exp_tasks) or exp_task_idx < 1:
-    #             return False
-            
-    #         # Get the current experiment task (convert 1-based index to 0-based for iloc)
-    #         current_task = exp_tasks.iloc[exp_task_idx - 1]
-            
-    #         # Check if this task has scope work to do
-    #         scope_protocol = current_task.get('Scope_Protocol')
-    #         if not scope_protocol or pd.isna(scope_protocol):
-    #             return False
-            
-    #         self.log(f"Processing experiment task {exp_task_idx}: {scope_protocol}")
-    #         self._process_scope_task_from_experiment(current_task)
-    #         return True
-            
-    #     except Exception as e:
-    #         self.log(f"Error processing scope task: {e}", level='error')
-    #         return False
-    
-    # def _process_scope_task_from_experiment(self, experiment_task_row):
-    #     """Process the scope task from experiment task data."""
-    #     try:
-    #         self.log(f"Processing scope task from experiment: {experiment_task_row}")
-            
-    #         # Update status to Running
-    #         self.status = "Running"
-            
-    #         # Load positions from file
-    #         self.positions = self.file_handler.Positions
-            
-    #         # Create imaging tasks based on the experiment task data
-    #         self._create_imaging_tasks_from_experiment_task(experiment_task_row)
-            
-    #         # Execute acquisition
-    #         self._execute_acquisition()
-            
-    #         # Update status to Complete
-    #         self.status = "Complete"
-            
-    #         self.log("Scope task processing completed")
-            
-    #     except Exception as e:
-    #         self.log(f"Error processing scope task: {e}", level='error')
-    #         self.status = "Error"
-    
-    # def _create_imaging_tasks_from_experiment_task(self, experiment_task_row):
-    #     """Create imaging tasks based on experiment task row data."""
-    #     try:
-    #         # Extract scope information from the experiment task row
-    #         scope_protocol = experiment_task_row.get('Scope_Protocol')
-    #         scope_group = experiment_task_row.get('Scope_Group')
-    #         scope_round = experiment_task_row.get('Scope_Round')
-            
-    #         if not scope_protocol or pd.isna(scope_protocol):
-    #             self.log("No scope protocol specified in experiment task", level='error')
-    #             return
-            
-    #         self.log(f"Creating imaging tasks for: Protocol={scope_protocol}, Group={scope_group}, Round={scope_round}")
-            
-    #         # Load experiment state to get channels and group assignments
-    #         exp_state = self.file_handler.get_state("Experiment")
-    #         channels = exp_state.get('selected_channels', [])
-    #         group_assignments = exp_state.get('group_assignments', {})
-            
-    #         self.log(f"Available channels: {channels}")
-    #         self.log(f"Group assignments: {group_assignments}")
-            
-    #         # Find wells that belong to this scope group
-    #         wells_in_group = [well for well, group in group_assignments.items() if group == scope_group]
-            
-    #         if not wells_in_group:
-    #             self.log(f"No wells found for group '{scope_group}'", level='warning')
-    #             return
-            
-    #         self.log(f"Wells in group '{scope_group}': {wells_in_group}")
-            
-    #         # Create imaging tasks for each well in the group
-    #         scope_tasks = []
-            
-    #         for well in wells_in_group:
-    #             well_positions = self.positions[self.positions['well'] == well]
-                
-    #             for _, position in well_positions.iterrows():
-    #                 for channel in channels:
-    #                     task_name = f"{scope_protocol}_{scope_group}_R{scope_round}_{well}_{position['position_name']}_{channel}"
-                        
-    #                     scope_task = {
-    #                         'task_name': task_name,
-    #                         'protocol': scope_protocol,
-    #                         'group': scope_group,
-    #                         'round': scope_round,
-    #                         'well': well,
-    #                         'position_name': position['position_name'],
-    #                         'channel': channel,
-    #                         'X': position['X'],
-    #                         'Y': position['Y'],
-    #                         'Z': position['Z'],
-    #                         'start_time': None,
-    #                         'end_time': None
-    #                     }
-    #                     scope_tasks.append(scope_task)
-            
-    #         # Save scope tasks
-    #         if scope_tasks:
-    #             self.imaging_tasks = pd.DataFrame(scope_tasks)
-    #             self.file_handler.save_tasks("Scope", self.imaging_tasks)
-    #             self.log(f"Created {len(scope_tasks)} imaging tasks for group '{scope_group}'")
-    #         else:
-    #             self.log("No imaging tasks created", level='warning')
-                
-    #     except Exception as e:
-    #         self.log(f"Error creating imaging tasks: {e}", level='error')
-    #         raise
-    
-    # def _execute_acquisition(self):
-    #     """Execute the acquisition sequence."""
-    #     try:
-    #         self.update_state()
-    #         self.acquisition_start_time = time.time()
-            
-    #         for imaging_task_idx, (_, row) in enumerate(self.imaging_tasks.iterrows()):
-    #             self.file_handler.save_task_idx("Scope", imaging_task_idx)
-                
-    #             # Set position and channel for this task
-    #             self.set('XYZ', (row['X'], row['Y'], row['Z']))
-    #             self.set('Channel', row['channel'])
-                
-    #             # Update task start time
-    #             self.imaging_tasks.at[imaging_task_idx, 'start_time'] = time.time()
-    #             self.file_handler.save_tasks("Scope", self.imaging_tasks)
-                
-    #             # Capture image
-    #             image = self.snapImage()
-    #             self.log(f'Image {row["task_name"]} acquired')
-    #             del image
-                
-    #             # Update task end time
-    #             self.imaging_tasks.at[imaging_task_idx, 'end_time'] = time.time()
-    #             self.file_handler.save_tasks("Scope", self.imaging_tasks)
-            
-    #         self.log("Acquisition completed successfully")
-            
-    #     except Exception as e:
-    #         self.log(f"Error during acquisition: {e}", level='error')
-    #         raise
-    
     def create_imaging_tasks(self, well=None, positions=None, channels=None, zindexes=None, timepoints=None, imaging_order='tpcz'):
-        """
-        DEPRECATED: This method is not used in autonomous mode.
-        Use _create_imaging_tasks_from_experiment_task instead.
-        
+        """        
         Creates a pandas DataFrame of imaging tasks
         Args:
             well (str): The region of interest to image. makes positions if None
@@ -457,7 +262,7 @@ class Scope:
         Returns:
             imaging_tasks: A pandas DataFrame of imaging tasks
         """
-        self.log('Creating Imaging Tasks (DEPRECATED METHOD)', level='warning')
+        self.log('Creating Imaging Tasks', level='warning')
         if positions is None:
             if well is None:
                 self.log('Using Current Position', level='info')
