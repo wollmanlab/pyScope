@@ -4,8 +4,11 @@ import pandas as pd
 import glob
 import time
 import logging
+import shutil
 from datetime import datetime
 from typing import Dict, Any, Optional, List
+import tifffile
+import numpy as np
 
 
 class FileHandler:
@@ -39,6 +42,26 @@ class FileHandler:
             self.log(f"Created State directory: {self.system_state_dir}", level='info', system_prefix='FileHandler')
         else:
             self.log(f"Using existing State directory: {self.system_state_dir}", level='info', system_prefix='FileHandler')
+        
+        self.acquisition_dir: Optional[str] = None
+        self._acquisition_active = False
+        self._metadata_columns = None
+        self._metadata_path = None
+    
+    @property
+    def dataset_path(self) -> str:
+        """
+        Get the current dataset path based on experiment state.
+        
+        Returns:
+            str: Full path to the dataset directory
+        """
+        experiment_state = self.get_state("Experiment")
+        save_path = experiment_state.get('save_path', '')
+        user_name = experiment_state.get('user_name', '')
+        project_name = experiment_state.get('project_name', '')
+        experiment_name = experiment_state.get('experiment_name', '')
+        return os.path.join(save_path, user_name, project_name, experiment_name)
     
     
     def log(self, message: str, level: str = 'info', system_prefix: str = 'FileHandler'):
@@ -376,6 +399,140 @@ class FileHandler:
                 json.dump(plate_config, f, indent=4)
         except Exception as e:
             raise RuntimeError(f"Error writing {json_file_path}: {e}")
+    
+    def setup_acquisition(self, chamber_acquisition_name: str,add_counter: bool = True):
+        """
+        Set up acquisition directories and initialize metadata file.
+        
+        Args:
+            chamber_acquisition_name (str): Name of the chamber acquisition
+        """
+        if not os.path.exists(self.dataset_path):
+            os.makedirs(self.dataset_path, exist_ok=True)
+        
+        if add_counter:
+            existing_acquisitions = [
+                d for d in os.listdir(self.dataset_path)
+                if os.path.isdir(os.path.join(self.dataset_path, d)) 
+                and os.path.exists(os.path.join(self.dataset_path, d, 'Metadata.txt'))
+            ]
+            counter = len(existing_acquisitions) + 1
+            chamber_acquisition_name = f"{chamber_acquisition_name}_{counter}"
+            
+        self.acquisition_dir = os.path.join(self.dataset_path, chamber_acquisition_name)
+        
+        acquisition_dir = self.acquisition_dir
+        
+        os.makedirs(acquisition_dir, exist_ok=True)
+        os.makedirs(os.path.join(acquisition_dir, 'State'), exist_ok=True)
+        
+        self.log(f'Setting up acquisition {counter}: {chamber_acquisition_name}', level='info', system_prefix='FileHandler')
+        
+        experiment_state = self.get_state("Experiment")
+        experiment_state['current_acquisition_name'] = chamber_acquisition_name
+        self.save_state("Experiment", experiment_state)
+        
+        self._metadata_columns = [
+            'Position', 'Channel', 'Exposure', 'PixelSize', 'XY', 'X', 'Y', 'Z', 
+            'Zindex', 'Well', 'acq', 'Scope', 'Time', 'TimestampImage'
+        ]
+        
+        metadata_path = os.path.join(acquisition_dir, 'Metadata.txt')
+        self._metadata_path = metadata_path
+        is_new_file = not os.path.exists(metadata_path) or os.path.getsize(metadata_path) == 0
+        
+        if is_new_file:
+            with open(metadata_path, 'w') as f:
+                header = '\t'.join(self._metadata_columns)
+                f.write(header + '\n')
+        else:
+            with open(metadata_path, 'r') as f:
+                first_line = f.readline().strip()
+                if first_line:
+                    self._metadata_columns = first_line.split('\t')
+        
+        self._acquisition_active = True
+        
+        log_line_numbers = {}
+        for log_file in glob.glob(os.path.join(self.system_state_dir, '*.log')):
+            try:
+                with open(log_file, 'r') as f:
+                    line_count = sum(1 for _ in f)
+                log_line_numbers[os.path.basename(log_file)] = line_count
+            except Exception as e:
+                self.log(f'Error counting lines in {log_file}: {e}', level='warning', system_prefix='FileHandler')
+        
+        log_info_path = os.path.join(acquisition_dir, 'State', 'log_line_numbers.json')
+        with open(log_info_path, 'w') as f:
+            json.dump(log_line_numbers, f, indent=4)
+    
+    def save_image(self, image: Optional[np.ndarray], image_info: Dict[str, Any]):
+        """
+        Save image and append metadata to Metadata.txt.
+        
+        Args:
+            image (Optional[np.ndarray]): Image array to save, or None
+            image_info (Dict[str, Any]): Dictionary containing image metadata
+        """
+        if not self._acquisition_active:
+            raise RuntimeError("Acquisition not active. Call setup_acquisition first.")
+        
+        file_name = ''.join([f"{key}--{value}__" for key, value in image_info.items() if key not in ['XY', 'TimestampFrame']])[:-2] + '.tif'
+        image_path = os.path.join(self.acquisition_dir, file_name)
+        tifffile.imwrite(image_path, image)
+        
+        values = []
+        for key in self._metadata_columns:
+            value = image_info.get(key, '')
+            if isinstance(value, tuple):
+                value = f"({value[0]},{value[1]})"
+            else:
+                value = str(value)
+            values.append(value)
+        
+        with open(self._metadata_path, 'a') as f:
+            f.write('\t'.join(values) + '\n')
+        
+        self.log(f'Image saved: {file_name}', level='debug', system_prefix='FileHandler')
+    
+    def finalize_acquisition(self):
+        """
+        Finalize acquisition by copying relevant log files.
+        Uses the current acquisition_dir stored in the FileHandler instance.
+        """
+        if not self._acquisition_active:
+            raise RuntimeError("Acquisition not active. Call setup_acquisition first.")
+        
+        acquisition_dir = self.acquisition_dir
+        acquisition_state_dir = os.path.join(acquisition_dir, 'State')
+        log_info_path = os.path.join(acquisition_state_dir, 'log_line_numbers.json')
+        
+        if os.path.exists(log_info_path):
+            with open(log_info_path, 'r') as f:
+                log_line_numbers = json.load(f)
+            
+            for log_filename, start_line in log_line_numbers.items():
+                source_log_path = os.path.join(self.system_state_dir, log_filename)
+                if os.path.exists(source_log_path):
+                    dest_log_path = os.path.join(acquisition_state_dir, log_filename)
+                    with open(source_log_path, 'r') as src:
+                        lines = src.readlines()
+                    if start_line < len(lines):
+                        with open(dest_log_path, 'w') as dst:
+                            dst.writelines(lines[start_line:])
+
+        for file_type in ['*_state.json', '*_tasks.csv', '*_task_idx.txt', '*_status.txt']:
+            state_files = glob.glob(os.path.join(self.system_state_dir, file_type))
+            for state_file in state_files:
+                dest_path = os.path.join(acquisition_state_dir, os.path.basename(state_file))
+                if not os.path.exists(dest_path):
+                    shutil.copy2(state_file, dest_path)
+        
+        self.log(f'Acquisition finalized for {os.path.basename(acquisition_dir)}', level='info', system_prefix='FileHandler')
+        
+        self._acquisition_active = False
+        self._metadata_columns = None
+        self._metadata_path = None
     
     def get_available_plate_configs(self) -> List[str]:
         """

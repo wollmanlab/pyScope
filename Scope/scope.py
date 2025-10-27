@@ -1,6 +1,7 @@
 import time
 import os
 import json
+import ast
 import pandas as pd
 from pycromanager import Core
 from typing import Dict, Any
@@ -9,6 +10,7 @@ import numpy as np
 import tkinter as tk
 from tkinter import messagebox
 import threading
+from datetime import datetime
 
 class Scope:
     def __init__(self, enable_core: bool = True):
@@ -183,6 +185,24 @@ class Scope:
         # FIXME: Optimize order
 
 
+        acquisition_data = self.file_handler.get_state("Experiment")
+
+
+        channels = {}
+        selected_channels = acquisition_data['selected_channels']
+        for channel in selected_channels:
+            channels[channel] = {
+                'Channel': channel,
+                'Exposure': acquisition_data['channel_exposure'][channel],
+                'Delay': acquisition_data['channel_delay'][channel]
+            }
+
+        dZ = acquisition_data['steps']
+        if dZ['start'] == dZ['end']:
+            steps = [float(dZ['start'])]   
+        else:
+            steps = [float(i) for i in np.arange(dZ['start'], dZ['end'], dZ['dz'])]
+
 
         if protocol == 'SetInitialFocus': #FIXME "SetInitialFocus*[['A1', 'A2','A3','B1']]*ManualWell" 
             self.log(f"Setting initial focus for: {chambers}, {name}, {other}")
@@ -196,13 +216,8 @@ class Scope:
             self.log("Not implemented yet")
             # self.set_focus(chambers,name,other)
         elif protocol == 'Acquire': #FIXME "Acquire*[['A1', 'A2']]*hybe11" 
-            tasks = self.create_tasks(protocol,chambers,name,other) #FIXME
-            self.file_handler.save_tasks("Scope", tasks)
-            # self.summarize_protocol(tasks) #FIXME
-            if not self.simulate:
-                for idx,task in tasks.iterrows():
-                    self.file_handler.save_task_idx("Scope", idx)
-                    # self.execute_task(task) #FIXME
+            self.log(f"Acquiring images for: {chambers}, {name}, {other}")
+            self.acquire(chambers,name,other)
         else:
             self.log(f"Unknown protocol: {protocol}", level='warning')
                 
@@ -211,6 +226,84 @@ class Scope:
         self.file_handler.delete_tasks("Scope")
         self.status = "Idle"
         self.simulate = False
+
+    def acquire(self,chambers,acquisition_name,other,acquisition_data=None,positions=None):
+        if acquisition_data is None:
+            acquisition_data = self.file_handler.get_state("Experiment")
+        if len(other) > 0:
+            other = ast.literal_eval(other)
+            acquisition_data.update(other)
+            # example: For Preview you might only want one channel
+            # other = "{'selected_channels': ['DeepBlue'], 'channel_exposure': {'DeepBlue': 5}, 'channel_delay': {'DeepBlue': 5}.'steps': {'start': 0, 'end': 0, 'dz': 0}}""
+
+        channels = {}
+        for channel in acquisition_data['selected_channels']:
+            channels[channel] = {
+                'Channel': channel,
+                'Exposure': acquisition_data['channel_exposure'][channel],
+                'Delay': acquisition_data['channel_delay'][channel]
+            }
+        dZ = acquisition_data['steps']
+        if dZ['start'] == dZ['end']:
+            steps = [float(dZ['start'])]   
+        else:
+            steps = [float(i) for i in np.arange(dZ['start'], dZ['end'], dZ['dz'])]
+        if positions is None:
+            positions = self.file_handler.Positions
+            positions = positions[positions['well'].isin(chambers)]
+        self.file_handler.save_tasks("Scope", positions)
+        current_idx = 0
+        self.file_handler.save_task_idx("Scope", current_idx)
+
+        for chamber in chambers:
+            chamber_acquisition_name = f"{acquisition_name}_Well-{chamber}"
+            self.log(f"Acquiring images for: {chamber}")
+            self.file_handler.setup_acquisition(chamber_acquisition_name)
+            chamber_positions = positions[positions['well'] == chamber].copy()
+            # chamber_positions = self.AutoFocus.update_focus(chamber_positions)#FIXME: self.autofocus()
+            for position in chamber_positions['position_name']:
+                self.log(f"Acquiring images for: {position}")
+                current_idx+=1
+                self.file_handler.save_task_idx("Scope", current_idx)
+                self.XYZ = (position['X'], position['Y'], position['Z'])
+                # Channel First 
+                starting_Z = position['Z']
+                # starting_Z = self.AutoFocus.update_focus(position) #FIXME:
+                for z_index,step in enumerate(steps):
+                    if step != 0:
+                        Z = starting_Z + step
+                        self.Z = Z
+                    for channel in channels:
+                        self.Channel = channel['Channel']
+                        self.Exposure = channel['Exposure']
+                        if channel['Delay'] > 0:
+                            previous_autoshutter_state = self.Autoshutter
+                            self.Autoshutter = False
+                            self.Shutter = True 
+                            time.sleep(channel['Delay']/1000)
+                        image = self.snapImage()
+                        time_stamp = datetime.now()
+                        time_stamp_image = time.time()
+                        if channel['Delay'] > 0:
+                            self.Autoshutter = previous_autoshutter_state
+                            self.Shutter = False
+                        image_info = {}
+                        image_info['Position'] = position['name']
+                        image_info['Channel'] = channel['Channel']
+                        image_info['Exposure'] = channel['Exposure']
+                        image_info['PixelSize'] = self.PixelSize
+                        image_info['XY'] = (position['X'], position['Y'])
+                        image_info['X'] = position['X']
+                        image_info['Y'] = position['Y']
+                        image_info['Z'] = position['Z'] + step
+                        image_info['Zindex'] = z_index
+                        image_info['Well'] = chamber
+                        image_info['acq'] = chamber_acquisition_name
+                        image_info['Scope'] = self.name
+                        image_info['Time'] = time_stamp
+                        image_info['TimestampImage'] = time_stamp_image
+                        self.file_handler.save_image(image, image_info)
+            self.file_handler.finalize_acquisition()
 
     def decode_message(self, message):
         """Decode the message."""
@@ -351,10 +444,9 @@ class Scope:
         """Capture an image using the microscope core."""
         if not self.core_enabled:
             self.log("Core not available - simulating image capture", level='warning')
-            # Simulate image capture for testing without Micro-Manager
+            # FIXME: Simulate image capture for testing without Micro-Manager
             time.sleep(0.1)  # Simulate capture time
             return None
-        
         try:
             self.core.snap_image()
             tagged_image = self.core.get_tagged_image()
@@ -500,6 +592,10 @@ class Scope:
                 self.core.set_config(key, value)
             elif key == 'Binning': 
                 self.core.set_property('Camera', 'Binning', str(int(value)))
+            elif key == 'Autoshutter':
+                self.core.set_auto_shutter(bool(value))
+            elif key == 'Shutter':
+                self.core.set_shutter_open(bool(value))
             elif key == 'Time': 
                 value = self.acquisition_start_time + value
                 while time.time() < value:
@@ -567,6 +663,10 @@ class Scope:
                 value = (image_height_pixels, image_width_pixels)
             elif key == 'PixelSize':
                 value = self.core.get_pixel_size_um()
+            elif key == 'Autoshutter':
+                value = self.core.get_auto_shutter()
+            elif key == 'Shutter':
+                value = self.core.get_shutter_open()
             else: 
                 self.log(f'{key} is not a valid key', level='error')
                 return None
@@ -640,6 +740,20 @@ class Scope:
     @Binning.setter
     def Binning(self, value):
         return self.set('Binning', str(value))
+
+    @property
+    def Autoshutter(self): 
+        return self.get('Autoshutter')
+    @Autoshutter.setter
+    def Autoshutter(self, value):
+        return self.set('Autoshutter', bool(value))
+
+    @property
+    def Shutter(self): 
+        return self.get('Shutter')
+    @Shutter.setter
+    def Shutter(self, value):
+        return self.set('Shutter', bool(value))
     
     @property
     def ImageShape(self): 
