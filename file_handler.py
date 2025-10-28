@@ -44,9 +44,12 @@ class FileHandler:
             self.log(f"Using existing State directory: {self.system_state_dir}", level='info', system_prefix='FileHandler')
         
         self.acquisition_dir: Optional[str] = None
+        self.acquisition_name: Optional[str] = None
         self._acquisition_active = False
         self._metadata_columns = None
         self._metadata_path = None
+        self._metadata_cache: Dict[str, pd.DataFrame] = {}
+        self._metadata_path_cache: Dict[str, str] = {}
     
     @property
     def dataset_path(self) -> str:
@@ -266,9 +269,9 @@ class FileHandler:
                     status = f.read().strip()
                 
                 # Handle paused status by waiting until status changes (only if not read_only)
-                if not read_only and status == "Paused":
+                if (not read_only) and ("paused" in status.lower()):
                     self.log(f'{system_prefix} status is Paused, waiting for status change...', level='info', system_prefix=system_prefix)
-                    while status == "Paused":
+                    while "paused" in status.lower():
                         time.sleep(1)
                         try:
                             with open(status_file, 'r') as f:
@@ -278,7 +281,7 @@ class FileHandler:
                             time.sleep(1)
                             continue
                     
-                    if status == "Running":
+                    if "running" in status.lower():
                         self.log(f'{system_prefix} status changed from Paused to Running - resuming operation', level='info', system_prefix=system_prefix)
                     else:
                         self.log(f'{system_prefix} status changed from Paused to {status}', level='info', system_prefix=system_prefix)
@@ -418,7 +421,7 @@ class FileHandler:
             ]
             counter = len(existing_acquisitions) + 1
             chamber_acquisition_name = f"{chamber_acquisition_name}_{counter}"
-            
+        self.acquisition_name = chamber_acquisition_name
         self.acquisition_dir = os.path.join(self.dataset_path, chamber_acquisition_name)
         
         acquisition_dir = self.acquisition_dir
@@ -475,9 +478,16 @@ class FileHandler:
             image_info (Dict[str, Any]): Dictionary containing image metadata
         """
         if not self._acquisition_active:
+            self.log("Acquisition not active. Call setup_acquisition first.", level='error', system_prefix='FileHandler')
             raise RuntimeError("Acquisition not active. Call setup_acquisition first.")
         
-        file_name = ''.join([f"{key}--{value}__" for key, value in image_info.items() if key not in ['XY', 'TimestampFrame']])[:-2] + '.tif'
+        # file_name = ''.join([f"{key}--{value}__" for key, value in image_info.items() if key not in ['XY', 'TimestampFrame']])[:-2] + '.tif'
+        # file_name = ''.join([f"{key}--{value}__" for key, value in image_info.items() if key not in ['XY', 'TimestampImage','Time','PixelSize','Well']])+ str(int(time.time()))+ '.tif'
+        file_name_keys = ['Position','Channel','Zindex','acq']
+        image_info['acq'] = self.acquisition_name
+        file_name_keys = [i for i in file_name_keys if i in image_info.keys()]
+        file_name = ''.join([f"{image_info[key]}__" for key in file_name_keys])
+        file_name = file_name + datetime.now().strftime('%Y-%m-%d_%H-%M-%S-%f')+ '.tif'
         image_path = os.path.join(self.acquisition_dir, file_name)
         tifffile.imwrite(image_path, image)
         
@@ -501,6 +511,7 @@ class FileHandler:
         Uses the current acquisition_dir stored in the FileHandler instance.
         """
         if not self._acquisition_active:
+            self.log("Acquisition not active. Call setup_acquisition first.", level='error', system_prefix='FileHandler')
             raise RuntimeError("Acquisition not active. Call setup_acquisition first.")
         
         acquisition_dir = self.acquisition_dir
@@ -558,3 +569,218 @@ class FileHandler:
             plate_names.append(name_without_ext)
         
         return sorted(plate_names)
+    
+    def clear_metadata_cache(self, acquisition_path: str = None):
+        """
+        Clear cached metadata from memory.
+        
+        Args:
+            acquisition_path (str, optional): Path to clear. If None, clears all cached metadata.
+        """
+        if acquisition_path is None:
+            self._metadata_cache.clear()
+            self.log('Cleared all metadata cache', level='debug', system_prefix='FileHandler')
+        else:
+            if acquisition_path in self._metadata_cache:
+                del self._metadata_cache[acquisition_path]
+                self.log(f'Cleared metadata cache for {acquisition_path}', level='debug', system_prefix='FileHandler')
+    
+    def find_latest_acquisition(self, acquisition_name: str, chamber: str) -> Optional[str]:
+        """
+        Find the path to the most recent complete acquisition for a given acquisition name and chamber.
+        An acquisition is considered complete if it has .log files in its State directory.
+        
+        Args:
+            acquisition_name (str): Name of the acquisition (e.g., 'preview')
+            chamber (str): Chamber/well identifier (e.g., 'A')
+        
+        Returns:
+            Optional[str]: Path to the most recent complete acquisition, or None if none found
+        """
+        dataset_path = self.dataset_path
+        if not os.path.exists(dataset_path):
+            return None
+        
+        # Pattern matches acquisitions like: acquisition_name_Well-chamber[_counter]
+        pattern_prefix = f"{acquisition_name}_Well-{chamber}"
+        
+        matching_acquisitions = []
+        for item in os.listdir(dataset_path):
+            acquisition_dir = os.path.join(dataset_path, item)
+            if not os.path.isdir(acquisition_dir):
+                continue
+            
+            # Check if this acquisition matches our pattern
+            if item == pattern_prefix or item.startswith(f"{pattern_prefix}_"):
+                # Check if it has log files in State directory (indicates it imaged fully)
+                state_dir = os.path.join(acquisition_dir, 'State')
+                if os.path.exists(state_dir):
+                    log_files = glob.glob(os.path.join(state_dir, '*.log'))
+                    if log_files:
+                        matching_acquisitions.append({
+                            'path': acquisition_dir,
+                            'name': item,
+                            'mtime': os.path.getmtime(acquisition_dir)
+                        })
+        
+        if not matching_acquisitions:
+            return None
+        
+        # Sort by modification time (most recent first)
+        matching_acquisitions.sort(key=lambda x: x['mtime'], reverse=True)
+        return matching_acquisitions[0]['path']
+    
+    def load_metadata(self, acquisition_path: str = None, fname: str = 'Metadata.txt', delimiter: str = '\t', force_reload: bool = False) -> pd.DataFrame:
+        """
+        Load metadata from a Metadata.txt file. Results are cached in memory.
+        
+        Args:
+            acquisition_path (str, optional): Path to acquisition directory. If None, uses current acquisition_dir.
+            fname (str): Metadata filename, default 'Metadata.txt'
+            delimiter (str): Delimiter for the metadata file, default '\t'
+            force_reload (bool): Force reload from disk even if cached
+        
+        Returns:
+            pd.DataFrame: DataFrame containing metadata
+        """
+        if acquisition_path is None:
+            if self.acquisition_dir is None:
+                self.log("No acquisition directory available", level='error', system_prefix='FileHandler')
+                raise RuntimeError("No acquisition directory available")
+            acquisition_path = self.acquisition_dir
+        
+        metadata_path = os.path.join(acquisition_path, fname)
+        
+        if not force_reload and acquisition_path in self._metadata_cache:
+            return self._metadata_cache[acquisition_path]
+        
+        if not os.path.exists(metadata_path):
+            self.log(f'Metadata file not found at {metadata_path}', level='warning', system_prefix='FileHandler')
+            return pd.DataFrame()
+        
+        def convert(val):
+            return np.array(list(map(float, val.split())))
+        
+        try:
+            md = pd.read_csv(metadata_path, delimiter=delimiter, converters={'XY': convert})
+            md['root_pth'] = md.filename
+            md.filename = os.path.join(acquisition_path, md.filename)
+            self._metadata_cache[acquisition_path] = md
+            self.log(f'Loaded {len(md)} metadata entries', level='debug', system_prefix='FileHandler')
+            return md
+        except Exception as e:
+            self.log(f'Error loading metadata: {e}', level='warning', system_prefix='FileHandler')
+            return pd.DataFrame()
+    
+    def stkread(self, acquisition_path: str = None, groupby: str = 'Position', sortby: str = None,
+                fnames_only: bool = False, metadata: bool = False, verbose: bool = False, **kwargs):
+        """
+        Load images as stacks based on filtering criteria.
+        
+        Args:
+            acquisition_path (str, optional): Path to acquisition directory
+            groupby (str): Field to group images by for stacking, default 'Position'
+            sortby (str): Field(s) to sort images by
+            fnames_only (bool): Return filenames only without loading images
+            metadata (bool): Return metadata table along with images
+            verbose (bool): Print progress information
+            **kwargs: Filtering criteria (Position, Channel, Zindex, acq, exposure, etc.)
+        
+        Returns:
+            Images as stack(s) or filenames, optionally with metadata
+        """
+        if acquisition_path is None:
+            if self.acquisition_dir is None:
+                self.log("No acquisition directory available", level='error', system_prefix='FileHandler')
+            acquisition_path = self.acquisition_dir
+        
+        if acquisition_path not in self._metadata_cache:
+            self.load_metadata(acquisition_path)
+        
+        md = self._metadata_cache.get(acquisition_path, pd.DataFrame())
+        if md.empty:
+            return pd.DataFrame() if metadata else None
+        
+        # Input coercing
+        for key, value in kwargs.items():
+            if not isinstance(value, list):
+                kwargs[key] = [value]
+        
+        # Filter images according to criteria
+        mask = np.full((md.shape[0],), True, dtype=bool)
+        
+        # Handle Zindex with range support
+        if 'Zindex' in kwargs:
+            if 'Zindex' in md.columns:
+                zindexes = kwargs['Zindex']
+                if len(zindexes) > 0 and zindexes[0] == 'range':
+                    _, zmin, zmax = kwargs['Zindex']
+                    zindexes = list(range(zmin, zmax))
+                mask = np.logical_and(mask, md['Zindex'].isin(zindexes))
+            else:
+                self.log(f'Warning: Zindex column not found in metadata', level='warning', system_prefix='FileHandler')
+            del kwargs['Zindex']
+        # Apply filtering for any field that exists in metadata columns
+        for key in kwargs:
+            if key in md.columns:
+                mask = np.logical_and(mask, md[key].isin(kwargs[key]))
+            else:
+                self.log(f'Warning: Filter key "{key}" not found in metadata columns', level='warning', system_prefix='FileHandler')
+        
+        image_subset_table = md.loc[mask]
+        
+        if sortby is not None:
+            image_subset_table.sort_values(sortby, inplace=True)
+        
+        image_groups = image_subset_table.groupby(groupby)
+        fnames_output = {}
+        mdata = {}
+        for posname in image_groups.groups.keys():
+            fnames_output[posname] = image_subset_table.loc[image_groups.groups[posname]].filename.values
+            mdata[posname] = image_subset_table.loc[image_groups.groups[posname]]
+        
+        if fnames_only:
+            if len(list(fnames_output.keys())) == 1:
+                fnames_output = fnames_output[posname]
+            if metadata:
+                if len(mdata) == 1:
+                    mdata = mdata[posname]
+                return fnames_output, mdata
+            else:
+                return fnames_output
+        else:
+            stk = self._read_local(fnames_output, verbose=verbose)
+            if metadata:
+                if len(mdata) == 1:
+                    mdata = mdata[posname]
+                    return stk[posname], mdata
+                else:
+                    return stk, mdata
+            else:
+                if len(list(stk.keys())) == 1:
+                    return stk[posname]
+                else:
+                    return stk
+    
+    def _read_local(self, filename_dict: Dict, verbose: bool = False):
+        """
+        Load images into dictionary of stacks.
+        
+        Args:
+            filename_dict (Dict): Dictionary of groupby values to filename lists
+            verbose (bool): Print progress information
+        
+        Returns:
+            Dict: Dictionary of image stacks
+        """
+        images_dict = {}
+        for key, filenames in filename_dict.items():
+            if len(filenames) == 0:
+                continue
+            img = tifffile.imread(filenames[0])
+            imgs = np.ndarray((len(filenames), img.shape[0], img.shape[1]), dtype=img.dtype)
+            for img_idx, fname in enumerate(filenames):
+                self.log(f'Loading {os.path.basename(fname)}', level='debug', system_prefix='FileHandler')
+                imgs[img_idx, :, :] = tifffile.imread(fname)
+            images_dict[key] = imgs.transpose([1, 2, 0])
+        return images_dict
