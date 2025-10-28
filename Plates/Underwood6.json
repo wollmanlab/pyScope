@@ -1,0 +1,68 @@
+{
+  "A": {
+    "center": {
+      "X": -43000.0,
+      "Y": 21500.0,
+      "Z": 0.0
+    },
+    "shape": "circle",
+    "dimensions": {
+      "radius": 15000.0
+    }
+  },
+  "B": {
+    "center": {
+      "X": 0.0,
+      "Y": 21500.0,
+      "Z": 0.0
+    },
+    "shape": "circle",
+    "dimensions": {
+      "radius": 15000.0
+    }
+  },
+  "C": {
+    "center": {
+      "X": 43000.0,
+      "Y": 21500.0,
+      "Z": 0.0
+    },
+    "shape": "circle",
+    "dimensions": {
+      "radius": 15000.0
+    }
+  },
+  "D": {
+    "center": {
+      "X": -43000.0,
+      "Y": -21500.0,
+      "Z": 0.0
+    },
+    "shape": "circle",
+    "dimensions": {
+      "radius": 15000.0
+    }
+  },
+  "E": {
+    "center": {
+      "X": 0.0,
+      "Y": -21500.0,
+      "Z": 0.0
+    },
+    "shape": "circle",
+    "dimensions": {
+      "radius": 15000.0
+    }
+  },
+  "F": {
+    "center": {
+      "X": 43000.0,
+      "Y": -21500.0,
+      "Z": 0.0
+    },
+    "shape": "circle",
+    "dimensions": {
+      "radius": 15000.0
+    }
+  }
+}

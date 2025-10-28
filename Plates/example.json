@@ -1,9 +1,9 @@
 {
   "circle_well_example": {
     "center": {
-      "X": 1000,
-      "Y": 2000,
-      "Z": 50
+      "X": -1000,
+      "Y": -1000,
+      "Z": 0
     },
     "shape": "circle",
     "dimensions": {
@@ -12,9 +12,9 @@
   },
   "rectangle_well_example": {
     "center": {
-      "X": 5500,
-      "Y": 2000,
-      "Z": 55
+      "X": 1000,
+      "Y": 1000,
+      "Z": 0
     },
     "shape": "rectangle",
     "dimensions": {
