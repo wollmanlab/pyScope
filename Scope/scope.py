@@ -30,7 +30,7 @@ class Scope:
         # Scope configuration
         self.acquisition_start_time = time.time()
         self.blocking = True
-        self.remember_state = True
+        self.remember_state = False
 
         self.config = {}
         self.config['MM_config_path'] = 'C:\GitRepos\pyScope\Configs\Scope_config.cfg'
@@ -53,18 +53,6 @@ class Scope:
             'X': None, 'Y': None, 'Z': None, 'Exposure': None, 
             'Channel': None, 'Binning': None, 'ImageShape': None, 'PixelSize': None
         }
-        
-        # Task management
-        # self.positions = pd.DataFrame(columns=['position_name', 'well', 'X', 'Y', 'Z'])
-        # self.imaging_tasks = pd.DataFrame(columns=['task_name', 'protocol', 'group', 'round', 'well', 'position_name', 'channel', 'X', 'Y', 'Z', 'start_time', 'end_time'])
-        # self.current_imaging_task_idx = 0
-        # self.status = "Idle"
-        
-        # # Autonomous operation settings
-        # self.monitoring_active = False
-        # self.monitoring_interval = 1.0  # seconds
-        
-        # Update channel limits from config file
         self._update_channel_limits()
         
         self.log('Scope initialization complete')
@@ -204,7 +192,6 @@ class Scope:
         # Clean up task files after protocol completion (both real and simulated)
         self.file_handler.save_task_idx("Scope", 0)
         self.file_handler.delete_tasks("Scope")
-        self.status = "Idle"
         self.simulate = False
 
     def decode_message(self, message):
@@ -216,13 +203,24 @@ class Scope:
         else:
             name = other
             other = ''
-        chambers = chambers[1:-1].split(',')
+        # chambers = chambers[1:-1].split(',')
+        chambers = ast.literal_eval(chambers)
         if '!' in other:
             other = other.split('!')[0]
             self.simulate = True
         else:
             self.simulate = False
         return protocol,chambers,name,other
+
+
+    def filter_positions(self,chambers,name,other):
+        positions = self.file_handler.Positions
+        updated_positions = positions.copy()
+        for chamber in chambers:
+            chamber_positions = positions[positions['well'] == chamber].copy()
+            preview_acq = self.file_handler.find_latest_acquisition('preview',chamber)
+            
+
 
     def acquire(self,chambers,acquisition_name,other,acquisition_data=None,positions=None):
         if acquisition_data is None:
@@ -259,6 +257,9 @@ class Scope:
             chamber_positions = positions[positions['well'] == chamber].copy()
             # chamber_positions = self.AutoFocus.update_focus(chamber_positions)#FIXME: self.autofocus()
             for _, position in chamber_positions.iterrows():
+                if 'stop' in self.check_status().lower():
+                    self.log("Scope is stopped", level='warning')
+                    return
                 self.log(f"Acquiring images for: {position['position_name']}")
                 current_idx+=1
                 self.file_handler.save_task_idx("Scope", current_idx)
@@ -267,10 +268,16 @@ class Scope:
                 starting_Z = position['Z']
                 # starting_Z = self.AutoFocus.update_focus(position) #FIXME:
                 for z_index,step in enumerate(steps):
+                    if 'stop' in self.check_status().lower():
+                        self.log("Scope is stopped", level='warning')
+                        return
                     if step != 0:
                         Z = starting_Z + step
                         self.Z = Z
                     for channel_name, channel in channels.items():
+                        if 'stop' in self.check_status().lower():
+                            self.log("Scope is stopped", level='warning')
+                            return
                         self.Channel = channel['Channel']
                         self.Exposure = channel['Exposure']
                         if channel['Delay'] > 0:
@@ -295,7 +302,6 @@ class Scope:
                         image_info['Z'] = position['Z'] + step
                         image_info['Zindex'] = z_index
                         image_info['Well'] = chamber
-                        image_info['acq'] = chamber_acquisition_name
                         image_info['Scope'] = self.name
                         image_info['Time'] = time_stamp
                         image_info['TimestampImage'] = time_stamp_image
@@ -324,6 +330,7 @@ class Scope:
     def set_initial_focus(self, chambers, name, other):
         self.log(f"Setting initial focus for chambers: {chambers}, mode: {name}")
         positions = self.file_handler.Positions
+        #FIXME: make sure chambers are in the positions dataframe
         if name == 'ManualPlate':
             self._show_focus_popup("Please adjust the focus for the plate using the microscope controls.\n\nClick OK when you are satisfied with the focus.")
             current_z = self.Z
@@ -429,14 +436,14 @@ class Scope:
                     self.log(f'{key}: {value} is not a valid binning. Possible values: {self.limits[key]}', level='error')
                     return False
             if abs(self.state[key] - value) < self.tolerance[key]:
-                self.log(f'{key}: {value} is within tolerance of {self.state[key]}', level='debug')
+                # self.log(f'{key}: {value} is within tolerance of {self.state[key]}', level='debug')
                 return True
             else:
                 return False
         else:
             complete = self.state[key] == value
-            if complete:
-                self.log(f'{key}: {value} is the same as the current state', level='debug')
+            # if complete:
+                # self.log(f'{key}: {value} is the same as the current state', level='debug')
             return complete
 
     def check_state(self, key):
@@ -537,8 +544,11 @@ class Scope:
             if self.blocking: 
                 self.core.wait_for_device(self.core.get_xy_stage_device())
                 self.core.wait_for_device(self.core.get_focus_device())
+                check_idx = 0
                 while not self.already_set(key, value):
-                    self.log(f'{key}: {value} is not the current value {self.get(key)}', level='debug')
+                    if check_idx > 1:
+                        self.log(f'{key}: {value} is not the current value {self.get(key)}', level='debug')
+                    check_idx+=1
                     time.sleep(0.1)
             self.log(f'{key}: {value}', level='debug')
             self.state[key] = value
@@ -697,14 +707,14 @@ class Scope:
     
     @property
     def image_width_um(self): 
-        if not self.enable_core:
-            return self.config['ImageShape'][1] * self.config['PixelSize']
+        # if not self.enable_core:
+        #     return self.config['ImageShape'][1] * self.PixelSize
         return self.ImageShape[1] * self.PixelSize
     
     @property
     def image_height_um(self): 
-        if not self.enable_core:
-            return self.config['ImageShape'][0] * self.config['PixelSize']
+        # if not self.enable_core:
+        #     return self.config['ImageShape'][0] * self.PixelSize
         return self.ImageShape[0] * self.PixelSize
     
     @property
@@ -732,6 +742,9 @@ class Scope:
     def status(self, value):
         """Set scope status and save to file handler."""
         self.file_handler.save_status("Scope", value)
+
+    def check_status(self):
+        return self.file_handler.get_status("Scope",read_only=False)
     
     @property
     def name(self):
