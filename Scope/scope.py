@@ -285,6 +285,7 @@ class Scope:
                             self.Autoshutter = False
                             self.Shutter = True 
                             time.sleep(channel['Delay']/1000)
+                        self.update_state()
                         image = self.snapImage()
                         time_stamp = datetime.now()
                         time_stamp_image = time.time()
