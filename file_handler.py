@@ -437,7 +437,7 @@ class FileHandler:
         
         self._metadata_columns = [
             'Position', 'Channel', 'Exposure', 'PixelSize', 'XY', 'X', 'Y', 'Z', 
-            'Zindex', 'Well', 'acq', 'Scope', 'Time', 'TimestampImage'
+            'Zindex', 'Well', 'acq', 'Scope', 'Time', 'TimestampImage','filename'
         ]
         
         metadata_path = os.path.join(acquisition_dir, 'Metadata.txt')
@@ -488,6 +488,7 @@ class FileHandler:
         file_name_keys = [i for i in file_name_keys if i in image_info.keys()]
         file_name = ''.join([f"{image_info[key]}__" for key in file_name_keys])
         file_name = file_name + datetime.now().strftime('%Y-%m-%d_%H-%M-%S-%f')+ '.tif'
+        image_info['filename'] = file_name
         image_path = os.path.join(self.acquisition_dir, file_name)
         tifffile.imwrite(image_path, image)
         
