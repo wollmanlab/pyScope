@@ -173,7 +173,7 @@ class Positions:
             for j in range(-num_steps_y, num_steps_y + 1):
                 cand_x = center['X'] + i * step_x
                 cand_y = center['Y'] + j * step_y
-                self.log(f"Checking candidate position ({i}, {j}): X={cand_x}, Y={cand_y}", level='debug')
+                # self.log(f"Checking candidate position ({i}, {j}): X={cand_x}, Y={cand_y}", level='debug')
                 
                 # 3. For each candidate, check if it's inside the actual shape.
                 # To do this for a rotated shape, we perform a reverse rotation on the candidate point
@@ -189,50 +189,22 @@ class Positions:
                     radius_squared = dimensions['radius']**2
                     if distance_squared <= radius_squared:
                         is_inside = True
-                    self.log(f"Circle check - distance_squared={distance_squared}, radius_squared={radius_squared}, is_inside={is_inside}", level='debug')
+                    # self.log(f"Circle check - distance_squared={distance_squared}, radius_squared={radius_squared}, is_inside={is_inside}", level='debug')
                 elif shape == 'rectangle':
                     # Check if the "un-rotated" point is within the simple rectangle boundaries.
                     if (abs(local_x) <= dimensions['width'] / 2.0 and
                         abs(local_y) <= dimensions['height'] / 2.0):
                         is_inside = True
-                    self.log(f"Rectangle check - local_x={local_x}, local_y={local_y}, width/2={dimensions['width']/2.0}, height/2={dimensions['height']/2.0}, is_inside={is_inside}", level='debug')
+                    # self.log(f"Rectangle check - local_x={local_x}, local_y={local_y}, width/2={dimensions['width']/2.0}, height/2={dimensions['height']/2.0}, is_inside={is_inside}", level='debug')
                 
                 if is_inside:
-                    # Check if position is within limits (if provided)
-                    position_valid = True
-                    if self.limits is not None:
-                        # Validate X position
-                        if 'X' in self.limits:
-                            x_min, x_max = self.limits['X']
-                            if cand_x < x_min or cand_x > x_max:
-                                self.log(f"Position filtered out - X {cand_x} outside limits [{x_min}, {x_max}]", level='debug')
-                                position_valid = False
-                        
-                        # Validate Y position
-                        if 'Y' in self.limits and position_valid:
-                            y_min, y_max = self.limits['Y']
-                            if cand_y < y_min or cand_y > y_max:
-                                self.log(f"Position filtered out - Y {cand_y} outside limits [{y_min}, {y_max}]", level='debug')
-                                position_valid = False
-                        
-                        # Validate Z position
-                        if 'Z' in self.limits and position_valid:
-                            z_min, z_max = self.limits['Z']
-                            if center['Z'] < z_min or center['Z'] > z_max:
-                                self.log(f"Position filtered out - Z {center['Z']} outside limits [{z_min}, {z_max}]", level='debug')
-                                position_valid = False
-                    
-                    if position_valid:
-                        tile_name = f"Well{name}_Xi{i}_Yi{j}"
-                        positions[tile_name] = {'X': cand_x, 'Y': cand_y, 'Z': center['Z']}
-                        self.log(f"Added position {tile_name}: X={cand_x}, Y={cand_y}, Z={center['Z']}", level='debug')
-                        positions_generated += 1
-                    else:
-                        positions_filtered += 1
-                        self.log(f"Position filtered out due to limits", level='debug')
+                    tile_name = f"Well{name}_Xi{i}_Yi{j}"
+                    positions[tile_name] = {'X': cand_x, 'Y': cand_y, 'Z': center['Z']}
+                    # self.log(f"Added position {tile_name}: X={cand_x}, Y={cand_y}, Z={center['Z']}", level='debug')
+                    positions_generated += 1
                 else:
                     positions_filtered += 1
-                    self.log(f"Position outside shape", level='debug')
+                    # self.log(f"Position outside shape", level='debug')
                     
         self.log(f"Final count - Generated: {positions_generated}, Filtered: {positions_filtered}", level='debug')
         self.log(f"Generated {len(positions)} positions for well '{name}'", level='debug')
@@ -322,21 +294,46 @@ class Positions:
         for tile_name, pos in plate_positions.items():
             stage_pos = self._transform_plate_to_stage_coords(pos)
             
-            # Create row data with only essential position information
-            row_data = {
-                'position_name': tile_name,
-                'well': name,
-                'X': stage_pos['X'],
-                'Y': stage_pos['Y'],
-                'Z': stage_pos['Z']
-            }
-            new_rows.append(row_data)
+            # Check if position is within limits (after transformation to stage coordinates)
+            position_valid = True
+            if self.limits is not None:
+                # Validate X position
+                if 'X' in self.limits:
+                    x_min, x_max = self.limits['X']
+                    if stage_pos['X'] < x_min or stage_pos['X'] > x_max:
+                        self.log(f"Position filtered out - X {stage_pos['X']} outside limits [{x_min}, {x_max}]", level='debug')
+                        position_valid = False
+                
+                # Validate Y position
+                if 'Y' in self.limits and position_valid:
+                    y_min, y_max = self.limits['Y']
+                    if stage_pos['Y'] < y_min or stage_pos['Y'] > y_max:
+                        self.log(f"Position filtered out - Y {stage_pos['Y']} outside limits [{y_min}, {y_max}]", level='debug')
+                        position_valid = False
+                
+                # Validate Z position
+                if 'Z' in self.limits and position_valid:
+                    z_min, z_max = self.limits['Z']
+                    if stage_pos['Z'] < z_min or stage_pos['Z'] > z_max:
+                        self.log(f"Position filtered out - Z {stage_pos['Z']} outside limits [{z_min}, {z_max}]", level='debug')
+                        position_valid = False
+            
+            if position_valid:
+                # Create row data with only essential position information
+                row_data = {
+                    'position_name': tile_name,
+                    'well': name,
+                    'X': stage_pos['X'],
+                    'Y': stage_pos['Y'],
+                    'Z': stage_pos['Z']
+                }
+                new_rows.append(row_data)
         
         # Add new rows to DataFrame
         new_df = pd.DataFrame(new_rows)
         self.positions = pd.concat([self.positions, new_df], ignore_index=True)
         
-        self.log(f"Added well '{name}' with {len(new_rows)} FOV positions.")
+        self.log(f"Added well '{name}' with {len(new_rows)} FOV positions (filtered {len(plate_positions) - len(new_rows)} out-of-bounds positions).")
         self.log(f"Total positions after adding well '{name}': {len(self.positions)}", level='debug')
         self.log(f"Wells in positions DataFrame: {sorted(self.positions['well'].unique().tolist())}", level='debug')
         
