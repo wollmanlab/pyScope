@@ -166,6 +166,14 @@ def create_dark_style():
              background=[('active', GUI_COLORS['button_hover']),
                         ('pressed', GUI_COLORS['button_active'])])
     
+    # Configure dark style for progress bar with green fill on white background
+    style.configure('Dark.Horizontal.TProgressbar',
+                   background='#4CAF50',  # Green color for progress fill
+                   troughcolor=GUI_COLORS['combobox'],  # White background
+                   borderwidth=0,
+                   lightcolor='#4CAF50',
+                   darkcolor='#4CAF50')
+    
     return style
 
 def get_status_color(status_type):
@@ -932,6 +940,11 @@ class SystemGUI:
         self.running = False #FIXME
         self.available_configs = []  # Initialize available configs
         self.assignments_table_frame = None  # Initialize assignments table frame
+        self.task_timing = {
+            'fluidics': {'start_time': None, 'prev_idx': 0},
+            'scope': {'start_time': None, 'prev_idx': 0},
+            'experiment': {'start_time': None, 'prev_idx': 0}
+        }
         
         # Create main window
         self.root = tk.Tk()
@@ -1112,8 +1125,6 @@ class SystemGUI:
         # Hide well selection frame initially
         self.well_selection_frame.pack_forget()
         self.positions_status_label.config(text="")
-        
-        # Change button to "Create Positions" for immediate position creation
         self.create_btn.config(text="Create Positions", command=self.create_positions_in_setup)
         
         if selected_type in self.available_configs:
@@ -1335,11 +1346,8 @@ class SystemGUI:
         create_wells_btn = create_button(create_wells_frame, "Create Wells", 
                                        command=self.generate_custom_grid_wells, bold=True)
         create_wells_btn.pack(side='left')
-        
-        # Change button text to "Create Positions" for immediate position creation
+
         self.create_btn.config(text="Create Positions", command=self.create_positions_in_setup)
-        
-        # Show the grid frame
         self.well_selection_frame.pack(fill='both', expand=True, pady=(0, 10))
         
         self.positions_status_label.config(text="Custom grid configuration loaded. Fill in the parameters and click 'Create Wells' to generate wells, then 'Create Positions' to create positions.", 
@@ -1536,8 +1544,6 @@ class SystemGUI:
         create_wells_btn = create_button(create_wells_frame, "Create Wells", 
                                        command=self.generate_manual_wells, bold=True)
         create_wells_btn.pack(side='left')
-        
-        # Change button text to "Create Positions" for immediate position creation
         self.create_btn.config(text="Create Positions", command=self.create_positions_in_setup)
         
         self.well_selection_frame.pack(fill='both', expand=True, pady=(0, 10))
@@ -1645,8 +1651,6 @@ class SystemGUI:
         create_wells_btn = create_button(create_wells_frame, "Create Wells", 
                                        command=self.generate_file_wells, bold=True)
         create_wells_btn.pack(side='left')
-        
-        # Change button text to "Create Positions" for immediate position creation
         self.create_btn.config(text="Create Positions", command=self.create_positions_in_setup)
         
         self.well_selection_frame.pack(fill='both', expand=True, pady=(0, 10))
@@ -1717,8 +1721,6 @@ class SystemGUI:
         load_positions_btn = create_button(load_button_frame, "Load Positions", 
                                          command=self.load_positions_from_file, bold=True)
         load_positions_btn.pack(side='left')
-        
-        # Change button text to "Create Positions" for immediate position creation
         self.create_btn.config(text="Create Positions", command=self.create_positions_in_setup)
         
         self.well_selection_frame.pack(fill='both', expand=True, pady=(0, 10))
@@ -2279,8 +2281,7 @@ class SystemGUI:
         # Clear existing widgets in well selection frame
         for widget in self.well_selection_frame.winfo_children():
             widget.destroy()
-        
-        # Change button to "Create Positions" when showing well selection
+
         self.create_btn.config(text="Create Positions", command=self.create_positions_in_setup)
         
         # Create well selection frame
@@ -2477,9 +2478,9 @@ class SystemGUI:
         self.channels_vars = []
         self.channel_exposure_vars = []
         self.channel_delay_vars = []
+        self.channel_preview_vars = []
         
-        # Get available channels from Scope configuration
-        try:
+        try: # Get available channels from Scope configuration
             available_channels = self.scope.available_channels
             self.log(f"Using channels from Scope config: {available_channels}")
         except Exception as e:
@@ -2497,6 +2498,8 @@ class SystemGUI:
         tk.Label(header_frame, text="Exposure (ms)", bg=GUI_COLORS['frame'], fg=GUI_COLORS['text'],
                 font=GUI_FONTS['body'], width=10, anchor='center').pack(side='left', padx=(0, 20))
         tk.Label(header_frame, text="Delay (ms)", bg=GUI_COLORS['frame'], fg=GUI_COLORS['text'],
+                font=GUI_FONTS['body'], width=10, anchor='center').pack(side='left', padx=(0, 20))
+        tk.Label(header_frame, text="Preview", bg=GUI_COLORS['frame'], fg=GUI_COLORS['text'],
                 font=GUI_FONTS['body'], width=10, anchor='center').pack(side='left')
         
         # Create channel rows
@@ -2512,6 +2515,10 @@ class SystemGUI:
             delay_var = tk.StringVar()
             delay_var.set("0")  # Default value
             self.channel_delay_vars.append(delay_var)
+            
+            preview_var = tk.BooleanVar()
+            preview_var.set(False)  # Default off
+            self.channel_preview_vars.append(preview_var)
             
             row_frame = tk.Frame(acquisition_frame, bg=GUI_COLORS['frame'])
             row_frame.pack(fill='x', padx=10, pady=2)
@@ -2539,6 +2546,14 @@ class SystemGUI:
                                   bg=GUI_COLORS['entry'], fg=GUI_COLORS['text'],
                                   font=GUI_FONTS['body'], justify='center')
             delay_entry.pack(side='left', padx=(0, 20))
+            
+            # Preview checkbox
+            preview_cb = tk.Checkbutton(row_frame, variable=preview_var,
+                                       bg=GUI_COLORS['checkbox_bg'], fg=GUI_COLORS['text'],
+                                       selectcolor=GUI_COLORS['checkbox_select'],
+                                       activebackground=GUI_COLORS['checkbox_active'],
+                                       activeforeground=GUI_COLORS['text'])
+            preview_cb.pack(side='left', padx=(0, 20))
         
         # Steps section
         steps_frame = tk.Frame(acquisition_frame, bg=GUI_COLORS['frame'])
@@ -2825,6 +2840,8 @@ class SystemGUI:
                 except ValueError:
                     self.config_error_label.config(text=f"ERROR: Delay for {channel} must be a valid number!")
                     return
+
+            preview_channels = [channel for channel, var in zip(available_channels, self.channel_preview_vars) if var.get()]
             
             if not selected_channels:
                 self.config_error_label.config(text="ERROR: Please select at least one channel!")
@@ -2902,6 +2919,7 @@ class SystemGUI:
                 'selected_channels': selected_channels,
                 'channel_exposure': channel_exposure,
                 'channel_delay': channel_delay,
+                'preview_channels': preview_channels,
                 'fluidics_protocols': selected_fluidics,
                 'num_hybes': num_hybes,
                 'position_filtering': position_filtering,
@@ -2917,6 +2935,7 @@ class SystemGUI:
             self.log(f"Selected channels: {selected_channels}")
             self.log(f"Channel exposure: {channel_exposure}")
             self.log(f"Channel delay: {channel_delay}")
+            self.log(f"Preview channels: {preview_channels}")
             self.log(f"Fluidics protocols: {selected_fluidics}")
             self.log(f"Number of hybes: {num_hybes}")
             self.log(f"Position filtering: {position_filtering}")
@@ -3697,6 +3716,36 @@ class SystemGUI:
                 return None
             
             total_tasks = len(tasks_df)
+            timing = self.task_timing.get(task_type, {'start_time': None, 'prev_idx': 0})
+            
+            # Reset timing if tasks are complete (idx = 0)
+            if current_idx == 0:
+                self.task_timing[task_type] = {'start_time': None, 'prev_idx': 0}
+                timing = self.task_timing[task_type]
+            
+            # Handle task restart (idx decreased) - new set of tasks started
+            elif current_idx < timing['prev_idx']:
+                timing['start_time'] = time.time()
+                timing['prev_idx'] = current_idx
+                self.task_timing[task_type] = timing
+            
+            # Detect when task changes from 0 to non-zero (task started)
+            elif current_idx > 0 and timing['prev_idx'] == 0:
+                timing['start_time'] = time.time()
+                timing['prev_idx'] = current_idx
+                self.task_timing[task_type] = timing
+            
+            # If we missed the transition and have no start time but are already running, set it now
+            elif current_idx > 0 and timing['start_time'] is None:
+                timing['start_time'] = time.time()
+                timing['prev_idx'] = current_idx
+                self.task_timing[task_type] = timing
+            
+            # Normal case: just update previous index
+            else:
+                timing['prev_idx'] = current_idx
+                self.task_timing[task_type] = timing
+            
             # Handle 1-based indexing: current_idx 1 means we're on task 1 of total_tasks
             # Progress should be (current_idx - 1) / total_tasks for 1-based indexing
             if current_idx == 0:
@@ -3709,13 +3758,13 @@ class SystemGUI:
                 remaining_tasks = total_tasks - (current_idx - 1)
             
             # Calculate expected completion time based on elapsed time
-            if current_idx > 0:
-                # Estimate time per task based on current progress
-                # This is a simple estimation - in practice you might want more sophisticated timing
-                estimated_time_per_task = 30  # seconds (placeholder)
-                estimated_remaining_time = remaining_tasks * estimated_time_per_task
-            else:
-                estimated_remaining_time = 0
+            estimated_remaining_time = 0
+            if current_idx > 0 and timing['start_time'] is not None:
+                elapsed_time = time.time() - timing['start_time']
+                completed_tasks = current_idx - 1
+                if completed_tasks > 0:
+                    avg_time_per_task = elapsed_time / completed_tasks
+                    estimated_remaining_time = remaining_tasks * avg_time_per_task
             
             return {
                 'current_task': current_idx,
