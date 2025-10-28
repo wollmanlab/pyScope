@@ -20,12 +20,16 @@ class CyanScope(Scope):
         self.config['MM_config_path'] = 'C:\GitRepos\pyScope\Configs\CyanScope_config.cfg'
         self.config['tolerance'] = {'X': 0.1, 'Y': 0.1, 'Z': 0.1,'Exposure': 0.1}
         self.config['limits'] = {
-            'X': (6500, 92500), 'Y': (113000, 250000), 'Z': (0, 13000), 
+            'Y': (6500, 92500), 'X': (113000, 250000), 'Z': (0, 13000), 
             'Exposure': (0, 10000), 'Binning': ['1', '2', '4'], 
             'Channel': ['FarRed', 'DeepBlue', 'Green', 'Orange'], 
             'Time': (0, 1e8)
         }
+        # self.config['offsets'] = {'X': 0, 'Y': 0, 'Z': 0}
         self.config['offsets'] = {'X': 0, 'Y': 0, 'Z': 0}
+        for key in self.config['offsets']:
+            self.config['offsets'][key] = (self.config['limits'][key][0] + self.config['limits'][key][1]) / 2
+            
         self.config['axis_mapping'] = {'stage_x': 'plate_x', 'stage_y': 'plate_y'}
         self.config['ImageShape'] = np.array([4096,3000])
         self.config['PixelSize'] = 0.343
