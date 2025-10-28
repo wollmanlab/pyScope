@@ -6,3 +6,5 @@ __pycache__/
 # State directory
 State/
 
+# Testing files
+test*
