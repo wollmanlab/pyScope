@@ -23,7 +23,7 @@ class Experiment():
             self.log(f'Positions loaded successfully: {self.positions}')
         except:
             self.log(f'No Positions Found: creating empty positions dataframe')
-            self.positions = pd.DataFrame(columns=['well','x','y','z'])
+            self.positions = pd.DataFrame(columns=['group','well','x','y','z'])
     
     def log(self, message, level='info'):
         """Log messages using FileHandler's logging system."""
@@ -48,7 +48,7 @@ class Experiment():
                 if self.last_message!=status:
                     self.last_message = status
                     self.log(f"New Message: {status}")
-                if status == "Stop":
+                if 'Stop' in status:
                     self.log('Continuous monitoring stopped by user')
                     break
                 elif "Command" in status:
@@ -61,6 +61,55 @@ class Experiment():
     def interpret_command(self, current_message):
         """Interpret message from other software."""
         self.log(f"Interpreting Command: {current_message}")
+        self.busy = True
+        message = current_message.split(':')[-1]
+        self.status = "Running:"+message
+        self.execute_protocol(message)
+        self.status = "Finished:"+message
+        self.busy = False
+
+    def is_busy(self, device):
+        status = self.file_handler.get_status(device)
+        if 'Running' in status:
+            return True
+        if 'Command' in status:
+            return True
+        elif 'Paused' in status:
+            return True        
+        else:
+            return False
+
+    def wait_until_not_busy(self, device):
+        while self.is_busy(device):
+            self.log(f"Device {device} is busy, waiting until not busy",level='info')
+            time.sleep(1)
+        self.log(f"Device {device} is not busy",level='info')
+
+    def execute_protocol(self, message):
+        if 'Execute Tasks' in message:
+            self.execute_tasks()
+        elif 'Create Tasks' in message:
+            self.create_tasks()
+        else:
+            self.log(f"Unknown protocol: {message}", level='warning')
+
+
+    def execute_task(self):
+        self.tasks = self.file_handler.get_tasks("Experiment")
+        for idx, task in self.tasks.iterrows():
+            if 'stop' in self.file_handler.get_status("Scope",read_only=False).lower():
+                self.log("Scope is stopped, stopping experiment", level='warning')
+                return
+            self.file_handler.save_task_idx("Experiment", idx)
+            # Wait for all to be available
+            for device in self.tasks.columns:
+                if task[device] is not None:
+                    self.wait_until_not_busy(device)
+            # Execute the tasks
+            for device in self.tasks.columns:
+                if task[device] is not None:
+                    self.file_handler.save_status(device, "Command:"+task[device])
+        self.file_handler.save_task_idx("Experiment", 0)
 
 
     def _reset_system(self):
@@ -220,7 +269,7 @@ class Experiment():
 
     def create_tasks(self): #FIXME: Single String for each system and add in setup too
         task_number = 0
-        systems = ['Scope','Fluidics','Experiment']
+        systems = ['Scope','Fluidics']
         self.tasks = pd.DataFrame(columns=systems)
         
         # Get experiment state
@@ -230,8 +279,12 @@ class Experiment():
         fluidics_protocols = exp_state.get('fluidics_protocols', [])
         group_assignments = exp_state.get('group_assignments', {})
         fluidics_well_assignments = exp_state.get('fluidics_well_assignments', {})
-        
-        # Check if we have the required data
+        filtering_method = exp_state.get('position_filtering', 'Draw')
+        autofocus_method = exp_state.get('autofocus_method', 'Relative')
+        acquisition_focus_method = exp_state.get('acquisition_focus', 'Plane')
+        preview_focus_method = exp_state.get('preview_focus', 'ManualWell')
+        skip_first_fluidics_task = exp_state.get('skip_first_fluidics_task', True)
+        # Check if we have the required data    
         if not groups or not fluidics_protocols or num_hybes == 0:
             self.log("Cannot create tasks: missing required experiment configuration", level='warning')
             return
@@ -248,38 +301,56 @@ class Experiment():
         positions_df = self.file_handler.Positions
         available_wells = positions_df['well'].unique()
         self.log(f"  Available wells: {list(available_wells)}")
-        
+
+        # First There are some setup tasks that need to be created
+        chambers = list(available_wells)
+        self.tasks.loc[task_number,'Scope'] = f"SetFocus*{str(chambers)}*{preview_focus_method}"
+        task_number += 1
+        self.tasks.loc[task_number,'Scope'] = f"Acquire*{str(chambers)}*preview"
+        task_number += 1
+        self.tasks.loc[task_number,'Scope'] = f"FilterPositions*{str(chambers)}*{filtering_method}"
+        task_number += 1
+        self.tasks.loc[task_number,'Scope'] = f"SetFocus*{str(chambers)}*{acquisition_focus_method}"
+        task_number += 1
+        self.tasks.loc[task_number,'Scope'] = f"SetupAutoFocus*{str(chambers)}*{autofocus_method}"
+        task_number += 1
+
         if len(groups) == 1:
             group = groups[0]
-            # Get wells for this group
             group_wells = [well for well in positions_df['well'].unique() if group_assignments.get(well) == group]
-            # Get fluidics wells for this group
-            scope_wells = ''.join([group_assignments.get(well, '')+',' for well in group_wells])[:-1]
-            fluidics_wells = ''.join([fluidics_well_assignments.get(well, '')+',' for well in group_wells])[:-1]
+            scope_wells = str([group_assignments.get(well, '')+',' for well in group_wells])
+            fluidics_wells = str([fluidics_well_assignments.get(well, '')+',' for well in group_wells])
             self.log(f"  Single group '{group}' has wells: {group_wells}, fluidics wells: '{fluidics_wells}'")
             
             for round in range(num_hybes):
                 for fluidics_protocol in fluidics_protocols:
-                    fluidics_command = f"{fluidics_protocol}*[{fluidics_wells}]*{fluidics_protocol+str(round+1)}"
-                    scope_command = f"Acquire*[{scope_wells}]*{fluidics_protocol+str(round+1)}"
+                    fluidics_command = f"{fluidics_protocol}*{fluidics_wells}*{fluidics_protocol+str(round+1)}"
+                    scope_command = f"Acquire*{scope_wells}*{fluidics_protocol+str(round+1)}"
                     task_number += 1
                     self.tasks.loc[task_number,'Fluidics'] = fluidics_command
                     task_number += 1
                     self.tasks.loc[task_number,'Scope'] = scope_command
-
         else:
             for round in range(num_hybes):
                 for fluidics_protocol in fluidics_protocols:
                     for group in groups:
                         group_wells = [well for well in positions_df['well'].unique() if group_assignments.get(well) == group]
-                        scope_wells = ''.join([group_assignments.get(well, '')+',' for well in group_wells])[:-1]
-                        fluidics_wells = ''.join([fluidics_well_assignments.get(well, '')+',' for well in group_wells])[:-1]
-                        fluidics_command = f"{fluidics_protocol}*[{fluidics_wells}]*{fluidics_protocol+str(round+1)}"
-                        scope_command = f"Acquire*[{group_wells}]*{fluidics_protocol+str(round+1)}"
+                        # scope_wells = ''.join([group_assignments.get(well, '')+',' for well in group_wells])[:-1]
+                        scope_wells = str([group_assignments.get(well, '')+',' for well in group_wells])
+                        # fluidics_wells = ''.join([fluidics_well_assignments.get(well, '')+',' for well in group_wells])[:-1]
+                        fluidics_wells = str([fluidics_well_assignments.get(well, '')+',' for well in group_wells])
+                        fluidics_command = f"{fluidics_protocol}*{fluidics_wells}*{fluidics_protocol+str(round+1)}"
+                        scope_command = f"Acquire*{group_wells}*{fluidics_protocol+str(round+1)}"
                         
                         task_number += 1
                         self.tasks.loc[task_number,'Fluidics'] = fluidics_command
                         self.tasks.loc[task_number+1,'Scope'] = scope_command
+
+        if skip_first_fluidics_task:
+            # find the first fluidics task and delete it
+            fluidics_idxs = [idx for idx, task in self.tasks.iterrows() if not pd.isna(task['Fluidics'])]
+            self.tasks.loc[fluidics_idxs[0],'Fluidics'] = self.tasks.loc[0,'Fluidics']
+
 
         self.file_handler.save_tasks("Experiment", self.tasks)
         
