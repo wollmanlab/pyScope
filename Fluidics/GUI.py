@@ -235,13 +235,14 @@ class GUI(tk.Frame):
             self.running_label_text = message
             self.update_label_text = "Checking Device Availability"
             self.update_labels(self.labels())
-            self.wait_until_message(['Available','Finished','Idle'],max_wait_time=60*5)
+            self.wait_until_message(['Available','Finished','Idle','offline'],max_wait_time=60*5)
 
             # Send Message
             self.update_user('Communicating with Device:'+message)
             self.update_label_text = "Communicating with Device"
             self.update_labels(self.labels())
             self.Fluidics.status = message
+            time.sleep(5)
             # self.Fluidics.update_communication(message)
             
             # Block until Started Error if taking too long
