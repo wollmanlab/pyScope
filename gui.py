@@ -13,6 +13,7 @@ import time
 import os
 import json
 import pandas as pd
+from datetime import datetime
 from typing import Dict, List, Tuple, Optional, Callable, Any
 from Scope.scope import Scope
 from Scope.positions import Positions
@@ -928,7 +929,7 @@ class SystemGUI:
         module = importlib.import_module(module_name)
         class_name = f"{system}Scope"
         scope_class = getattr(module, class_name)
-        self.scope = scope_class(enable_core=False)
+        self.scope = scope_class(enable_core=True)
 
         # module_name = f"Fluidics.{system.lower()}Fluidics"
         # module = importlib.import_module(module_name)
@@ -966,20 +967,6 @@ class SystemGUI:
     def log(self, message, level='info'):
         """Log messages using FileHandler's logging system."""
         self.file_handler.log(message, level=level, system_prefix='GUI')
-    
-    def on_skip_first_fluidics_changed(self):
-        """Handle checkbox state change and save to experiment state."""
-        try:
-            skip_first = self.skip_first_fluidics_var.get()
-            
-            # Update experiment state
-            updates = {'skip_first_fluidics_task': skip_first}
-            self.file_handler.update_state(system_prefix='Experiment', updates=updates)
-            
-            self.log(f"Skip first fluidics task set to: {skip_first}")
-            
-        except Exception as e:
-            self.log(f"Error updating skip first fluidics task: {e}", level='error')
     
     def create_main_layout(self):
         """Create the main layout with all blocks."""
@@ -1075,19 +1062,22 @@ class SystemGUI:
     def save_experiment_info(self):
         """Save experiment info and proceed to next step."""
         try:
-            # Get experiment info from the experimental setup panel
-            if hasattr(self, 'exp_entry') and hasattr(self, 'user_entry') and hasattr(self, 'project_entry'):
+            # Get experiment info from experiment object (which already has date appended if needed)
+            exp_name = getattr(self.experiment, 'experiment_name', '')
+            user_name = getattr(self.experiment, 'user_name', '')
+            project_name = getattr(self.experiment, 'project_name', '')
+            save_path = getattr(self.experiment, 'save_path', '')
+            
+            # Fallback to entry fields if experiment object doesn't have values
+            if not exp_name and hasattr(self, 'exp_entry'):
                 exp_name = self.exp_entry.get().strip()
+            if not user_name and hasattr(self, 'user_entry'):
                 user_name = self.user_entry.get().strip()
+            if not project_name and hasattr(self, 'project_entry'):
                 project_name = self.project_entry.get().strip()
-                save_path = getattr(self, 'save_path_entry', None)
-                save_path = save_path.get().strip() if save_path else getattr(self.experiment, 'save_path', '')
-            else:
-                # Fallback to system attributes if entries don't exist
-                exp_name = getattr(self.experiment, 'experiment_name', '')
-                user_name = getattr(self.experiment, 'user_name', '')
-                project_name = getattr(self.experiment, 'project_name', '')
-                save_path = getattr(self.experiment, 'save_path', '')
+            if not save_path:
+                save_path_entry = getattr(self, 'save_path_entry', None)
+                save_path = save_path_entry.get().strip() if save_path_entry else ''
             
             if not exp_name:
                 self.log("ERROR: Experiment name cannot be blank!", level='warning')
@@ -1122,10 +1112,13 @@ class SystemGUI:
         selected_type = self.config_type_var.get()
         self.log(f"Positions GUI: Configuration type changed to: '{selected_type}'")
         
-        # Hide well selection frame initially
-        self.well_selection_frame.pack_forget()
-        self.positions_status_label.config(text="")
-        self.create_btn.config(text="Create Positions", command=self.create_positions_in_setup)
+        # Hide well selection frame initially (if it exists)
+        if hasattr(self, 'well_selection_frame'):
+            self.well_selection_frame.pack_forget()
+        if hasattr(self, 'positions_status_label'):
+            self.positions_status_label.config(text="")
+        if hasattr(self, 'create_btn'):
+            self.create_btn.config(text="Create Positions", command=self.create_positions_in_setup)
         
         if selected_type in self.available_configs:
             self.load_plate_config(selected_type)
@@ -2485,7 +2478,7 @@ class SystemGUI:
             self.log(f"Using channels from Scope config: {available_channels}")
         except Exception as e:
             self.log(f"Error getting channels from Scope: {e}, using fallback", level='warning')
-            available_channels = ['FarRed', 'DeepBlue', 'Green', 'Orange']
+            available_channels = sorted(['FarRed', 'DeepBlue', 'Green', 'Orange'])
         
         # Create header row
         header_frame = tk.Frame(acquisition_frame, bg=GUI_COLORS['frame'])
@@ -2505,11 +2498,20 @@ class SystemGUI:
         # Create channel rows
         for channel in available_channels:
             var = tk.BooleanVar()
-            var.set(True)
+            var.set(False)
             self.channels_vars.append(var)
             
             exposure_var = tk.StringVar()
-            exposure_var.set("500")  # Default value
+            if channel == 'DeepBlue':
+                exposure_var.set("5")
+            elif channel == 'FarRed':
+                exposure_var.set("500")
+            elif channel == 'Green':
+                exposure_var.set("500")
+            elif channel == 'Orange':
+                exposure_var.set("500")
+            else:
+                exposure_var.set("500")  # Default value
             self.channel_exposure_vars.append(exposure_var)
             
             delay_var = tk.StringVar()
@@ -2517,7 +2519,10 @@ class SystemGUI:
             self.channel_delay_vars.append(delay_var)
             
             preview_var = tk.BooleanVar()
-            preview_var.set(False)  # Default off
+            if channel == 'DeepBlue':
+                preview_var.set(True)
+            else:
+                preview_var.set(False)  # Default off
             self.channel_preview_vars.append(preview_var)
             
             row_frame = tk.Frame(acquisition_frame, bg=GUI_COLORS['frame'])
@@ -2676,19 +2681,12 @@ class SystemGUI:
         skip_first_frame = tk.Frame(protocols_section, bg=GUI_COLORS['frame'])
         skip_first_frame.pack(fill='x', pady=(5, 0))
         
-        self.skip_first_fluidics_var = tk.BooleanVar()
+        self.skip_first_fluidics_var = tk.BooleanVar(value=True)
         
-        # Load initial state from experiment state
-        try:
-            experiment_state = self.file_handler.get_state('Experiment')
-            skip_first = experiment_state.get('skip_first_fluidics_task', False)
-            self.skip_first_fluidics_var.set(skip_first)
-        except:
-            self.skip_first_fluidics_var.set(False)
+
         
         tk.Checkbutton(skip_first_frame, text="Skip first fluidics task", 
                       variable=self.skip_first_fluidics_var,
-                      command=self.on_skip_first_fluidics_changed,
                       bg=GUI_COLORS['checkbox_bg'], fg=GUI_COLORS['text'],
                       selectcolor=GUI_COLORS['checkbox_select'], 
                       activebackground=GUI_COLORS['checkbox_active'], 
@@ -2715,8 +2713,10 @@ class SystemGUI:
         self.position_filtering_dropdown = ttk.Combobox(position_filtering_frame, 
                                                        textvariable=self.position_filtering_var, 
                                                        style='Dark.TCombobox', width=15)
-        self.position_filtering_dropdown['values'] = ['None', 'Draw']
-        self.position_filtering_dropdown.set('None')
+        position_filtering_options = self.scope.position_filtering_options
+        self.position_filtering_dropdown['values'] = position_filtering_options
+        if 'Draw' in position_filtering_options:
+            self.position_filtering_dropdown.set('Draw')
         self.position_filtering_dropdown.pack(side='left', padx=(10, 0))
         
         # Focus
@@ -2738,9 +2738,11 @@ class SystemGUI:
         self.preview_focus_var = tk.StringVar()
         self.preview_focus_dropdown = ttk.Combobox(preview_focus_frame, 
                                                  textvariable=self.preview_focus_var, 
-                                                 style='Dark.TCombobox', width=15)
-        self.preview_focus_dropdown['values'] = ['None', 'Manual Plate', 'Manual Well']
-        self.preview_focus_dropdown.set('None')
+                                                 style='Dark.TCombobox', width=25)
+        preview_focus_options = self.scope.set_focus_options
+        self.preview_focus_dropdown['values'] = preview_focus_options
+        if 'Manual Well' in preview_focus_options:
+            self.preview_focus_dropdown.set('Manual Well')
         self.preview_focus_dropdown.pack(side='left', padx=(10, 0))
         
         # Acquisition Focus
@@ -2753,9 +2755,11 @@ class SystemGUI:
         self.acquisition_focus_var = tk.StringVar()
         self.acquisition_focus_dropdown = ttk.Combobox(acquisition_focus_frame, 
                                                      textvariable=self.acquisition_focus_var, 
-                                                     style='Dark.TCombobox', width=15)
-        self.acquisition_focus_dropdown['values'] = ['None', 'Plane']
-        self.acquisition_focus_dropdown.set('None')
+                                                     style='Dark.TCombobox', width=25)
+        acquisition_focus_options = self.scope.set_focus_options
+        self.acquisition_focus_dropdown['values'] = acquisition_focus_options
+        if 'Manual Plane Group' in acquisition_focus_options:
+            self.acquisition_focus_dropdown.set('Manual Plane Group')
         self.acquisition_focus_dropdown.pack(side='left', padx=(10, 0))
         
         # AutoFocus Method
@@ -2768,9 +2772,11 @@ class SystemGUI:
         self.autofocus_method_var = tk.StringVar()
         self.autofocus_method_dropdown = ttk.Combobox(autofocus_method_frame, 
                                                      textvariable=self.autofocus_method_var, 
-                                                     style='Dark.TCombobox', width=15)
-        self.autofocus_method_dropdown['values'] = ['None', 'Relative']
-        self.autofocus_method_dropdown.set('None')
+                                                     style='Dark.TCombobox', width=25)
+        autofocus_method_options = self.scope.autofocus_method_options
+        self.autofocus_method_dropdown['values'] = autofocus_method_options
+        if 'Relative Well' in autofocus_method_options:
+            self.autofocus_method_dropdown.set('Relative Well')
         self.autofocus_method_dropdown.pack(side='left', padx=(10, 0))
         
         # Error label
@@ -2811,7 +2817,7 @@ class SystemGUI:
                 available_channels = self.scope.available_channels
             except Exception as e:
                 self.log(f"Error getting channels from Scope: {e}, using fallback", level='warning')
-                available_channels = ['FarRed', 'DeepBlue', 'Green', 'Orange']
+                available_channels = sorted(['FarRed', 'DeepBlue', 'Green', 'Orange'])
             
             selected_channels = [channel for channel, var in zip(available_channels, self.channels_vars) if var.get()]
             
@@ -2870,6 +2876,9 @@ class SystemGUI:
             # Get number of hybes
             num_hybes = int(self.hybes_var.get())
             
+            # Get skip first fluidics task setting
+            skip_first_fluidics_task = self.skip_first_fluidics_var.get()
+            
             # Get parameters settings from GUI
             position_filtering = self.position_filtering_var.get()
             preview_focus = self.preview_focus_var.get()
@@ -2922,6 +2931,7 @@ class SystemGUI:
                 'preview_channels': preview_channels,
                 'fluidics_protocols': selected_fluidics,
                 'num_hybes': num_hybes,
+                'skip_first_fluidics_task': skip_first_fluidics_task,
                 'position_filtering': position_filtering,
                 'preview_focus': preview_focus,
                 'acquisition_focus': acquisition_focus,
@@ -3103,7 +3113,22 @@ class SystemGUI:
         self.exp_entry = tk.Entry(exp_frame, bg=GUI_COLORS['entry'],
                                  fg=GUI_COLORS['text'], font=GUI_FONTS['entry'])
         self.exp_entry.pack(fill='x', pady=(5, 0))
-        self.exp_entry.insert(0, "New_Experiment") #Preset
+        self.exp_entry.insert(0, "New_Experiment")
+        
+        # Date checkbox variable
+        self.add_date_var = tk.BooleanVar(value=True)
+        
+        # Add date checkbox
+        date_checkbox = tk.Checkbutton(exp_frame,
+                                       text="Add date to experiment name",
+                                       variable=self.add_date_var,
+                                       bg=GUI_COLORS['checkbox_bg'],
+                                       fg=GUI_COLORS['text'],
+                                       selectcolor=GUI_COLORS['checkbox_select'],
+                                       activebackground=GUI_COLORS['checkbox_active'],
+                                       activeforeground=GUI_COLORS['text'],
+                                       font=GUI_FONTS['body'])
+        date_checkbox.pack(anchor='w', pady=(5, 0))
         
         # User name
         user_frame = tk.Frame(startup_frame, bg=GUI_COLORS['background'])
@@ -3178,6 +3203,11 @@ class SystemGUI:
             self.log("Please enter experiment name, user name, and project name", level='warning')
             return
         
+        # Append date to experiment name if checkbox is checked
+        if self.add_date_var.get():
+            date_str = datetime.now().strftime("%Y%b%d")
+            exp_name = f"{exp_name}_{date_str}"
+        
         # Save experiment info
         self.experiment.experiment_name = exp_name
         self.experiment.user_name = user_name
@@ -3232,7 +3262,7 @@ class SystemGUI:
         
         # Populate dropdown with available options
         self.log("Attempting to get available plate configs...")
-        available_configs = self.file_handler.get_available_plate_configs()
+        available_configs = sorted(self.file_handler.get_available_plate_configs())
         self.log(f"Found available configs: {available_configs}")
         dropdown_options = available_configs + ['Custom Grid', 'Custom Manual', 'Load Wells From File', 'Load Positions From File']
         # FIXME This is really burried in here maybe it should be more accessible
@@ -3260,6 +3290,12 @@ class SystemGUI:
                                                 bg=GUI_COLORS['frame'], 
                                                 fg=GUI_COLORS['text'],
                                                 font=GUI_FONTS['heading'])
+        
+        # Set initial value to "Underwood6" if present
+        if 'Underwood6' in dropdown_options:
+            self.config_type_var.set('Underwood6')
+            self.config_type_dropdown.set('Underwood6')
+            self.on_config_type_change()  # Trigger the handler to load the config
     
     def cancel_positions_in_setup(self):
         """Cancel positions creation and return to welcome screen."""
@@ -3617,15 +3653,16 @@ class SystemGUI:
                 if 'system_name' in state:
                     info_data['System'] = state['system_name']
                 
-                # Calculate derived values
-                if 'group_assignments' in state:
-                    num_wells = len(state['group_assignments'])
-                    info_data['Wells'] = str(num_wells)
-                
                 # Add positions count if available from system
                 positions_df = self.file_handler.Positions
                 num_positions = len(positions_df) if not positions_df.empty else 0
                 info_data['Positions'] = str(num_positions)
+                wells = positions_df['well'].unique()
+                info_data['Wells'] = str(len(wells))
+                if 'group' in positions_df.columns:
+                    groups = positions_df['group'].unique()
+                    info_data['Groups'] = str(len(groups))
+
                 
                 # Add tasks count if available from system
                 num_tasks = len(self.file_handler.get_tasks("Experiment")) if not self.file_handler.get_tasks("Experiment").empty else 0
@@ -3884,26 +3921,26 @@ class SystemGUI:
     def start_experiment(self): #FIXME
         """Start the experiment."""
         try:
-            self.experiment_status_panel.set_status("Starting...", GUI_COLORS['info'])
-            self.root.update()
-            
-            # Set experiment task index to 1 when experiment starts (0 = waiting to start)
-            self.file_handler.save_task_idx("Experiment", 1) #(0 = waiting to start)
-            
-            # Set status to Running
-            self.file_handler.save_status("Experiment", "Running")
-            
-            self.experiment_status_panel.set_status("Running", GUI_COLORS['success'])
-            self.log("Experiment started - task index set to 1")
-            
+            self.log("GUI: Starting experiment...")
+            self.file_handler.save_status("Experiment", "Command:Execute Tasks")
+            self.log("GUI: Experiment started")
         except Exception as e:
-            self.experiment_status_panel.set_status("Start Error", GUI_COLORS['error'])
             self.log(f"Error starting experiment: {e}", level='error')
     
     def stop_experiment(self):
         """Stop the experiment."""
-        self.experiment_status_panel.set_status("Not Implemented", GUI_COLORS['warning'])
-        self.log("Stop experiment not implemented yet")
+        try:
+            self.log("GUI: Stopping experiment...")
+            for device in ['Experiment','Scope','Fluidics']:
+                self.log(f"GUI: Stopping {device}...")
+                current_message = self.file_handler.get_status(device)
+                new_message = f"Stop:{current_message.split(':')[-1]}"
+                self.file_handler.save_status(device, new_message)
+                self.log(f"GUI: {device} stopped")
+            self.log("GUI: Experiment stopped")
+        except Exception as e:
+            self.log(f"Error stopping experiment: {e}", level='error')
+
     
     def reset_experiment(self):
         """Reset the experiment and clear all system variables."""
