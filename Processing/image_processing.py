@@ -1,5 +1,5 @@
 import numpy as np
-import torch
+# import torch
 import tifffile
 import pandas as pd
 import sys
@@ -11,9 +11,9 @@ from scipy import interpolate
 from skimage import restoration
 from skimage.measure import block_reduce
 from scipy.interpolate import RectBivariateSpline
-from file_handler import FileHandler
+# from file_handler import FileHandler
 
-file_handler = FileHandler()
+# file_handler = FileHandler()
 
 class ImageProcessor:
     def __init__(self, FF=None, constant=None, parameters=None):
@@ -164,6 +164,8 @@ class ImageProcessor:
             x = np.poly1d(np.polyfit(range(x.shape[0]), x, degrees))(range(x.shape[0]))
             y = np.poly1d(np.polyfit(range(y.shape[0]), y, degrees))(range(y.shape[0]))
             img = ((np.ones_like(img)*x) + (np.ones_like(img).T*y).T) / 2
+        elif 'none' in function:
+            img = img.copy()
         else:
             img = 0*img.copy()
         return img.astype(dtype)
@@ -171,8 +173,8 @@ class ImageProcessor:
 def load_file(path):
     if '.tif' in path:
         return tifffile.imread(path)
-    if '.pt' in path:
-        return torch.load(path)
+    # if '.pt' in path:
+    #     return torch.load(path)
     if '.npy' in path:
         return np.load(path)
     if '.csv' in path:
