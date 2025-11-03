@@ -102,7 +102,6 @@ class Fluidics(object):
         try:
             if state_updates is not None:
                 self.state.update(state_updates)
-                
                 # Check if current_port was updated and add well/solution keys
                 if 'current_port' in state_updates:
                     port = state_updates['current_port']
@@ -110,7 +109,8 @@ class Fluidics(object):
                         self.state['well'] = port
                     else:
                         self.state['solution'] = port
-            self.file_handler.save_state("Fluidics", self._reorder_state_for_saving())()
+            self.file_handler.save_state("Fluidics",self.state)     
+            # self.file_handler.save_state("Fluidics", self._reorder_state_for_saving())()
         except Exception as e:
             self.log(f'Error updating state: {e}', level='warning')
     
@@ -175,7 +175,7 @@ class Fluidics(object):
                     # Update task index for progress tracking
                     self.file_handler.save_task_idx("Fluidics", idx)
                     # self._update_task_index(idx)
-                    
+                    self.log(f"step {idx}")
                     self.log(pd.DataFrame(step).T)
                     if step.direction == 'Wait':
                         if step.pause<100:
@@ -204,6 +204,7 @@ class Fluidics(object):
 
     # flow() is for executing the most basic step of a protocol (one row of the Protocol dataframe) based on the column values.
     def flow(self,port,volume,speed,pause,direction):
+        self.log(f"FLOW :::flow {port} {volume} {speed} {pause} {direction}")
         self.update_state({'current_port': port})
         
         # Check status before each operation
