@@ -1,3 +1,4 @@
+from math import e
 import time
 import os
 import json
@@ -11,6 +12,8 @@ import tkinter as tk
 from tkinter import messagebox
 import threading
 from datetime import datetime
+import tifffile
+import matplotlib.pyplot as plt
 
 class Scope:
     def __init__(self, enable_core: bool = True):
@@ -40,6 +43,7 @@ class Scope:
         self.overtime_warning = 0
         self.limits = {
             'X': (0, 10000), 'Y': (0, 10000), 'Z': (0, 10000), 
+            'Shutter': (False, True),'Autoshutter': (False, True),
             'Exposure': (0, 10000), 'Binning': ['1', '2', '4'], 
             'Channel': [],  # Will be populated dynamically from config
             'Time': (0, 1e8)
@@ -54,8 +58,9 @@ class Scope:
             'Channel': None, 'Binning': None, 'ImageShape': None, 'PixelSize': None
         }
         self._update_channel_limits()
-        
+        self.level_mapper = {'Plate':'plate','Well':'well','Group':'group','Position':'position_name'}
         self.log('Scope initialization complete')
+        self.AutoFocus = Autofocus()
     
     def _update_channel_limits(self):
         """Update the channel limits from the configuration file."""
@@ -174,17 +179,15 @@ class Scope:
         """Execute the protocol."""
         self.log(f"Executing Protocol: {message}")
         protocol,chambers,name,other = self.decode_message(message)
-        if protocol == 'SetInitialFocus': #FIXME "SetInitialFocus*[['A1', 'A2','A3','B1']]*ManualWell" 
+        if protocol == 'SetFocus': #FIXME "SetFocus*['A1', 'A2','A3','B1']*ManualWell" 
             self.log(f"Setting initial focus for: {chambers}, {name}, {other}")
             self.set_initial_focus(chambers,name,other)
-        elif protocol == 'FilterPositions': #FIXME "FilterPositions*[['A1', 'A2','A3','B1']]*Draw" 
+        elif protocol == 'FilterPositions': #FIXME "FilterPositions*['A1', 'A2']*None" 
             self.log(f"Filtering positions for: {chambers}, {name}, {other}")
-            # self.filter_positions(chambers,name,other)
-        elif protocol == 'SetFocus': #FIXME "SetFocus*[['A1', 'A2','A3','B1']]*RelativePlane" 
-            self.log(f"Setting focus for: {chambers}, {name}, {other}")
-            self.log("Not implemented yet")
-            # self.set_focus(chambers,name,other)
-        elif protocol == 'Acquire': #FIXME "Acquire*[['A1', 'A2']]*hybe11" 
+            self.filter_positions(chambers)
+        elif protocol == 'SetupAutoFocus': #FIXME "SetupAutoFocus*['A', 'B', 'C', 'D', 'E', 'F']*Relative"
+            self.setup_autofocus()
+        elif protocol == 'Acquire': #FIXME "Acquire*['A1', 'A2']*hybe11" 
             self.log(f"Acquiring images for: {chambers}, {name}, {other}")
             self.acquire(chambers,name,other)
         else:
@@ -212,102 +215,330 @@ class Scope:
             self.simulate = False
         return protocol,chambers,name,other
 
-
-    def filter_positions(self,chambers,name,other):
+    def stitch_previews(self,chambers):
+        self.stitched = {}
         positions = self.file_handler.Positions
-        updated_positions = positions.copy()
         for chamber in chambers:
             chamber_positions = positions[positions['well'] == chamber].copy()
-            preview_acq = self.file_handler.find_latest_acquisition('preview',chamber)
+
+            canvas, pixel2stage, idx_canvas, posname_idx_mapper = stitch_acquisition(
+                self.file_handler.find_latest_acquisition('preview',chamber), 
+                self.file_handler.get_state('Experiment')['preview_channels'][0],
+                zindex=0,
+                metadata_filename='Metadata.txt',
+                image_processor=None,
+                registration_dict={},
+                border=2000,
+                stitch_rotate=0,
+                stitch_flipud=False,
+                stitch_fliplr=False,
+                output_pixel_size=50,
+                idx_stitch=True,
+                position_names=chamber_positions['position_name'].unique()
+            )
+            self.stitched[chamber] = {}
+            self.stitched[chamber]['canvas'] = canvas
+            self.stitched[chamber]['pixel2stage'] = pixel2stage
+            self.stitched[chamber]['idx_canvas'] = idx_canvas
+            self.stitched[chamber]['posname_idx_mapper'] = posname_idx_mapper
+
+    def filter_positions(self,chambers):
+        filtering_method = self.file_handler.get_state('Experiment')['position_filtering']
+        if filtering_method == 'None':
+            return
+        positions = self.file_handler.Positions
+        updated_positions = []
+        for chamber in chambers:
+            chamber_positions = positions[positions['well'] == chamber].copy()
+            canvas, pixel2stage, idx_canvas, posname_idx_mapper = stitch_acquisition(
+                self.file_handler.find_latest_acquisition('preview',chamber), 
+                self.file_handler.get_state('Experiment')['preview_channels'][0],
+                zindex=0,
+                metadata_filename='Metadata.txt',
+                image_processor=None,
+                registration_dict={},
+                border=2000,
+                stitch_rotate=0,
+                stitch_flipud=False,
+                stitch_fliplr=False,
+                output_pixel_size=50,
+                idx_stitch=True,
+                position_names=chamber_positions['position_name'].unique()
+            )
+
+            if filtering_method == 'Draw':
+                mask,canvas_rgb = interactive_roi_selection(canvas,message = 'Select areas that you want \n to image one region at a time')
+                positions_to_keep = filter_positions(idx_canvas, mask, posname_idx_mapper)
+                chamber_positions = chamber_positions[chamber_positions['position_name'].isin(positions_to_keep.keys())]
+                chamber_positions['group'] = f"{chamber}-{chamber_positions['position_name'].map(positions_to_keep)}"
+                self.stitched[chamber]['canvas_rgb'] = canvas_rgb
+
+            updated_positions.append(chamber_positions)
+        positions = pd.concat(updated_positions)
+        self.file_handler.save_positions(positions)
+
+    # def set_position_focus(self,chambers):
+    #     focus_method = self.file_handler.get_state('Experiment')['acquisition_focus']
+    #     if focus_method == 'None':
+    #         return
+    #     positions = self.file_handler.Positions
+    #     focus_positions = []
+    #     for chamber in chambers:
+    #         chamber_positions = positions[positions['well'] == chamber].copy()
+    #         if len(chamber_positions) == 0:
+    #             self.log(f"No positions found for {chamber}",level='error')
+    #             continue
+    #         groups = chamber_positions['group'].unique()
+    #         for group in groups:
+    #             group_positions = chamber_positions[chamber_positions['group'] == group].copy()
+    #             canvas, pixel2stage, idx_canvas, posname_idx_mapper = stitch_acquisition(
+    #                 self.file_handler.find_latest_acquisition('preview',chamber), 
+    #                 self.file_handler.get_state('Experiment')['preview_channels'][0],
+    #                 zindex=0,
+    #                 metadata_filename='Metadata.txt',
+    #                 image_processor=None,
+    #                 registration_dict={},
+    #                 border=2000,
+    #                 stitch_rotate=0,
+    #                 stitch_flipud=False,
+    #                 stitch_fliplr=False,
+    #                 output_pixel_size=50,
+    #                 idx_stitch=True,
+    #                 position_names=group_positions['position_name'].unique()
+    #             )
+    #             points = interactive_coordinate_selection(canvas, message = 'Select a few areas where you want to set focus')
+    #             group_focus_positions = pd.DataFrame(columns=['X','Y','Z','well','group'])
+    #             group_Z = group_positions['Z'].median()
+    #             for i,point in enumerate(points):
+    #                 if not self.is_valid('X',point[0]):
+    #                     self.log(f"Invalid X: {point[0]}",level='error')
+    #                     continue
+    #                 if not self.is_valid('Y',point[1]):
+    #                     self.log(f"Invalid Y: {point[1]}",level='error')
+    #                     continue
+    #                 group_focus_positions.loc[i] = [point[0], point[1], group_Z, chamber, group]
+    #             focus_positions.append(group_focus_positions)
+
+    #     focus_positions = pd.concat(focus_positions)
+    #     self.file_handler.save_focus_positions(focus_positions)
+
+    #     if 'Manual' in focus_method:
+    #         self.log(f"Manual focus positions",level='info')
+    #         # FIXME: Iterate through with popup
+
+    #     elif 'Scan' in focus_method:
+    #         self.log(f"Scanning for focus positions",level='info')
+    #         # FIXME: for loop with ImageScanAutofocus
+    #     else:
+    #         self.log(f"Unknown focus method: {focus_method}",level='error')
+    #         return
+
+    #     # FIXME:Use these focus positions to extrapolate to the other positions
+                
+
             
+
+    def setup_autofocus(self):
+        autofocus_method = self.file_handler.get_state('Experiment')['autofocus_method']
+        level = autofocus_method.split(' ')[-1]
+        method = autofocus_method.split(f" {level}")[0]
+        if method == 'None':
+            self.Autofocus = Autofocus()
+        elif method == 'Relative':
+            self.Autofocus = RelativeAutofocus(level=self.level_mapper[level])
+            self.Autofocus.setup(self)
+        elif method == 'ImageScan':
+            self.Autofocus = ImageScanAutofocus()
+            self.Autofocus.setup(self)
+        else:
+            self.log(f"Unknown autofocus method: {autofocus_method}",level='error')
+            return
+
+
+    # def setup(self,chambers,name,other):
+    #     positions = self.file_handler.Positions
+    #     if not 'group' in positions.columns:
+    #         positions['group'] = positions['well']
+    #         self.file_handler.save_positions(positions)
+    #     updated_positions = []
+    #     autofocus_method = self.file_handler.get_state('Experiment')['autofocus_method']
+    #     if autofocus_method == 'None':
+    #         self.Autofocus = Autofocus()
+    #     elif autofocus_method == 'Relative':
+    #         self.Autofocus = RelativeAutofocus()
+    #     elif autofocus_method == 'ImageScan':
+    #         self.Autofocus = ImageScanAutofocus()
+    #     else:
+    #         self.log(f"Unknown autofocus method: {autofocus_method}",level='error')
+    #         return
+
+    #     for chamber in chambers:
+    #         chamber_positions = positions[positions['well'] == chamber].copy()
+    #         if len(chamber_positions) == 0:
+    #             self.log(f"No positions found for {chamber}",level='error')
+    #             continue
+    #         acquisition_dir = self.file_handler.find_latest_acquisition('preview',chamber)
+    #         if acquisition_dir is None:
+    #             self.log(f"No acquisition found for {chamber}",level='error')
+    #             continue
+    #         channel = self.file_handler.get_state('Experiment')['preview_channels'][0]
+    #         if channel is None:
+    #             self.log(f"No channel found for {chamber}",level='error')
+    #             continue
+
+    #         # Load Preview and stitch it
+    #         canvas, pixel2stage, idx_canvas, posname_idx_mapper = stitch_acquisition(
+    #             acquisition_dir, 
+    #             channel,
+    #             zindex=0,
+    #             metadata_filename='Metadata.txt',
+    #             image_processor=None,
+    #             registration_dict={},
+    #             border=2000,
+    #             stitch_rotate=0,
+    #             stitch_flipud=False,
+    #             stitch_fliplr=False,
+    #             output_pixel_size=50,
+    #             idx_stitch=True,
+    #             position_names=chamber_positions['position_name'].unique()
+    #         )
+
+    #         # Filter positions
+    #         filtering_method = self.file_handler.get_state('Experiment')['position_filtering']
+    #         if filtering_method == 'Draw':
+    #             mask,canvas_rgb = interactive_roi_selection(canvas,message = 'Select areas that you want \n to image one region at a time')
+    #             positions_to_keep = filter_positions(idx_canvas, mask, posname_idx_mapper)
+
+    #             if len(positions_to_keep)==0:
+    #                 self.log(f"No positions to keep for {chamber}",level='error')
+    #                 continue
+    #             chamber_positions = chamber_positions[chamber_positions['position_name'].isin(positions_to_keep.keys())]
+    #             chamber_positions['group'] = chamber_positions['position_name'].map(positions_to_keep)
+    #         updated_positions.append(chamber_positions)
+
+    #         # Focus Specific Task
+    #         focus_method = self.file_handler.get_state('Experiment')['acquisition_focus']
+
+
+
+    #         autofocus_method = self.file_handler.get_state('Experiment')['autofocus_method']
+
+            
+    #     positions = pd.concat(updated_positions)
+    #     self.file_handler.save_positions(positions)
+
 
 
     def acquire(self,chambers,acquisition_name,other,acquisition_data=None,positions=None):
         if acquisition_data is None:
             acquisition_data = self.file_handler.get_state("Experiment")
-        if len(other) > 0:
+        if len(other) > 0: # Update acquisition_data with other
             other = ast.literal_eval(other)
             acquisition_data.update(other)
-            # example: For Preview you might only want one channel
-            # other = "{'selected_channels': ['DeepBlue'], 'channel_exposure': {'DeepBlue': 5}, 'channel_delay': {'DeepBlue': 5}.'steps': {'start': 0, 'end': 0, 'dz': 0}}""
 
         channels = {}
-        for channel in acquisition_data['selected_channels']:
+        if acquisition_name == 'preview':
+            selected_channels = acquisition_data['preview_channels']
+        else:
+            selected_channels = acquisition_data['selected_channels']
+        for channel in selected_channels:
             channels[channel] = {
                 'Channel': channel,
                 'Exposure': acquisition_data['channel_exposure'][channel],
                 'Delay': acquisition_data['channel_delay'][channel]
             }
+        self.log(f"Channels: {channels}")
         dZ = acquisition_data['steps']
         if dZ['start'] == dZ['end']:
             steps = [float(dZ['start'])]   
         else:
             steps = [float(i) for i in np.arange(dZ['start'], dZ['end'], dZ['dz'])]
+        self.log(f"Steps: {steps}")
         if positions is None:
             positions = self.file_handler.Positions
             positions = positions[positions['well'].isin(chambers)]
+        if not 'autofocus_group' in positions.columns:
+            positions['autofocus_group'] = positions['group']
+        self.log(f"Positions: {positions.shape}")
         self.file_handler.save_tasks("Scope", positions)
         current_idx = 0
         self.file_handler.save_task_idx("Scope", current_idx)
 
         for chamber in chambers:
             chamber_acquisition_name = f"{acquisition_name}_Well-{chamber}"
-            self.log(f"Acquiring images for: {chamber}")
+            self.log(f"Acquiring images for: {chamber}",level='info')
             self.file_handler.setup_acquisition(chamber_acquisition_name)
+            self.last_acquisition_name = self.file_handler.acquisition_name
+            self.last_acquisition_dir = self.file_handler.acquisition_dir
             chamber_positions = positions[positions['well'] == chamber].copy()
-            # chamber_positions = self.AutoFocus.update_focus(chamber_positions)#FIXME: self.autofocus()
-            for _, position in chamber_positions.iterrows():
-                if 'stop' in self.check_status().lower():
-                    self.log("Scope is stopped", level='warning')
-                    return
-                self.log(f"Acquiring images for: {position['position_name']}")
-                current_idx+=1
-                self.file_handler.save_task_idx("Scope", current_idx)
-                self.XYZ = (position['X'], position['Y'], position['Z'])
-                # Channel First 
-                starting_Z = position['Z']
-                # starting_Z = self.AutoFocus.update_focus(position) #FIXME:
-                for z_index,step in enumerate(steps):
+
+            autofocus_groups = chamber_positions['autofocus_group'].unique()
+            for autofocus_group in autofocus_groups:
+                self.log(f"Acquiring images for autofocus group: {autofocus_group}",level='info')
+                autofocus_group_positions = chamber_positions[chamber_positions['autofocus_group'] == autofocus_group]
+                self.AutoFocus.update_focus(self,autofocus_group)
+                for idx,(_, position) in enumerate(autofocus_group_positions.iterrows()):
                     if 'stop' in self.check_status().lower():
                         self.log("Scope is stopped", level='warning')
                         return
-                    if step != 0:
-                        Z = starting_Z + step
-                        self.Z = Z
-                    for channel_name, channel in channels.items():
+                    self.log(f"Acquiring images for: {position['position_name']}",level='debug')
+                    current_idx+=1
+                    self.file_handler.save_task_idx("Scope", current_idx)
+                    self.XYZ = (position['X'], position['Y'], position['Z'])
+                    starting_Z = self.AutoFocus.focus(self,position['X'],position['Y'],position['position_name'],goto=True)
+                    # Channel First 
+                    # if idx%10 == 0: # To reduce overhead of saving state
+                    self.file_handler.save_state("Scope", self.state)
+                    for z_index,step in enumerate(steps):
                         if 'stop' in self.check_status().lower():
                             self.log("Scope is stopped", level='warning')
                             return
-                        self.Channel = channel['Channel']
-                        self.Exposure = channel['Exposure']
-                        if channel['Delay'] > 0:
-                            previous_autoshutter_state = self.Autoshutter
-                            self.Autoshutter = False
-                            self.Shutter = True 
-                            time.sleep(channel['Delay']/1000)
-                        self.update_state()
-                        image = self.snapImage()
-                        time_stamp = datetime.now()
-                        time_stamp_image = time.time()
-                        if channel['Delay'] > 0:
-                            self.Autoshutter = previous_autoshutter_state
-                            self.Shutter = False
-                        image_info = {}
-                        image_info['Position'] = position['position_name']
-                        image_info['Channel'] = channel['Channel']
-                        image_info['Exposure'] = channel['Exposure']
-                        image_info['PixelSize'] = self.PixelSize
-                        image_info['XY'] = (position['X'], position['Y'])
-                        image_info['X'] = position['X']
-                        image_info['Y'] = position['Y']
-                        image_info['Z'] = position['Z'] + step
-                        image_info['Zindex'] = z_index
-                        image_info['Well'] = chamber
-                        image_info['Scope'] = self.name
-                        image_info['Time'] = time_stamp
-                        image_info['TimestampImage'] = time_stamp_image
-                        self.file_handler.save_image(image, image_info)
+                        if step != 0:
+                            Z = starting_Z + step
+                            self.Z = Z
+                        for channel_name, channel in channels.items():
+                            if 'stop' in self.check_status().lower():
+                                self.log("Scope is stopped", level='warning')
+                                return
+                            self.Channel = channel['Channel']
+                            self.Exposure = channel['Exposure']
+                            if channel['Delay'] > 0:
+                                previous_autoshutter_state = self.Autoshutter
+                                self.Autoshutter = False
+                                self.Shutter = True 
+                                time.sleep(channel['Delay']/1000)
+                            # self.update_state()
+                            # self.file_handler.save_state("Scope", self.state)
+                            image = self.snapImage()
+                            time_stamp = datetime.now()
+                            time_stamp_image = time.time()
+                            if channel['Delay'] > 0:
+                                self.Autoshutter = previous_autoshutter_state
+                                self.Shutter = False
+                            image_info = {}
+                            image_info['Position'] = position['position_name']
+                            image_info['Channel'] = channel['Channel']
+                            image_info['Exposure'] = channel['Exposure']
+                            image_info['PixelSize'] = self.PixelSize
+                            image_info['XY'] = (position['X'], position['Y'])
+                            image_info['X'] = position['X']
+                            image_info['Y'] = position['Y']
+                            image_info['Z'] = position['Z'] + step
+                            image_info['Zindex'] = z_index
+                            image_info['Well'] = chamber
+                            if 'group' in position.keys():
+                                image_info['Group'] = position['group']
+                            else:
+                                image_info['Group'] = chamber
+                            image_info['Scope'] = self.name
+                            image_info['Time'] = time_stamp
+                            image_info['TimestampImage'] = time_stamp_image
+                            self.file_handler.save_image(image, image_info)
+                # Stitch group unless it only has one position
+                if len(autofocus_group_positions) > 1:
+                    self.display_preview(autofocus_group_positions,name=f"{self.last_acquisition_name} {autofocus_group}",channels=channels,acquisition_dir=self.last_acquisition_dir)
             self.file_handler.finalize_acquisition()
+
 
     def snapImage(self):
         """Capture an image using the microscope core."""
@@ -323,38 +554,190 @@ class Scope:
             height = tagged_image.tags["Height"]
             width = tagged_image.tags["Width"]
             image = pixels.reshape(height, width)
+            image = np.fliplr(image)
             return image
         except Exception as e:
             self.log(f"Error capturing image: {e}", level='error')
             raise
 
-    def set_initial_focus(self, chambers, name, other):
-        self.log(f"Setting initial focus for chambers: {chambers}, mode: {name}")
+    def set_focus(self, chambers, name, other):
+        if name == 'None':
+            return
+        level = name.split(' ')[-1]
+        method = name.split(f" {level}")[0]
+        if method == 'Manual':
+            self.manual_focus(chambers,level,other)
+        elif method == 'Manual Plane':
+            self.manual_plane_focus(chambers,level,other)
+        else:
+            self.log(f"Unknown focus method: {method}", level='error')
+            return
+
+    def manual_focus(self, chambers, level, other):
+        """ Manual set flat focus for the group """ 
+
         positions = self.file_handler.Positions
-        #FIXME: make sure chambers are in the positions dataframe
-        if name == 'ManualPlate':
+        positions = positions[positions['well'].isin(chambers)]
+        if level == 'Plate':
             self._show_focus_popup("Please adjust the focus for the plate using the microscope controls.\n\nClick OK when you are satisfied with the focus.")
             current_z = self.Z
             positions['Z'] = current_z
             self.log(f"Updated all {len(positions)} positions with Z = {current_z}")
-        elif name == 'ManualWell':
-            for i, well in enumerate(chambers):
+        else:
+            groups = positions[self.level_mapper[level]].unique()
+            for group in groups:
+                group_positions = positions[positions[self.level_mapper[level]] == group]
                 Z = self.Z
                 self.Z = self.limits['Z'][0] # move to bottom of the plate
-                self.X = positions[positions['well'] == well]['X'].median()
-                self.Y = positions[positions['well'] == well]['Y'].median()
+                self.XY = (group_positions['X'].median(), group_positions['Y'].median())
                 self.Z = Z # move back to the original z position
-                self._show_focus_popup(f"Please adjust the focus for well {well} using the microscope controls.\n\nClick OK when you are satisfied with the focus.\n\nWell {i+1} of {len(chambers)}")
+                self._show_focus_popup(f"Please adjust the focus for group {group} using the microscope controls.\n\nClick OK when you are satisfied with the focus.\n\nGroup {i+1} of {len(groups)}")
                 current_z = self.Z
-                well_mask = positions['well'] == well
-                positions.loc[well_mask, 'Z'] = current_z
-                self.log(f"Updated {well_mask.sum()} positions for well {well} with Z = {current_z}")
-        else:
-            self.log(f"Unknown focus mode: {name}", level='error')
-            return
-        
+                positions.loc[group_positions.index, 'Z'] = current_z
+                self.log(f"Updated {len(group_positions)} positions for group {group} with Z = {current_z}")
         self.file_handler.save_positions(positions)
-        self.log("Initial focus setting completed and positions saved")
+
+    def manual_plane_focus(self, chambers, level, other):
+        """ Use a manually defined number of focus positions per group 
+        to set a plane and update to focus of the rest of the group
+        """
+        all_positions = self.file_handler.Positions
+        positions = all_positions[all_positions['well'].isin(chambers)]
+        groups = positions[self.level_mapper[level]].unique()
+        # First select the reference points for each group
+        reference_points = pd.DataFrame(columns=['X','Y','Z',level])
+        ref_idx = 0
+        for group in groups:
+            group_positions = positions[positions[self.level_mapper[level]] == group]
+            well = group_positions['well'].unique()[0]
+            acquisition_dir = self.file_handler.find_latest_acquisition('preview',well)
+            if acquisition_dir is None:
+                self.log(f"No acquisition found for {well}",level='error')
+                continue
+            channel = self.file_handler.get_state('Experiment')['preview_channels'][0]
+            if channel is None:
+                self.log(f"No channel found for {well}",level='error')
+                continue
+            canvas, pixel2stage, idx_canvas, posname_idx_mapper = stitch_acquisition(
+                acquisition_dir, 
+                channel,
+                zindex=0,
+                metadata_filename='Metadata.txt',
+                image_processor=None,
+                registration_dict={},
+                border=2000,
+                stitch_rotate=0,
+                stitch_flipud=False,
+                stitch_fliplr=False,
+                output_pixel_size=50,
+                idx_stitch=True,
+                position_names=group_positions['position_name'].unique()
+            )
+            points = []
+            extra_message = ''
+            while len(points)<4:
+                points = interactive_coordinate_selection(canvas, message = f"Select atleast 4 areas where you want to set focus{extra_message}")
+                if len(points)<4:
+                    extra_message = f"\n\nYou need to select atleast 4 points. You have selected {len(points)}"
+            for point in points:
+                stage_coordinates = pixel2stage(point[0], point[1])
+                if not self.is_valid('X',stage_coordinates[0]):
+                    self.log(f"{group} Invalid X: {stage_coordinates[0]}",level='error')
+                if not self.is_valid('Y',stage_coordinates[1]):
+                    self.log(f"{group} Invalid Y: {stage_coordinates[1]}",level='error')
+                if not self.is_valid('Z',group_positions['Z'].median()):
+                    self.log(f"{group} Invalid Z: {group_positions['Z'].median()}",level='error')
+                
+                reference_points.loc[ref_idx,'X'] = stage_coordinates[0]
+                reference_points.loc[ref_idx,'Y'] = stage_coordinates[1]
+                reference_points.loc[ref_idx,'Z'] = group_positions['Z'].median()
+                reference_points.loc[ref_idx,level] = group
+                ref_idx+=1
+            
+            # Now iterate through these and manually set focus
+            current_group = ''
+            i = 0
+            for reference_point_idx,reference_point in reference_points.iterrows():
+                i+=1
+                if reference_point[level] != current_group:
+                    Z = self.Z
+                    self.Z = self.limits['Z'][0] # move to bottom of the plate
+                    current_group = reference_point[level]
+                self.XY = (reference_point['X'], reference_point['Y'])
+                self.Z = reference_point['Z']
+                self._show_focus_popup(f"Please adjust the focus using the microscope controls.\n\nClick OK when you are satisfied with the focus.\n\n {i} of {len(reference_points)}")
+                current_z = self.Z
+                reference_points.loc[reference_point_idx,'Z'] = current_z
+
+            # Use the reference points to set the focus for the rest of the group
+            for group in groups:
+                group_positions = positions[positions[self.level_mapper[level]] == group]
+                group_reference_points = reference_points[reference_points[level] == group]
+                # Fit a plane: z = a*x + b*y + c
+                # Using least squares: solve for [a, b, c]
+                X_ref = group_reference_points['X'].values
+                Y_ref = group_reference_points['Y'].values
+                Z_ref = group_reference_points['Z'].values
+                # Build the design matrix: [x, y, 1] for each point
+                A = np.column_stack([X_ref, Y_ref, np.ones(len(X_ref))])
+                # Solve for coefficients using least squares
+                coeffs, residuals, rank, s = np.linalg.lstsq(A, Z_ref, rcond=None)
+                a, b, c = coeffs
+                self.log(f"Fitted plane for {group}: Z = {a:.4f}*X + {b:.4f}*Y + {c:.4f}")
+                # Predict Z for each position in the group
+                X_pos = group_positions['X'].values
+                Y_pos = group_positions['Y'].values
+                Z_predicted = a * X_pos + b * Y_pos + c
+                # Update Z values in the full positions DataFrame
+                for idx, pos_idx in enumerate(group_positions.index):
+                    all_positions.loc[pos_idx, 'Z'] = Z_predicted[idx]
+                self.log(f"Updated {len(group_positions)} positions for {group} with predicted Z values")
+            self.file_handler.save_positions(all_positions)
+
+
+    def display_preview(self,positions,name=None,channels=None,acquisition_dir=None):
+        """ Stitch a group of positions """
+        self.log(f"Stitching group of {len(positions)} positions",level='info')
+        well = positions['well'].unique()[0]
+        if acquisition_dir is None:
+            acquisition_dir = self.file_handler.find_latest_acquisition('preview',well)
+        if name is None:
+            name = os.path.basename(acquisition_dir)
+        if channels is None:
+            # load metadata from acquisition
+            metadata = self.file_handler.load_metadata(acquisition_dir)
+            channels = metadata['Channel'].unique()
+        else:
+            channels = list(channels.keys())
+        for channel in channels:
+            stitched, pixel2stage= stitch_acquisition(
+                acquisition_dir, 
+                channel,
+                zindex=0,
+                metadata_filename='Metadata.txt',
+                image_processor=None,
+                registration_dict={},
+                border=2000,
+                stitch_rotate=0,
+                stitch_flipud=False,
+                stitch_fliplr=False,
+                output_pixel_size=5,
+                idx_stitch=False,
+                position_names=positions['position_name'].unique()
+            )
+            vmin = stitched[stitched>0].min()
+            vmax = np.percentile(stitched[stitched>0],99)
+            # Save Stitched as tif for imageJ viewing
+            fname = os.path.join(acquisition_dir,f"{name.replace(' ','__')}__{channel}.tif")
+            tifffile.imwrite(fname, stitched)
+            plt.figure(figsize=(10,10))
+            plt.imshow(stitched, cmap='gray', interpolation='nearest', vmin=vmin, vmax=vmax)
+            plt.colorbar()
+            plt.title(f"{name} {channel}")
+            plt.savefig(fname.replace('.tif','.pdf'))
+            plt.close()
+            # plt.show(block=False)
+
 
     def _show_focus_popup(self, message):
         """Show an independent popup window for focus adjustment."""
@@ -363,7 +746,7 @@ class Scope:
         
         def show_popup():
             root = tk.Tk()
-            root.title("Manual Focus Adjustment")
+            root.title("Manual Event")
             root.geometry("400x200")
             root.resizable(False, False)
             root.attributes('-topmost', True)
@@ -427,20 +810,35 @@ class Scope:
 
     def already_set(self, key, value):
         """Check if a state value is already set within tolerance."""
-        if not self.check_state(key): 
-            return False
+        if key == 'XY':
+            if not self.check_state('X'):
+                return False
+            if not self.check_state('Y'):
+                return False
+        else:
+            if not self.check_state(key): 
+                return False
         if key in self.tolerance.keys():
             if key == 'Binning':
                 if str(value) == str(self.get(key)):
                     return True
                 else:
-                    self.log(f'{key}: {value} is not a valid binning. Possible values: {self.limits[key]}', level='error')
+                    # self.log(f'{key}: {value} is not a valid binning. Possible values: {self.limits[key]}', level='error')
                     return False
+            
             if abs(self.state[key] - value) < self.tolerance[key]:
                 # self.log(f'{key}: {value} is within tolerance of {self.state[key]}', level='debug')
                 return True
             else:
                 return False
+        elif key == 'XY':
+            if not self.already_set('X', value[0]):
+                self.log(f'X: {value[0]} is not set', level='warning')
+                return False
+            if not self.already_set('Y', value[1]):
+                self.log(f'Y: {value[1]} is not set', level='warning')
+                return False
+            return True
         else:
             complete = self.state[key] == value
             # if complete:
@@ -453,7 +851,7 @@ class Scope:
 
     def is_valid(self, key, value):
         """Validate if a value is within limits for a given key."""
-        if not key in self.state.keys():
+        if not key in self.limits.keys():
             if key in ['XYZ', 'XY']:  # Special handling for compound keys
                 pass  # These are handled below
             else:
@@ -498,7 +896,6 @@ class Scope:
         if not self.is_valid(key, value): 
             return
         
-        # If core is not available, just update state for simulation
         if not self.core_enabled:
             self.log(f"Core not available - simulating {key}: {value}", level='warning')
             self.state[key] = value
@@ -509,19 +906,10 @@ class Scope:
                 self.core.set_xy_position(value, self.Y)
             elif key == 'Y': 
                 self.core.set_xy_position(self.X, value)
+            elif key == 'XY':
+                self.core.set_xy_position(value[0], value[1])
             elif key == 'Z': 
                 self.core.set_position(value)
-            # elif key == 'XY':
-            #     if len(value) != 2: 
-            #         self.log(f'XY must be a tuple of length 2', level='error')
-            #     self.core.set_xy_position(value[0], value[1])
-            #     # self.state['X'] = value[0]
-            #     # self.state['Y'] = value[1]
-            # elif key == 'XYZ':
-            #     if len(value) != 3: 
-            #         self.log(f'XYZ must be a tuple of length 3', level='error')
-            #     self.set('XY', value[0:2])
-            #     self.set('Z', value[2])
             elif key == 'Exposure': 
                 self.core.set_exposure(value)
             elif key == 'Channel': 
@@ -542,17 +930,25 @@ class Scope:
             else: 
                 self.log(f'{key} is not a valid key', level='error')
             
-            if self.blocking: 
-                self.core.wait_for_device(self.core.get_xy_stage_device())
-                self.core.wait_for_device(self.core.get_focus_device())
+            if (self.blocking) & (key in ['X', 'Y', 'Z','XY']): #FIXME: maybe this only needs to be called when setting stage position
+                if 'Z' in key:
+                    self.core.wait_for_device(self.core.get_focus_device())
+                else:
+                    self.core.wait_for_device(self.core.get_xy_stage_device())
                 check_idx = 0
                 while not self.already_set(key, value):
-                    if check_idx > 1:
+                    if check_idx > 2:
                         self.log(f'{key}: {value} is not the current value {self.get(key)}', level='debug')
                     check_idx+=1
-                    time.sleep(0.1)
-            self.log(f'{key}: {value}', level='debug')
-            self.state[key] = value
+                    time.sleep(0.05)
+            if key == 'XY':
+                self.log(f'X: {value[0]}', level='debug')
+                self.state['X'] = value[0]
+                self.log(f'Y: {value[1]}', level='debug')
+                self.state['Y'] = value[1]
+            else:
+                self.log(f'{key}: {value}', level='debug')
+                self.state[key] = value
             
         except Exception as e:
             self.log(f"Error setting {key} to {value}: {e}", level='error')
@@ -560,9 +956,9 @@ class Scope:
 
     def get(self, key):
         """Get a microscope parameter value."""
-        if self.remember_state and self.state[key] is not None:
-            self.log(f'{key}: {self.state[key]} Using Previous State', level='debug')
-            return self.state[key]
+        # if self.remember_state and self.state[key] is not None:
+        #     self.log(f'{key}: {self.state[key]} Using Previous State', level='debug')
+        #     return self.state[key]
         
         # If core is not available, return stored state or default values
         if not self.core_enabled:
@@ -586,8 +982,8 @@ class Scope:
                 value = self.core.get_y_position()
             elif key == 'Z': 
                 value = self.core.get_position()
-            # elif key == 'XY':
-            #     value = (self.X, self.Y)
+            elif key == 'XY':
+                value = (self.X, self.Y)
             # elif key == 'XYZ':
                 # value = (self.X, self.Y, self.Z)
             elif key == 'Exposure': 
@@ -609,9 +1005,16 @@ class Scope:
             else: 
                 self.log(f'{key} is not a valid key', level='error')
                 return None
-            
-            self.log(f'{key}: {value}', level='debug')
-            self.state[key] = value
+            if key == 'XY':
+                self.log(f'X: {value[0]}', level='debug')
+                self.state['X'] = value[0]
+                self.log(f'Y: {value[1]}', level='debug')
+                self.state['Y'] = value[1]
+            else:
+                self.log(f'{key}: {value}', level='debug')
+                self.state[key] = value
+            # self.log(f'{key}: {value}', level='debug')
+            # self.state[key] = value
             return value
             
         except Exception as e:
@@ -645,8 +1048,9 @@ class Scope:
         return (self.get('X'), self.get('Y'))
     @XY.setter
     def XY(self, value): 
-        self.set('X', value[0])
-        self.set('Y', value[1])
+        self.set('XY', value)
+        # self.set('X', value[0])
+        # self.set('Y', value[1])
         return
     
     @property
@@ -654,8 +1058,9 @@ class Scope:
         return (self.get('X'), self.get('Y'), self.get('Z'))
     @XYZ.setter
     def XYZ(self, value): 
-        self.set('X', value[0])
-        self.set('Y', value[1])
+        self.set('XY', value[0:2])
+        # self.set('X', value[0])
+        # self.set('Y', value[1])
         self.set('Z', value[2])
         return 
     
@@ -708,14 +1113,10 @@ class Scope:
     
     @property
     def image_width_um(self): 
-        # if not self.enable_core:
-        #     return self.config['ImageShape'][1] * self.PixelSize
         return self.ImageShape[1] * self.PixelSize
     
     @property
     def image_height_um(self): 
-        # if not self.enable_core:
-        #     return self.config['ImageShape'][0] * self.PixelSize
         return self.ImageShape[0] * self.PixelSize
     
     @property
@@ -729,10 +1130,40 @@ class Scope:
         """Get available channels from the Micro-Manager configuration file."""
         channels = self.get_available_channels_from_config()
         if not channels:
-            # Fallback to hardcoded channels if config parsing fails
             self.log("Using fallback channel list", level='warning')
             return ['FarRed', 'DeepBlue', 'Green', 'Orange']
-        return channels
+        return sorted(channels)
+    
+    @property
+    def position_filtering_options(self):
+        """Get available position filtering options."""
+        return ['None', 'Draw']
+    
+    @property
+    def set_focus_options(self):
+        """Get available preview focus options."""
+        levels = ['Plate','Well','Group','Position']
+        methods  = ['Manual','Manual Plane']
+        options = ['None']
+        for method in methods:
+            for level in levels:
+                if method == 'Manual Plane' & level == 'Plate':
+                    continue
+                if method == 'Manual Plane' & level == 'Position':
+                    continue
+                options.append(f'{method} {level}')
+        return options
+    
+    @property
+    def autofocus_method_options(self):
+        """Get available autofocus method options."""
+        levels = ['Plate','Well','Group','Position'] 
+        methods = ['Relative']
+        options = ['None']
+        for method in methods:
+            for level in levels:
+                options.append(f'{method} {level}')
+        return ['None', 'Relative']
     
     @property
     def status(self):
