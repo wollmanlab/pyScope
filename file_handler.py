@@ -17,13 +17,15 @@ class FileHandler:
     Manages all State directory file operations.
     """
     
-    def __init__(self, system_state_dir: str = None):
+    def __init__(self, system_state_dir: str = None,log_level: str = 'debug',verbose: bool = False):
         """
         Initialize the FileHandler.
         
         Args:
             system_state_dir (str): Directory path for system state files
         """
+        self.log_level = log_level
+        self.verbose = verbose
         if system_state_dir is None:
             # First look for a pointer
             pointer_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "file_handler_pointer.txt")
@@ -100,7 +102,16 @@ class FileHandler:
                 log.addHandler(class_handler)
             
             # Set logger level to DEBUG to capture all messages
-            log.setLevel(logging.DEBUG)
+            if self.log_level == 'debug':
+                log.setLevel(logging.DEBUG)
+            elif self.log_level == 'info':
+                log.setLevel(logging.INFO)
+            elif self.log_level == 'warning':
+                log.setLevel(logging.WARNING)
+            elif self.log_level == 'error':
+                log.setLevel(logging.ERROR)
+            elif self.log_level == 'critical':
+                log.setLevel(logging.CRITICAL)
             
             # Format message differently for FileHandler log to include system prefix
             if logger_name == 'FileHandler' and system_prefix != 'FileHandler':
@@ -123,7 +134,9 @@ class FileHandler:
                 log.info(formatted_message)  # Default to info
 
         # Also print to console for immediate feedback
-        print(f"[{logger_name}] {datetime.now().strftime('%H:%M:%S')} {message}")
+        if self.verbose:
+            print(f"[{logger_name}]{datetime.now().strftime('%H:%M:%S')} {level} {message}")
+        # print(f"[{logger_name}]{datetime.now().strftime('%H:%M:%S')} {level} {message}")
         if level.lower() == 'error':
             raise Exception(message)
     
@@ -199,21 +212,21 @@ class FileHandler:
         try:
             state_file = self._get_state_file_path(system_prefix)
             
-            # Ensure state is serializable (special handling for Scope)
-            if system_prefix == "Scope":
-                serializable_state = {}
-                for key, value in state.items():
-                    if value is None:
-                        serializable_state[key] = None
-                    elif isinstance(value, (str, int, float, bool)):
-                        serializable_state[key] = value
-                    elif isinstance(value, (list, tuple)):
-                        serializable_state[key] = list(value)
-                    elif isinstance(value, dict):
-                        serializable_state[key] = value
-                    else:
-                        serializable_state[key] = str(value)
-                state = serializable_state
+            # # Ensure state is serializable (special handling for Scope)
+            # if system_prefix == "Scope":
+            #     serializable_state = {}
+            #     for key, value in state.items():
+            #         if value is None:
+            #             serializable_state[key] = None
+            #         elif isinstance(value, (str, int, float, bool)):
+            #             serializable_state[key] = value
+            #         elif isinstance(value, (list, tuple)):
+            #             serializable_state[key] = list(value)
+            #         elif isinstance(value, dict):
+            #             serializable_state[key] = value
+            #         else:
+            #             serializable_state[key] = str(value)
+            #     state = serializable_state
             
             with open(state_file, 'w') as f:
                 json.dump(state, f, indent=4)
@@ -437,7 +450,7 @@ class FileHandler:
         
         self._metadata_columns = [
             'Position', 'Channel', 'Exposure', 'PixelSize', 'XY', 'X', 'Y', 'Z', 
-            'Zindex', 'Well', 'acq', 'Scope', 'Time', 'TimestampImage','filename'
+            'Zindex', 'Well', 'Group','acq', 'Scope', 'Time', 'TimestampImage','filename'
         ]
         
         metadata_path = os.path.join(acquisition_dir, 'Metadata.txt')
