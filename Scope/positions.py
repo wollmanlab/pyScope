@@ -68,7 +68,7 @@ class Positions:
                         raise ValueError("limits are required")
                     self.limits = limits
                     self.file_handler = file_handler if file_handler is not None else FileHandler()
-                    self.positions = pd.DataFrame(columns=['position_name', 'well', 'X', 'Y', 'Z'])
+                    self.positions = pd.DataFrame(columns=['position_name', 'group','well','autofocus_group','X', 'Y', 'Z'])
                     
 
     def log(self, message, level='info'):
@@ -322,7 +322,9 @@ class Positions:
                 # Create row data with only essential position information
                 row_data = {
                     'position_name': tile_name,
+                    'group': name,
                     'well': name,
+                    'autofocus_group': name,
                     'X': stage_pos['X'],
                     'Y': stage_pos['Y'],
                     'Z': stage_pos['Z']
@@ -493,7 +495,7 @@ class Positions:
         
         # Clear existing positions
         self.positions = pd.DataFrame(columns=[
-            'position_name', 'well', 'X', 'Y', 'Z'
+            'position_name', 'group', 'well', 'autofocus_group', 'X', 'Y', 'Z'
         ])
         
         # Handle both old format (direct wells dict) and new format (with offset_correction)
@@ -552,7 +554,7 @@ class Positions:
         
         # Clear existing positions
         self.positions = pd.DataFrame(columns=[
-            'position_name', 'well', 'X', 'Y', 'Z'
+            'position_name', 'group', 'well', 'autofocus_group', 'X', 'Y', 'Z'
         ])
         
         total_positions_loaded = 0
@@ -590,7 +592,9 @@ class Positions:
                     for pos_name, coords in positions.items():
                         row_data = {
                             'position_name': pos_name,
+                            'group': well_name,
                             'well': well_name,
+                            'autofocus_group': well_name,
                             'X': coords['X'],
                             'Y': coords['Y'],
                             'Z': coords['Z']
@@ -725,11 +729,13 @@ class Positions:
                     if not position_name.startswith(f"{well_name}_"):
                         position_name = f"{well_name}_{position_name}"
                     
-                    positions[position_name] = {
+                    pos_dict = {
                         'X': x_coord,
                         'Y': y_coord,
                         'Z': z_coord
                     }
+                   
+                    positions[position_name] = pos_dict
                     
                     self.log(f"Extracted position {position_name}: X={x_coord}, Y={y_coord}, Z={z_coord}", level='debug')
                     
