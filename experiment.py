@@ -23,7 +23,7 @@ class Experiment():
             self.log(f'Positions loaded successfully: {self.positions}')
         except:
             self.log(f'No Positions Found: creating empty positions dataframe')
-            self.positions = pd.DataFrame(columns=['group','well','x','y','z'])
+            self.positions = pd.DataFrame(columns=['group','well','autofocus_group','x','y','z'])
     
     def log(self, message, level='info'):
         """Log messages using FileHandler's logging system."""
@@ -318,14 +318,14 @@ class Experiment():
         if len(groups) == 1:
             group = groups[0]
             group_wells = [well for well in positions_df['well'].unique() if group_assignments.get(well) == group]
-            scope_wells = str([group_assignments.get(well, '')+',' for well in group_wells])
-            fluidics_wells = str([fluidics_well_assignments.get(well, '')+',' for well in group_wells])
+            scope_wells = str([group_assignments.get(well, '') for well in group_wells])
+            fluidics_wells = str([fluidics_well_assignments.get(well, '') for well in group_wells])
             self.log(f"  Single group '{group}' has wells: {group_wells}, fluidics wells: '{fluidics_wells}'")
             
             for round in range(num_hybes):
                 for fluidics_protocol in fluidics_protocols:
                     fluidics_command = f"{fluidics_protocol}*{fluidics_wells}*{fluidics_protocol+str(round+1)}"
-                    scope_command = f"Acquire*{scope_wells}*{fluidics_protocol+str(round+1)}"
+                    scope_command = f"Acquire*{group_wells}*{fluidics_protocol+str(round+1)}"
                     task_number += 1
                     self.tasks.loc[task_number,'Fluidics'] = fluidics_command
                     task_number += 1
@@ -336,9 +336,9 @@ class Experiment():
                     for group in groups:
                         group_wells = [well for well in positions_df['well'].unique() if group_assignments.get(well) == group]
                         # scope_wells = ''.join([group_assignments.get(well, '')+',' for well in group_wells])[:-1]
-                        scope_wells = str([group_assignments.get(well, '')+',' for well in group_wells])
+                        scope_wells = str([group_assignments.get(well, '') for well in group_wells])
                         # fluidics_wells = ''.join([fluidics_well_assignments.get(well, '')+',' for well in group_wells])[:-1]
-                        fluidics_wells = str([fluidics_well_assignments.get(well, '')+',' for well in group_wells])
+                        fluidics_wells = str([fluidics_well_assignments.get(well, '') for well in group_wells])
                         fluidics_command = f"{fluidics_protocol}*{fluidics_wells}*{fluidics_protocol+str(round+1)}"
                         scope_command = f"Acquire*{group_wells}*{fluidics_protocol+str(round+1)}"
                         
