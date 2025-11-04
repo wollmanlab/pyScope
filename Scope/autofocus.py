@@ -11,42 +11,8 @@ from file_handler import FileHandler
 from Processing.stitching import stitch_acquisition, interactive_coordinate_selection
 from scipy.ndimage import gaussian_filter, median_filter, minimum_filter, percentile_filter
 from scipy import ndimage
-# Import GUI styling from gui.py
-try:
-    from gui import GUI_COLORS, GUI_FONTS, apply_dark_theme, create_dark_style
-except ImportError:
-    GUI_COLORS = {
-        'background': '#2b2b2b',
-        'surface': '#404040',
-        'text': '#ffffff',
-        'text_secondary': '#cccccc',
-        'primary': '#0078d4',
-        'button': '#404040',
-        'button_hover': '#606060',
-        'entry': '#404040',
-        'combobox': '#404040',
-        'combobox_select': '#606060',
-        'error': '#d13438',
-    }
-    GUI_FONTS = {
-        'heading': ('Arial', 12, 'bold'),
-        'body': ('Arial', 10),
-        'small': ('Arial', 9),
-        'button': ('Arial', 10),
-        'button_bold': ('Arial', 10, 'bold'),
-    }
-    def apply_dark_theme(window):
-        window.configure(bg=GUI_COLORS['background'])
-    def create_dark_style():
-        style = ttk.Style()
-        style.theme_use('clam')
-        style.configure('Dark.TCombobox',
-                       fieldbackground=GUI_COLORS['combobox'],
-                       background=GUI_COLORS['combobox'],
-                       foreground=GUI_COLORS['text'],
-                       selectbackground=GUI_COLORS['combobox_select'],
-                       selectforeground=GUI_COLORS['text'])
-        return style
+# Import GUI styling from gui_styling.py (separated to avoid circular imports)
+from gui_styling import GUI_COLORS, GUI_FONTS, apply_dark_theme, create_dark_style
 
 class Autofocus:
     def __init__(self):
