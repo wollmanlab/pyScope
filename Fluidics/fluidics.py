@@ -116,6 +116,22 @@ class Fluidics(object):
     
     def _reorder_state_for_saving(self):
         """Reorder state dictionary to ensure pump keys are first, valve keys are last."""
+        all_keys = list(self.state.keys())
+        ordered_keys = []
+        for key in all_keys:
+            if 'pump' in str(key).lower():
+                ordered_keys.append(key)
+        for key in all_keys:
+            if key in ordered_keys:
+                continue
+            if 'valve' in str(key).lower():
+                ordered_keys.append(key)
+        for key in all_keys:
+            if key in ordered_keys:
+                continue
+            ordered_keys.append(key)
+        ordered_state = {key: self.state[key] for key in ordered_keys}
+        return ordered_keys
         # Separate keys into three categories
         pump_keys = {}
         valve_keys = {}
