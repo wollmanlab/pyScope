@@ -7,6 +7,7 @@ import pandas as pd
 from pycromanager import Core
 from typing import Dict, Any
 from file_handler import FileHandler
+from Scope.autofocus import Autofocus, ImageScanAutofocus, RelativeAutofocus
 import numpy as np
 import tkinter as tk
 from tkinter import messagebox
@@ -1147,9 +1148,9 @@ class Scope:
         options = ['None']
         for method in methods:
             for level in levels:
-                if method == 'Manual Plane' & level == 'Plate':
+                if (method == 'Manual Plane') & (level == 'Plate'):
                     continue
-                if method == 'Manual Plane' & level == 'Position':
+                if (method == 'Manual Plane') & (level == 'Position'):
                     continue
                 options.append(f'{method} {level}')
         return options
@@ -1163,7 +1164,7 @@ class Scope:
         for method in methods:
             for level in levels:
                 options.append(f'{method} {level}')
-        return ['None', 'Relative']
+        return options
     
     @property
     def status(self):
