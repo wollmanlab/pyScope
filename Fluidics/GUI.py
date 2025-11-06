@@ -219,7 +219,8 @@ class GUI(tk.Frame):
         if self.protocol_var.get() !='':
             self.busy = True
             self.protocol = self.protocol_var.get()
-            self.chamber = '['+''.join([self.chambers[i]+',' for i in range(len(self.chambers)) if self.chamber_vars[i].get()])[:-1]+']'
+            # self.chamber = '['+''.join([self.chambers[i]+',' for i in range(len(self.chambers)) if self.chamber_vars[i].get()])[:-1]+']'
+            self.chamber = str([self.chambers[i] for i in range(len(self.chambers)) if self.chamber_vars[i].get()])
             self.port = self.port_var.get()
             self.extra = self.extra_entry.get()
             if self.simulate:
