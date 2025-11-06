@@ -30,27 +30,30 @@ The primary objectives of pyScope are:
   - Multi-round experiment support with group-based processing
   - File-based communication with scope and fluidics components
 
-#### 2. **Scope Class** (`Scope/scope.py`)
+#### 2. **Scope Module** (`Scope/`)
 - **Purpose**: Microscope control and image acquisition
 - **Key Features**:
   - Micro-Manager integration via pycromanager
   - **Independent operation** with continuous monitoring loop
-  - Protocol-based task execution (SetInitialFocus, FilterPositions, Acquire)
+  - Protocol-based task execution (SetFocus, FilterPositions, SetupAutoFocus, Acquire)
   - Position and channel control with state validation
   - Image acquisition with timing tracking
   - Simulation mode for testing without hardware
   - File-based communication with experiment system
   - Dynamic system-specific scope class loading (e.g., CyanScope, OrangeScope)
+  - Multiple autofocus strategies (None, Relative, ImageScan)
+  - Focus setting at multiple hierarchical levels (Plate, Well, Group, Position)
+- **Documentation**: See [Scope/README.md](Scope/README.md) for detailed documentation
 
-#### 3. **Positions Class** (`Scope/positions.py`)
-- **Purpose**: Well plate position planning and management
+#### 3. **Processing Module** (`Processing/`)
+- **Purpose**: Image processing, stitching, and registration
 - **Key Features**:
-  - Automatic tiling for circular and rectangular wells
-  - Support for rotated rectangular wells
-  - Grid-based plate layout generation (96-well, etc.)
-  - Coordinate transformation (plate to stage coordinates)
-  - Position validation against stage limits
-  - JSON-based plate configuration storage
+  - Image stitching for combining multiple FOV images
+  - Image processing pipeline (background subtraction, flat-field correction)
+  - Image registration for position correction
+  - Interactive ROI selection and coordinate selection tools
+  - Position filtering based on ROI selections
+- **Documentation**: See [Processing/README.md](Processing/README.md) for detailed documentation
 
 #### 4. **FileHandler Class** (`file_handler.py`)
 - **Purpose**: Centralized file operations and data persistence
@@ -73,9 +76,14 @@ The primary objectives of pyScope are:
   - Progress visualization and error handling
   - Multi-threaded operation support with automatic updates
 
-#### 6. **Autofocus Class** (`Scope/autofocus.py`)
-- **Purpose**: Autofocus functionality (currently minimal implementation)
-- **Status**: Placeholder for future autofocus algorithms
+#### 6. **Fluidics Module** (`Fluidics/`)
+- **Purpose**: Automated fluid handling and protocol execution
+- **Key Features**:
+  - Protocol-based fluid handling
+  - Pump and valve control
+  - Independent operation with continuous monitoring
+  - File-based communication with experiment system
+- **Documentation**: See [Fluidics/README.md](Fluidics/README.md) for detailed documentation
 
 ### Data Flow
 
@@ -155,16 +163,25 @@ The pyScope system uses a **file-based communication** approach where components
 
 ```
 pyScope/
+├── README.md              # Main documentation (this file)
 ├── experiment.py          # Main experiment orchestrator
 ├── gui.py                 # Modern graphical interface
 ├── file_handler.py        # File operations and state management
 ├── run_experiment.bat     # Windows batch file for easy launching
 ├── Scope/                  # Scope-related modules
+│   ├── README.md          # Scope module documentation
 │   ├── scope.py           # Microscope control (base class)
 │   ├── cyanscope.py       # Cyan-specific scope implementation
 │   ├── positions.py       # Position planning and management
-│   └── autofocus.py      # Autofocus (minimal implementation)
+│   └── autofocus.py       # Autofocus strategies
+├── Processing/            # Image processing modules
+│   ├── README.md          # Processing module documentation
+│   ├── stitching.py      # Image stitching functionality
+│   ├── image_processing.py # Image processing pipeline
+│   ├── image_registration.py # Image registration
+│   └── segmentation.py    # Segmentation (placeholder)
 ├── Fluidics/              # Fluidics-related modules
+│   ├── README.md          # Fluidics module documentation
 │   ├── fluidics.py        # Base fluidics class
 │   ├── cyanfluidics.py    # Cyan-specific fluidics implementation
 │   ├── GUI.py            # Legacy fluidics GUI
@@ -350,7 +367,7 @@ The system uses a robust file-based communication protocol where components inte
 - ✅ **Easy launch system** with batch file support
 
 ### Partially Implemented
-- ⚠️ **Autofocus**: Basic class structure exists but needs algorithm implementation
+- ⚠️ **Segmentation**: Basic structure exists in Processing module, needs algorithm implementation
 
 ## Dependencies
 
@@ -359,18 +376,26 @@ The system uses a robust file-based communication protocol where components inte
 - `numpy`: Numerical computations
 - `tkinter`: GUI framework (included with Python)
 - `pycromanager`: Micro-Manager integration
-- `json`: Configuration file handling
+- `scipy`: Scientific computing (image processing, optimization)
+- `scikit-image`: Image processing algorithms
+- `tifffile`: TIFF image I/O
+- `matplotlib`: Plotting and visualization
+- `tqdm`: Progress bars
 
 ### Optional Dependencies
-- `matplotlib`: Plotting and visualization (for position visualization)
-- `threading`: Multi-threaded operations
-- `logging`: Advanced logging capabilities
+- `threading`: Multi-threaded operations (included with Python)
+- `logging`: Advanced logging capabilities (included with Python)
 
 ## Installation and Setup
 
 1. **Install Python Dependencies**:
    ```bash
-   pip install pandas numpy pycromanager
+   pip install -r requirements.txt
+   ```
+   
+   Or install core dependencies manually:
+   ```bash
+   pip install pandas numpy pycromanager scipy scikit-image tifffile matplotlib tqdm
    ```
 
 2. **Install Micro-Manager**: 
@@ -391,14 +416,22 @@ The system uses a robust file-based communication protocol where components inte
    python experiment.py
    ```
 
+## Module Documentation
+
+For detailed documentation on specific modules, see:
+
+- **[Scope Module](Scope/README.md)**: Microscope control, position management, and autofocus
+- **[Processing Module](Processing/README.md)**: Image stitching, processing, and registration
+- **[Fluidics Module](Fluidics/README.md)**: Fluid handling and protocol execution
+
 ## Contributing
 
 The pyScope system is designed for extensibility. Key areas for contribution:
 
-1. **Autofocus Algorithms**: Implement focus quality metrics and optimization strategies
+1. **Segmentation Algorithms**: Implement segmentation algorithms in Processing module
 2. **Hardware Integration**: Add support for additional microscope and fluidics hardware
 3. **User Interface**: Enhance GUI with additional features and improved usability
-4. **Data Processing**: Add image processing and analysis capabilities
+4. **Image Processing**: Add advanced image processing and analysis capabilities
 5. **Documentation**: Improve user guides and API documentation
 
 ## License
