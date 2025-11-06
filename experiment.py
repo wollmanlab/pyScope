@@ -314,6 +314,9 @@ class Experiment():
         task_number += 1
         self.tasks.loc[task_number,'Scope'] = f"SetupAutoFocus*{str(chambers)}*{autofocus_method}"
         task_number += 1
+        self.tasks.loc[task_number,'Scope'] = f"Acquire*{str(chambers)}*preview"
+        task_number += 1
+        
 
         if len(groups) == 1:
             group = groups[0]
@@ -323,24 +326,21 @@ class Experiment():
             self.log(f"  Single group '{group}' has wells: {group_wells}, fluidics wells: '{fluidics_wells}'")
             
             for round in range(num_hybes):
-                for fluidics_protocol in fluidics_protocols:
-                    fluidics_command = f"{fluidics_protocol}*{fluidics_wells}*{fluidics_protocol+str(round+1)}"
-                    scope_command = f"Acquire*{group_wells}*{fluidics_protocol+str(round+1)}"
+                for fluidics_protocol in fluidics_protocols: # ['Strip', 'Hybe']
+                    fluidics_command = f"{fluidics_protocol}*{fluidics_wells}*{str(round+1)}" # e.g. 'Strip*['A', 'B']*1'
+                    scope_command = f"Acquire*{group_wells}*{fluidics_protocol+str(round+1)}" # e.g. 'Acquire*['A', 'B']*Strip1'
                     task_number += 1
                     self.tasks.loc[task_number,'Fluidics'] = fluidics_command
                     task_number += 1
                     self.tasks.loc[task_number,'Scope'] = scope_command
         else:
             for round in range(num_hybes):
-                for fluidics_protocol in fluidics_protocols:
-                    for group in groups:
+                for fluidics_protocol in fluidics_protocols: # ['Strip', 'Hybe']
+                    for group in groups: # ['Group 1', 'Group 2']
                         group_wells = [well for well in positions_df['well'].unique() if group_assignments.get(well) == group]
-                        # scope_wells = ''.join([group_assignments.get(well, '')+',' for well in group_wells])[:-1]
-                        scope_wells = str([group_assignments.get(well, '') for well in group_wells])
-                        # fluidics_wells = ''.join([fluidics_well_assignments.get(well, '')+',' for well in group_wells])[:-1]
                         fluidics_wells = str([fluidics_well_assignments.get(well, '') for well in group_wells])
-                        fluidics_command = f"{fluidics_protocol}*{fluidics_wells}*{fluidics_protocol+str(round+1)}"
-                        scope_command = f"Acquire*{group_wells}*{fluidics_protocol+str(round+1)}"
+                        fluidics_command = f"{fluidics_protocol}*{fluidics_wells}*{str(round+1)}" # e.g. 'Strip*['A', 'B']*1'
+                        scope_command = f"Acquire*{group_wells}*{fluidics_protocol+str(round+1)}" # e.g. 'Acquire*['A', 'B']*Strip1'
                         
                         task_number += 1
                         self.tasks.loc[task_number,'Fluidics'] = fluidics_command
