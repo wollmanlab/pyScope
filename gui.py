@@ -238,6 +238,9 @@ class StatePanel:
             
             # Convert to items list
             items = [(k, v) for k, v in state_data.items() if v is not None]
+
+            # If value is float only show 2 decimal places
+            items = [(k, f"{v:.2f}" if isinstance(v, float) else v) for k, v in items]
             
             # Group items into columns
             if self.column_grouping_func:
@@ -664,7 +667,7 @@ class StatusPanel:
                 return
             
             # Set status to Stop to terminate the instance
-            self.file_handler.save_status(self.system_name, "Stop")
+            # self.file_handler.save_status(self.system_name, "Stop")
             
             # Wait for thread to finish (with timeout)
             if self.launched_thread and self.launched_thread.is_alive():
