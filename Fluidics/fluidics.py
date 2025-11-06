@@ -7,6 +7,7 @@ import importlib
 import threading
 import sys
 import os
+import ast
 from math import floor,ceil
 import json
 # Adding all subdirectories in the directory of fluidics.py to the path of python.
@@ -163,7 +164,8 @@ class Fluidics(object):
         if '+' in other:
             if other.split('+')[-1] =='':
                 other = other.split('+')[0]
-        chambers = chambers[1:-1].split(',')
+        # chambers = chambers[1:-1].split(',')
+        chambers = ast.literal_eval(chambers)
         if 'Flush' in protocol:
             chambers = self.Valve_Commands
         if 'Prime' in protocol:
