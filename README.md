@@ -21,68 +21,36 @@ The primary objectives of pyScope are:
 
 #### 1. **Experiment Class** (`experiment.py`)
 - **Purpose**: Central orchestrator for experiment management
-- **Key Features**:
-  - Experiment state management and persistence
-  - Task creation and scheduling for scope and fluidics systems
-  - Status monitoring (Running, Paused, Stopped, Reset, Recover)
-  - Progress tracking for fluidics and scope tasks
-  - System recovery and reset capabilities
+- **Key Capabilities**: 
   - Multi-round experiment support with group-based processing
+  - Task creation and scheduling for Scope and Fluidics systems
+  - Status monitoring and coordination (Running, Paused, Stopped, Reset, Recover)
+  - Progress tracking for fluidics and scope tasks
   - File-based communication with scope and fluidics components
+  - System recovery and reset capabilities
+- **Documentation**: See [System Operation Flow](#system-operation-flow) for experiment management details
 
 #### 2. **Scope Module** (`Scope/`)
 - **Purpose**: Microscope control and image acquisition
-- **Key Features**:
-  - Micro-Manager integration via pycromanager
-  - **Independent operation** with continuous monitoring loop
-  - Protocol-based task execution (SetFocus, FilterPositions, SetupAutoFocus, Acquire)
-  - Position and channel control with state validation
-  - Image acquisition with timing tracking
-  - Simulation mode for testing without hardware
-  - File-based communication with experiment system
-  - Dynamic system-specific scope class loading (e.g., CyanScope, OrangeScope)
-  - Multiple autofocus strategies (None, Relative, ImageScan)
-  - Focus setting at multiple hierarchical levels (Plate, Well, Group, Position)
+- **Key Capabilities**: Micro-Manager integration, autonomous operation, protocol-based execution, position management, autofocus
 - **Documentation**: See [Scope/README.md](Scope/README.md) for detailed documentation
 
 #### 3. **Processing Module** (`Processing/`)
 - **Purpose**: Image processing, stitching, and registration
-- **Key Features**:
-  - Image stitching for combining multiple FOV images
-  - Image processing pipeline (background subtraction, flat-field correction)
-  - Image registration for position correction
-  - Interactive ROI selection and coordinate selection tools
-  - Position filtering based on ROI selections
+- **Key Capabilities**: Image stitching, processing pipelines, registration, interactive tools
 - **Documentation**: See [Processing/README.md](Processing/README.md) for detailed documentation
 
 #### 4. **FileHandler Class** (`file_handler.py`)
 - **Purpose**: Centralized file operations and data persistence
-- **Key Features**:
-  - Schema-based CSV file management
-  - JSON state file handling
-  - Plate configuration storage and retrieval
-  - Task progress tracking files
-  - Robust error handling and validation
+- **Key Capabilities**: State management, task tracking, plate configuration storage, logging
 
 #### 5. **GUI Module** (`gui.py`)
 - **Purpose**: Modern graphical user interface for system control
-- **Key Features**:
-  - Dark theme with modern styling and responsive design
-  - Real-time status monitoring for all system components
-  - Integrated experiment configuration and position management
-  - System-specific GUI initialization (e.g., Cyan, Orange systems)
-  - StatusPanel and StatePanel components for unified system control
-  - Launch/kill functionality for independent component operation
-  - Progress visualization and error handling
-  - Multi-threaded operation support with automatic updates
+- **Key Capabilities**: Real-time monitoring, experiment configuration, system control, progress visualization
 
 #### 6. **Fluidics Module** (`Fluidics/`)
 - **Purpose**: Automated fluid handling and protocol execution
-- **Key Features**:
-  - Protocol-based fluid handling
-  - Pump and valve control
-  - Independent operation with continuous monitoring
-  - File-based communication with experiment system
+- **Key Capabilities**: Protocol-based fluid handling, pump/valve control, autonomous operation
 - **Documentation**: See [Fluidics/README.md](Fluidics/README.md) for detailed documentation
 
 ### Data Flow
@@ -107,13 +75,13 @@ The pyScope system uses a **file-based communication** approach where components
 
 #### File-Based Communication Flow
 1. **GUI** initializes system-specific components (Experiment, Scope, Fluidics)
-2. **Experiment** creates tasks and writes them to `Experiment_tasks.csv`
-3. **Experiment** creates scope task triggers in `scope_task.txt`
-4. **Scope** monitors `scope_task.txt` and processes tasks when detected
-5. **Scope** creates detailed scope tasks in `Scope_tasks.csv`
-6. **Scope** updates status in `Scope_status.txt`
-7. **GUI** monitors scope status and progress via file system
-8. **Fluidics** monitors status via file_handler system and executes protocols independently
+2. **Experiment** creates high-level tasks and writes them to `Experiment_tasks.csv`
+3. **Experiment** creates task triggers for Scope and Fluidics via status files
+4. **Scope** and **Fluidics** monitor their respective status files and execute tasks independently
+5. **Components** update status and progress files for GUI monitoring
+6. **GUI** provides real-time status updates and progress tracking
+
+For detailed communication protocol information, see the respective module documentation.
 
 #### Benefits of This Architecture
 - **Modularity**: Each component can be started/stopped independently
@@ -124,40 +92,16 @@ The pyScope system uses a **file-based communication** approach where components
 
 ## Key Features
 
-### Experiment Management
-- **Multi-round Experiments**: Support for complex protocols with multiple hybridization rounds
-- **Group-based Processing**: Organize wells into groups for different treatments
-- **Protocol Integration**: Combine fluidics protocols with imaging protocols
-- **State Recovery**: Resume interrupted experiments from saved state
-- **Task Structure**: Comprehensive task schema supporting:
-  - **Scope Tasks**: Automated imaging with protocol, group, and round tracking
-  - **Fluidics Tasks**: Automated fluid handling protocols
-  - **Experiment Tasks**: Manual experiment events requiring user interaction
-  - **Processing Tasks**: Manual data processing and analysis events
+pyScope provides a comprehensive platform for automated microscopy experiments:
 
-### Position Planning
-- **Automatic Tiling**: Generate optimal imaging positions with configurable overlap
-- **Well Shape Support**: Handle circular and rectangular wells with rotation
-- **Plate Templates**: Pre-configured templates for common plate formats
-- **Coordinate Systems**: Transform between plate and stage coordinate systems
+- **Automated Experiment Execution**: Orchestrate multi-round imaging experiments with integrated fluidics
+- **Position Management**: Automatic tiling and position generation from plate configurations
+- **Microscope Control**: Full Micro-Manager integration with autonomous operation
+- **Image Processing**: Stitching, processing, and registration capabilities
+- **State Persistence**: Robust file-based state management and recovery
+- **Modern GUI**: Intuitive interface with real-time monitoring
 
-### Microscope Control
-- **Multi-channel Imaging**: Support for FarRed, DeepBlue, Green, Orange channels
-- **Parameter Control**: Exposure time, binning, position (X, Y, Z)
-- **Independent Operation**: Continuous monitoring and task execution (runs independently)
-- **File-based Communication**: Monitors experiment tasks via file system
-- **Hardware Integration**: Micro-Manager core integration with fallback simulation
-- **Protocol Support**: SetInitialFocus, FilterPositions, Acquire protocols
-- **System-specific Classes**: Dynamic loading of system-specific scope classes (CyanScope, OrangeScope, etc.)
-
-### User Interface
-- **Modern Dark Theme**: Professional appearance with consistent styling
-- **Real-time Monitoring**: Live status updates and progress tracking for all components
-- **System-specific GUI**: Automatic detection and initialization of system-specific components
-- **Integrated Control**: Launch/kill functionality for independent component operation
-- **Configuration Tools**: Intuitive setup for experiments and positions
-- **Error Handling**: Clear error messages and recovery options
-- **Responsive Design**: Adaptive layout with proper window management
+For detailed feature information, see the [module documentation](#module-documentation) sections.
 
 ## File Structure
 
@@ -194,8 +138,10 @@ pyScope/
 │   ├── Positions.csv
 │   └── [task and status files]
 └── Plates/               # Plate configurations
-    ├── example.json
-    └── example_6.json
+    ├── README.md          # Plate configuration documentation
+    ├── example.json       # Example plate configuration (circle and rectangle wells)
+    ├── Testing.json       # Testing plate configuration
+    └── Underwood6.json    # Underwood 6-well plate configuration
 ```
 
 ## System-Specific Architecture
@@ -212,162 +158,89 @@ The pyScope system uses dynamic class loading to support different microscope se
 - **Fluidics Classes**: `CyanFluidics`, `OrangeFluidics`, etc. (inherited from base `Fluidics`)
 - **GUI Integration**: System-specific GUI initialization with appropriate components
 
-### Import Structure
-```python
-# System-specific imports (handled automatically by GUI)
-from Scope.cyanscope import CyanScope
-from Fluidics.cyanfluidics import CyanFluidics
-
-# Base class imports
-from Scope.scope import Scope
-from Scope.positions import Positions
-from Scope.autofocus import Autofocus
-```
+For implementation details, see [Scope/README.md](Scope/README.md) and [Fluidics/README.md](Fluidics/README.md).
 
 ## Usage Examples
 
-### Easy System Launch
+### Quick Start
+
+**Prerequisites**: Micro-Manager must be running before launching pyScope.
+
 ```bash
-# Windows: Use the batch file for easy launching
+# Windows: Easy launch
 run_experiment.bat
 
-# Manual launch (if needed)
+# Manual launch
 python experiment.py
 ```
 
-### Basic Experiment Setup
-```python
-from experiment import Experiment
-from Scope.positions import Positions
-
-# Initialize experiment
-experiment = Experiment()
-
-# Configure experiment
-experiment.update_experiment_state({
-    'groups': ['Group1', 'Group2'],
-    'num_hybes': 3,
-    'fluidics_protocols': ['ProtocolA', 'ProtocolB'],
-    'selected_channels': ['FarRed', 'Green']
-})
-
-# Create positions
-positions = Positions(
-    fov_info={'X': 200, 'Y': 200, 'Overlap': 0.1},
-    limits={'X': (0, 10000), 'Y': (0, 10000), 'Z': (0, 1000)}
-)
-
-# Load plate configuration
-positions.load_plate_from_json('example_6')
-
-# Generate tasks
-experiment.create_tasks()
-```
-
-### Autonomous Scope Operation
-```python
-from Scope.scope import Scope
-
-# Initialize scope with continuous monitoring (default)
-scope = Scope()
-scope.continuous_monitoring()  # Runs continuously, monitoring for tasks
-
-# Scope will automatically process tasks as they become available
-# Tasks are triggered via scope_task.txt file
-```
-
-### Standalone Scope Execution
-```bash
-# Run scope independently (for testing or manual operation)
-python Scope/scope.py
-
-# Run scope without Micro-Manager core (simulation mode)
-python Scope/scope.py --no-core
-```
+The GUI will automatically detect your system type and initialize the appropriate components. For detailed usage examples and API documentation, see the [module documentation](#module-documentation) sections.
 
 ## System Operation Flow
 
-### Complete Experiment Workflow
+### High-Level Workflow
 
-The pyScope system follows this comprehensive workflow:
+1. **System Launch**: GUI automatically detects system type and initializes components
+2. **Experiment Configuration**: Configure groups, rounds, protocols, and channels via GUI
+3. **Position Management**: Load plate configurations or create positions manually
+4. **Task Generation**: Experiment creates tasks for Scope and Fluidics components
+5. **Component Execution**: Scope and Fluidics execute tasks autonomously via file-based communication
+6. **Progress Monitoring**: GUI provides real-time status updates and progress tracking
 
-1. **System Launch**: 
-   - Run `run_experiment.bat` or `python experiment.py`
-   - GUI automatically detects system type and initializes appropriate components
+### Experiment Management
 
-2. **Experiment Configuration**:
-   - GUI provides integrated interface for experiment setup
-   - Configure groups, rounds, protocols, and channels
-   - Set up plate configurations and position management
+The Experiment class orchestrates multi-round imaging experiments with integrated fluidics protocols:
 
-3. **Position Management**:
-   - Create positions using GUI tools (manual, grid, or file-based)
-   - Positions class handles tiling, coordinate transformation, and validation
-   - Save positions to CSV for experiment use
+**Key Concepts:**
+- **Groups**: Organize wells into experimental groups for different treatments
+- **Rounds**: Multiple hybridization/imaging rounds (e.g., Round 1, Round 2, etc.)
+- **Protocols**: Combined fluidics and imaging protocols executed in sequence
+- **Task Structure**: Tasks are organized by group and round, with coordination between Scope and Fluidics
 
-4. **Task Generation**:
-   - Experiment class creates tasks based on configuration
-   - Tasks include both scope and fluidics protocols
-   - Tasks saved to `Experiment_tasks.csv`
+**Task Types:**
+- **Scope Tasks**: Imaging protocols (SetFocus, FilterPositions, SetupAutoFocus, Acquire)
+- **Fluidics Tasks**: Fluid handling protocols (Hybe, Strip, Rinse, etc.)
+- **Experiment Tasks**: High-level experiment events requiring coordination
 
-5. **Component Execution**:
-   - Scope monitors `scope_task.txt` for imaging tasks
-   - Fluidics monitors status files for fluid handling tasks
-   - Each component executes tasks independently
+**Task Execution Flow:**
+1. Experiment creates tasks based on configuration (groups, rounds, protocols)
+2. Tasks are saved to `Experiment_tasks.csv` with columns for each system (Scope, Fluidics)
+3. Experiment executes tasks sequentially, waiting for each system to complete before proceeding
+4. Each task triggers the appropriate system via status file communication
+5. Systems execute tasks independently and update status/progress files
+6. Experiment monitors progress and coordinates multi-system workflows
 
-6. **Progress Monitoring**:
-   - GUI provides real-time status updates
-   - Progress tracking via file-based communication
-   - Error handling and recovery mechanisms
+For detailed protocol information, see [Scope/README.md](Scope/README.md) and [Fluidics/README.md](Fluidics/README.md).
 
-### File-Based Communication Protocol
+### File-Based Communication
 
-The system uses a robust file-based communication protocol where components interact through shared files:
+Components communicate through shared files in the `State` directory:
 
-#### Communication Flow
-1. **GUI** initializes and manages all system components
-2. **Experiment** creates high-level tasks in `Experiment_tasks.csv`
-3. **Experiment** creates scope task triggers in `scope_task.txt` with task details
-4. **Scope** monitors `scope_task.txt` and processes tasks when detected
-5. **Scope** creates detailed imaging tasks in `Scope_tasks.csv`
-6. **Scope** updates execution status in `Scope_status.txt`
-7. **GUI** tracks progress via `Scope_task_idx.txt` and status files
-8. **Fluidics** uses legacy `XXX_Status.txt` communication (integration planned)
-
-#### Key Communication Files
-- **`Experiment_tasks.csv`**: High-level experiment tasks with columns for:
-  - Scope tasks: `Scope` column with protocol commands
-  - Fluidics tasks: `Fluidics` column with protocol commands
-  - Task metadata: `task_name`, `group`, `round`
-- **`scope_task.txt`**: Task trigger file with experiment task data
-- **`Scope_tasks.csv`**: Detailed imaging tasks (position, channel, coordinates)
-- **`Scope_status.txt`**: Current scope status (Idle, Running, Complete, Error)
-- **`Scope_task_idx.txt`**: Current task index for progress tracking
+**Key Communication Files:**
+- **`Experiment_tasks.csv`**: High-level experiment tasks with columns for Scope and Fluidics protocols
+- **`Experiment_state.json`**: Experiment configuration (groups, rounds, protocols, channels)
+- **`Scope_status.txt`**: Current scope status (monitored by Experiment for coordination)
+- **`Fluidics_status.txt`**: Current fluidics status (monitored by Experiment for coordination)
 - **`Positions.csv`**: Well positions with coordinates for imaging
-- **`Fluidics_status.txt`**: Current fluidics status via file_handler system
-- **`Fluidics_state.json`**: Fluidics state persistence via file_handler
-- **`Fluidics.log`**: Fluidics logging via file_handler system
+- **`Scope_tasks.csv`**: Detailed imaging tasks created by Scope from experiment tasks
+- **`Scope_task_idx.txt`**: Current task index for progress tracking
+
+For detailed communication protocol information, see the respective module documentation.
 
 ## Current Status
 
 ### Implemented Features
-- ✅ Complete system architecture with modular components
+- ✅ Complete modular system architecture
 - ✅ Micro-Manager integration for microscope control
-- ✅ Comprehensive position planning and management
-- ✅ File-based state persistence and recovery
-- ✅ Modern GUI with dark theme and responsive design
-- ✅ Multi-round experiment support with group-based processing
-- ✅ Task scheduling and progress tracking
-- ✅ Plate configuration system with JSON support
-- ✅ Error handling and validation
-- ✅ **Independent scope operation** with continuous monitoring
-- ✅ **File-based communication** between experiment, scope, and fluidics components
-- ✅ **Robust task processing** from experiment tasks to scope execution
-- ✅ **System-specific class loading** (CyanScope, OrangeScope, etc.)
-- ✅ **Easy launch system** with batch file support
+- ✅ File-based communication and state persistence
+- ✅ Modern GUI with real-time monitoring
+- ✅ Multi-round experiment support
+- ✅ System-specific class loading (CyanScope, OrangeScope, etc.)
 
 ### Partially Implemented
 - ⚠️ **Segmentation**: Basic structure exists in Processing module, needs algorithm implementation
+
+For detailed feature lists, see the [module documentation](#module-documentation) sections.
 
 ## Dependencies
 
@@ -404,17 +277,22 @@ The system uses a robust file-based communication protocol where components inte
 
 3. **Configure System**:
    - Set up `State` directory for runtime files
-   - Create plate configurations in `Plates` directory
+   - Create plate configurations in `Plates` directory (see [Plates/README.md](Plates/README.md) for format details)
    - Configure microscope parameters in experiment setup
 
 4. **Launch System**:
    ```bash
+   # IMPORTANT: Launch Micro-Manager first before running pyScope
+   # Start Micro-Manager and ensure the core is running
+   
    # Windows: Easy launch
    run_experiment.bat
    
    # Manual launch
    python experiment.py
    ```
+   
+   **Note**: pyScope requires Micro-Manager to be running before launch. The system will attempt to connect to the Micro-Manager core on startup. If Micro-Manager is not running, the scope will operate in simulation mode.
 
 ## Module Documentation
 
@@ -423,6 +301,7 @@ For detailed documentation on specific modules, see:
 - **[Scope Module](Scope/README.md)**: Microscope control, position management, and autofocus
 - **[Processing Module](Processing/README.md)**: Image stitching, processing, and registration
 - **[Fluidics Module](Fluidics/README.md)**: Fluid handling and protocol execution
+- **[Plates Directory](Plates/README.md)**: Plate configuration format and position generation
 
 ## Contributing
 
@@ -436,8 +315,9 @@ The pyScope system is designed for extensibility. Key areas for contribution:
 
 ## License
 
-[License information to be added]
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Contact
 
-[Contact information to be added]
+**Zachary Hemminger**  
+Email: zehemminger@gmail.com

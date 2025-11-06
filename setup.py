@@ -34,8 +34,8 @@ def get_version():
 setup(
     name="pyscope",
     version=get_version(),
-    author="pyScope Development Team",
-    author_email="",
+    author="Zachary Hemminger",
+    author_email="zehemminger@gmail.com",
     description="Automated Microscope Control System for high-throughput imaging experiments",
     long_description=read_readme(),
     long_description_content_type="text/markdown",

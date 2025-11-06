@@ -15,8 +15,8 @@ Main Components:
 """
 
 __version__ = "1.0.0"
-__author__ = "pyScope Development Team"
-__email__ = ""
+__author__ = "Zachary Hemminger"
+__email__ = "zehemminger@gmail.com"
 
 # Import main classes for easy access
 from .experiment import Experiment
