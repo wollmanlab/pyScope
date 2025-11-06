@@ -65,6 +65,12 @@ setup(
         "numpy>=1.20.0",
         "pycromanager>=0.12.0",
         "matplotlib>=3.3.0",
+        "scipy>=1.7.0",
+        "scikit-image>=0.18.0",
+        "tifffile>=2021.0.0",
+        "tqdm>=4.60.0",
+        "pyserial>=3.5",
+        "requests>=2.25.0",
     ],
     extras_require={
         "dev": [
@@ -73,6 +79,11 @@ setup(
             "black>=21.0",
             "flake8>=3.8",
             "mypy>=0.800",
+            "pre-commit>=2.0",
+            "tox>=3.0",
+            "jupyter>=1.0.0",
+            "ipykernel>=6.0.0",
+            "ipython>=7.0.0",
         ],
         "docs": [
             "sphinx>=4.0",

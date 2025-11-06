@@ -14,6 +14,11 @@ mypy>=0.800
 sphinx>=4.0
 sphinx-rtd-theme>=0.5
 
+# Jupyter notebooks (for testing.ipynb and other notebooks)
+jupyter>=1.0.0
+ipykernel>=6.0.0
+ipython>=7.0.0
+
 # Additional development tools
 pre-commit>=2.0
 tox>=3.0
