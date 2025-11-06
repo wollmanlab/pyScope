@@ -2712,11 +2712,11 @@ class SystemGUI:
             if self.hybe_var.get():
                 protocol_1_name = self.protocol_1_var.get()
                 if protocol_1_name:
-                    selected_fluidics.append(protocol_1_name.lower())
+                    selected_fluidics.append(protocol_1_name)
             if self.strip_var.get():
                 protocol_2_name = self.protocol_2_var.get()
                 if protocol_2_name:
-                    selected_fluidics.append(protocol_2_name.lower())
+                    selected_fluidics.append(protocol_2_name)
             
             if not selected_fluidics:
                 selected_fluidics = ['none']
