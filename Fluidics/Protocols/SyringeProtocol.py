@@ -1,15 +1,26 @@
 from Fluidics.Protocols.Protocol import *
 import pandas as pd
 class SyringeProtocol(Protocol):
+    """Syringe pump protocol implementation.
+    
+    Implements protocol methods for syringe pump-based fluidics systems.
+    Handles solution transfer between ports and chambers using syringe pump.
+    
+    For all methods:
+    - inport: Port where solution is drawn from
+    - outport: Port where solution is injected into
+    - Solution moves from inport to outport
+    
+    Attributes:
+        closed_volume_buffer (float): Extra volume buffer for closed chambers in mL.
     """
-    Definition of the subclass SyringeProtocol.
-    For all the methods defined below,
-    inport is the port where you draw solution from;
-    outport is the port where you inject solution into.
-    In short, you move solution from inport to outport.
-    Please refer to the README of the Protocol Class for meaning of port, chamber, volume, speed and pause.
-    """
-    def __init__(self,gui=False):
+    
+    def __init__(self, gui=False):
+        """Initialize SyringeProtocol.
+        
+        Args:
+            gui (bool): Whether GUI mode is enabled. Defaults to False.
+        """
         super().__init__()
         self.verbose = True # When in verbose mode, update_user() will record the input message to the log.
         self.closed_volume_buffer = 0.5 # Volume of closed chamber in the unit of mL. Matters only when you are using a closed chamber.

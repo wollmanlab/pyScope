@@ -149,14 +149,21 @@ class SyringePump(Pump):
             self.update_user('SETUP Failed.')
             pass
 
-    def build_cmd_str(self,cmd, args=None):
-        """
-        Build a command string that can be sent to the arduino.
-        Input:
-            cmd (str): the command to send to the arduino, must not
-                contain a % character
-            args (iterable): the arguments to send to the command
-        @TODO: a strategy is needed to escape % characters in the args
+    def build_cmd_str(self, cmd, args=None):
+        """Build command string for Arduino communication.
+        
+        Formats command and arguments into serial message format:
+        @{cmd}%{args}$!
+        
+        Args:
+            cmd (str): Command name (must not contain '%' character).
+            args (iterable, optional): Command arguments. Defaults to None.
+        
+        Returns:
+            bytes: Formatted command string as bytes.
+        
+        Note:
+            TODO: Strategy needed to escape '%' characters in args.
         """
         if args:
             args = '%'.join(map(str, args))

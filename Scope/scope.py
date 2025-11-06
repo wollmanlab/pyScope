@@ -19,12 +19,32 @@ import tifffile
 import matplotlib.pyplot as plt
 
 class Scope:
+    """Base class for microscope control and image acquisition.
+    
+    Provides Micro-Manager integration, state management, protocol execution,
+    and autonomous operation through file-based communication. Supports
+    position management, autofocus, and multi-channel imaging.
+    
+    Attributes:
+        file_handler (FileHandler): File handler instance for state management.
+        core (Core): Micro-Manager core instance (None if not connected).
+        core_enabled (bool): Whether Micro-Manager core is connected.
+        state (Dict[str, Any]): Current microscope state (X, Y, Z, Channel, etc.).
+        limits (Dict): Valid ranges for microscope parameters.
+        tolerance (Dict): Tolerance values for state checking.
+        AutoFocus (Autofocus): Autofocus instance for focus management.
+    """
+    
     def __init__(self, enable_core: bool = True):
-        """
-        Initialize the Scope class.
+        """Initialize the Scope class.
+        
+        Sets up Micro-Manager connection, loads configuration, and initializes
+        state management. Falls back to simulation mode if Micro-Manager is
+        not available.
         
         Args:
-            enable_core (bool): Whether to initialize Micro-Manager core connection
+            enable_core (bool): Whether to initialize Micro-Manager core connection.
+                Defaults to True.
         """
         # Initialize file handler first
         self.file_handler = FileHandler()
@@ -66,7 +86,11 @@ class Scope:
         self.AutoFocus = Autofocus()
     
     def _update_channel_limits(self):
-        """Update the channel limits from the configuration file."""
+        """Update channel limits from Micro-Manager configuration file.
+        
+        Parses the config file to extract available channels and updates
+        self.limits['Channel']. Falls back to default channels if parsing fails.
+        """
         try:
             channels = self.get_available_channels_from_config()
             if channels:
@@ -134,11 +158,21 @@ class Scope:
             return []
     
     def log(self, message, level='info'):
-        """Log messages using FileHandler's logging system."""
+        """Log messages using FileHandler's logging system.
+        
+        Args:
+            message (str): Message to log.
+            level (str): Log level ('debug', 'info', 'warning', 'error').
+                Defaults to 'info'.
+        """
         self.file_handler.log(message, level=level, system_prefix='Scope')
 
     def _initialize_core(self):
-        """Initialize Micro-Manager core connection."""
+        """Initialize Micro-Manager core connection.
+        
+        Attempts to connect to Micro-Manager core. Sets core_enabled to False
+        and core to None if connection fails (simulation mode).
+        """
         try:
             self.core = Core()
             # self.studio = Studio()
@@ -150,6 +184,12 @@ class Scope:
             self.core_enabled = False
 
     def continuous_monitoring(self):
+        """Run continuous monitoring loop for autonomous operation.
+        
+        Monitors scope_task.txt for new commands and executes protocols accordingly.
+        Continues until 'stop' command is received or an error occurs.
+        Sets status to 'idle' when terminated.
+        """
         self.last_message = ''
         self.log('Continuous monitoring started')
         try:
@@ -175,7 +215,14 @@ class Scope:
             self.log('Continuous monitoring terminated - status set to offline')
 
     def interpret_command(self, current_message):
-        """Interpret message from other software."""
+        """Interpret and execute command from status file.
+        
+        Parses command message and executes the corresponding protocol.
+        Updates status to 'Running' during execution and 'Finished' on completion.
+        
+        Args:
+            current_message (str): Command message in format 'Command:<protocol>'.
+        """
         self.log(f"Interpreting Command: {current_message}")
         self.busy = True
         message = current_message.split(':')[-1]
@@ -185,7 +232,17 @@ class Scope:
         self.busy = False
 
     def execute_protocol(self, message):
-        """Execute the protocol."""
+        """Execute a protocol based on command message.
+        
+        Routes protocol execution to appropriate handler. Supported protocols:
+        - SetFocus: Set focus for positions
+        - FilterPositions: Filter imaging positions using ROI selection
+        - SetupAutoFocus: Configure autofocus system
+        - Acquire: Main image acquisition protocol
+        
+        Args:
+            message (str): Protocol command message in format 'Protocol*chambers*name*other'.
+        """
         self.log(f"Executing Protocol: {message}")
         protocol,chambers,name,other = self.decode_message(message)
         if protocol == 'SetFocus': #FIXME "SetFocus*['A1', 'A2','A3','B1']*ManualWell" 
@@ -207,7 +264,21 @@ class Scope:
         self.simulate = False
 
     def decode_message(self, message):
-        """Decode the message."""
+        """Decode protocol command message into components.
+        
+        Parses message format: 'Protocol*chambers*name*other'
+        Handles optional '+' separator and '!' simulation flag.
+        
+        Args:
+            message (str): Protocol command message.
+        
+        Returns:
+            tuple: (protocol, chambers, name, other) where:
+                - protocol (str): Protocol name
+                - chambers (list): List of chamber/well names
+                - name (str): Protocol name parameter
+                - other (str): Additional parameters
+        """
         protocol,chambers,other = message.split('*')
         if '+' in other:
             name = other.split('+')[0]
@@ -224,8 +295,15 @@ class Scope:
             self.simulate = False
         return protocol,chambers,name,other
 
-    def stitch_previews(self,chambers):
-        self.stitched = {}
+    def stitch_previews(self, chambers):
+        """Stitch preview acquisitions for specified chambers.
+        
+        Creates stitched images with position indexing for each chamber.
+        Results are stored in self.stitched dictionary.
+        
+        Args:
+            chambers (list): List of chamber/well names to stitch.
+        """
         positions = self.file_handler.Positions
         for chamber in chambers:
             chamber_positions = positions[positions['well'] == chamber].copy()
@@ -252,7 +330,16 @@ class Scope:
             self.stitched[chamber]['idx_canvas'] = idx_canvas
             self.stitched[chamber]['posname_idx_mapper'] = posname_idx_mapper
 
-    def filter_positions(self,chambers):
+    def filter_positions(self, chambers):
+        """Filter imaging positions using interactive ROI selection.
+        
+        Stitches preview acquisitions and allows user to select regions of
+        interest. Updates positions DataFrame with filtered positions and
+        assigns groups based on ROI selections.
+        
+        Args:
+            chambers (list): List of chamber/well names to filter positions for.
+        """
         filtering_method = self.file_handler.get_state('Experiment')['position_filtering']
         if filtering_method == 'None':
             return
@@ -355,6 +442,11 @@ class Scope:
             
 
     def setup_autofocus(self):
+        """Configure autofocus system based on experiment configuration.
+        
+        Initializes appropriate autofocus strategy (None, Relative, ImageScan)
+        based on experiment state and calls setup method if needed.
+        """
         autofocus_method = self.file_handler.get_state('Experiment')['autofocus_method']
         level = autofocus_method.split(' ')[-1]
         method = autofocus_method.split(f" {level}")[0]
@@ -445,7 +537,21 @@ class Scope:
 
 
 
-    def acquire(self,chambers,acquisition_name,other,acquisition_data=None,positions=None):
+    def acquire(self, chambers, acquisition_name, other, acquisition_data=None, positions=None):
+        """Main image acquisition protocol.
+        
+        Acquires multi-channel, multi-position images with Z-stack support.
+        Integrates with autofocus system and saves images with metadata.
+        
+        Args:
+            chambers (list): List of chamber/well names to acquire images for.
+            acquisition_name (str): Name for the acquisition (e.g., 'preview', 'hybe11').
+            other (str): Additional acquisition parameters as string (will be parsed).
+            acquisition_data (dict, optional): Acquisition configuration dictionary.
+                If None, loads from Experiment state. Defaults to None.
+            positions (pd.DataFrame, optional): Positions DataFrame to use.
+                If None, loads from file handler. Defaults to None.
+        """
         if acquisition_data is None:
             acquisition_data = self.file_handler.get_state("Experiment")
         if len(other) > 0: # Update acquisition_data with other
@@ -555,7 +661,14 @@ class Scope:
 
 
     def snapImage(self):
-        """Capture an image using the microscope core."""
+        """Capture an image using the microscope core.
+        
+        Returns:
+            np.ndarray: 2D image array (uint16). Returns None if core is not enabled.
+        
+        Raises:
+            Exception: If image capture fails.
+        """
         if not self.core_enabled:
             self.log("Core not available - simulating image capture", level='warning')
             # FIXME: Simulate image capture for testing without Micro-Manager
@@ -575,6 +688,16 @@ class Scope:
             raise
 
     def set_focus(self, chambers, name, other):
+        """Set focus for positions at different hierarchical levels.
+        
+        Routes to appropriate focus method based on name parameter.
+        Supported methods: Manual, Manual Plane.
+        
+        Args:
+            chambers (list): List of chamber/well names.
+            name (str): Focus method and level (e.g., 'Manual Well', 'Manual Plane Group').
+            other (str): Additional parameters.
+        """
         if name == 'None':
             return
         level = name.split(' ')[-1]
@@ -588,7 +711,15 @@ class Scope:
             return
 
     def manual_focus(self, chambers, level, other):
-        """ Manual set flat focus for the group """ 
+        """Manually set flat focus for positions at a hierarchical level.
+        
+        User manually adjusts focus for each position at the specified level.
+        
+        Args:
+            chambers (list): List of chamber/well names.
+            level (str): Hierarchical level ('Plate', 'Well', 'Group', 'Position').
+            other (str): Additional parameters.
+        """ 
 
         positions = self.file_handler.Positions
         positions = positions[positions['well'].isin(chambers)]
@@ -612,8 +743,15 @@ class Scope:
         self.file_handler.save_positions(positions)
 
     def manual_plane_focus(self, chambers, level, other):
-        """ Use a manually defined number of focus positions per group 
-        to set a plane and update to focus of the rest of the group
+        """Set focus using manually defined reference points to fit a plane.
+        
+        User selects reference points interactively, system fits a plane through
+        them, and applies the plane to all positions at the specified level.
+        
+        Args:
+            chambers (list): List of chamber/well names.
+            level (str): Hierarchical level ('Plate', 'Well', 'Group', 'Position').
+            other (str): Additional parameters.
         """
         all_positions = self.file_handler.Positions
         positions = all_positions[all_positions['well'].isin(chambers)]
@@ -745,8 +883,19 @@ class Scope:
         self.file_handler.save_positions(all_positions)
 
 
-    def display_preview(self,positions,name=None,channels=None,acquisition_dir=None):
-        """ Stitch a group of positions """
+    def display_preview(self, positions, name=None, channels=None, acquisition_dir=None):
+        """Stitch and display a preview of a group of positions.
+        
+        Creates a stitched image from multiple positions and displays it.
+        Used for preview generation during acquisition.
+        
+        Args:
+            positions (pd.DataFrame): DataFrame containing position information.
+            name (str, optional): Name for the preview. Defaults to None.
+            channels (dict, optional): Channel configuration dictionary. Defaults to None.
+            acquisition_dir (str, optional): Acquisition directory path. If None,
+                finds latest preview acquisition. Defaults to None.
+        """
         self.log(f"Stitching group of {len(positions)} positions",level='info')
         well = positions['well'].unique()[0]
         if acquisition_dir is None:
@@ -849,7 +998,15 @@ class Scope:
         result.wait()
 
     def update_state(self, state=None):
-        """Update the current microscope state."""
+        """Update the current microscope state.
+        
+        Reads current state from Micro-Manager core and updates internal state
+        dictionary. If state dict is provided, uses that instead.
+        
+        Args:
+            state (dict, optional): State dictionary to use. If None, reads from core.
+                Defaults to None.
+        """
         self.log('Update Current State')
         if state is None:
             state = self.state
@@ -916,11 +1073,29 @@ class Scope:
             return complete
 
     def check_state(self, key):
-        """Check if a state key exists and has a value."""
+        """Check if a state key exists and has a value.
+        
+        Args:
+            key (str): State key to check.
+        
+        Returns:
+            bool: True if key exists and has a non-None value, False otherwise.
+        """
         return key in self.state and self.state[key] is not None
 
     def is_valid(self, key, value):
-        """Validate if a value is within limits for a given key."""
+        """Validate if a value is within limits for a given key.
+        
+        Checks if value is within the valid range defined in self.limits.
+        Special handling for compound keys like 'XYZ' and 'XY'.
+        
+        Args:
+            key (str): Parameter key to validate.
+            value: Value to validate (can be single value or tuple for compound keys).
+        
+        Returns:
+            bool: True if value is valid, False otherwise.
+        """
         if not key in self.limits.keys():
             if key in ['XYZ', 'XY']:  # Special handling for compound keys
                 pass  # These are handled below
@@ -960,7 +1135,15 @@ class Scope:
         return True 
 
     def set(self, key, value):
-        """Set a microscope parameter."""
+        """Set a microscope parameter value.
+        
+        Validates value, updates state, and applies to Micro-Manager core.
+        Skips if value is already set (if already_set returns True).
+        
+        Args:
+            key (str): Parameter key (e.g., 'X', 'Y', 'Z', 'Channel', 'Exposure').
+            value: Value to set.
+        """
         if self.already_set(key, value): 
             return
         if not self.is_valid(key, value): 
@@ -1034,7 +1217,16 @@ class Scope:
             raise
 
     def get(self, key):
-        """Get a microscope parameter value."""
+        """Get a microscope parameter value.
+        
+        Returns current value from state dictionary or reads from Micro-Manager core.
+        
+        Args:
+            key (str): Parameter key (e.g., 'X', 'Y', 'Z', 'Channel', 'Exposure').
+        
+        Returns:
+            Value of the parameter from state or core.
+        """
         # if self.remember_state and self.state[key] is not None:
         #     self.log(f'{key}: {self.state[key]} Using Previous State', level='debug')
         #     return self.state[key]
@@ -1255,8 +1447,12 @@ class Scope:
         self.file_handler.save_status("Scope", value)
 
     def check_status(self):
-        return self.file_handler.get_status("Scope",read_only=False)
-    
+        """Check current scope status from status file.
+        
+        Returns:
+            str: Current status string from Scope_status.txt.
+        """
+        return self.file_handler.get_status("Scope", read_only=False)
     @property
     def name(self):
         """Get the name of the class."""

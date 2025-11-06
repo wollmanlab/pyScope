@@ -76,11 +76,14 @@ GUI_FONTS = {
 }
 
 def apply_dark_theme(window):
-    """
-    Apply the dark theme to a tkinter window and all its child widgets.
+    """Apply dark theme to a tkinter window and all its child widgets.
+    
+    Configures default styling options for all ttk widget types including
+    frames, labels, buttons, entries, comboboxes, checkboxes, and radiobuttons.
     
     Args:
-        window: The tkinter window or widget to apply the theme to
+        window (tk.Tk or tk.Widget): The tkinter window or widget to apply
+            the theme to. Theme will be applied recursively to all child widgets.
     """
     # Configure window background
     window.configure(bg=GUI_COLORS['background'])
@@ -121,11 +124,15 @@ def apply_dark_theme(window):
     window.option_add('*TLabelFrame*font', GUI_FONTS['heading'])
 
 def create_dark_style():
-    """
-    Create and configure a dark style for ttk widgets.
+    """Create and configure a dark style for ttk widgets.
+    
+    Creates a ttk.Style object with dark theme configurations for comboboxes,
+    buttons, and progress bars. Uses 'clam' theme as base.
     
     Returns:
-        ttk.Style: Configured style object
+        ttk.Style: Configured style object with dark theme applied.
+            Styles available: 'Dark.TCombobox', 'Dark.TButton',
+            'Dark.Horizontal.TProgressbar'.
     """
     style = ttk.Style()
     style.theme_use('clam')

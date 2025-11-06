@@ -28,9 +28,20 @@ import numpy as np
 from file_handler import FileHandler
 
 class Positions:
-    """
-    Manages a collection of positions in a pandas DataFrame, applying microscope-specific coordinate
-    transformations to generate final stage positions.
+    """Manages microscope imaging positions for well plates.
+    
+    Provides tools for generating tiling positions, managing coordinate transformations,
+    and loading plate configurations. Supports circular and rectangular wells with
+    rotation, automatic tiling with overlap, and position validation.
+    
+    Attributes:
+        fov_info (Dict[str, Any]): Field of view information with keys 'X', 'Y', 'Overlap'.
+        offsets (Dict[str, float]): Stage coordinate offsets {'X': float, 'Y': float, 'Z': float}.
+        axis_mapping (Dict[str, str]): Mapping between plate and stage coordinate systems.
+        limits (Dict[str, tuple]): Stage limits for position validation.
+        file_handler (FileHandler): FileHandler instance for file operations.
+        positions (pd.DataFrame): DataFrame containing all positions with columns:
+            position_name, group, well, autofocus_group, X, Y, Z.
     """
     def __init__(self, 
                 fov_info: Dict[str, Any] = None, 
@@ -72,7 +83,13 @@ class Positions:
                     
 
     def log(self, message, level='info'):
-        """Log messages using FileHandler's logging system."""
+        """Log messages using FileHandler's logging system.
+        
+        Args:
+            message (str): Message to log.
+            level (str): Log level ('debug', 'info', 'warning', 'error').
+                Defaults to 'info'.
+        """
         self.file_handler.log(message, level=level, system_prefix='Positions')
 
     def _transform_plate_to_stage_coords(self, plate_pos: Dict[str, float]) -> Dict[str, float]:

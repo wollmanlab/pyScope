@@ -3,10 +3,31 @@ from fractions import Fraction
 import numpy as np
 import time
 class SyringePump_v2(Pump):
+    """Syringe pump v2 implementation using Arduino serial communication.
+    
+    Improved version with duty cycle-based speed control. Sends formatted
+    serial messages to Arduino for pump control. Uses pin 5 for forward,
+    pin 4 for reverse.
+    
+    Attributes:
+        forward (int): Digital pin number for forward direction. Defaults to 5.
+        reverse (int): Digital pin number for reverse direction. Defaults to 4.
+        com_port (str): Serial COM port for Arduino communication.
+        speed_conversion (float): Conversion factor from volume to time (sec/mL).
+        wait_factor (float): Additional wait time factor after flow completes.
+        serial (serial.Serial): Serial connection to Arduino.
     """
-    Definition of SyringePump, a subclass of Pump.
-    """
-    def __init__(self,com_port,forward=5,reverse=4,gui=False):
+    
+    def __init__(self, com_port, forward=5, reverse=4, gui=False):
+        """Initialize SyringePump_v2 with Arduino connection.
+        
+        Args:
+            com_port (str): Serial COM port (e.g., 'COM7').
+            forward (int): Digital pin for forward direction. Defaults to 5.
+            reverse (int): Digital pin for reverse direction. Defaults to 4.
+            gui (bool): Whether GUI mode is enabled. If True, skips serial connection.
+                Defaults to False.
+        """
         super().__init__()
         self.forward = 5
         self.reverse = 4
@@ -20,9 +41,15 @@ class SyringePump_v2(Pump):
         if not gui:
             self.serial = serial.Serial(com_port, 9600, timeout=2)
     
-    # self.flow is for 'flowing' user specified amount of liquid in user specified direction.
-    # It translates user specification into a formatted serial message and write to Arduino.
-    def flow(self,volume):
+    def flow(self, volume):
+        """Execute pump flow using Arduino serial commands.
+        
+        Sends formatted serial message to Arduino with direction, speed (duty cycle),
+        and duration. Waits for completion with buffer time.
+        
+        Args:
+            volume (float): Volume to pump in mL.
+        """
         # Abbreviate direction to minimize RAM usage on Arduino
         if self.direction=='Forward':
             direction = 'F'

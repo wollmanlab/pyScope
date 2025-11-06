@@ -8,39 +8,56 @@ import tifffile
 import math
 from tqdm import tqdm
 
-def stitch_acquisition(acquisition_dir, channel,zindex=0,
+def stitch_acquisition(acquisition_dir, channel, zindex=0,
                        metadata_filename='Metadata.txt',
                        image_processor=None,
                        registration_dict={},
                        border=1000,
                        stitch_rotate=0,
                        stitch_flipud=False,
-                       stitch_fliplr=False,bin=1,idx_stitch=False,
-                       output_pixel_size=None,position_names=None,verbose=True):
-    """
-    Stitch acquisition images together based on metadata.
+                       stitch_fliplr=False,
+                       bin=1,
+                       idx_stitch=False,
+                       output_pixel_size=None,
+                       position_names=None,
+                       verbose=True):
+    """Stitch acquisition images together based on metadata.
+    
+    Combines multiple FOV images into a single stitched image based on stage
+    coordinates from metadata. Supports image transformations, registration
+    corrections, and optional position indexing for ROI-based filtering.
     
     Args:
-        acquisition_dir (str): Path to acquisition directory containing metadata and images
-        metadata_filename (str): Name of metadata file, default 'Metadata.txt'
-        image_processor (ImageProcessor): Optional image processor. If None, uses raw images
-        registration_dict (dict): Optional dict with position names as keys, containing 
-                                  'X' and 'Y' registration shifts in microns
-        border (int): Border pixels to add around stitched image
-        stitch_rotate (int): Number of 90-degree rotations to apply
-        stitch_flipud (bool): Flip image up/down
-        stitch_fliplr (bool): Flip image left/right
-        bin (int): Downsampling factor (ignored if output_pixel_size is provided)
-        idx_stitch (bool): If True, returns additional outputs for position indexing
-        output_pixel_size (float, optional): Target output pixel size in microns. If provided,
-                                           bin is calculated automatically and the bin parameter is ignored.
-        
+        acquisition_dir (str): Path to acquisition directory containing metadata and images.
+        channel (str): Channel name to stitch.
+        zindex (int): Z-stack index to stitch. Defaults to 0.
+        metadata_filename (str): Name of metadata file. Defaults to 'Metadata.txt'.
+        image_processor (ImageProcessor, optional): Optional image processor for preprocessing.
+            If None, uses raw images. Defaults to None.
+        registration_dict (dict): Dictionary mapping position names to registration shifts.
+            Format: {position_name: {'X': float, 'Y': float}}. Defaults to {}.
+        border (int): Border pixels to add around stitched image. Defaults to 1000.
+        stitch_rotate (int): Number of 90-degree rotations to apply. Defaults to 0.
+        stitch_flipud (bool): Flip image up/down. Defaults to False.
+        stitch_fliplr (bool): Flip image left/right. Defaults to False.
+        bin (int): Downsampling factor (ignored if output_pixel_size is provided).
+            Defaults to 1.
+        idx_stitch (bool): If True, returns additional outputs for position indexing.
+            Defaults to False.
+        output_pixel_size (float, optional): Target output pixel size in microns.
+            If provided, bin is calculated automatically. Defaults to None.
+        position_names (list, optional): List of position names to include.
+            If None, includes all positions. Defaults to None.
+        verbose (bool): Show progress bar. Defaults to True.
+    
     Returns:
-        canvas (np.ndarray): Stitched image with shape [height, width]
-        pixel2stage (callable): Function that maps pixel coordinates (x, y) to stage 
-                                coordinates (X, Y) in microns. Takes (x, y) as input 
-                                and returns (X, Y) as a tuple.
-        [Additional returns if idx_stitch=True: idx_canvas, posname_idx_mapper]
+        tuple: Returns depend on idx_stitch:
+            - If idx_stitch=False: (canvas, pixel2stage)
+                - canvas (np.ndarray): Stitched image array [height, width]
+                - pixel2stage (callable): Function mapping pixel (x, y) to stage (X, Y)
+            - If idx_stitch=True: (canvas, pixel2stage, idx_canvas, posname_idx_mapper)
+                - idx_canvas (np.ndarray): Array mapping pixels to position indices
+                - posname_idx_mapper (dict): Dictionary mapping position names to indices
     """
     
     # Load metadata
@@ -174,16 +191,28 @@ from matplotlib.widgets import Button
 import matplotlib.patches as patches
 
 def interactive_roi_selection(stitched_image, message=None):
-    """
-    Interactive matplotlib interface for ROI selection using freehand drawing.
+    """Interactive matplotlib interface for ROI selection using freehand drawing.
+    
+    Displays stitched image and allows user to draw multiple ROI polygons by
+    clicking and dragging. Supports undo, reset, and multiple ROI selection.
     
     Args:
-        stitched_image: The stitched image to display
-        message (str, optional): Optional message to display below the plot near the done button
+        stitched_image (np.ndarray): The stitched image array to display.
+        message (str, optional): Optional message to display below the plot.
+            Defaults to None.
     
     Returns:
-        numpy.ndarray: Labeled mask where 0 = outside ROI, and values 1, 2, 3, ... 
-                       correspond to the order in which ROIs were drawn
+        tuple: (mask, canvas_rgb) where:
+            - mask (np.ndarray): Labeled mask array where 0 = outside ROI,
+                and values 1, 2, 3, ... correspond to ROI indices
+            - canvas_rgb (np.ndarray): RGB visualization of mask overlaid on image
+    
+    Controls:
+        - Left click and drag: Draw ROI polygon
+        - U key: Undo last ROI
+        - R key: Reset all ROIs
+        - D key: Done (close window)
+        - "Done" button: Finish selection
     """
     fig, ax = plt.subplots(figsize=(15, 10))
     # Maximize window to fullscreen
@@ -411,15 +440,26 @@ def interactive_roi_selection(stitched_image, message=None):
     return mask, canvas_rgb
 
 def interactive_coordinate_selection(stitched_image, message=None):
-    """
-    Interactive matplotlib interface for coordinate selection.
+    """Interactive matplotlib interface for coordinate selection.
+    
+    Displays stitched image and allows user to click points to select coordinates.
+    Useful for selecting focus points or reference positions.
     
     Args:
-        stitched_image: The stitched image (canvas) to display
-        message (str, optional): Optional message to display below the plot near the done button
+        stitched_image (np.ndarray): The stitched image array to display.
+            Can be 2D (grayscale) or 3D (RGB).
+        message (str, optional): Optional message to display below the plot.
+            Defaults to None.
     
     Returns:
-        list: List of (x, y) pixel coordinate tuples in the order they were clicked
+        list: List of (x, y) pixel coordinate tuples in the order they were clicked.
+    
+    Controls:
+        - Left click: Select point
+        - U key: Undo last point
+        - R key: Reset all points
+        - D key: Done (close window)
+        - "Done" button: Finish selection
     """
     fig, ax = plt.subplots(figsize=(15, 10))
     # Maximize window to fullscreen
@@ -536,19 +576,23 @@ def interactive_coordinate_selection(stitched_image, message=None):
     return clicked_points
 
 def filter_positions(idx_canvas, mask, posname_idx_mapper):
-    """
-    Filter positions based on which ones fall within selected ROIs.
+    """Filter positions based on which ones fall within selected ROIs.
+    
+    Determines which positions (represented by indices in idx_canvas) overlap
+    with selected ROIs (represented by non-zero values in mask). Returns
+    dictionary mapping position names to their ROI group assignments.
     
     Args:
-        idx_canvas (np.ndarray): Canvas array where each pixel value corresponds to a position index
-        mask (np.ndarray): Labeled mask where 0 = outside ROI, and values 1, 2, 3, ... 
-                          correspond to the order in which ROIs were drawn
-        posname_idx_mapper (dict): Dictionary mapping position names to their indices in idx_canvas
+        idx_canvas (np.ndarray): Canvas array where each pixel value corresponds
+            to a position index (from idx_stitch=True in stitch_acquisition).
+        mask (np.ndarray): Labeled mask array where 0 = outside ROI, and values
+            1, 2, 3, ... correspond to ROI indices (from interactive_roi_selection).
+        posname_idx_mapper (dict): Dictionary mapping position names to their
+            indices in idx_canvas.
     
     Returns:
-        dict: Dictionary mapping position names to dictionaries containing:
-              - 'group': The ROI group number (1, 2, 3, ...)
-              - 'new_posname': Formatted position name with group prefix
+        dict: Dictionary mapping position names to ROI group numbers (1, 2, 3, ...).
+            Only includes positions that overlap with selected ROIs.
     """
     positions_to_keep = {}
     selected_idxs = np.unique(idx_canvas[mask>0])

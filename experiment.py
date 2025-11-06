@@ -9,7 +9,26 @@ from Scope.autofocus import Autofocus
 from file_handler import FileHandler
 
 class Experiment():
+    """Central orchestrator for experiment management and task execution.
+    
+    The Experiment class coordinates multi-round imaging experiments with integrated
+    fluidics protocols. It manages task creation, scheduling, and execution for both
+    Scope and Fluidics systems through file-based communication.
+    
+    Attributes:
+        file_handler (FileHandler): File handler instance for state management.
+        tasks (pd.DataFrame): DataFrame containing experiment tasks with columns for
+            each system (Scope, Fluidics).
+        positions (pd.DataFrame): DataFrame containing well positions with columns:
+            group, well, autofocus_group, x, y, z.
+    """
+    
     def __init__(self):
+        """Initialize the Experiment class.
+        
+        Loads tasks and positions from file handler. Creates empty DataFrames if
+        no existing data is found.
+        """
         self.file_handler = FileHandler()
         self.log('Init')
         try:
@@ -26,20 +45,40 @@ class Experiment():
             self.positions = pd.DataFrame(columns=['group','well','autofocus_group','x','y','z'])
     
     def log(self, message, level='info'):
-        """Log messages using FileHandler's logging system."""
+        """Log messages using FileHandler's logging system.
+        
+        Args:
+            message (str): Message to log.
+            level (str): Log level ('debug', 'info', 'warning', 'error').
+                Defaults to 'info'.
+        """
         self.file_handler.log(message, level=level, system_prefix='Experiment')
     
     @property
     def status(self):
-        """Get experiment status from file handler."""
+        """Get experiment status from file handler.
+        
+        Returns:
+            str: Current experiment status (e.g., 'Running:message', 'Paused:message', 'Stopped:message','Finished:message').
+        """
         return self.file_handler.get_status("Experiment")
     
     @status.setter
     def status(self, value):
-        """Set experiment status and save to file handler."""
+        """Set experiment status and save to file handler.
+        
+        Args:
+            value (str): New status value to set.
+        """
         self.file_handler.save_status("Experiment", value)
 
     def continuous_monitoring(self):
+        """Run continuous monitoring loop for autonomous operation.
+        
+        Monitors status file for commands and executes protocols accordingly.
+        Continues until 'Stop' command is received or an error occurs.
+        Sets status to 'offline' when terminated.
+        """
         self.last_message = ''
         self.log('Continuous monitoring started')
         try:
@@ -59,7 +98,14 @@ class Experiment():
             self.log('Continuous monitoring terminated - status set to offline')
 
     def interpret_command(self, current_message):
-        """Interpret message from other software."""
+        """Interpret and execute command from status file.
+        
+        Parses command message and executes the corresponding protocol.
+        Updates status to 'Running' during execution and 'Finished' on completion.
+        
+        Args:
+            current_message (str): Command message in format 'Command:<protocol>'.
+        """
         self.log(f"Interpreting Command: {current_message}")
         self.busy = True
         message = current_message.split(':')[-1]
@@ -69,6 +115,17 @@ class Experiment():
         self.busy = False
 
     def is_busy(self, device):
+        """Check if a device is currently busy.
+        
+        A device is considered busy if its status contains 'Running', 'Command',
+        or 'Paused'.
+        
+        Args:
+            device (str): Device name to check (e.g., 'Scope', 'Fluidics').
+        
+        Returns:
+            bool: True if device is busy, False otherwise.
+        """
         status = self.file_handler.get_status(device)
         if 'Running' in status:
             return True
@@ -80,14 +137,31 @@ class Experiment():
             return False
 
     def wait_until_not_busy(self, device):
+        """Wait until a device is no longer busy.
+        
+        Blocks execution and polls device status every second until the device
+        becomes available.
+        
+        Args:
+            device (str): Device name to wait for (e.g., 'Scope', 'Fluidics').
+        """
         while self.is_busy(device):
             self.log(f"Device {device} is busy, waiting until not busy",level='info')
             time.sleep(1)
         self.log(f"Device {device} is not busy",level='info')
 
     def execute_protocol(self, message):
+        """Execute a protocol based on command message.
+        
+        Routes protocol execution to appropriate handler based on message content.
+        
+        Args:
+            message (str): Protocol command message. Supported commands:
+                - 'Execute Tasks': Execute all tasks in Experiment_tasks.csv
+                - 'Create Tasks': Create tasks from experiment configuration
+        """
         if 'Execute Tasks' in message:
-            self.execute_tasks()
+            self.execute_task()
         elif 'Create Tasks' in message:
             self.create_tasks()
         else:
@@ -95,6 +169,12 @@ class Experiment():
 
 
     def execute_task(self):
+        """Execute all tasks in the experiment task list.
+        
+        Iterates through all tasks, waiting for each device to be available
+        before triggering task execution. Stops if Scope status contains 'stop'.
+        Updates task index for progress tracking.
+        """
         self.tasks = self.file_handler.get_tasks("Experiment")
         for idx, task in self.tasks.iterrows():
             if 'stop' in self.file_handler.get_status("Scope",read_only=False).lower():
@@ -113,7 +193,14 @@ class Experiment():
 
 
     def _reset_system(self):
-        """Clear all files in State directory and reset system to initial state"""
+        """Clear all files in State directory and reset system to initial state.
+        
+        Removes all files and directories in the State directory, clears internal
+        state attributes, and sets status to 'Running'.
+        
+        Returns:
+            bool: True if reset successful, False otherwise.
+        """
         try:
             self.log('Resetting system to initial state...')
             
@@ -151,7 +238,17 @@ class Experiment():
             return False
 
     def _recover_state(self):
-        """Load all saved state files to recover experiment state"""
+        """Load all saved state files to recover experiment state.
+        
+        Validates that required files exist (Experiment_tasks.csv, Positions.csv,
+        Experiment_state.json) before allowing recovery.
+        
+        Returns:
+            bool: True if recovery successful, False otherwise.
+        
+        Raises:
+            Exception: If required state files are missing.
+        """
         try:
             self.log('Recovering experiment state from saved files...')
             
@@ -183,7 +280,17 @@ class Experiment():
 
 
     def _read_status(self): #FIXME: Update to handle cases better
-        """Read status from status.txt file and update self.status. Handles Paused status with sleep loop."""
+        """Read status from status file and handle special status values.
+        
+        Reads Experiment_status.txt and handles special status values:
+        - 'Paused': Waits in loop until status changes
+        - 'Reset': Calls _reset_system() and updates status
+        - 'Recover': Calls _recover_state() and updates status
+        - 'Stopped': Raises exception to stop execution
+        
+        Raises:
+            Exception: If status is 'Stopped' or if reset/recovery fails.
+        """
         try:
             status_file = os.path.join(self.file_handler.system_state_dir, "Experiment_status.txt")
             if os.path.exists(status_file):
@@ -268,7 +375,23 @@ class Experiment():
             self.log(f'Error reading status file: {e}', level='warning')
 
     def create_tasks(self): #FIXME: Single String for each system and add in setup too
-        task_number = 0
+        """Create experiment tasks from configuration.
+        
+        Generates a task list based on experiment state configuration including:
+        - Setup tasks: SetFocus, Acquire preview, FilterPositions, SetupAutoFocus
+        - Main tasks: Fluidics and Scope protocols organized by group and round
+        
+        Tasks are saved to Experiment_tasks.csv with columns for each system
+        (Scope, Fluidics). Each task row contains protocol commands for the
+        appropriate systems.
+        
+        The task structure depends on the number of groups:
+        - Single group: Sequential execution of protocols across rounds
+        - Multiple groups: Nested loops (rounds -> protocols -> groups)
+        
+        Returns:
+            None: Tasks are saved to file via FileHandler.
+        """
         systems = ['Scope','Fluidics']
         self.tasks = pd.DataFrame(columns=systems)
         
@@ -303,6 +426,7 @@ class Experiment():
         self.log(f"  Available wells: {list(available_wells)}")
 
         # First There are some setup tasks that need to be created
+        task_number = 0
         chambers = list(available_wells)
         self.tasks.loc[task_number,'Scope'] = f"SetFocus*{str(chambers)}*{preview_focus_method}"
         task_number += 1

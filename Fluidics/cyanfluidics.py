@@ -4,7 +4,28 @@ from Fluidics.fluidics import Fluidics
 import importlib
 
 class CyanFluidics(Fluidics):
-    def __init__(self,gui=False):
+    """Cyan-specific fluidics implementation.
+    
+    Configures Cyan system with specific COM ports, valve mappings, and
+    protocol parameters. Uses SyringePump_v2 and ViciValve hardware.
+    
+    Attributes:
+        Protocol (SyringeProtocol): Protocol handler instance.
+        Pump (SyringePump_v2): Pump controller on COM7.
+        Valve (ViciValve): Valve controller on COM6.
+        Valve_Commands (dict): Mapping of port IDs to valve/port numbers.
+    """
+    
+    def __init__(self, gui=False):
+        """Initialize CyanFluidics with Cyan-specific configuration.
+        
+        Sets up COM ports, loads protocol and hardware classes, configures
+        pump parameters, and defines valve port mappings for chambers A-F
+        and hybridization solutions Hybe1-Hybe18.
+        
+        Args:
+            gui (bool): Whether to enable GUI mode. Defaults to False.
+        """
         super().__init__()  # call __init__ method of the super class
         self.verbose = True
         Protocol = getattr(importlib.import_module('SyringeProtocol'), 'SyringeProtocol')

@@ -5,13 +5,42 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from file_handler import FileHandler
 class Protocol:
+    """Base class for fluidics protocol definitions.
+    
+    Provides framework for generating protocol step sequences as DataFrames.
+    Protocols define sequences of fluid handling operations (valve selection,
+    pump flow, wait times) for automated experiments.
+    
+    Attributes:
+        verbose (bool): Whether to log messages.
+        protocols (dict): Dictionary mapping protocol names to protocol functions.
+        simulate (bool): Whether to run in simulation mode.
+        vacume (bool): Whether vacuum is available for chamber emptying.
+        chamber_volume (float): Volume of one chamber in mL.
+        prime_volume (float): Volume for priming to fill dead volume in mL.
+        rinse_volume (float): Volume for rinsing one chamber in mL.
+        hybe_volume (float): Volume of hybridization mixture for one chamber in mL.
+        mixes (int): Number of mixes during hybridization.
+        rinse_time (float): Duration for one rinse in seconds.
+        hybe_time (float): Duration for one hybridization in seconds.
+        max_speed (float): Maximum speed allowed (1 = 100%).
+        speed (float): Default protocol speed.
+        closed_speed (float): Speed for closed (sealed) chambers.
+        wait_factor (float): Additional wait time factor.
+        speed_conversion (float): Conversion factor from volume to time (sec/mL).
+        primed (bool): Whether fluidic system has been primed.
+        file_handler (FileHandler): FileHandler instance for logging.
     """
-    Definition of the superclass Protocol
-    For all the methods defined below,
-    chambers is an array holding all chambers the protocol should run
-    Please refer to the README of the Protocol Class for meaning of port, chamber, volume, speed and pause.
-    """
-    def __init__(self,gui=False):
+    
+    def __init__(self, gui=False):
+        """Initialize Protocol base class.
+        
+        Sets up default protocol parameters and registers protocol functions
+        in protocols dictionary.
+        
+        Args:
+            gui (bool): Whether GUI mode is enabled. Defaults to False.
+        """
         self.verbose=True # When in verbose mode, log() will record the input message to the log.
         self.protocols = {} # A dictionary for holding all the protocols (functions).
 
@@ -73,12 +102,20 @@ class Protocol:
         if self.verbose:
             self.file_handler.log(message, level=level, system_prefix='Protocol')
             
-    # get_steps():
-    # Call the method corresponding to the protocol to return the dataframe of the protocol.
-    # protocol: the name of the protocol
-    # chambers: an array specifying the chambers where the protocol should be run
-    # other: other arguments the protocol need besides chamber.
-    def get_steps(self,protocol,chambers,other):
+    def get_steps(self, protocol, chambers, other):
+        """Get protocol steps DataFrame for specified protocol.
+        
+        Calls the protocol function and returns DataFrame of steps.
+        
+        Args:
+            protocol (str): Protocol name (must be in protocols dictionary).
+            chambers (list or dict): Chambers where protocol should run.
+            other (str): Additional protocol arguments.
+        
+        Returns:
+            pd.DataFrame: DataFrame with columns: port, volume, speed, pause,
+                direction, time_estimate.
+        """
         steps = self.protocols[protocol](chambers,other)
         self.log('Executing Protocol:')
         self.log(steps)

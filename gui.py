@@ -3902,6 +3902,14 @@ class SystemGUI:
 
 
 def create_experiment_gui(system='Cyan'):
+    """Create and run the experiment GUI application.
+    
+    Initializes SystemGUI with specified system and starts the main event loop.
+    
+    Args:
+        system (str): System name (e.g., 'Cyan', 'Orange', 'Blue').
+            Defaults to 'Cyan'.
+    """
     gui = SystemGUI(system=system)
     gui.run()
 

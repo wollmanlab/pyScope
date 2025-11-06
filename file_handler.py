@@ -12,7 +12,24 @@ import numpy as np
 import requests
 import matplotlib.colors
 
-def send_slack_notification(message: str, webhook_url=None,color_name=None,bot_name=None):
+def send_slack_notification(message: str, webhook_url=None, color_name=None, bot_name=None):
+    """Send a notification message to Slack via webhook.
+    
+    Automatically determines bot name from PC hostname and color from bot name
+    if not provided. Reads webhook URL from D:/slack_hook.txt if not provided.
+    
+    Args:
+        message (str): Message text to send to Slack.
+        webhook_url (str, optional): Slack webhook URL. If None, reads from
+            D:/slack_hook.txt. Defaults to None.
+        color_name (str, optional): Color name for bot icon. If None, extracts
+            from bot_name (e.g., 'cyan' from 'cyanscope'). Defaults to None.
+        bot_name (str, optional): Bot username. If None, uses PC hostname.
+            Defaults to None.
+    
+    Returns:
+        bool: True if notification sent successfully, False otherwise.
+    """
     try:
         if bot_name is None: # use pc name
             bot_name = os.environ.get('COMPUTERNAME').lower()
@@ -41,12 +58,20 @@ class FileHandler:
     Manages all State directory file operations.
     """
     
-    def __init__(self, system_state_dir: str = None,log_level: str = 'debug',verbose: bool = False):
-        """
-        Initialize the FileHandler.
+    def __init__(self, system_state_dir: str = None, log_level: str = 'debug', verbose: bool = False):
+        """Initialize the FileHandler.
+        
+        Sets up the State directory for file operations. If system_state_dir is
+        not provided, checks for a pointer file or defaults to 'State' directory
+        in the same location as this file.
         
         Args:
-            system_state_dir (str): Directory path for system state files
+            system_state_dir (str, optional): Directory path for system state files.
+                If None, uses pointer file or defaults to 'State' directory.
+                Defaults to None.
+            log_level (str): Logging level ('debug', 'info', 'warning', 'error',
+                'critical'). Defaults to 'debug'.
+            verbose (bool): If True, print log messages to console. Defaults to False.
         """
         self.log_level = log_level
         self.verbose = verbose
@@ -167,7 +192,18 @@ class FileHandler:
     
     
     def _load_csv(self, file_path: str, default_columns: List[str] = None) -> pd.DataFrame:
-        """Load CSV file."""
+        """Load CSV file into a pandas DataFrame.
+        
+        If file doesn't exist, returns an empty DataFrame with specified columns.
+        
+        Args:
+            file_path (str): Path to CSV file to load.
+            default_columns (List[str], optional): Column names for empty DataFrame
+                if file doesn't exist. Defaults to None.
+        
+        Returns:
+            pd.DataFrame: Loaded DataFrame or empty DataFrame with default columns.
+        """
         try:
             if os.path.exists(file_path):
                 return pd.read_csv(file_path)
@@ -178,7 +214,14 @@ class FileHandler:
             return pd.DataFrame(columns=default_columns) if default_columns else pd.DataFrame()
     
     def _save_csv(self, df: pd.DataFrame, file_path: str):
-        """Save DataFrame to CSV."""
+        """Save DataFrame to CSV file.
+        
+        Only saves if DataFrame is not empty. Creates parent directories if needed.
+        
+        Args:
+            df (pd.DataFrame): DataFrame to save.
+            file_path (str): Path to CSV file to save.
+        """
         try:
             if not df.empty:
                 df.to_csv(file_path, index=False)
@@ -186,41 +229,91 @@ class FileHandler:
             self.log(f'Error saving CSV to {file_path}: {e}', level='warning', system_prefix='FileHandler')
     
     def _get_positions_file_path(self) -> str:
-        """Get the positions file path."""
+        """Get the full path to the Positions.csv file.
+        
+        Returns:
+            str: Full path to Positions.csv in the State directory.
+        """
         return os.path.join(self.system_state_dir, "Positions.csv")
     
     # Shared Files
     @property
     def Positions(self) -> pd.DataFrame:
-        """Load positions from Positions.csv file."""
+        """Load positions from Positions.csv file.
+        
+        Returns:
+            pd.DataFrame: DataFrame with columns: position_name, well, X, Y, Z.
+                Returns empty DataFrame with default columns if file doesn't exist.
+        """
         positions_file = self._get_positions_file_path()
         default_columns = ['position_name', 'well', 'X', 'Y', 'Z']
         return self._load_csv(positions_file, default_columns)
     
     def save_positions(self, positions_df: pd.DataFrame):
-        """Save positions to Positions.csv file."""
+        """Save positions DataFrame to Positions.csv file.
+        
+        Args:
+            positions_df (pd.DataFrame): DataFrame containing position data with
+                columns: position_name, well, X, Y, Z.
+        """
         positions_file = self._get_positions_file_path()
         self._save_csv(positions_df, positions_file)
     
     # Generic file operations that can handle any system prefix
     def _get_state_file_path(self, system_prefix: str) -> str:
-        """Get the state file path for a given system prefix."""
+        """Get the full path to a system's state JSON file.
+        
+        Args:
+            system_prefix (str): System prefix (e.g., 'Experiment', 'Scope', 'Fluidics').
+        
+        Returns:
+            str: Full path to {system_prefix}_state.json in the State directory.
+        """
         return os.path.join(self.system_state_dir, f"{system_prefix}_state.json")
     
     def _get_tasks_file_path(self, system_prefix: str) -> str:
-        """Get the tasks file path for a given system prefix."""
+        """Get the full path to a system's tasks CSV file.
+        
+        Args:
+            system_prefix (str): System prefix (e.g., 'Experiment', 'Scope', 'Fluidics').
+        
+        Returns:
+            str: Full path to {system_prefix}_tasks.csv in the State directory.
+        """
         return os.path.join(self.system_state_dir, f"{system_prefix}_tasks.csv")
     
     def _get_task_idx_file_path(self, system_prefix: str) -> str:
-        """Get the task index file path for a given system prefix."""
+        """Get the full path to a system's task index file.
+        
+        Args:
+            system_prefix (str): System prefix (e.g., 'Experiment', 'Scope', 'Fluidics').
+        
+        Returns:
+            str: Full path to {system_prefix}_task_idx.txt in the State directory.
+        """
         return os.path.join(self.system_state_dir, f"{system_prefix}_task_idx.txt")
     
     def _get_status_file_path(self, system_prefix: str) -> str:
-        """Get the status file path for a given system prefix."""
+        """Get the full path to a system's status file.
+        
+        Args:
+            system_prefix (str): System prefix (e.g., 'Experiment', 'Scope', 'Fluidics').
+        
+        Returns:
+            str: Full path to {system_prefix}_status.txt in the State directory.
+        """
         return os.path.join(self.system_state_dir, f"{system_prefix}_status.txt")
     
     def get_state(self, system_prefix: str) -> Dict[str, Any]:
-        """Generic method to load state from any system's state file."""
+        """Load state dictionary from a system's state JSON file.
+        
+        Args:
+            system_prefix (str): System prefix (e.g., 'Experiment', 'Scope', 'Fluidics').
+        
+        Returns:
+            Dict[str, Any]: State dictionary. Returns empty dict if file doesn't exist
+                or on error.
+        """
         try:
             state_file = self._get_state_file_path(system_prefix)
             if os.path.exists(state_file):
@@ -233,7 +326,12 @@ class FileHandler:
             return {}
     
     def save_state(self, system_prefix: str, state: Dict[str, Any]):
-        """Generic method to save state to any system's state file."""
+        """Save state dictionary to a system's state JSON file.
+        
+        Args:
+            system_prefix (str): System prefix (e.g., 'Experiment', 'Scope', 'Fluidics').
+            state (Dict[str, Any]): State dictionary to save.
+        """
         try:
             state_file = self._get_state_file_path(system_prefix)
             with open(state_file, 'w') as f:
@@ -243,17 +341,36 @@ class FileHandler:
             self.log(f'Error saving {system_prefix} state: {e}', level='warning', system_prefix=system_prefix)
     
     def get_tasks(self, system_prefix: str) -> pd.DataFrame:
-        """Generic method to load tasks from any system's tasks file."""
+        """Load tasks DataFrame from a system's tasks CSV file.
+        
+        Args:
+            system_prefix (str): System prefix (e.g., 'Experiment', 'Scope', 'Fluidics').
+        
+        Returns:
+            pd.DataFrame: Tasks DataFrame. Returns empty DataFrame if file doesn't exist.
+        """
         tasks_file = self._get_tasks_file_path(system_prefix)
         return self._load_csv(tasks_file)
     
     def save_tasks(self, system_prefix: str, tasks_df: pd.DataFrame):
-        """Generic method to save tasks to any system's tasks file."""
+        """Save tasks DataFrame to a system's tasks CSV file.
+        
+        Args:
+            system_prefix (str): System prefix (e.g., 'Experiment', 'Scope', 'Fluidics').
+            tasks_df (pd.DataFrame): Tasks DataFrame to save.
+        """
         tasks_file = self._get_tasks_file_path(system_prefix)
         self._save_csv(tasks_df, tasks_file)
     
     def get_task_idx(self, system_prefix: str) -> int:
-        """Generic method to load task index from any system's task index file."""
+        """Load current task index from a system's task index file.
+        
+        Args:
+            system_prefix (str): System prefix (e.g., 'Experiment', 'Scope', 'Fluidics').
+        
+        Returns:
+            int: Current task index. Returns 0 if file doesn't exist or on error.
+        """
         try:
             idx_file = self._get_task_idx_file_path(system_prefix)
             if os.path.exists(idx_file):
@@ -266,7 +383,12 @@ class FileHandler:
             return 0
     
     def save_task_idx(self, system_prefix: str, task_idx: int):
-        """Generic method to save task index to any system's task index file."""
+        """Save current task index to a system's task index file.
+        
+        Args:
+            system_prefix (str): System prefix (e.g., 'Experiment', 'Scope', 'Fluidics').
+            task_idx (int): Task index to save.
+        """
         try:
             task_idx_file = self._get_task_idx_file_path(system_prefix)
             with open(task_idx_file, 'w') as f:
@@ -276,12 +398,19 @@ class FileHandler:
             self.log(f'Error saving {system_prefix} task index: {e}', level='warning', system_prefix=system_prefix)
     
     def get_status(self, system_prefix: str, read_only: bool = True) -> str:
-        """Generic method to load status from any system's status file.
+        """Load status string from a system's status file.
+        
+        If read_only is False and status is 'Paused', waits in a loop until
+        status changes before returning.
         
         Args:
-            system_prefix: The system prefix (e.g., "Fluidics", "Scope", "Experiment")
-            read_only: If True, just read and return the status without pause handling.
-                      If False, handle pause behavior by waiting until status changes.
+            system_prefix (str): System prefix (e.g., 'Experiment', 'Scope', 'Fluidics').
+            read_only (bool): If True, just read and return status. If False, handle
+                pause behavior by waiting until status changes. Defaults to True.
+        
+        Returns:
+            str: Current status string. Returns empty string if file doesn't exist
+                or on error.
         """
         try:
             status_file = self._get_status_file_path(system_prefix)
@@ -315,7 +444,14 @@ class FileHandler:
             return ""
     
     def save_status(self, system_prefix: str, status: str):
-        """Generic method to save status to any system's status file."""
+        """Save status string to a system's status file.
+        
+        Also sends Slack notification if status contains 'Command:'.
+        
+        Args:
+            system_prefix (str): System prefix (e.g., 'Experiment', 'Scope', 'Fluidics').
+            status (str): Status string to save.
+        """
         try:
             status_file = self._get_status_file_path(system_prefix)
             with open(status_file, 'w') as f:
@@ -329,7 +465,11 @@ class FileHandler:
             self.log(f'Error saving {system_prefix} status: {e}', level='warning', system_prefix=system_prefix)
     
     def delete_tasks(self, system_prefix: str):
-        """Generic method to delete tasks file for any system."""
+        """Delete a system's tasks CSV file.
+        
+        Args:
+            system_prefix (str): System prefix (e.g., 'Experiment', 'Scope', 'Fluidics').
+        """
         try:
             tasks_file = self._get_tasks_file_path(system_prefix)
             if os.path.exists(tasks_file):
@@ -340,7 +480,18 @@ class FileHandler:
     
     
     def update_state(self, system_prefix: str, updates: Dict[str, Any]):
-        """Generic method to update state for any system by merging new values with existing state."""
+        """Update state dictionary by merging new values with existing state.
+        
+        Loads current state, merges updates, and saves back to file.
+        
+        Args:
+            system_prefix (str): System prefix (e.g., 'Experiment', 'Scope', 'Fluidics').
+            updates (Dict[str, Any]): Dictionary of key-value pairs to update.
+        
+        Raises:
+            ValueError: If updates is not a dictionary.
+            RuntimeError: If update fails.
+        """
         if not isinstance(updates, dict):
             raise ValueError("updates must be a dictionary")
         try:

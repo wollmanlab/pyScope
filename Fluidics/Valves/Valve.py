@@ -5,10 +5,23 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from file_handler import FileHandler
 class Valve:
+    """Base class for valve control systems.
+    
+    Provides interface for selecting valve ports. Subclasses implement
+    hardware-specific valve control protocols.
+    
+    Attributes:
+        verbose (bool): Whether to log messages.
+        current_port (dict): Dictionary mapping valve IDs to current port numbers.
+        file_handler (FileHandler): FileHandler instance for logging.
     """
-    Definition of the superclass Valve.
-    """
-    def __init__(self,gui=False):
+    
+    def __init__(self, gui=False):
+        """Initialize Valve base class.
+        
+        Args:
+            gui (bool): Whether GUI mode is enabled. Defaults to False.
+        """
         self.verbose=True # When in verbose mode, log() will record the input message to the log.
         self.current_port = {} # A dictionary for storing the currently selected port of each valve.
         sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -23,12 +36,24 @@ class Valve:
     def update_user(self,message,level=20):
         self.log(message)
     
-    # self.set_port() is for selecting the specified port of the specified valve.
-    def set_port(self,valve,port):
+    def set_port(self, valve, port):
+        """Set port for specified valve.
+        
+        Args:
+            valve (int): Valve ID.
+            port (int): Port number to select.
+        """
         self.current_port[valve] = port
 
-    # self.get_port() is for getting the currently selected port of the specified valve. 
-    def get_port(self,valve):
+    def get_port(self, valve):
+        """Get currently selected port for specified valve.
+        
+        Args:
+            valve (int): Valve ID.
+        
+        Returns:
+            int: Currently selected port number.
+        """
         return self.current_port[valve]
 
 

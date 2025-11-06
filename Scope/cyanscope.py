@@ -2,18 +2,27 @@ from .scope import *
 
 import importlib
 class CyanScope(Scope):
-    """
-    CyanScope class inherits all methods from Scope class.
-    This class can be extended with cyan-specific functionality if needed.
+    """Cyan-specific microscope implementation.
+    
+    Inherits all functionality from Scope base class and configures
+    Cyan-specific parameters including stage limits, offsets, axis mapping,
+    image dimensions, and pixel size.
+    
+    Note: Requires Chrolis Software and Micro-Manager to be launched before use.
     """
     
-    def __init__(self,enable_core: bool = True):
-        """
-        Initialize the CyanScope class.
-        Notes : Need to launch Chrolis Software then Micro-Manager before using this scope.
+    def __init__(self, enable_core: bool = True):
+        """Initialize the CyanScope class.
+        
+        Configures Cyan-specific microscope parameters including stage limits,
+        offsets, axis mapping, image shape, and pixel size. Updates channel
+        limits from Cyan-specific Micro-Manager configuration file.
+        
+        Note: Need to launch Chrolis Software then Micro-Manager before using this scope.
+        
         Args:
-            system_state_dir (str): Directory path for system state files
-            enable_core (bool): Whether to initialize Micro-Manager core connection
+            enable_core (bool): Whether to initialize Micro-Manager core connection.
+                Defaults to True.
         """
         super().__init__(enable_core)
         self.config = {}

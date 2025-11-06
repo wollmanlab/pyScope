@@ -32,7 +32,32 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
 class GUI(tk.Frame):
-    def __init__(self, master=None,fluidics_class='Fluidics'):
+    """Legacy GUI for fluidics control system.
+    
+    Provides tkinter-based interface for manual protocol execution and monitoring.
+    Supports protocol selection, chamber selection, and real-time status updates.
+    
+    Attributes:
+        Fluidics (Fluidics): Fluidics instance for protocol execution.
+        file_handler (FileHandler): FileHandler instance for logging.
+        ports (list): Available port IDs.
+        protocols (list): Available protocol names.
+        chambers (list): Available chamber IDs.
+        running (bool): Whether a protocol is currently running.
+    """
+    
+    def __init__(self, master=None, fluidics_class='Fluidics'):
+        """Initialize GUI with fluidics system.
+        
+        Dynamically loads fluidics class based on system prefix and creates
+        GUI widgets for protocol control.
+        
+        Args:
+            master (tk.Tk, optional): Parent tkinter window. If None, creates new.
+                Defaults to None.
+            fluidics_class (str): Fluidics class name (e.g., 'CyanFluidics').
+                Defaults to 'Fluidics'.
+        """
         super().__init__(master)
         self.simulate = False
         self.busy = False
@@ -70,7 +95,20 @@ class GUI(tk.Frame):
         self.last_message = ''
         self.create_widgets()
 
-    def update_user(self,message,level='info',logger='Gui'):
+    def update_user(self, message, level='info', logger='Gui'):
+        """Update user with log message (supports numeric or string log levels).
+        
+        Converts numeric log levels (10, 20, 30, 40, 50) to string levels
+        if logger parameter is an integer.
+        
+        Args:
+            message (str): Message to log.
+            level (str or int): Log level. If logger is int, level is converted
+                from numeric (10=debug, 20=info, 30=warning, 40=error, 50=critical).
+                Defaults to 'info'.
+            logger (str or int): Logger name or numeric level. If int, level
+                parameter is treated as logger name. Defaults to 'Gui'.
+        """
         level_mapper = {
             10: 'debug',
             20: 'info',
@@ -78,20 +116,32 @@ class GUI(tk.Frame):
             40: 'error',
             50: 'critical'
         }
-        if isinstance(logger,int):
+        if isinstance(logger, int):
             level = level_mapper[level]
         else:
             level = level
         self.file_handler.log(message, level=level, system_prefix=logger)
 
     def log(self, message, level='info'):
-        """Log messages using FileHandler's logging system."""
+        """Log messages using FileHandler's logging system.
+        
+        Args:
+            message (str): Message to log.
+            level (str): Log level ('debug', 'info', 'warning', 'error').
+                Defaults to 'info'.
+        """
         self.file_handler.log(message, level=level, system_prefix='Fluidics')
             
     def create_widgets(self):
+        """Create and configure GUI widgets.
+        
+        Sets up protocol dropdown, port dropdown, chamber checkboxes,
+        start/simulate buttons, and status labels. Enters main event loop
+        with communication monitoring.
+        """
         self.style = ttk.Style()
         self.style.theme_use("clam")
-        self.master.tk_setPalette( "#555555" )
+        self.master.tk_setPalette("#555555")
         self.style.configure("TLabel", foreground="white", background="gray30")
         self.style.configure("TCheckbutton", foreground="white", background="gray30")
         self.style.configure("TEntry", foreground="white", background="gray30")
@@ -184,6 +234,11 @@ class GUI(tk.Frame):
         return labels_dict
 
     def read_communication(self):
+        """Read and respond to fluidics status messages.
+        
+        Monitors fluidics status file and updates GUI labels when protocols
+        start or finish. Handles 'Running', 'Finished', 'Available', and 'Idle' states.
+        """
         if not self.busy:
             current_message = self.Fluidics.status
             if 'Running' in current_message:
@@ -192,13 +247,13 @@ class GUI(tk.Frame):
                 self.running_label_text = current_message.split(':')[-1]
                 self.update_label_text = 'Executing Command From File'
                 self.update_labels(self.labels())
-                self.wait_until_message(['Finished'],max_wait_time=60*5)
+                self.wait_until_message(['Finished'], max_wait_time=60*5)
                 self.start_button_text = 'Start'
                 self.running_label_text = ""
                 self.update_label_text = ""
                 self.update_labels(self.labels())
                 self.busy = False
-            elif ('Available' in current_message)|('Finished' in current_message):
+            elif ('Available' in current_message) | ('Finished' in current_message):
                 self.start_button_text = 'Start'
                 self.running_label_text = ""
                 self.update_label_text = ""
@@ -208,57 +263,57 @@ class GUI(tk.Frame):
         time.sleep(0.1)
 
     def simulate_communication(self):
+        """Send communication in simulation mode.
+        
+        Temporarily enables simulation mode, sends communication, then disables it.
+        """
         self.simulate = True
-
         self.send_communication()
-
         self.simulate = False
 
     def send_communication(self):
-        # Get selected protocol
-        if self.protocol_var.get() !='':
+        """Send protocol command to fluidics system.
+        
+        Constructs command message from GUI selections (protocol, chambers, port, extra),
+        checks device availability, sends command, and waits for completion.
+        Handles simulation mode flag ('!' suffix).
+        """
+        if self.protocol_var.get() != '':
             self.busy = True
             self.protocol = self.protocol_var.get()
-            # self.chamber = '['+''.join([self.chambers[i]+',' for i in range(len(self.chambers)) if self.chamber_vars[i].get()])[:-1]+']'
             self.chamber = str([self.chambers[i] for i in range(len(self.chambers)) if self.chamber_vars[i].get()])
             self.port = self.port_var.get()
             self.extra = self.extra_entry.get()
             if self.simulate:
-                self.extra = self.extra+'!'
-            if len(str(self.extra))>0:
-                message ='Command:'+self.protocol+'*'+''.join(self.chamber)+'*'+self.port + '+' + str(self.extra)
+                self.extra = self.extra + '!'
+            if len(str(self.extra)) > 0:
+                message = 'Command:' + self.protocol + '*' + ''.join(self.chamber) + '*' + self.port + '+' + str(self.extra)
             else:
-                message ='Command:'+self.protocol+'*'+''.join(self.chamber)+'*'+self.port
+                message = 'Command:' + self.protocol + '*' + ''.join(self.chamber) + '*' + self.port
             
-            # Check Availability
             self.update_user('Checking Device Availability')
             self.start_button_text = 'Running'
             self.running_label_text = message
             self.update_label_text = "Checking Device Availability"
             self.update_labels(self.labels())
-            self.wait_until_message(['Available','Finished','Idle','offline'],max_wait_time=60*5)
+            self.wait_until_message(['Available', 'Finished', 'Idle', 'offline'], max_wait_time=60*5)
 
-            # Send Message
-            self.update_user('Communicating with Device:'+message)
+            self.update_user('Communicating with Device:' + message)
             self.update_label_text = "Communicating with Device"
             self.update_labels(self.labels())
             self.Fluidics.status = message
             time.sleep(5)
-            # self.Fluidics.update_communication(message)
             
-            # Block until Started Error if taking too long
             self.update_user('Checking if Device is Reponsive')
             self.update_label_text = "Checking if Device is Reponsive"
             self.update_labels(self.labels())
-            self.wait_until_message(['Running'],max_wait_time=60*5)
+            self.wait_until_message(['Running'], max_wait_time=60*5)
             
-            # Block until Done
             self.update_user('Waiting Until Protocol is Complete')
             self.update_label_text = "Waiting Until Protocol is Complete"
             self.update_labels(self.labels())
-            self.wait_until_message(['Finished','Idle'],max_wait_time=60*5)
+            self.wait_until_message(['Finished', 'Idle'], max_wait_time=60*5)
 
-            # Done
             self.busy = False
             self.update_user('Protocol is Complete')
             self.start_button_text = "Start"
@@ -266,11 +321,65 @@ class GUI(tk.Frame):
             self.update_label_text = ""
             self.update_labels(self.labels())
 
-    def wait_until_message(self,messages,max_wait_time=60*5):
+    def log(self, message, level='info'):
+        """Log messages using FileHandler's logging system.
+        
+        Args:
+            message (str): Message to log.
+            level (str): Log level ('debug', 'info', 'warning', 'error').
+                Defaults to 'info'.
+        """
+        self.file_handler.log(message, level=level, system_prefix='Fluidics')
+
+    def update_labels(self, labels_dict):
+        """Update GUI labels from dictionary.
+        
+        Args:
+            labels_dict (dict): Dictionary with label text values.
+        """
+        self.update_labels_later()
+
+    def update_labels_later(self):
+        """Update GUI labels with current state values."""
+        labels_dict = self.labels()
+        self.start_button.config(text=labels_dict['start_button_text'])
+        self.running_label.config(text=labels_dict['running_label_text'])
+        self.update_label.config(text=labels_dict['update_label_text'])
+        self.master.update()
+
+    def labels(self):
+        """Get current label text values.
+        
+        Returns:
+            dict: Dictionary with current label text values:
+                - start_button_text: Text for start button
+                - running_label_text: Text for running status label
+                - update_label_text: Text for update status label
+        """
+        labels_dict = {
+            'start_button_text': self.start_button_text,
+            'running_label_text': self.running_label_text,
+            'update_label_text': self.update_label_text
+        }
+        return labels_dict
+
+    def wait_until_message(self, messages, max_wait_time=60*5):
+        """Wait until fluidics status contains one of the specified messages.
+        
+        Polls fluidics status file until one of the target messages appears
+        or timeout is reached. Updates GUI during wait.
+        
+        Args:
+            messages (list): List of message strings to wait for.
+            max_wait_time (float): Maximum wait time in seconds. Defaults to 300 (5 minutes).
+        
+        Raises:
+            Exception: If timeout is reached before target message appears.
+        """
         start = time.perf_counter()
         ready = False
         self.last_message = ''
-        while (not ready)|(time.perf_counter()-start>max_wait_time):
+        while (not ready) | (time.perf_counter() - start > max_wait_time):
             current_message = self.Fluidics.status
             if self.last_message == current_message:
                 self.master.update()
@@ -282,8 +391,8 @@ class GUI(tk.Frame):
                     print(current_message)
                     ready = True
             self.last_message = current_message
-        if (time.perf_counter()-start>max_wait_time):
-            raise('Timeout')
+        if (time.perf_counter() - start > max_wait_time):
+            raise Exception('Timeout')
 
 if __name__ == '__main__':
 

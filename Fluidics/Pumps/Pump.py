@@ -5,10 +5,25 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from file_handler import FileHandler
 class Pump:
+    """Base class for pump control systems.
+    
+    Provides interface for controlling liquid pumps with volume, direction,
+    and speed parameters. Subclasses implement hardware-specific flow control.
+    
+    Attributes:
+        verbose (bool): Whether to log messages.
+        direction (str): Flow direction ('Forward', 'Reverse').
+        volume (float): Volume in mL.
+        speed (float): Speed in mL/sec.
+        file_handler (FileHandler): FileHandler instance for logging.
     """
-    Definition of the superclass Pump.
-    """
-    def __init__(self,gui=False):
+    
+    def __init__(self, gui=False):
+        """Initialize Pump base class.
+        
+        Args:
+            gui (bool): Whether GUI mode is enabled. Defaults to False.
+        """
         self.verbose=True # When in verbose mode, log() will record the input message to the log. 
         self.direction = 'Forward'
         self.volume = 0 # In the unit of mL

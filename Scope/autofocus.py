@@ -15,19 +15,81 @@ from scipy import ndimage
 from gui_styling import GUI_COLORS, GUI_FONTS, apply_dark_theme, create_dark_style
 
 class Autofocus:
+    """Base autofocus class providing placeholder implementation.
+    
+    This is a no-op autofocus implementation that does not perform any
+    autofocus operations. Subclasses should override methods to provide
+    actual autofocus functionality.
+    
+    Attributes:
+        file_handler (FileHandler): FileHandler instance for logging.
+    """
+    
     def __init__(self):
+        """Initialize the Autofocus base class."""
         self.file_handler = FileHandler()
-    def log(self,message,level='info'):
-        self.file_handler.log(message,level=level,system_prefix=self.__class__.__name__)
-    def setup(self,scope):
-        self.log('No Setup Needed',level='warning')
-    def update_focus(self,scope,autofocus_group):
-        self.log(f'No Update Needed for {autofocus_group}',level='warning')
-    def focus(self,scope,X=None,Y=None,position_name=None,goto=False):
-        self.log('No Autofocus used',level='warning')
+        
+    def log(self, message, level='info'):
+        """Log messages using FileHandler's logging system.
+        
+        Args:
+            message (str): Message to log.
+            level (str): Log level ('debug', 'info', 'warning', 'error').
+                Defaults to 'info'.
+        """
+        self.file_handler.log(message, level=level, system_prefix=self.__class__.__name__)
+        
+    def setup(self, scope):
+        """Setup autofocus system (no-op in base class).
+        
+        Args:
+            scope (Scope): Scope instance to configure autofocus for.
+        """
+        self.log('No Setup Needed', level='warning')
+        
+    def update_focus(self, scope, autofocus_group):
+        """Update focus for an autofocus group (no-op in base class).
+        
+        Args:
+            scope (Scope): Scope instance.
+            autofocus_group (str): Name of the autofocus group to update.
+        """
+        self.log(f'No Update Needed for {autofocus_group}', level='warning')
+        
+    def focus(self, scope, X=None, Y=None, position_name=None, goto=False):
+        """Get focus value for a position (no-op in base class).
+        
+        Args:
+            scope (Scope): Scope instance.
+            X (float, optional): X coordinate. If None, uses scope.X.
+            Y (float, optional): Y coordinate. If None, uses scope.Y.
+            position_name (str, optional): Position name identifier.
+            goto (bool): If True, move scope to calculated focus. Defaults to False.
+        
+        Returns:
+            float: Current Z position (no autofocus performed).
+        """
+        self.log('No Autofocus used', level='warning')
         return scope.Z
 
 class ImageScanAutofocus(Autofocus):
+    """Autofocus implementation using Z-stack scanning with focus metric calculation.
+    
+    Performs Z-stack scanning at multiple resolutions (coarse, medium, fine)
+    and calculates focus metrics using edge detection. Selects Z position
+    with highest focus metric.
+    
+    Attributes:
+        channel (str): Channel to use for autofocus imaging.
+        exposure (float): Exposure time in milliseconds.
+        coarse_window (tuple): (range, step_size) for coarse scanning.
+        medium_window (tuple): (range, step_size) for medium scanning.
+        fine_window (tuple): (range, step_size) for fine scanning.
+        bkg_sigma (float): Gaussian filter sigma for background subtraction.
+        median_filter_size (int): Size of median filter for noise reduction.
+        binning (int): Binning factor for faster acquisition.
+    """
+    
     def __init__(self,
             channel='FarRed',
             exposure=25,
@@ -35,7 +97,20 @@ class ImageScanAutofocus(Autofocus):
             medium_window=(20,2),
             fine_window=(5,0.5),
             bkg_sigma=25,
-            median_filter_size=2,binning=2):
+            median_filter_size=2,
+            binning=2):
+        """Initialize ImageScanAutofocus with scanning parameters.
+        
+        Args:
+            channel (str): Channel name for autofocus imaging. Defaults to 'FarRed'.
+            exposure (float): Exposure time in milliseconds. Defaults to 25.
+            coarse_window (tuple): (range_μm, step_μm) for coarse scan. Defaults to (200, 20).
+            medium_window (tuple): (range_μm, step_μm) for medium scan. Defaults to (20, 2).
+            fine_window (tuple): (range_μm, step_μm) for fine scan. Defaults to (5, 0.5).
+            bkg_sigma (float): Gaussian filter sigma for background subtraction. Defaults to 25.
+            median_filter_size (int): Median filter size for noise reduction. Defaults to 2.
+            binning (int): Binning factor (1, 2, 4). Defaults to 2.
+        """
         super().__init__()
         self.channel = channel
         self.exposure = exposure
@@ -46,8 +121,20 @@ class ImageScanAutofocus(Autofocus):
         self.median_filter_size = median_filter_size
         self.binning = binning
 
-    def scan_find_focus(self,scope,windows=['coarse','medium','fine']):
-        self.log('ImageScanAutofocus find focus',level='debug')
+    def scan_find_focus(self, scope, windows=['coarse','medium','fine']):
+        """Perform Z-stack scanning to find optimal focus position.
+        
+        Scans through Z positions at specified window resolutions and
+        calculates focus metrics. Moves scope to position with highest metric.
+        
+        Args:
+            scope (Scope): Scope instance to use for imaging.
+            windows (list): List of window types to use ('coarse', 'medium', 'fine').
+                Defaults to ['coarse','medium','fine'].
+        
+        Returns:
+            float: Optimal Z position found.
+        """
         previous_channel = scope.Channel
         previous_exposure = scope.Exposure
         previous_binning = scope.Binning
@@ -80,8 +167,18 @@ class ImageScanAutofocus(Autofocus):
         scope.Binning = previous_binning
         return scope.Z
 
-    def calculate_metric(self,image):
-        self.log('ImageScanAutofocus calculate metric',level='debug')
+    def calculate_metric(self, image):
+        """Calculate focus metric from an image.
+        
+        Applies background subtraction, median filtering, and calculates
+        mean absolute value as focus metric (higher = better focus).
+        
+        Args:
+            image (np.ndarray): Image array to analyze.
+        
+        Returns:
+            float: Focus metric value (higher indicates better focus).
+        """
         # Convert to float32 for processing
         image = image.astype(np.float32)
         # Step 1: Background subtraction with Gaussian filter
@@ -96,12 +193,36 @@ class ImageScanAutofocus(Autofocus):
         focus_metric = np.mean(np.abs(image))
         return focus_metric
 
-    def focus(self,scope,X=None,Y=None,position_name=None,goto=False):
+    def focus(self, scope, X=None, Y=None, position_name=None, goto=False):
+        """Find focus using fine scanning window.
+        
+        Performs fine Z-stack scan and returns optimal focus position.
+        
+        Args:
+            scope (Scope): Scope instance.
+            X (float, optional): X coordinate. If None, uses scope.X.
+            Y (float, optional): Y coordinate. If None, uses scope.Y.
+            position_name (str, optional): Position name identifier.
+            goto (bool): If True, move scope to calculated focus. Defaults to False.
+        
+        Returns:
+            float: Optimal Z position found.
+        """
         self.scan_find_focus(scope,windows=['fine'])
         return scope.Z
     
     def user_input_gui(self, scope):
-        """Simple popup GUI for configuring ImageScanAutofocus parameters."""
+        """Display GUI for configuring ImageScanAutofocus parameters.
+        
+        Opens a popup window allowing user to configure channel, exposure,
+        background subtraction, filtering, and scanning window parameters.
+        
+        Args:
+            scope (Scope): Scope instance (used to get available channels).
+        
+        Returns:
+            bool: True if configuration was saved, False if cancelled.
+        """
         root = tk.Tk()
         root.title("ImageScanAutofocus Configuration")
         root.geometry("400x550")
@@ -259,15 +380,34 @@ class ImageScanAutofocus(Autofocus):
         return result[0]
 
 class RelativeAutofocus(ImageScanAutofocus):
+    """Autofocus implementation using relative focus adjustments.
+    
+    Sets focus for all positions within an autofocus group relative to
+    reference points. During setup, reference points are selected and
+    focus is found. During acquisition, focus is updated relative to
+    these reference points using rigid transformations.
+    
+    Supports hierarchical levels: 'plate', 'well', 'group'.
+    Supports setup methods: 'stitched' (interactive selection from stitched image),
+    'manual' (manual stage positioning).
+    
+    Attributes:
+        level (str): Hierarchical level for autofocus groups ('plate', 'well', 'group').
+        setup_method (str): Setup method ('stitched', 'manual').
+        reference_points_filename (str): Path to CSV file storing reference points.
+        reference_points (pd.DataFrame): DataFrame containing reference point coordinates.
+        positions (pd.DataFrame): Positions DataFrame with autofocus_group assignments.
     """
-        RelativeAutofocus sets all positions within a autofocus group relative to a reference point.
-        Setup will include selecting a reference point for each group 
-        After all the points have been set the class will go to each point and find focus
-        calling update focus will go back to the reference point and find focus and assign a rigid transformation to the group
-        calling focus will determine which transformation to use for each region of space and return the updated coordinates
-
-    """
-    def __init__(self,level='well',setup_method='stitched'):
+    
+    def __init__(self, level='well', setup_method='stitched'):
+        """Initialize RelativeAutofocus with hierarchical level and setup method.
+        
+        Args:
+            level (str): Hierarchical level ('plate', 'well', 'group').
+                Defaults to 'well'.
+            setup_method (str): Setup method ('stitched', 'manual').
+                Defaults to 'stitched'.
+        """
         super().__init__()
         optional_levels = ['plate','well','group']
         # If group selected assumed that positions has a column called group
@@ -284,7 +424,16 @@ class RelativeAutofocus(ImageScanAutofocus):
         self.setup_method = setup_method if setup_method in optional_setup_methods else optional_setup_methods[0]
         self.reference_points_filename = os.path.join(self.file_handler.system_state_dir,f'autofocus_reference_points.csv')
 
-    def setup(self,scope):
+    def setup(self, scope):
+        """Setup RelativeAutofocus system.
+        
+        Assigns autofocus groups based on hierarchical level, selects reference
+        points (either from stitched images or manually), finds focus at each
+        reference point, and saves reference points to CSV file.
+        
+        Args:
+            scope (Scope): Scope instance to configure autofocus for.
+        """
         positions = scope.file_handler.Positions
         if self.level == 'plate':
             positions['autofocus_group'] = 'plate'
@@ -333,7 +482,15 @@ class RelativeAutofocus(ImageScanAutofocus):
                 self.reference_points.loc[autofocus_group,'Z'] = new_focus
             self.reference_points.to_csv(self.reference_points_filename,index=False)
 
-    def manual_setup(self,scope):
+    def manual_setup(self, scope):
+        """Manually select reference points for each autofocus group.
+        
+        Moves stage to median position of each group and prompts user to
+        manually position stage at reference point.
+        
+        Args:
+            scope (Scope): Scope instance.
+        """
         positions = self.positions
         total_groups = len(positions['autofocus_group'].unique())
         i = 0
@@ -354,7 +511,15 @@ class RelativeAutofocus(ImageScanAutofocus):
             i+=1
 
 
-    def stitched_setup(self,scope):
+    def stitched_setup(self, scope):
+        """Select reference points interactively from stitched preview images.
+        
+        Stitches preview acquisitions for each well and allows user to
+        interactively select reference points from the stitched images.
+        
+        Args:
+            scope (Scope): Scope instance.
+        """
         positions = self.positions
         unique_groups = positions['autofocus_group'].unique()
         i = 0
@@ -426,7 +591,16 @@ class RelativeAutofocus(ImageScanAutofocus):
                 self.reference_points.loc[autofocus_group,'autofocus_group'] = autofocus_group
 
 
-    def update_focus(self,scope,autofocus_group):
+    def update_focus(self, scope, autofocus_group):
+        """Update focus for an autofocus group by re-measuring reference point.
+        
+        Moves to reference point, finds focus, calculates translation shift,
+        and updates reference point Z_shift value.
+        
+        Args:
+            scope (Scope): Scope instance.
+            autofocus_group (str): Name of the autofocus group to update.
+        """
         self.positions = self.file_handler.Positions
         # reference_points = self.file_handler.reference_points
         self.reference_points = pd.read_csv(self.reference_points_filename,index_col='autofocus_group')
@@ -444,7 +618,23 @@ class RelativeAutofocus(ImageScanAutofocus):
         self.reference_points.to_csv(self.reference_points_filename,index=False)
         # self.file_handler.save_reference_points(reference_points)
 
-    def focus(self,scope,X=None,Y=None,position_name=None,goto=True):
+    def focus(self, scope, X=None, Y=None, position_name=None, goto=True):
+        """Get focus value for a position using relative transformation.
+        
+        Determines which autofocus group the position belongs to, retrieves
+        Z_shift from reference points, and applies translation to current Z.
+        
+        Args:
+            scope (Scope): Scope instance.
+            X (float, optional): X coordinate. If None, uses scope.X.
+            Y (float, optional): Y coordinate. If None, uses scope.Y.
+            position_name (str, optional): Position name identifier.
+                If None, finds closest position by XY distance.
+            goto (bool): If True, move scope to calculated focus. Defaults to True.
+        
+        Returns:
+            float: Calculated Z position with relative transformation applied.
+        """
         if X is None:
             X = scope.X
         if Y is None:

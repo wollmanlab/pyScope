@@ -25,7 +25,29 @@ from file_handler import FileHandler
     Definition of the superclass Fluidics
 """
 class Fluidics(object):
-    def __init__(self,gui=False):
+    """Base class for fluidics control systems.
+    
+    Provides protocol execution, valve control, pump control, and file-based
+    communication with other systems. Subclasses implement system-specific
+    valve and pump configurations.
+    
+    Attributes:
+        simulate (bool): Whether to run in simulation mode (no hardware control).
+        file_handler (FileHandler): FileHandler instance for state management.
+        device (str): Device name (class name).
+        last_message (str): Last status message received.
+        Valve_Commands (dict): Dictionary mapping port IDs to valve/port numbers.
+        busy (bool): Whether system is currently executing a protocol.
+        state (dict): Current system state (ports, pump status, etc.).
+    """
+    
+    def __init__(self, gui=False):
+        """Initialize Fluidics base class.
+        
+        Args:
+            gui (bool): Whether to enable GUI (not used in base class).
+                Defaults to False.
+        """
         self.simulate = False
         self.file_handler = FileHandler()
         self.device = self.__class__.__name__
@@ -40,10 +62,29 @@ class Fluidics(object):
         }
 
     def log(self, message, level='info'):
-        """Log messages using FileHandler's logging system."""
+        """Log messages using FileHandler's logging system.
+        
+        Args:
+            message (str): Message to log.
+            level (str): Log level ('debug', 'info', 'warning', 'error').
+                Defaults to 'info'.
+        """
         self.file_handler.log(message, level=level, system_prefix='Fluidics')
 
     def update_user(self,message,level='info',logger='Fluidics'):
+        """Update user with log message (supports numeric or string log levels).
+        
+        Converts numeric log levels (10, 20, 30, 40, 50) to string levels
+        if logger parameter is an integer.
+        
+        Args:
+            message (str): Message to log.
+            level (str or int): Log level. If logger is int, level is converted
+                from numeric (10=debug, 20=info, 30=warning, 40=error, 50=critical).
+                Defaults to 'info'.
+            logger (str or int): Logger name or numeric level. If int, level
+                parameter is treated as logger name. Defaults to 'Fluidics'.
+        """
         level_mapper = {
             10: 'debug',
             20: 'info',
@@ -58,6 +99,11 @@ class Fluidics(object):
         self.file_handler.log(message, level=level, system_prefix=logger)
 
     def continuous_monitoring(self):
+        """Continuous monitoring of fluidics system status.
+        
+        Polls system status every second and logs changes. Stops when user
+        initiates 'Stop' command.
+        """
         self.last_message = ''
         self.log('Continuous monitoring started')
         try:
@@ -77,6 +123,11 @@ class Fluidics(object):
             self.log('Continuous monitoring terminated - status set to offline')
 
     def interpret_command(self, current_message):
+        """Interpret message from other software.
+        
+        Args:
+            current_message (str): Message to interpret.
+        """
         """Interpret message from other software."""
         self.log(f"Interpreting Command: {current_message}")
         self.busy = True
@@ -154,8 +205,23 @@ class Fluidics(object):
         
         return ordered_state
     
-    # decode_message() is for interpreting(spliting) the formated message read from XXXX_Staus.txt file into protocol, chambers, other
-    def decode_message(self,message): #FIXME
+    def decode_message(self, message):
+        """Decode command message into protocol, chambers, and other parameters.
+        
+        Parses formatted message string into components. Handles simulation mode
+        flag ('!') and special protocols (Flush, Prime, Clean).
+        
+        Args:
+            message (str): Formatted message string.
+                Format: "Protocol*[Chambers]*Other" or "Protocol*[Chambers]*Other!"
+                '!' suffix enables simulation mode.
+        
+        Returns:
+            tuple: (protocol, chambers, other) where:
+                - protocol (str): Protocol name
+                - chambers (list or dict): Chamber list or Valve_Commands dict
+                - other (str): Additional parameters
+        """
         protocol,chambers,other = message.split('*')
         if '!' in other:
             other = other.split('!')[0]
@@ -174,11 +240,17 @@ class Fluidics(object):
             chambers = self.Valve_Commands
         return protocol,chambers,other
 
-    # execute_protocol() is for executing a protocol based on the protocol, chambers, other.
-    # protocol: name of the protocol to execute.
-    # chambers: the chambers where the protocol should be executed.
-    # other: other necessary arguments to specify the protocol
-    def execute_protocol(self,protocol,chambers,other):
+    def execute_protocol(self, protocol, chambers, other):
+        """Execute a fluidics protocol.
+        
+        Retrieves protocol steps, saves tasks, executes each step, and cleans up
+        task files upon completion. Supports simulation mode for testing.
+        
+        Args:
+            protocol (str): Name of the protocol to execute.
+            chambers (list or dict): Chambers where protocol should be executed.
+            other (str): Additional protocol parameters.
+        """
         steps = self.Protocol.get_steps(protocol,chambers,other) # Same as Tasks 
         if not isinstance(steps,pd.DataFrame):
             self.log('Unknown Protocol: '+str(protocol))
@@ -220,8 +292,22 @@ class Fluidics(object):
         self.simulate = False
         self.Protocol.simulate = False
 
-    # flow() is for executing the most basic step of a protocol (one row of the Protocol dataframe) based on the column values.
-    def flow(self,port,volume,speed,pause,direction):
+    def flow(self, port, volume, speed, pause, direction):
+        """Execute a single flow step (basic protocol operation).
+        
+        Sets valve port, starts pump flow, and waits for specified pause time.
+        Checks status before each operation and can be interrupted by 'Stop' status.
+        
+        Args:
+            port (str): Port ID to set valve to.
+            volume (float): Volume to pump in mL.
+            speed (float): Pump speed parameter.
+            pause (float): Pause time after flow in seconds.
+            direction (str): Flow direction ('forward', 'reverse', 'Wait').
+        
+        Returns:
+            bool: True if flow completed successfully, False if stopped by status check.
+        """
         self.log(f"FLOW :::flow {port} {volume} {speed} {pause} {direction}")
         self.update_state({'current_port': port})
         
@@ -246,9 +332,17 @@ class Fluidics(object):
         
         return True
 
-    # set_port() is for selecting the port of a specific valve based on the port ID.
-    # command: the port ID of the port to set (e.g. TBS, Hybe10, Hybe25,...)
-    def set_port(self,command):
+    def set_port(self, command):
+        """Set valve port based on port ID command.
+        
+        Looks up valve and port number from Valve_Commands dictionary and sets
+        valve position. Handles cascading valve selection for special port IDs
+        like "ValveN" that trigger multiple valve changes.
+        
+        Args:
+            command (str): Port ID (e.g., 'TBS', 'Hybe10', 'Valve2').
+                Special IDs like 'Valve2' can trigger cascading valve changes.
+        """
         if not command in self.Valve_Commands.keys():
             self.log('Unknown Tube: '+command)
         else:
@@ -268,8 +362,17 @@ class Fluidics(object):
                 self.update_state({f'Valve{valve_num}': f'Port{port_num}'})
                 command = 'Valve'+str(valve_num)
 
-    # start_flow() is Pump class's start_flow with a sanity check of volume>0
-    def start_flow(self,volume,direction,speed):
+    def start_flow(self, volume, direction, speed):
+        """Start pump flow with volume and speed parameters.
+        
+        Updates state and calls Pump.start_flow() if volume > 0.
+        Sets pump_direction back to 'idle' after flow completes.
+        
+        Args:
+            volume (float): Volume to pump in mL. Must be > 0.
+            direction (str): Flow direction ('forward', 'reverse').
+            speed (float): Pump speed parameter.
+        """
         if volume>0:
             self.update_state({
                 'pump_direction': direction,
@@ -279,9 +382,14 @@ class Fluidics(object):
             self.Pump.start_flow(volume,direction,speed)
             self.update_state({'pump_direction': 'idle'})
 
-    # sleep() is for waiting for t amount of time and updating user every 10sec.
-    # t: amount of time to wait in the unit of sec.
-    def sleep(self,t):
+    def sleep(self, t):
+        """Wait for specified time with progress updates.
+        
+        Updates user every 10% of wait time. Updates state with pause duration.
+        
+        Args:
+            t (float): Time to wait in seconds.
+        """
         if t>0:
             self.update_state({'pause': t})
             self.log('Wait '+str(round(t))+'s')
@@ -291,9 +399,16 @@ class Fluidics(object):
                     self.log(str(round((i+1)*10))+'% Complete')
             self.update_state({'pause': 0})
 
-    # summarize_protocol() is for generating a summary of the steps by calculating total volume for each port and total estimated time.
-    # steps: a dataframe to summarize where each row is one step
-    def summarize_protocol(self,steps):
+    def summarize_protocol(self, steps):
+        """Generate summary of protocol steps.
+        
+        Calculates total volume per port and estimated total time.
+        Logs summary information in human-readable format.
+        
+        Args:
+            steps (pd.DataFrame): Protocol steps DataFrame with columns:
+                port, volume, direction, time_estimate.
+        """
         self.log('Protocol Summary')
         ports = np.unique(steps['port'])
         for port in ports:
