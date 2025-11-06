@@ -21,21 +21,21 @@ class Autofocus:
         self.file_handler.log(message,level=level,system_prefix=self.__class__.__name__)
     def setup(self,scope):
         self.log('No Setup Needed',level='warning')
-    def update_focus(self,scope):
-        self.log('No Update Needed',level='warning')
+    def update_focus(self,scope,autofocus_group):
+        self.log(f'No Update Needed for {autofocus_group}',level='warning')
     def focus(self,scope,X=None,Y=None,position_name=None,goto=False):
-        self.log('No Autofocus used',level='error')
+        self.log('No Autofocus used',level='warning')
         return scope.Z
 
 class ImageScanAutofocus(Autofocus):
     def __init__(self,
             channel='FarRed',
-            exposure=5,
+            exposure=25,
             coarse_window=(200,20),
             medium_window=(20,2),
             fine_window=(5,0.5),
-            bkg_sigma=10,
-            median_filter_size=0):
+            bkg_sigma=25,
+            median_filter_size=2,binning=2):
         super().__init__()
         self.channel = channel
         self.exposure = exposure
@@ -44,11 +44,16 @@ class ImageScanAutofocus(Autofocus):
         self.fine_window = fine_window
         self.bkg_sigma = bkg_sigma
         self.median_filter_size = median_filter_size
+        self.binning = binning
 
     def scan_find_focus(self,scope,windows=['coarse','medium','fine']):
         self.log('ImageScanAutofocus find focus',level='debug')
+        previous_channel = scope.Channel
+        previous_exposure = scope.Exposure
+        previous_binning = scope.Binning
         scope.Channel = self.channel
         scope.Exposure = self.exposure
+        scope.Binning = self.binning
         selected_windows = []
         if 'coarse' in windows:
             selected_windows.append(self.coarse_window)
@@ -61,13 +66,18 @@ class ImageScanAutofocus(Autofocus):
             steps = np.arange(starting_Z - window_width,starting_Z + window_width,window_stepsize)
             metrics = np.zeros(len(steps))
             for i, step in enumerate(steps):
-                if not scope.is_valid('Z',starting_Z + step):
-                    self.log(f"ImageScanAutofocus Invalid Z: {starting_Z + step}",level='warning')
+                if not scope.is_valid('Z', step):
+                    self.log(f"ImageScanAutofocus Invalid Z: { step}",level='warning')
                     continue
-                scope.Z = starting_Z + step
+                scope.Z =  step
                 metrics[i] = self.calculate_metric(scope.snapImage())
             best_step = steps[np.argmax(metrics)]
+            self.log(f"Best step: {best_step} with metric: {metrics[np.argmax(metrics)]}",level='info')
+            self.log(f"info {zip(steps,metrics)}",level='info')
             scope.Z = best_step
+        scope.Channel = previous_channel
+        scope.Exposure = previous_exposure
+        scope.Binning = previous_binning
         return scope.Z
 
     def calculate_metric(self,image):
@@ -81,9 +91,9 @@ class ImageScanAutofocus(Autofocus):
         if self.median_filter_size > 0:
             image = median_filter(image, size=self.median_filter_size)
         # Step 3: Sobel edge detection
-        image = np.sqrt(ndimage.sobel(image, axis=1)**2)
+        # image = np.sqrt(ndimage.sobel(image, axis=1)**2)
         # Step 4: Sum of edge magnitudes
-        focus_metric = np.sum(image)
+        focus_metric = np.mean(np.abs(image))
         return focus_metric
 
     def focus(self,scope,X=None,Y=None,position_name=None,goto=False):
@@ -113,17 +123,19 @@ class ImageScanAutofocus(Autofocus):
         channel_frame.pack(fill=tk.X, pady=5)
         tk.Label(channel_frame, text="Channel:", bg=GUI_COLORS['background'], 
                 fg=GUI_COLORS['text'], width=12, anchor='w', font=GUI_FONTS['body']).pack(side=tk.LEFT)
-        channel_var = tk.StringVar(value=self.channel)
+        channel_var = tk.StringVar()
+        channel_var.set('FarRed')
         channel_combo = ttk.Combobox(channel_frame, textvariable=channel_var, 
                                      values=scope.available_channels, state='readonly', 
                                      width=20, style='Dark.TCombobox')
+        channel_combo.set('FarRed')
         channel_combo.pack(side=tk.LEFT)
         
         exposure_frame = tk.Frame(frame, bg=GUI_COLORS['background'])
         exposure_frame.pack(fill=tk.X, pady=5)
         tk.Label(exposure_frame, text="Exposure:", bg=GUI_COLORS['background'], 
                 fg=GUI_COLORS['text'], width=12, anchor='w', font=GUI_FONTS['body']).pack(side=tk.LEFT)
-        exposure_var = tk.StringVar(value=str(self.exposure))
+        exposure_var = tk.StringVar(value='5')
         exposure_entry = tk.Entry(exposure_frame, textvariable=exposure_var, 
                                  bg=GUI_COLORS['entry'], fg=GUI_COLORS['text'],
                                  insertbackground=GUI_COLORS['text'], width=22, font=GUI_FONTS['entry'])
@@ -133,7 +145,7 @@ class ImageScanAutofocus(Autofocus):
         bkg_sigma_frame.pack(fill=tk.X, pady=5)
         tk.Label(bkg_sigma_frame, text="Bkg Sigma:", bg=GUI_COLORS['background'], 
                 fg=GUI_COLORS['text'], width=12, anchor='w', font=GUI_FONTS['body']).pack(side=tk.LEFT)
-        bkg_sigma_var = tk.StringVar(value=str(self.bkg_sigma))
+        bkg_sigma_var = tk.StringVar(value='10')
         bkg_sigma_entry = tk.Entry(bkg_sigma_frame, textvariable=bkg_sigma_var, 
                                  bg=GUI_COLORS['entry'], fg=GUI_COLORS['text'],
                                  insertbackground=GUI_COLORS['text'], width=22, font=GUI_FONTS['entry'])
@@ -143,16 +155,16 @@ class ImageScanAutofocus(Autofocus):
         median_filter_size_frame.pack(fill=tk.X, pady=5)
         tk.Label(median_filter_size_frame, text="Median Filter:", bg=GUI_COLORS['background'], 
                 fg=GUI_COLORS['text'], width=12, anchor='w', font=GUI_FONTS['body']).pack(side=tk.LEFT)
-        median_filter_size_var = tk.StringVar(value=str(self.median_filter_size))
+        median_filter_size_var = tk.StringVar(value='0')
         median_filter_size_entry = tk.Entry(median_filter_size_frame, textvariable=median_filter_size_var, 
                                  bg=GUI_COLORS['entry'], fg=GUI_COLORS['text'],
                                  insertbackground=GUI_COLORS['text'], width=22, font=GUI_FONTS['entry'])
         median_filter_size_entry.pack(side=tk.LEFT)
         
         windows = [
-            ('Coarse', 'coarse', self.coarse_window),
-            ('Medium', 'medium', self.medium_window),
-            ('Fine', 'fine', self.fine_window)
+            ('Coarse', 'coarse', (200, 20)),
+            ('Medium', 'medium', (20, 2)),
+            ('Fine', 'fine', (5, 0.5))
         ]
         
         window_vars = {}
@@ -270,30 +282,39 @@ class RelativeAutofocus(ImageScanAutofocus):
         if setup_method not in optional_setup_methods:
             self.log(f'Invalid setup method: {setup_method}. Valid methods are: {optional_setup_methods}',level='warning')
         self.setup_method = setup_method if setup_method in optional_setup_methods else optional_setup_methods[0]
-        self.reference_points_filename = os.path.join(self.file_handler.system_state_dir,f'reference_points.csv')
+        self.reference_points_filename = os.path.join(self.file_handler.system_state_dir,f'autofocus_reference_points.csv')
 
     def setup(self,scope):
-        positions = self.file_handler.Positions
+        positions = scope.file_handler.Positions
         if self.level == 'plate':
             positions['autofocus_group'] = 'plate'
         else:
             positions['autofocus_group'] = positions[self.level]
         self.positions = positions
-        self.file_handler.save_positions(positions)
+        scope.file_handler.save_positions(positions)
 
         """ Gui for selecting Channel and Exposure and window sizes"""
-        self.user_input_gui(scope)
+        # self.user_input_gui(scope)
         
 
         unique_groups = positions['autofocus_group'].unique()
         setup_complete = False
         self.reference_points = pd.DataFrame(index=unique_groups,columns=['autofocus_group','X','Y','Z','X_shift','Y_shift','Z_shift'])
         if os.path.exists(self.reference_points_filename):
+            # print(f"Loading reference points from {self.reference_points_filename}")
             loaded_reference_points = pd.read_csv(self.reference_points_filename,index_col='autofocus_group')
+            loaded_reference_points['autofocus_group'] = loaded_reference_points.index
             # check if index is the same as unique_groups
-            if loaded_reference_points.index.equals(unique_groups):
+            if len([i for i in unique_groups if not i in loaded_reference_points.index])==0:
+                # print(f"Reference points match unique groups")
+                self.log(f"Loaded reference points from {self.reference_points_filename}",level='info')
                 self.reference_points = loaded_reference_points
                 setup_complete = True
+            else:
+                # print(f"Reference points do not match unique groups")
+                self.log(f"Reference points in {self.reference_points_filename} do not match unique groups",level='warning')
+                # self.log(f"Loaded reference points from {self.reference_points_filename}",level='info')
+
 
         if not setup_complete:
             if self.setup_method == 'stitched':
@@ -304,8 +325,7 @@ class RelativeAutofocus(ImageScanAutofocus):
             # Now find focus for each group
             for autofocus_group,reference_point in self.reference_points.iterrows():
                 self.log(f"Moving to {autofocus_group} reference point (X,Y,Z): {scope.XYZ}",level='info')
-                Z = scope.Z
-                scope.Z = self.limits['Z'][0] # move to bottom of the plate
+                scope.Z = scope.limits['Z'][0] # move to bottom of the plate
                 scope.XY = (reference_point['X'],reference_point['Y'])
                 scope.Z = reference_point['Z'] # move back to the original z position
                 self.log(f"Finding focus for {autofocus_group}",level='info')
@@ -366,8 +386,7 @@ class RelativeAutofocus(ImageScanAutofocus):
                     stitch_flipud=False,
                     stitch_fliplr=False,
                     output_pixel_size=50,
-                    idx_stitch=True,
-                    position_names=well_positions['position_name'].unique()
+                    idx_stitch=True
                 )
                 
             groups = well_positions['autofocus_group'].unique()
@@ -401,15 +420,18 @@ class RelativeAutofocus(ImageScanAutofocus):
                 self.reference_points.loc[autofocus_group,'X'] = stage_coordinates[0]
                 self.reference_points.loc[autofocus_group,'Y'] = stage_coordinates[1]
                 self.reference_points.loc[autofocus_group,'Z'] = group_positions['Z'].median()
-                self.reference_points.loc[autofocus_group,'X_shift'] = 0
-                self.reference_points.loc[autofocus_group,'Y_shift'] = 0
-                self.reference_points.loc[autofocus_group,'Z_shift'] = 0
+                self.reference_points.loc[autofocus_group,'X_shift'] = 0.0
+                self.reference_points.loc[autofocus_group,'Y_shift'] = 0.0
+                self.reference_points.loc[autofocus_group,'Z_shift'] = 0.0
                 self.reference_points.loc[autofocus_group,'autofocus_group'] = autofocus_group
 
 
     def update_focus(self,scope,autofocus_group):
         self.positions = self.file_handler.Positions
-        reference_points = self.file_handler.reference_points
+        # reference_points = self.file_handler.reference_points
+        self.reference_points = pd.read_csv(self.reference_points_filename,index_col='autofocus_group')
+        self.reference_points['autofocus_group'] = self.reference_points.index
+        reference_points = self.reference_points
         scope.XYZ = (reference_points.loc[autofocus_group,'X'],reference_points.loc[autofocus_group,'Y'],reference_points.loc[autofocus_group,'Z'])
         self.log(f"Moving to {autofocus_group} reference point (X,Y,Z): {scope.XYZ}",level='info')
         self.log(f"Finding focus for {autofocus_group}",level='info')
@@ -417,7 +439,10 @@ class RelativeAutofocus(ImageScanAutofocus):
         new_focus = self.scan_find_focus(scope)
         translation = new_focus - starting_focus
         reference_points.loc[autofocus_group,'Z_shift'] = translation
-        self.file_handler.save_reference_points(reference_points)
+        self.log(f"Updating reference points for {autofocus_group} (X,Y,Z): {scope.XYZ} (shift: {translation})",level='info')
+        self.reference_points = reference_points
+        self.reference_points.to_csv(self.reference_points_filename,index=False)
+        # self.file_handler.save_reference_points(reference_points)
 
     def focus(self,scope,X=None,Y=None,position_name=None,goto=True):
         if X is None:
@@ -435,8 +460,8 @@ class RelativeAutofocus(ImageScanAutofocus):
         else:
             closest_position = self.positions[self.positions['position_name'] == position_name].iloc[0]
         autofocus_group = closest_position['autofocus_group']
-        translation = self.reference_points.loc[autofocus_group,'Z_shift']
-        new_z = Z + translation
+        translation = float(self.reference_points.loc[autofocus_group,'Z_shift'])
+        new_z = float(Z + translation)
         if not scope.is_valid('Z',new_z):
             self.log(f"Invalid Z: X={X},Y={Y} (Z): {new_z} (shift: {translation})",level='error')
         if goto:
@@ -444,46 +469,48 @@ class RelativeAutofocus(ImageScanAutofocus):
         self.log(f"Focusing on X={X},Y={Y} (Z): {new_z} (shift: {translation})",level='debug')
         return new_z
 
-# if __name__ == "__main__":
-#     # Test the user_input_gui
-#     print("Testing ImageScanAutofocus user_input_gui...")
+if __name__ == "__main__":
+    # Test the user_input_gui
+    print("Testing ImageScanAutofocus user_input_gui...")
     
-#     # Create scope instance using PC name to determine system type
-#     pc_name = socket.gethostname()
-#     system = pc_name.split('Scope')[0].capitalize()
-#     module_name = f"Scope.{system.lower()}scope"
-#     module = importlib.import_module(module_name)
-#     class_name = f"{system}Scope"
-#     scope_class = getattr(module, class_name)
-#     scope = scope_class(enable_core=True)
-#     print(f"Using {system}Scope instance with channels: {scope.available_channels}")
+    # Create scope instance using PC name to determine system type
+    pc_name = socket.gethostname()
+    system = pc_name.split('Scope')[0].capitalize()
+    module_name = f"Scope.{system.lower()}scope"
+    module = importlib.import_module(module_name)
+    class_name = f"{system}Scope"
+    scope_class = getattr(module, class_name)
+    scope = scope_class(enable_core=True)
+    print(f"Using {system}Scope instance with channels: {scope.available_channels}")
     
-#     # Create ImageScanAutofocus instance
-#     autofocus = ImageScanAutofocus(
-#         channel='FarRed',
-#         exposure=5,
-#         coarse_window=(200, 20),
-#         medium_window=(20, 2),
-#         fine_window=(5, 0.5)
-#     )
+    # # Create ImageScanAutofocus instance
+    # autofocus = ImageScanAutofocus(
+    #     channel='FarRed',
+    #     exposure=5,
+    #     coarse_window=(200, 20),
+    #     medium_window=(20, 2),
+    #     fine_window=(5, 0.5)
+    # )\
     
-#     print(f"Initial configuration:")
-#     print(f"  Channel: {autofocus.channel}")
-#     print(f"  Exposure: {autofocus.exposure}")
-#     print(f"  Coarse Window: {autofocus.coarse_window}")
-#     print(f"  Medium Window: {autofocus.medium_window}")
-#     print(f"  Fine Window: {autofocus.fine_window}")
-#     print("\nOpening GUI...")
+    autofocus = RelativeAutofocus(level='well',setup_method='stitched')
     
-#     # Show the GUI
-#     result = autofocus.user_input_gui(scope)
+    print(f"Initial configuration:")
+    print(f"  Channel: {autofocus.channel}")
+    print(f"  Exposure: {autofocus.exposure}")
+    print(f"  Coarse Window: {autofocus.coarse_window}")
+    print(f"  Medium Window: {autofocus.medium_window}")
+    print(f"  Fine Window: {autofocus.fine_window}")
+    print("\nOpening GUI...")
     
-#     if result:
-#         print("\nConfiguration updated:")
-#         print(f"  Channel: {autofocus.channel}")
-#         print(f"  Exposure: {autofocus.exposure}")
-#         print(f"  Coarse Window: {autofocus.coarse_window}")
-#         print(f"  Medium Window: {autofocus.medium_window}")
-#         print(f"  Fine Window: {autofocus.fine_window}")
-#     else:
-#         print("\nConfiguration cancelled or failed.")
+    # Show the GUI
+    result = autofocus.user_input_gui(scope)
+    
+    if result:
+        print("\nConfiguration updated:")
+        print(f"  Channel: {autofocus.channel}")
+        print(f"  Exposure: {autofocus.exposure}")
+        print(f"  Coarse Window: {autofocus.coarse_window}")
+        print(f"  Medium Window: {autofocus.medium_window}")
+        print(f"  Fine Window: {autofocus.fine_window}")
+    else:
+        print("\nConfiguration cancelled or failed.")
