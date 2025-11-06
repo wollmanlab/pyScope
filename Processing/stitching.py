@@ -16,7 +16,7 @@ def stitch_acquisition(acquisition_dir, channel,zindex=0,
                        stitch_rotate=0,
                        stitch_flipud=False,
                        stitch_fliplr=False,bin=1,idx_stitch=False,
-                       output_pixel_size=None,position_names=None):
+                       output_pixel_size=None,position_names=None,verbose=True):
     """
     Stitch acquisition images together based on metadata.
     
@@ -103,7 +103,7 @@ def stitch_acquisition(acquisition_dir, channel,zindex=0,
     canvas = np.zeros((canvas_height, canvas_width), dtype=np.float32)
     if idx_stitch:
         idx_canvas = np.zeros((canvas_height, canvas_width), dtype=np.int32)
-    for posname,location in tqdm(coordinates.items(),total=len(coordinates),desc='Stitching'):
+    for posname,location in tqdm(coordinates.items(),total=len(coordinates),desc='Stitching',disable=not verbose):
         img = tifffile.imread(file_names[posname])
         if bin>1:
             # Trim image to be multiple of bin for consistent binning
@@ -196,7 +196,8 @@ def interactive_roi_selection(stitched_image, message=None):
         except:
             pass
     vmin = stitched_image.min()
-    vmax = np.percentile(stitched_image[stitched_image>0],99)
+    # vmax = np.percentile(stitched_image[stitched_image>0],99) #FIXME: Sticker is really bright, so we need to adjust the vmax
+    vmax = np.percentile(stitched_image[stitched_image>0],75)
     im = ax.imshow(stitched_image, cmap='gray', interpolation='nearest', vmin=vmin, vmax=vmax)
     ax.invert_yaxis() ##FIXME: this is a hack to make the image look correct
     
@@ -403,6 +404,7 @@ def interactive_roi_selection(stitched_image, message=None):
         color = colors[(roi_idx-1) % len(colors)]
         color_rgb = color_mapper[color]
         rgb_mask[mask==roi_idx] = color_rgb
+    canvas = stitched_image
     vmax = np.percentile(canvas[canvas>0],99)
     canvas_rgb = rgb_mask * canvas[:,:,None].copy()/vmax
     canvas_rgb = canvas_rgb/canvas_rgb.max()
@@ -556,9 +558,12 @@ def filter_positions(idx_canvas, mask, posname_idx_mapper):
         m = idx_canvas==idx
         rois = mask[m]
         unique_rois = np.unique(rois)
-        if len(unique_rois)==1:
-            group = int(unique_rois[0])
-            positions_to_keep[posname] = group
+        unique_rois = unique_rois[unique_rois>0]
+        if unique_rois.shape[0]==0:
+            continue
+        # if len(unique_rois)==1:
+        group = int(unique_rois[0])
+        positions_to_keep[posname] = group
     print(f"Keeping {len(positions_to_keep)} positions")
     print(positions_to_keep)
     return positions_to_keep
