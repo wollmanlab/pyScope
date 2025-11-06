@@ -59,21 +59,42 @@ As a convention:
 - HybeX (X is a positive integer) are used to refer to readout probes.
 
 One can refer to [fluidics for the microscope Purple](PurpleFluidics.py), [fluidics for the microscope Orange](OrangeFluidics.py),... for examples on how to set up a subclass for a specific fluidic system.
-#### Task 2: Communicate with other software: the XXX_Status.txt
-In many cases, the fluidic control system need to cooperate with other types of control systems. One frequent case is cooperate with imaging software controlling the microscope. 
+#### Task 2: Communicate with other software: File-based status communication
+In many cases, the fluidic control system needs to cooperate with other types of control systems. One frequent case is cooperation with imaging software controlling the microscope. 
 Cooperation requires communication between the involved control systems.
-The heuristic solution we use is to have different control systems write and read txt files.
-More specifically, the Fluidics class has built-in methods for read and write to XXX_Status.txt (XXX is the name of the class, e.g. OrangeFluidics, PurpleFluidics).
-When other control system wants the fluidics system to run a specific protocol, it can write to XXX_Status.txt a formatted message:
+The solution we use is to have different control systems communicate through shared status files managed by the FileHandler system.
+
+**Status File Location:**
+- The status file is saved as `Fluidics_status.txt` in the `State` directory
+- The file path is managed automatically by the FileHandler class
+- All Fluidics subclasses (CyanFluidics, OrangeFluidics, etc.) use the same status file
+
+**Status Communication:**
+The Fluidics class uses a `status` property that automatically reads from and writes to the status file via FileHandler:
+- Reading: `status = fluidics.status` reads from `State/Fluidics_status.txt`
+- Writing: `fluidics.status = "value"` writes to `State/Fluidics_status.txt`
+
+**Command Format:**
+When other control systems want the fluidics system to run a specific protocol, they can write to `State/Fluidics_status.txt` a formatted message:
 
 `Command:Name_of_protocol_to_run*[Chambers to run the protocol]*Other_supplementary_input`
 
 For example `Command:Hybe*[A,B]*25` commands the fluidic system to run the protocol `Hybe` in chamber A and B using readout probe `25`.
-When the fluidic system finishes certain command, it can let other systems know by writing to XXX_Status.txt:
+
+**Completion Notification:**
+When the fluidic system finishes a command, it automatically writes to `State/Fluidics_status.txt`:
 
 `Finished:Name_of_protocol_to_run*[Chambers to run the protocol]*Other_supplementary_input`
 
 For example, `Finished:Hybe*[A,B]*25` means the `Hybe` protocol in the previous example is finished.
+
+**Continuous Monitoring:**
+The Fluidics class runs a continuous monitoring loop (`continuous_monitoring()`) that:
+- Monitors `State/Fluidics_status.txt` for new commands
+- Executes protocols when `Command:` messages are detected
+- Updates status to `Running:` during execution
+- Updates status to `Finished:` upon completion
+- Stops when status is set to `"Stop"` or goes `"offline"`
 ### Further reading for the Fluidics Class
 - See [fluidics.py](fluidics.py) for details on the attributes and methods for carrying out the two above tasks.
 
