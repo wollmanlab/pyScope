@@ -9,7 +9,31 @@ from datetime import datetime
 from typing import Dict, Any, Optional, List
 import tifffile
 import numpy as np
+import requests
+import matplotlib.colors
 
+def send_slack_notification(message: str, webhook_url=None,color_name=None,bot_name=None):
+    try:
+        if bot_name is None: # use pc name
+            bot_name = os.environ.get('COMPUTERNAME').lower()
+        if webhook_url is None: # Check D:/slack_hook.txt for the webhook url
+            with open('D:/slack_hook.txt', 'r') as file:
+                webhook_url = file.read().strip()
+        if color_name is None:
+            if 'scope' in bot_name.lower():
+                color_name = bot_name.lower().split('scope')[0]
+            else:
+                color_name = 'black'
+        try:
+            hex_code = matplotlib.colors.to_hex(color_name).replace('#', '')
+        except: # Default to Black
+            hex_code = "000000"
+        icon_url = f"https://dummyimage.com/128x128/{hex_code}/{hex_code}.png"
+        slack_payload = {"text": message,"username": bot_name,"icon_url": icon_url}
+        response = requests.post(webhook_url, json=slack_payload, timeout=5)
+        return response.text == 'ok'
+    except:
+        return False
 
 class FileHandler:
     """
@@ -138,6 +162,7 @@ class FileHandler:
             print(f"[{logger_name}]{datetime.now().strftime('%H:%M:%S')} {level} {message}")
         # print(f"[{logger_name}]{datetime.now().strftime('%H:%M:%S')} {level} {message}")
         if level.lower() == 'error':
+            send_slack_notification(f"Error: {formatted_message}")
             raise Exception(message)
     
     
@@ -211,23 +236,6 @@ class FileHandler:
         """Generic method to save state to any system's state file."""
         try:
             state_file = self._get_state_file_path(system_prefix)
-            
-            # # Ensure state is serializable (special handling for Scope)
-            # if system_prefix == "Scope":
-            #     serializable_state = {}
-            #     for key, value in state.items():
-            #         if value is None:
-            #             serializable_state[key] = None
-            #         elif isinstance(value, (str, int, float, bool)):
-            #             serializable_state[key] = value
-            #         elif isinstance(value, (list, tuple)):
-            #             serializable_state[key] = list(value)
-            #         elif isinstance(value, dict):
-            #             serializable_state[key] = value
-            #         else:
-            #             serializable_state[key] = str(value)
-            #     state = serializable_state
-            
             with open(state_file, 'w') as f:
                 json.dump(state, f, indent=4)
             self.log(f'{system_prefix} state saved to {state_file}', level='info', system_prefix=system_prefix)
@@ -313,6 +321,10 @@ class FileHandler:
             with open(status_file, 'w') as f:
                 f.write(status)
             self.log(f'{system_prefix} status updated to: {status}', level='info', system_prefix=system_prefix)
+            if 'Command:' in status:
+                message = f"{system_prefix} : {status.split(':')[-1]}"
+                if not send_slack_notification(message):
+                    self.log(f'Error sending slack notification for {system_prefix} status: {status}', level='warning', system_prefix=system_prefix)
         except Exception as e:
             self.log(f'Error saving {system_prefix} status: {e}', level='warning', system_prefix=system_prefix)
     
