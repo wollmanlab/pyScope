@@ -106,6 +106,7 @@ class Fluidics(object):
         """
         self.last_message = ''
         self.log('Continuous monitoring started')
+        crashed = False
         try:
             while True:
                 status = self.status
@@ -118,8 +119,14 @@ class Fluidics(object):
                 elif "Command" in status:
                     self.interpret_command(status)
                 time.sleep(1)
+        except Exception as e:
+            self.log(f"Error in continuous monitoring: {e}", level='warning')
+            crashed = True  
         finally:
-            self.status = "offline"
+            if not crashed:
+                self.status = "offline"
+            else:
+                self.status = f"Crashed:{self.staus.split(':')[-1]}"
             self.log('Continuous monitoring terminated - status set to offline')
 
     def interpret_command(self, current_message):

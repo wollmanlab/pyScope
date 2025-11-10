@@ -30,6 +30,7 @@ class Experiment():
         no existing data is found.
         """
         self.file_handler = FileHandler()
+        self.file_handler.verbose = True
         self.log('Init')
         try:
             self.tasks = self.file_handler.get_tasks("Experiment")
@@ -81,6 +82,7 @@ class Experiment():
         """
         self.last_message = ''
         self.log('Continuous monitoring started')
+        crashed = False
         try:
             while True:
                 status = self.status
@@ -93,8 +95,14 @@ class Experiment():
                 elif "Command" in status:
                     self.interpret_command(status)
                 time.sleep(1)
+        except Exception as e:
+            self.log(f"Error in continuous monitoring: {e}", level='warning')
+            crashed = True
         finally:
-            self.status = "offline"
+            if not crashed:
+                self.status = "offline"
+            else:
+                self.status = f"Crashed:{self.staus.split(':')[-1]}"
             self.log('Continuous monitoring terminated - status set to offline')
 
     def interpret_command(self, current_message):
@@ -132,6 +140,8 @@ class Experiment():
         if 'Command' in status:
             return True
         elif 'Paused' in status:
+            return True  
+        elif 'Crashed' in status:
             return True        
         else:
             return False
@@ -145,10 +155,11 @@ class Experiment():
         Args:
             device (str): Device name to wait for (e.g., 'Scope', 'Fluidics').
         """
+        start_time = time.time()
         while self.is_busy(device):
-            self.log(f"Device {device} is busy, waiting until not busy",level='info')
-            time.sleep(1)
-        self.log(f"Device {device} is not busy",level='info')
+            self.log(f"Device {device} is busy, waiting until not busy, {time.time() - start_time} seconds",level='info')
+            time.sleep(30)
+        self.log(f"Device {device} is not busy after {time.time() - start_time} seconds",level='info')
 
     def execute_protocol(self, message):
         """Execute a protocol based on command message.
@@ -183,12 +194,14 @@ class Experiment():
             self.file_handler.save_task_idx("Experiment", idx)
             # Wait for all to be available
             for device in self.tasks.columns:
-                if task[device] is not None:
-                    self.wait_until_not_busy(device)
+                # if task[device] is not None:
+                self.wait_until_not_busy(device)
             # Execute the tasks
             for device in self.tasks.columns:
-                if task[device] is not None:
-                    self.file_handler.save_status(device, "Command:"+task[device])
+                if str(task[device]) != 'idle':
+                    self.file_handler.save_status(device, "Command:"+str(task[device]))
+                else:
+                    self.file_handler.save_status(device, "idle")
         self.file_handler.save_task_idx("Experiment", 0)
 
 
@@ -475,7 +488,7 @@ class Experiment():
             fluidics_idxs = [idx for idx, task in self.tasks.iterrows() if not pd.isna(task['Fluidics'])]
             self.tasks.loc[fluidics_idxs[0],'Fluidics'] = self.tasks.loc[0,'Fluidics']
 
-
+        self.tasks[self.tasks.isna()] = "idle"
         self.file_handler.save_tasks("Experiment", self.tasks)
         
         # Tasks created successfully - no GUI needed for now
