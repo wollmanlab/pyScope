@@ -176,6 +176,83 @@ python experiment.py
 
 The GUI will automatically detect your system type and initialize the appropriate components. For detailed usage examples and API documentation, see the [module documentation](#module-documentation) sections.
 
+## GUI Interface
+
+The pyScope GUI provides an intuitive interface for configuring and monitoring experiments. The interface is organized into several key panels:
+
+### Initial Setup Panel
+
+The initial setup panel allows you to configure basic experiment parameters before creating an experiment:
+
+![Initial Setup Panel](Initial_Setup_gui_Panel.jpg)
+
+**Configuration Options:**
+- **Experiment Name**: Set the name for your experiment (with optional automatic date appending)
+- **User Name**: Specify the user running the experiment
+- **Project Name**: Assign the experiment to a project
+- **Save Path**: Configure where experiment data will be saved
+
+### Position Creation Panel
+
+The position creation panel provides tools for generating imaging positions. The Custom Grid method allows you to create a grid of positions with configurable parameters:
+
+![Custom Grid Position Creation](Create_Positions_Custom_Grid_Panel.jpg)
+
+**Custom Grid Configuration:**
+- **Grid Parameters**: Define rows, columns, and spacing (in µm)
+- **Well Geometry**: Set center coordinates (X, Y, Z), shape (circle/rectangle), and dimensions
+- **Position Correction**: Option to account for system offsets when creating positions
+- **Save Configuration**: Save custom grid configurations for reuse
+
+### Experiment Setup Panel
+
+The experiment setup panel is where you configure the detailed parameters for your experiment:
+
+![Experiment Setup Panel](Experiment_Setup_gui_Panel.jpg)
+
+**Configuration Sections:**
+
+1. **Well Assignments**: Assign wells to experimental groups and configure fluidics ports
+2. **Acquisition Settings**: 
+   - Configure channel settings (exposure time, delay, preview options)
+   - Set acquisition steps (start, end, dZ for z-stacking)
+3. **Fluidics Configuration**:
+   - Set number of hybridization rounds
+   - Configure protocols (Strip, Hybe, etc.)
+   - Option to skip first fluidics task
+4. **Position Refinement**: Configure position filtering methods
+5. **Focus Settings**: Set preview, acquisition, and autofocus methods
+
+### Device Status Panel
+
+The main status panel provides real-time monitoring of all system components:
+
+![Device Status Panels](Device_Status_gui_Panels.jpg)
+
+**Monitoring Sections:**
+
+1. **Experiment Section**:
+   - Experiment parameters (name, user, project, system, positions, wells, groups, tasks, channels, protocols, hybes)
+   - Control buttons (Create, Start, Stop, Reset, Kill, Pause)
+   - Progress tracking (task completion status)
+   - Overall experiment status
+
+2. **Scope Section**:
+   - Current coordinates (X, Y, Z)
+   - Scope settings (exposure, channel, binning, pixel size)
+   - Control buttons (Kill, Pause)
+   - Progress tracking and status
+
+3. **Fluidics Section**:
+   - Pump settings (direction, volume, speed)
+   - Current port and well information
+   - Valve positions (Valve2-5)
+   - Solution information
+   - Control buttons (Kill, Pause)
+   - Progress tracking and status
+
+All panels provide real-time updates and allow for interactive control of the experiment execution.
+
 ## System Operation Flow
 
 ### High-Level Workflow
