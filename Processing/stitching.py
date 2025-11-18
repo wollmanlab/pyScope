@@ -8,6 +8,27 @@ import tifffile
 import math
 from tqdm import tqdm
 
+def downsample_average(img, bin):
+    """Fast averaging downsampling function.
+    
+    Downsamples an image by averaging bin x bin pixel blocks. Trims the image
+    to be a multiple of bin size before downsampling.
+    
+    Args:
+        img (np.ndarray): Input image array (2D).
+        bin (int): Downsampling factor.
+    
+    Returns:
+        np.ndarray: Downsampled image array.
+    """
+    if bin <= 1:
+        return img
+    h, w = img.shape[:2]
+    h_trimmed = (h // bin) * bin
+    w_trimmed = (w // bin) * bin
+    img_trimmed = img[:h_trimmed, :w_trimmed]
+    reshaped = img_trimmed.reshape(h_trimmed // bin, bin, w_trimmed // bin, bin)
+    return reshaped.mean(axis=(1, 3))
 def stitch_acquisition(acquisition_dir, channel, zindex=0,
                        metadata_filename='Metadata.txt',
                        image_processor=None,
@@ -20,7 +41,9 @@ def stitch_acquisition(acquisition_dir, channel, zindex=0,
                        idx_stitch=False,
                        output_pixel_size=None,
                        position_names=None,
-                       verbose=True):
+                       FF=1,
+                       constant=0,
+                       verbose=True,avg_overlap=False):
     """Stitch acquisition images together based on metadata.
     
     Combines multiple FOV images into a single stitched image based on stage
@@ -78,13 +101,21 @@ def stitch_acquisition(acquisition_dir, channel, zindex=0,
         bin = int(bin)
     # Determine Canvas Size
     img = tifffile.imread(os.path.join(acquisition_dir,metadata['filename'].iloc[0]))
+    if not isinstance(FF, np.ndarray):
+        FF = np.ones_like(img) * FF
+    if not isinstance(constant, np.ndarray):
+        constant = np.ones_like(img) * constant
     if bin>1:
-        # Trim image to be multiple of bin for consistent binning
-        h, w = img.shape[:2]
-        h_trimmed = (h // bin) * bin
-        w_trimmed = (w // bin) * bin
-        img = img[:h_trimmed, :w_trimmed]
-        img = img[::bin,::bin]
+        img = downsample_average(img, bin)
+        FF = downsample_average(FF, bin)
+        constant = downsample_average(constant, bin)
+        # # Trim image to be multiple of bin for consistent binning
+        # h, w = img.shape[:2]
+        # h_trimmed = (h // bin) * bin
+        # w_trimmed = (w // bin) * bin
+        # img = img[:h_trimmed, :w_trimmed][::bin,::bin]
+        # FF = FF[:h_trimmed, :w_trimmed][::bin,::bin]
+        # constant = constant[:h_trimmed, :w_trimmed][::bin,::bin]
     print(img.shape)
     if image_processor is not None:
         img = image_processor.process(img)
@@ -92,11 +123,17 @@ def stitch_acquisition(acquisition_dir, channel, zindex=0,
     # apply transformations
     # Rotate
     img = np.rot90(img, int(stitch_rotate/90))
+    FF = np.rot90(FF, int(stitch_rotate/90))
+    constant = np.rot90(constant, int(stitch_rotate/90))
     # Flip
     if stitch_flipud:
         img = np.flipud(img)
+        FF = np.flipud(FF)
+        constant = np.flipud(constant)
     if stitch_fliplr:
         img = np.fliplr(img)
+        FF = np.fliplr(FF)
+        constant = np.fliplr(constant)
     image_shape_pixels = img.shape
     del img
     
@@ -109,8 +146,10 @@ def stitch_acquisition(acquisition_dir, channel, zindex=0,
     if bin>1:
         pixel_size = pixel_size * bin
     # image_size = image_shape_pixels * pixel_size
-    y_max = y_max + image_shape_pixels[0]* pixel_size
-    x_max = x_max + image_shape_pixels[1]* pixel_size
+    y_max = y_max + math.ceil(image_shape_pixels[0]* pixel_size/2)
+    x_max = x_max + math.ceil(image_shape_pixels[1]* pixel_size/2)
+    y_min = y_min - math.ceil(image_shape_pixels[0]* pixel_size/2)
+    x_min = x_min - math.ceil(image_shape_pixels[1]* pixel_size/2)
     y_range = y_max - y_min
     x_range = x_max - x_min
     y_range_pixels = math.ceil(y_range / pixel_size) + 2*border
@@ -119,16 +158,17 @@ def stitch_acquisition(acquisition_dir, channel, zindex=0,
     canvas_width = x_range_pixels
     canvas = np.zeros((canvas_height, canvas_width), dtype=np.float32)
     if idx_stitch:
-        idx_canvas = np.zeros((canvas_height, canvas_width), dtype=np.int32)
+        idx_canvas = np.zeros((canvas_height, canvas_width,3), dtype=np.int32)
     for posname,location in tqdm(coordinates.items(),total=len(coordinates),desc='Stitching',disable=not verbose):
-        img = tifffile.imread(file_names[posname])
+        img = tifffile.imread(file_names[posname]).astype(np.float32)
         if bin>1:
-            # Trim image to be multiple of bin for consistent binning
-            h, w = img.shape[:2]
-            h_trimmed = (h // bin) * bin
-            w_trimmed = (w // bin) * bin
-            img = img[:h_trimmed, :w_trimmed]
-            img = img[::bin,::bin]
+            img = downsample_average(img, bin)
+            # # Trim image to be multiple of bin for consistent binning
+            # h, w = img.shape[:2]
+            # h_trimmed = (h // bin) * bin
+            # w_trimmed = (w // bin) * bin
+            # img = img[:h_trimmed, :w_trimmed]
+            # img = img[::bin,::bin]
         if image_processor is not None:
             img = image_processor.process(img)
         # apply transformations
@@ -140,7 +180,10 @@ def stitch_acquisition(acquisition_dir, channel, zindex=0,
             img = np.flipud(img)
         if stitch_fliplr:
             img = np.fliplr(img)
-
+        
+        img = img - constant
+        img = np.clip(img,0,None)
+        img = img * FF
         # determine position on canvas
         position_x = location['X']
         position_y = location['Y']
@@ -156,9 +199,22 @@ def stitch_acquisition(acquisition_dir, channel, zindex=0,
         y0 = position_y_pixels - int(img.shape[0]/2)
         y1 = y0 + img.shape[0]
         try:
-            canvas[y0:y1,x0:x1] = img #FIXME: in the future do averaging of overlapping pixels
+            if avg_overlap:
+                # FIXME: In the future maybe correct for angle of rotation of camera and stage
+                destination = canvas[y0:y1,x0:x1].copy()
+                empty = destination==0
+                destination[empty] = img[empty]
+                merge = (destination + img) / 2
+            else:
+                merge = img
+            canvas[y0:y1,x0:x1] = merge
             if idx_stitch:
-                idx_canvas[y0:y1,x0:x1] = posname_idx_mapper[posname]
+                # Position name index
+                idx_canvas[y0:y1,x0:x1,0] = np.zeros_like(img) + posname_idx_mapper[posname]
+                # Y index
+                idx_canvas[y0:y1,x0:x1,1] = np.zeros_like(img) * np.arange(img.shape[0])[:,None]
+                # X index
+                idx_canvas[y0:y1,x0:x1,2] = np.zeros_like(img) * np.arange(img.shape[1])[:,None].T
         except:
             print(f"Error placing image {posname} on canvas")
             print(x0,x1,y0,y1)
