@@ -11,9 +11,112 @@ from scipy import interpolate
 from skimage import restoration
 from skimage.measure import block_reduce
 from scipy.interpolate import RectBivariateSpline
+import os
+from tqdm import tqdm, trange
+from skimage.transform import resize, rescale
 # from file_handler import FileHandler
 
 # file_handler = FileHandler()
+from scipy.fftpack import dct, idct
+from scipy.fft import dctn, idctn
+def downsample_average(img, bin):
+    """Fast averaging downsampling function.
+    
+    Downsamples an image by averaging bin x bin pixel blocks. Trims the image
+    to be a multiple of bin size before downsampling.
+    
+    Args:
+        img (np.ndarray): Input image array (2D).
+        bin (int): Downsampling factor.
+    
+    Returns:
+        np.ndarray: Downsampled image array.
+    """
+    if bin <= 1:
+        return img
+    h, w = img.shape[:2]
+    h_trimmed = (h // bin) * bin
+    w_trimmed = (w // bin) * bin
+    img_trimmed = img[:h_trimmed, :w_trimmed]
+    reshaped = img_trimmed.reshape(h_trimmed // bin, bin, w_trimmed // bin, bin)
+    return reshaped.mean(axis=(1, 3))
+def interpolate_image(img, new_shape):
+    """Interpolate image to new shape.
+    """
+    return resize(img, new_shape, anti_aliasing=True)
+
+def fit_dct_surface(image, keep_fraction=0.01):
+    """
+    Fits a surface by keeping only the lowest frequency components.
+    keep_fraction: 0.01 means keep top 1% of frequencies (very smooth).
+    """
+    # 1. Forward DCT using faster 2D DCT
+    dct_matrix = dctn(image, norm='ortho')
+    
+    # 2. Zero out high frequencies
+    r, c = dct_matrix.shape
+    dct_matrix[int(r*keep_fraction):, :] = 0
+    dct_matrix[:, int(c*keep_fraction):] = 0
+    
+    # 3. Inverse DCT
+    return idctn(dct_matrix, norm='ortho')
+
+def calculate_corrections(acquisition_dir,channel=None,zindex=None,metadata_filename='Metadata.txt',group=None,position_names=None,n_samples=25,bin=4,output_pixel_size=None):
+    metadata = pd.read_csv(os.path.join(acquisition_dir, metadata_filename), delimiter='\t')
+    if channel is not None:
+        metadata = metadata[metadata['Channel']==channel]
+    if zindex is not None:
+        metadata = metadata[metadata['Zindex']==zindex]
+    metadata.index = metadata['Position']
+    if position_names is not None:
+        metadata = metadata[metadata.index.isin(position_names)]
+    if group is not None:
+        metadata = metadata[metadata['Group']==group]
+    # metadata = metadata.sample(n=n_samples*4)
+    pixel_size = metadata['PixelSize'].iloc[0]
+    if output_pixel_size is not None:
+        bin = int(max(1, round(output_pixel_size / pixel_size)))
+    else:
+        bin = int(bin)
+
+    first_row = metadata.iloc[0]
+    first_img = tifffile.imread(os.path.join(acquisition_dir, first_row['filename']))
+    initial_h, initial_w = first_img.shape
+    first_img = downsample_average(first_img, bin)
+    h, w = first_img.shape
+    imgs = np.zeros((h, w, n_samples), dtype=first_img.dtype)
+    n_images = len(metadata)
+    n_images_per_sample = n_images // n_samples
+    metadata = metadata.sample(frac=1).reset_index(drop=True)
+    for i in trange(n_samples,desc='Loading images',disable=True):
+        sample_imgs = np.zeros((h, w, n_images_per_sample), dtype=first_img.dtype)
+        for j in range(n_images_per_sample):
+            img = tifffile.imread(os.path.join(acquisition_dir, metadata.iloc[i*n_images_per_sample+j]['filename']))
+            img = downsample_average(img, bin)
+            sample_imgs[:, :, j] = img
+        rng = np.random.default_rng()
+        random_values = rng.random((h, w, n_images_per_sample))
+        perm_indices = np.argsort(random_values, axis=2)
+        sample_imgs = np.take_along_axis(sample_imgs, perm_indices, axis=2)
+        imgs[:, :, i] = sample_imgs[:,:,0]
+    rng = np.random.default_rng()
+    random_values = rng.random((h, w, n_samples))
+    perm_indices = np.argsort(random_values, axis=2)
+    imgs = np.take_along_axis(imgs, perm_indices, axis=2)
+    constant = np.percentile(imgs,5,axis=2)
+    constant = median_filter(constant,4).astype(np.float32)
+    for i in range(imgs.shape[2]):
+        imgs[:,:,i] = fit_dct_surface(imgs[:,:,i],keep_fraction=0.01)
+    FF = np.percentile(imgs,50,axis=2).astype(np.float32)
+    del imgs
+    if bin>1:
+        FF = interpolate_image(FF, (initial_h, initial_w))
+        constant = interpolate_image(constant, (initial_h, initial_w))
+    FF = FF - constant
+    FF = fit_dct_surface(FF,keep_fraction=0.001)
+    FF = np.clip(FF,1,None)
+    FF = np.median(FF) / FF
+    return constant,FF
 
 class ImageProcessor:
     """Image processing pipeline for fluorescence microscopy images.
@@ -190,7 +293,7 @@ class ImageProcessor:
         """
         if self.parameters['highpass_smooth'] > 0:
             img = self._image_filter(img, self.parameters['highpass_smooth_function'], self.parameters['highpass_smooth'])
-        if self.parameters['highpass_sigma'] > 0:
+        if (self.parameters['highpass_sigma'] > 0) and (not 'none' in self.parameters['highpass_function']):
             bkg = self._image_filter(img, self.parameters['highpass_function'], self.parameters['highpass_sigma'])
             img = img - bkg
         img = np.clip(img, 0, None)
