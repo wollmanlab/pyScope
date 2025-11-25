@@ -37,7 +37,12 @@ The primary objectives of pyScope are:
 
 #### 3. **Processing Module** (`Processing/`)
 - **Purpose**: Image processing, stitching, and registration
-- **Key Capabilities**: Image stitching, processing pipelines, registration, interactive tools
+- **Key Capabilities**: 
+  - Autonomous image stitching with flat-field correction
+  - Image processing pipelines (background subtraction, filtering)
+  - Image registration for position correction
+  - Interactive tools for ROI selection and coordinate selection
+  - File-based communication for automated workflows
 - **Documentation**: See [Processing/README.md](Processing/README.md) for detailed documentation
 
 #### 4. **FileHandler Class** (`file_handler.py`)
@@ -72,12 +77,13 @@ The pyScope system uses a **file-based communication** approach where components
 - **Experiment** (`experiment.py`): Runs with GUI, manages experiment state and task creation
 - **Scope** (`Scope/scope.py`): Runs independently, monitors for scope tasks via continuous monitoring
 - **Fluidics** (`Fluidics/fluidics.py`): Runs independently, monitors for fluidics tasks via file_handler integration
+- **Processing** (`Processing/processing.py`): Runs independently, monitors for processing tasks via continuous monitoring
 
 #### File-Based Communication Flow
-1. **GUI** initializes system-specific components (Experiment, Scope, Fluidics)
+1. **GUI** initializes system-specific components (Experiment, Scope, Fluidics, Processing)
 2. **Experiment** creates high-level tasks and writes them to `Experiment_tasks.csv`
-3. **Experiment** creates task triggers for Scope and Fluidics via status files
-4. **Scope** and **Fluidics** monitor their respective status files and execute tasks independently
+3. **Experiment** creates task triggers for Scope, Fluidics, and Processing via status files
+4. **Scope**, **Fluidics**, and **Processing** monitor their respective status files and execute tasks independently
 5. **Components** update status and progress files for GUI monitoring
 6. **GUI** provides real-time status updates and progress tracking
 
@@ -277,15 +283,18 @@ The Experiment class orchestrates multi-round imaging experiments with integrate
 **Task Types:**
 - **Scope Tasks**: Imaging protocols (SetFocus, FilterPositions, SetupAutoFocus, Acquire)
 - **Fluidics Tasks**: Fluid handling protocols (Hybe, Strip, Rinse, etc.)
+- **Processing Tasks**: Image processing protocols (Stitch with optional position indexing)
 - **Experiment Tasks**: High-level experiment events requiring coordination
 
 **Task Execution Flow:**
 1. Experiment creates tasks based on configuration (groups, rounds, protocols)
-2. Tasks are saved to `Experiment_tasks.csv` with columns for each system (Scope, Fluidics)
-3. Experiment executes tasks sequentially, waiting for each system to complete before proceeding
-4. Each task triggers the appropriate system via status file communication
-5. Systems execute tasks independently and update status/progress files
-6. Experiment monitors progress and coordinates multi-system workflows
+2. Tasks are saved to `Experiment_tasks.csv` with columns for each system (Scope, Fluidics, Processing)
+3. Processing tasks are automatically added after each Scope Acquire command
+4. First stitch for each group includes position indexing flag (`+idx_stitch`)
+5. Experiment executes tasks sequentially, waiting for each system to complete before proceeding
+6. Each task triggers the appropriate system via status file communication
+7. Systems execute tasks independently and update status/progress files
+8. Experiment monitors progress and coordinates multi-system workflows
 
 For detailed protocol information, see [Scope/README.md](Scope/README.md) and [Fluidics/README.md](Fluidics/README.md).
 
@@ -294,13 +303,15 @@ For detailed protocol information, see [Scope/README.md](Scope/README.md) and [F
 Components communicate through shared files in the `State` directory:
 
 **Key Communication Files:**
-- **`Experiment_tasks.csv`**: High-level experiment tasks with columns for Scope and Fluidics protocols
+- **`Experiment_tasks.csv`**: High-level experiment tasks with columns for Scope, Fluidics, and Processing protocols
 - **`Experiment_state.json`**: Experiment configuration (groups, rounds, protocols, channels)
 - **`Scope_status.txt`**: Current scope status (monitored by Experiment for coordination)
 - **`Fluidics_status.txt`**: Current fluidics status (monitored by Experiment for coordination)
+- **`Processing_status.txt`**: Current processing status (monitored by Experiment for coordination)
 - **`Positions.csv`**: Well positions with coordinates for imaging
 - **`Scope_tasks.csv`**: Detailed imaging tasks created by Scope from experiment tasks
 - **`Scope_task_idx.txt`**: Current task index for progress tracking
+- **`Processing_task_idx.txt`**: Current processing task index for progress tracking
 
 For detailed communication protocol information, see the respective module documentation.
 
