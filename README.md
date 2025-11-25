@@ -349,38 +349,92 @@ For detailed feature lists, see the [module documentation](#module-documentation
 
 ## Installation and Setup
 
-1. **Install Python Dependencies**:
+### Prerequisites
+
+1. **Install Cursor**: Download and install Cursor IDE
+2. **Install GitHub Desktop**: Download and install GitHub Desktop for repository management
+
+### Repository Setup
+
+3. **Clone pyScope Repository**:
+   ```bash
+   # Using GitHub Desktop or command line
+   git clone [repository-url]
+   ```
+
+### Python Environment Setup
+
+4. **Create Conda Environment**:
+   ```bash
+   conda create -n pyscope_3.12 python=3.12
+   conda activate pyscope_3.12
+   ```
+
+5. **Navigate to pyScope Directory**:
+   ```bash
+   cd pyScope
+   ```
+
+6. **Install Python Dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
-   
-   Or install core dependencies manually:
-   ```bash
-   pip install pandas numpy pycromanager scipy scikit-image tifffile matplotlib tqdm
-   ```
 
-2. **Install Micro-Manager**: 
-   - Download and install Micro-Manager
-   - Ensure pycromanager can connect to the core
+### Micro-Manager Installation
 
-3. **Configure System**:
-   - Set up `State` directory for runtime files
-   - Create plate configurations in `Plates` directory (see [Plates/README.md](Plates/README.md) for format details)
-   - Configure microscope parameters in experiment setup
+7. **Uninstall Existing Micro-Manager Installations**: Remove any previously installed versions of Micro-Manager
 
-4. **Launch System**:
-   ```bash
-   # IMPORTANT: Launch Micro-Manager first before running pyScope
-   # Start Micro-Manager and ensure the core is running
-   
-   # Windows: Easy launch
-   run_experiment.bat
-   
-   # Manual launch
-   python experiment.py
-   ```
-   
-   **Note**: pyScope requires Micro-Manager to be running before launch. The system will attempt to connect to the Micro-Manager core on startup. If Micro-Manager is not running, the scope will operate in simulation mode.
+8. **Install Micro-Manager**:
+   - Install `MMSetup_64bit_2.0.3_20250707`
+   - Follow the installation wizard to complete setup
+
+9. **Install Spinnaker SDK**:
+   - Install `SpinnakerSDK_FULL_2.3.0.77_x64`
+   - This is required for camera support
+
+10. **Configure Micro-Manager**:
+    - Open Micro-Manager
+    - Go to **Tools** → **Options**
+    - Enable **Run pycro-manager server on port 4827**
+    - Update Micro-Manager configuration as needed for your hardware setup
+
+### System-Specific Configuration
+
+11. **Create Desktop Shortcut**:
+    ```powershell
+    .\create_shortcut.ps1
+    ```
+    This creates a desktop shortcut for running experiments.
+
+12. **Create Scope Class for Your Device**:
+    - Determine your PC name (e.g., if your PC is named "BlueScope")
+    - Create a new file in the `Scope/` directory named `bluescope.py` (lowercase)
+    - Create a class named `BlueScope` (PascalCase) that inherits from the base `Scope` class
+    - See existing examples: `Scope/cyanscope.py` for reference
+
+13. **Create Fluidics Class for Your Device**:
+    - Determine your PC name (e.g., if your PC is named "BlueScope")
+    - Create a new file in the `Fluidics/` directory named `bluefluidics.py` (lowercase)
+    - Create a class named `BlueFluidics` (PascalCase) that inherits from the base `Fluidics` class
+    - See existing examples: `Fluidics/cyanfluidics.py` for reference
+
+### Launching the System
+
+14. **Run Experiment**:
+    - Double-click the "Run Experiment" shortcut on your Desktop
+    - Or manually run:
+      ```bash
+      # IMPORTANT: Launch Micro-Manager first before running pyScope
+      # Start Micro-Manager and ensure the core is running
+      
+      # Windows: Easy launch
+      run_experiment.bat
+      
+      # Manual launch
+      python experiment.py
+      ```
+    
+    **Note**: pyScope requires Micro-Manager to be running before launch. The system will attempt to connect to the Micro-Manager core on startup. If Micro-Manager is not running, the scope will operate in simulation mode.
 
 ## Module Documentation
 
