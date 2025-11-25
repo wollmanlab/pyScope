@@ -610,15 +610,18 @@ class StatusPanel:
             if self.system_name == "Experiment":
                 from experiment import Experiment
                 self.launched_instance = Experiment()
+                self.log(f"{self.panel_name}: Instantiating Experiment class")
             elif self.system_name == "Scope":
                 module = importlib.import_module(f"Scope.{self.system_prefix.lower()}scope")
                 class_name = f"{self.system_prefix}Scope"
                 scope_class = getattr(module, class_name)
+                self.log(f"{self.panel_name}: Instantiating Scope class")
                 self.launched_instance = scope_class()
             elif self.system_name == "Fluidics":
                 module = importlib.import_module(f"Fluidics.{self.system_prefix.lower()}fluidics")
                 class_name = f"{self.system_prefix}Fluidics"
                 fluidics_class = getattr(module, class_name)
+                self.log(f"{self.panel_name}: Instantiating Fluidics class")
                 self.launched_instance = fluidics_class()
             else:
                 print(f"Unknown system: {self.system_name}")
@@ -639,8 +642,9 @@ class StatusPanel:
             # Update button appearance
             self.launch_btn.config(text="Kill", bg=GUI_COLORS['error'], fg='white')
             
-            # Update status
-            status = self.launched_instance.status
+            # Update status - use file_handler directly with read_only=True to avoid blocking
+            # (Fluidics status property uses read_only=False which can block on "Paused" status)
+            status = self.file_handler.get_status(self.system_name, read_only=True)
             self.status_label.config(text=status, fg=GUI_COLORS['success'])
             
             # Ensure status label is always in sync with file
