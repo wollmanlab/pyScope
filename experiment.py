@@ -188,6 +188,10 @@ class Experiment():
         """
         self.tasks = self.file_handler.get_tasks("Experiment")
         for idx, task in self.tasks.iterrows():
+            # add pause checing for statusfile for experiment
+            if 'stop' in self.file_handler.get_status("Experiment",read_only=False).lower():
+                self.log("Experiment is stopped, stopping experiment", level='warning')
+                return
             if 'stop' in self.file_handler.get_status("Scope",read_only=False).lower():
                 self.log("Scope is stopped, stopping experiment", level='warning')
                 return
@@ -405,7 +409,7 @@ class Experiment():
         Returns:
             None: Tasks are saved to file via FileHandler.
         """
-        systems = ['Scope','Fluidics']
+        systems = ['Scope','Fluidics']#,'Processing']
         self.tasks = pd.DataFrame(columns=systems)
         
         # Get experiment state
@@ -455,6 +459,8 @@ class Experiment():
         task_number += 1
         
 
+        first_stitch_tracked = set()
+        
         if len(groups) == 1:
             group = groups[0]
             group_wells = [well for well in positions_df['well'].unique() if group_assignments.get(well) == group]
@@ -470,6 +476,13 @@ class Experiment():
                     self.tasks.loc[task_number,'Fluidics'] = fluidics_command
                     task_number += 1
                     self.tasks.loc[task_number,'Scope'] = scope_command
+                    
+                    stitch_command = f"Stitch*{str(group_wells)}*{fluidics_protocol+str(round+1)}" #e.g. 'Stitch*['A', 'B']*Strip1'
+                    stitch_key = f"{group}_{fluidics_protocol}"
+                    if stitch_key not in first_stitch_tracked:
+                        stitch_command += "+idx_stitch" #e.g. 'Stitch*['A', 'B']*Strip1+idx_stitch'
+                        first_stitch_tracked.add(stitch_key)
+                    # self.tasks.loc[task_number+1,'Processing'] = stitch_command
         else:
             for round in range(num_hybes):
                 for fluidics_protocol in fluidics_protocols: # ['Strip', 'Hybe']
@@ -482,6 +495,13 @@ class Experiment():
                         task_number += 1
                         self.tasks.loc[task_number,'Fluidics'] = fluidics_command
                         self.tasks.loc[task_number+1,'Scope'] = scope_command
+                        
+                        stitch_command = f"Stitch*{str(group_wells)}*{fluidics_protocol+str(round+1)}" #e.g. 'Stitch*['A', 'B']*Strip1'
+                        stitch_key = f"{group}_{fluidics_protocol}"
+                        if stitch_key not in first_stitch_tracked:
+                            stitch_command += "+idx_stitch" #e.g. 'Stitch*['A', 'B']*Strip1+idx_stitch'
+                            first_stitch_tracked.add(stitch_key)
+                        # self.tasks.loc[task_number+2,'Processing'] = stitch_command
 
         if skip_first_fluidics_task:
             # find the first fluidics task and delete it
