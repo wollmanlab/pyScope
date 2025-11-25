@@ -373,7 +373,7 @@ class Scope:
             if filtering_method == 'Draw':
                 self.log(f"Interactive ROI selection for: {chamber}",level='info')
                 mask,canvas_rgb = interactive_roi_selection(canvas,message = 'Select areas that you want \n to image one region at a time')
-                positions_to_keep = filter_positions(idx_canvas, mask, posname_idx_mapper)
+                positions_to_keep = filter_positions(idx_canvas[:,:,0], mask, posname_idx_mapper)
                 chamber_positions = chamber_positions[chamber_positions['position_name'].isin(positions_to_keep.keys())]
                 for idx,row in chamber_positions.iterrows():
                     chamber_positions.loc[idx,'group'] = f"{chamber}-{positions_to_keep[row['position_name']]}"
@@ -797,9 +797,10 @@ class Scope:
                 )
                 points = []
                 extra_message = ''
-                while len(points)<4:
-                    points = interactive_coordinate_selection(canvas, message = f"Select atleast 4 areas where you want to set focus{extra_message}")
-                    if len(points)<4:
+                n_points = 5
+                while len(points)<n_points:
+                    points = interactive_coordinate_selection(canvas, message = f"Select atleast {n_points} areas where you want to set focus{extra_message}")
+                    if len(points)<n_points:
                         extra_message = f"\n\nYou need to select atleast 4 points. You have selected {len(points)}"
                 for point in points:
                     stage_coordinates = pixel2stage(point[0], point[1])
