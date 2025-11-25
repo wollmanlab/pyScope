@@ -553,7 +553,7 @@ class RelativeAutofocus(ImageScanAutofocus):
                     output_pixel_size=50,
                     idx_stitch=True
                 )
-                
+            idx_canvas = idx_canvas[:,:,0]
             groups = well_positions['autofocus_group'].unique()
             for autofocus_group in groups:
                 group_positions = well_positions[well_positions['autofocus_group'] == autofocus_group]
