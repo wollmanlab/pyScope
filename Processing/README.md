@@ -1,6 +1,6 @@
 # Processing Module
 
-The Processing module provides image processing, stitching, registration, and segmentation functionality for pyScope. It supports both automated processing pipelines and interactive tools for manual curation.
+The Processing module provides image processing, stitching, registration, and segmentation functionality for pyScope. It supports both automated processing pipelines and interactive tools for manual curation. The module includes an autonomous `Processing` class that operates independently with continuous monitoring for automated experiment execution.
 
 ## Overview
 
@@ -10,8 +10,56 @@ The Processing module is responsible for:
 - **Image Registration**: Phase correlation-based registration for position correction
 - **Interactive Tools**: ROI selection and coordinate selection for manual curation
 - **Position Filtering**: Filter positions based on ROI selections
+- **Autonomous Processing**: Independent operation with file-based communication for automated stitching workflows
 
 ## Architecture
+
+### Core Classes
+
+#### `Processing` (`processing.py`)
+The main processing orchestrator class that provides:
+- File-based communication with Experiment system
+- Continuous monitoring for autonomous task execution
+- Automated stitching workflows with flat-field correction
+- Integration with experiment task scheduling
+
+**Key Features:**
+- Autonomous operation via continuous monitoring loop
+- Automatic flat-field (FF) and constant correction calculation
+- Group-based stitching with position indexing support
+- Status management and progress tracking
+- Command interpretation and protocol execution
+
+**Protocols:**
+- **Stitch**: Automated stitching protocol that:
+  1. Finds latest acquisition directories for specified chambers
+  2. Calculates flat-field and constant corrections for each channel
+  3. Saves corrections as TIF files
+  4. Stitches images per group with corrections applied
+  5. Saves stitched images and optional indexing outputs
+
+**Command Format:**
+```
+Stitch*['A','B']*hybe1
+Stitch*['A','B']*hybe1+idx_stitch
+```
+
+**Output Files:**
+- `FF_{channel}.tif`: Flat-field correction image
+- `constant_{channel}.tif`: Constant offset image
+- `stitched_{channel}_{group}.tif`: Stitched image (uint16)
+- `pixel2stage_{channel}_{group}.pkl`: Coordinate transformation function (if idx_stitch)
+- `idx_canvas_{channel}_{group}.tif`: Position indexing array (if idx_stitch)
+- `posname_idx_mapper_{channel}_{group}.json`: Position name to index mapping (if idx_stitch)
+
+**Usage:**
+```python
+from Processing.processing import Processing
+
+# Initialize and start continuous monitoring
+processing = Processing()
+processing.continuous_monitoring()
+```
 
 ### Core Modules
 
@@ -243,6 +291,41 @@ positions_to_keep = filter_positions(
 
 ## Usage Examples
 
+### Autonomous Processing Operation
+
+```python
+from Processing.processing import Processing
+
+# Initialize Processing class
+processing = Processing()
+
+# Start continuous monitoring (runs indefinitely)
+processing.continuous_monitoring()
+```
+
+The Processing class will:
+1. Monitor `Processing_status.txt` for commands
+2. Execute stitching protocols automatically
+3. Calculate flat-field corrections
+4. Stitch images per group
+5. Save outputs to acquisition directories
+
+### Experiment Integration
+
+Processing tasks are automatically created by the Experiment class:
+
+```python
+# Experiment automatically creates tasks like:
+# Stitch*['A','B']*hybe1
+# Stitch*['A','B']*Strip1+idx_stitch  # First stitch includes indexing
+
+# Processing executes these tasks independently:
+# 1. Finds latest acquisition matching 'hybe1' for wells A and B
+# 2. Calculates FF and constant for each channel
+# 3. Stitches images per group
+# 4. Saves stitched images and optional indexing outputs
+```
+
 ### Basic Stitching
 
 ```python
@@ -367,6 +450,23 @@ registration_dict = {
 }
 ```
 
+## Integration with Experiment Workflow
+
+The Processing module is integrated into the experiment workflow:
+
+1. **Task Scheduling**: Experiment automatically creates Processing tasks after each Scope Acquire command
+2. **Autonomous Operation**: Processing runs independently, monitoring for tasks via file-based communication
+3. **Automatic Stitching**: After each acquisition, Processing automatically:
+   - Calculates flat-field corrections
+   - Stitches images per group
+   - Saves outputs to acquisition directories
+4. **Position Indexing**: First stitch for each group includes position indexing for ROI-based analysis
+
+**Task Integration:**
+- Processing tasks are automatically added to `Experiment_tasks.csv` after each Scope Acquire task
+- First stitch command for each group includes `+idx_stitch` flag for position indexing
+- Processing executes tasks independently, coordinating with Experiment via status files
+
 ## Integration with Scope Module
 
 The Processing module is tightly integrated with the Scope module:
@@ -375,6 +475,42 @@ The Processing module is tightly integrated with the Scope module:
 2. **Focus Setting**: Scope uses `interactive_coordinate_selection()` for manual focus point selection
 3. **Preview Stitching**: Scope uses `stitch_acquisition()` for preview generation and display
 4. **Image Processing**: Optional ImageProcessor can be passed to stitching functions
+5. **Automated Workflow**: Processing automatically stitches acquisitions created by Scope
+
+## File-Based Communication
+
+The Processing class communicates with the Experiment system through files in the `State` directory:
+
+### Input Files
+- **`Processing_status.txt`**: Task trigger file with protocol commands
+- **`Metadata.txt`**: Image metadata in acquisition directories
+- **Acquisition directories**: Image files and metadata from Scope acquisitions
+
+### Output Files
+- **`Processing_status.txt`**: Current processing status (Idle, Running, Finished, Error)
+- **`Processing_task_idx.txt`**: Current task index for progress tracking
+- **`Processing.log`**: Logging output
+- **Acquisition directories**: Stitched images and correction files
+
+### Status Values
+- `Idle`: Ready for new tasks
+- `Running:<protocol>`: Currently executing a protocol
+- `Finished:<protocol>`: Protocol completed successfully
+- `Error:<message>`: Error occurred during execution
+- `Offline`: Processing monitoring stopped
+
+### Command Format
+Commands are sent via status file in the format:
+```
+Command:Stitch*['A','B']*hybe1
+Command:Stitch*['A','B']*hybe1+idx_stitch
+```
+
+Where:
+- `Stitch`: Protocol name
+- `['A','B']`: List of chamber/well names
+- `hybe1`: Acquisition name
+- `+idx_stitch`: Optional flag for position indexing (first stitch per group)
 
 ## File Formats
 
@@ -386,11 +522,13 @@ Stitching expects a tab-separated metadata file (`Metadata.txt`) with columns:
 - `X`, `Y`: Stage coordinates in microns
 - `filename`: Image filename
 - `PixelSize`: Pixel size in microns
+- `Group`: Group assignment for position (optional)
 
 ### Image Formats
 - Supports TIFF images via `tifffile`
 - 16-bit unsigned integer arrays (uint16)
 - Grayscale images (2D arrays)
+- 3D arrays for position indexing (height × width × 3)
 
 ## Dependencies
 
