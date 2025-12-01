@@ -11,6 +11,7 @@ from file_handler import FileHandler
 from Processing.stitching import stitch_acquisition, interactive_coordinate_selection
 from scipy.ndimage import gaussian_filter, median_filter, minimum_filter, percentile_filter
 from scipy import ndimage
+from scipy.interpolate import interp1d
 # Import GUI styling from gui_styling.py (separated to avoid circular imports)
 from gui_styling import GUI_COLORS, GUI_FONTS, apply_dark_theme, create_dark_style
 
@@ -151,15 +152,26 @@ class ImageScanAutofocus(Autofocus):
         for window_width,window_stepsize in selected_windows:
             starting_Z = scope.Z
             steps = np.arange(starting_Z - window_width,starting_Z + window_width,window_stepsize)
-            metrics = np.zeros(len(steps))
+            metrics = np.full(len(steps), np.nan)
             for i, step in enumerate(steps):
                 if not scope.is_valid('Z', step):
                     self.log(f"ImageScanAutofocus Invalid Z: { step}",level='warning')
                     continue
                 scope.Z =  step
                 metrics[i] = self.calculate_metric(scope.snapImage())
-            best_step = steps[np.argmax(metrics)]
-            self.log(f"Best step: {best_step} with metric: {metrics[np.argmax(metrics)]}",level='info')
+            valid_mask = ~np.isnan(metrics)
+            if not np.any(valid_mask):
+                self.log("No valid metrics found", level='error')
+                continue
+            valid_steps = steps[valid_mask]
+            valid_metrics = metrics[valid_mask]
+            smoothed_metrics = gaussian_filter(valid_metrics, sigma=3)
+            interp_kind = 'cubic' if len(valid_steps) >= 4 else 'linear'
+            interp_func = interp1d(valid_steps, smoothed_metrics, kind=interp_kind, bounds_error=False, fill_value='extrapolate')
+            fine_steps = np.linspace(valid_steps.min(), valid_steps.max(), num=len(valid_steps) * 10)
+            fine_metrics = interp_func(fine_steps)
+            best_step = fine_steps[np.argmax(fine_metrics)]
+            self.log(f"Best step: {best_step} with metric: {np.max(fine_metrics)}",level='info')
             self.log(f"info {zip(steps,metrics)}",level='info')
             scope.Z = best_step
         scope.Channel = previous_channel
