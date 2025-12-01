@@ -12,6 +12,8 @@ from Processing.stitching import stitch_acquisition, interactive_coordinate_sele
 from scipy.ndimage import gaussian_filter, median_filter, minimum_filter, percentile_filter
 from scipy import ndimage
 from scipy.interpolate import interp1d
+import matplotlib.pyplot as plt
+import time
 # Import GUI styling from gui_styling.py (separated to avoid circular imports)
 from gui_styling import GUI_COLORS, GUI_FONTS, apply_dark_theme, create_dark_style
 
@@ -143,13 +145,29 @@ class ImageScanAutofocus(Autofocus):
         scope.Exposure = self.exposure
         scope.Binning = self.binning
         selected_windows = []
+        window_types = []
         if 'coarse' in windows:
             selected_windows.append(self.coarse_window)
+            window_types.append('coarse')
         if 'medium' in windows:
             selected_windows.append(self.medium_window)
+            window_types.append('medium')
         if 'fine' in windows:
             selected_windows.append(self.fine_window)
-        for window_width,window_stepsize in selected_windows:
+            window_types.append('fine')
+        window_colors = {'coarse': 'black', 'medium': 'orange', 'fine': 'cyan'}
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+        ax1.set_xlabel('Z Position (μm)')
+        ax1.set_ylabel('Focus Metric')
+        ax1.set_title('Focus Metrics vs Z Position')
+        ax1.grid(True, alpha=0.3)
+        ax2.set_title('Best Focus Image')
+        ax2.axis('off')
+        plt.ion()
+        plt.show()
+        for window_idx, (window_width, window_stepsize) in enumerate(selected_windows):
+            window_type = window_types[window_idx]
+            color = window_colors[window_type]
             starting_Z = scope.Z
             steps = np.arange(starting_Z - window_width,starting_Z + window_width,window_stepsize)
             metrics = np.full(len(steps), np.nan)
@@ -174,9 +192,22 @@ class ImageScanAutofocus(Autofocus):
             self.log(f"Best step: {best_step} with metric: {np.max(fine_metrics)}",level='info')
             self.log(f"info {zip(steps,metrics)}",level='info')
             scope.Z = best_step
+            best_image = scope.snapImage()
+            vmin,vmax = np.percentile(best_image, [5,95])
+            ax1.plot(fine_steps, fine_metrics, color=color, linewidth=2, label=f'{window_type}')
+            ax1.scatter(valid_steps, valid_metrics, color=color, s=30, alpha=0.6)
+            ax1.legend()
+            ax2.clear()
+            ax2.imshow(best_image, cmap='gray', aspect='auto', vmin=vmin, vmax=vmax)
+            ax2.set_title(f'Best Focus Image ({window_type})')
+            ax2.axis('off')
+            plt.draw()
+            plt.pause(0.1)
         scope.Channel = previous_channel
         scope.Exposure = previous_exposure
         scope.Binning = previous_binning
+        plt.pause(60)
+        plt.close(fig)
         return scope.Z
 
     def calculate_metric(self, image):
