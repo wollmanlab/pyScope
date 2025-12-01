@@ -3831,31 +3831,37 @@ class SystemGUI:
         """Clear all saved system files."""
         try:
             import os
-            #FUTURE : remove based on file type maybe with system prefix
-            # Files to remove - all system state files
-            #FIXME : remove based on file type maybe with system prefix
-            files_to_remove = [
-                'Experiment_state.json',
-                'Positions.csv', 
-                'Experiment_tasks.csv',
-                'Experiment_task_idx.txt',
-                'Experiment_status.txt',
-                'Scope_state.json',
-                'Scope_tasks.csv',
-                'Scope_task_idx.txt', 
-                'Scope_status.txt',
-                'Fluidics_state.json',
-                'Fluidics_tasks.csv',
-                'Fluidics_task_idx.txt',
-                'Fluidics_status.txt',
-                'scope_task.txt'  # Scope task trigger file
-            ]
-            
-            for filename in files_to_remove:
+            # Remove everything in the State directory
+            for filename in os.listdir(self.file_handler.system_state_dir):
                 filepath = os.path.join(self.file_handler.system_state_dir, filename)
                 if os.path.exists(filepath):
                     os.remove(filepath)
                     self.log(f"Removed file: {filename}")
+            # #FUTURE : remove based on file type maybe with system prefix
+            # # Files to remove - all system state files
+            # #FIXME : remove based on file type maybe with system prefix
+            # files_to_remove = [
+            #     'Experiment_state.json',
+            #     'Positions.csv', 
+            #     'Experiment_tasks.csv',
+            #     'Experiment_task_idx.txt',
+            #     'Experiment_status.txt',
+            #     'Scope_state.json',
+            #     'Scope_tasks.csv',
+            #     'Scope_task_idx.txt', 
+            #     'Scope_status.txt',
+            #     'Fluidics_state.json',
+            #     'Fluidics_tasks.csv',
+            #     'Fluidics_task_idx.txt',
+            #     'Fluidics_status.txt',
+            #     'scope_task.txt'  # Scope task trigger file
+            # ]
+            
+            # for filename in files_to_remove:
+            #     filepath = os.path.join(self.file_handler.system_state_dir, filename)
+            #     if os.path.exists(filepath):
+            #         os.remove(filepath)
+            #         self.log(f"Removed file: {filename}")
             
             # Reset status files to initial state
             self.file_handler.save_status("Experiment", "Idle")
