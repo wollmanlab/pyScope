@@ -2075,7 +2075,7 @@ class SystemGUI:
                 for col in range(columns):
                     well_name = f"{chr(65 + row)}{col + 1}"  # A1, A2, B1, B2, etc.
                     well_x = center_x + (col - (columns - 1) / 2) * column_spacing
-                    well_y = center_y + (row - (rows - 1) / 2) * row_spacing
+                    well_y = center_y + ((rows - 1 - row) - (rows - 1) / 2) * row_spacing
                     
                     generated_wells[well_name] = {
                         'center': {'X': well_x, 'Y': well_y, 'Z': center_z},
@@ -3835,7 +3835,11 @@ class SystemGUI:
             for filename in os.listdir(self.file_handler.system_state_dir):
                 filepath = os.path.join(self.file_handler.system_state_dir, filename)
                 if os.path.exists(filepath):
-                    os.remove(filepath)
+                    try:
+                        os.remove(filepath)
+                    except Exception as e:
+                        self.log(f"Error removing file: {e}", level='warning')
+                        continue
                     self.log(f"Removed file: {filename}")
             # #FUTURE : remove based on file type maybe with system prefix
             # # Files to remove - all system state files
