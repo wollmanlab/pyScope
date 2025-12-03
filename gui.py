@@ -2303,7 +2303,7 @@ class SystemGUI:
             entry = tk.Entry(fluidics_frame, bg=GUI_COLORS['entry'], 
                            fg=GUI_COLORS['text'], insertbackground=GUI_COLORS['text'], width=5)
             entry.pack(anchor='w')
-            entry.insert(0, chr(65 + list(unique_wells).index(well)))  # Default to A, B, C, etc.
+            entry.insert(0, well)  # Default to well name
             self.fluidics_well_entries[well] = entry
         
         # Pack scrollable components
