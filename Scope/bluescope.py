@@ -27,19 +27,19 @@ class BlueScope(Scope):
         self.config['MM_config_path'] = 'C:\GitRepos\pyScope\Configs\BlueScope_config.cfg'
         self.config['tolerance'] = {'X': 0.1, 'Y': 0.1, 'Z': 0.1,'Exposure': 0.1}
         self.config['limits'] = {
-            'Y': (6500, 92500), 'X': (113000, 250000), 'Z': (0, 13000),
+            'Y': (-42000.0, 42000.0), 'X': (-68000.0, 68000.0), 'Z': (0, 8000.0),
             'Shutter': (False, True),'Autoshutter': (False, True),
-            'Exposure': (0, 10000), 'Binning': ['1', '2', '4'], 
+            'Exposure': (0, 10000), 'Binning': ['1'], 
             'Channel': ['FarRed', 'DeepBlue', 'Green', 'Orange'], 
             'Time': (0, 1e8)
         }
         # self.config['offsets'] = {'X': 0, 'Y': 0, 'Z': 0}
-        self.config['offsets'] = {'X': 186000.0, 'Y': 49500.0, 'Z': 6500.0}
+        self.config['offsets'] = {'X': 0.0, 'Y': 0.0, 'Z': 0.0}
         # for key in self.config['offsets']:
             # self.config['offsets'][key] = (self.config['limits'][key][0] + self.config['limits'][key][1]) / 2
             
         self.config['axis_mapping'] = {'stage_x': 'plate_x', 'stage_y': 'plate_y'}
-        self.config['ImageShape'] = np.array([3000,4096])
+        self.config['ImageShape'] = np.array([2048,2448])
         self.config['PixelSize'] = 0.343
         self.tolerance = self.config['tolerance']
         self.limits = self.config['limits']
