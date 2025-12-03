@@ -30,6 +30,7 @@ class Autofocus:
     
     def __init__(self):
         """Initialize the Autofocus base class."""
+        self.level = None
         self.file_handler = FileHandler()
         
     def log(self, message, level='info'):
@@ -479,6 +480,7 @@ class RelativeAutofocus(ImageScanAutofocus):
         """
         positions = scope.file_handler.Positions
         if self.level == 'plate':
+            self.setup_method = 'manual'
             positions['autofocus_group'] = 'plate'
         else:
             positions['autofocus_group'] = positions[self.level]
