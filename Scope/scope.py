@@ -590,7 +590,12 @@ class Scope:
         self.file_handler.save_tasks("Scope", positions)
         current_idx = 0
         self.file_handler.save_task_idx("Scope", current_idx)
-
+        try:
+            if self.AutoFocus.level=='plate':
+                self.AutoFocus.update_focus(self,'plate')
+        except Exception as e:
+            self.log(f"Did not perform Plate autofocus: {e}",level='warning')
+        
         for chamber in chambers:
             chamber_acquisition_name = f"{acquisition_name}_Well-{chamber}"
             self.log(f"Acquiring images for: {chamber}",level='info')
@@ -600,7 +605,14 @@ class Scope:
             for autofocus_group in autofocus_groups:
                 self.log(f"Acquiring images for autofocus group: {autofocus_group}",level='info')
                 autofocus_group_positions = chamber_positions[chamber_positions['autofocus_group'] == autofocus_group]
-                self.AutoFocus.update_focus(self,autofocus_group)
+                do_autofocus = True
+                try:
+                    if self.AutoFocus.level!='plate':
+                        do_autofocus = False
+                except Exception as e:
+                    self.log(f"Error checking autofocus: {e}",level='warning')
+                if do_autofocus:
+                    self.AutoFocus.update_focus(self,autofocus_group)
                 groups = autofocus_group_positions['group'].unique()
                 for group in groups:
                     group_positions = autofocus_group_positions[autofocus_group_positions['group'] == group]
