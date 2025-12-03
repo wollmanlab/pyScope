@@ -195,6 +195,7 @@ class ImageScanAutofocus(Autofocus):
             scope.Z = best_step
             best_image = scope.snapImage()
             vmin,vmax = np.percentile(best_image, [5,95])
+            ax1.set_xlim([fine_steps.min(), fine_steps.max()])
             ax1.plot(fine_steps, fine_metrics, color=color, linewidth=2, label=f'{window_type}')
             ax1.scatter(valid_steps, valid_metrics, color=color, s=30, alpha=0.6)
             ax1.legend()
@@ -207,7 +208,7 @@ class ImageScanAutofocus(Autofocus):
         scope.Channel = previous_channel
         scope.Exposure = previous_exposure
         scope.Binning = previous_binning
-        plt.pause(60)
+        plt.pause(30)
         plt.close(fig)
         return scope.Z
 
