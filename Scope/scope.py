@@ -607,7 +607,7 @@ class Scope:
                 autofocus_group_positions = chamber_positions[chamber_positions['autofocus_group'] == autofocus_group]
                 do_autofocus = True
                 try:
-                    if self.AutoFocus.level!='plate':
+                    if self.AutoFocus.level=='plate':
                         do_autofocus = False
                 except Exception as e:
                     self.log(f"Error checking autofocus: {e}",level='warning')
