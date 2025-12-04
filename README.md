@@ -436,6 +436,10 @@ For detailed feature lists, see the [module documentation](#module-documentation
     
     **Note**: pyScope requires Micro-Manager to be running before launch. The system will attempt to connect to the Micro-Manager core on startup. If Micro-Manager is not running, the scope will operate in simulation mode.
 
+## Crash Instructions
+
+In `Experiment_tasks.csv` delete the lines of the tasks already completed except for "Scope, Fluidics" and "SetupAutoFocus", Write "idle" on `Scope_status.txt` and `Experiment_status.txt`, On Pyscope launch everything and then press start
+
 ## Module Documentation
 
 For detailed documentation on specific modules, see:
