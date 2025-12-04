@@ -157,9 +157,9 @@ class Experiment():
         """
         start_time = time.time()
         while self.is_busy(device):
-            self.log(f"Device {device} is busy, waiting until not busy, {time.time() - start_time} seconds",level='info')
+            self.log(f"Device {device} is busy, waiting until not busy, {int(time.time() - start_time)} seconds",level='info')
             time.sleep(30)
-        self.log(f"Device {device} is not busy after {time.time() - start_time} seconds",level='info')
+        self.log(f"Device {device} is not busy after {int(time.time() - start_time)} seconds",level='info')
 
     def execute_protocol(self, message):
         """Execute a protocol based on command message.
