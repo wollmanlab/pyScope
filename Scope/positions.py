@@ -656,23 +656,20 @@ class Positions:
             
             for i, stage_pos in enumerate(stage_positions):
                 try:
-                    # Extract device positions
+                    # Get the device names from the position entry itself
+                    default_xy_stage = stage_pos.get('DefaultXYStage', {}).get('scalar', '')
+                    default_z_stage = stage_pos.get('DefaultZStage', {}).get('scalar', '')
                     device_positions = stage_pos.get('DevicePositions', {}).get('array', [])
-                    
-                    # Initialize coordinates
                     x_pos = None
                     y_pos = None
                     z_pos = None
-                    
-                    # Extract coordinates from device positions
                     for device_pos in device_positions:
                         device_name = device_pos.get('Device', {}).get('scalar', '')
                         position_array = device_pos.get('Position_um', {}).get('array', [])
-                        
-                        if device_name == 'XYStage' and len(position_array) >= 2:
+                        if device_name == default_xy_stage and len(position_array) >= 2:
                             x_pos = position_array[0]
                             y_pos = position_array[1]
-                        elif device_name == 'Stage' and len(position_array) >= 1:
+                        elif device_name == default_z_stage and len(position_array) >= 1:
                             z_pos = position_array[0]
                     
                     # Check if we have valid coordinates
