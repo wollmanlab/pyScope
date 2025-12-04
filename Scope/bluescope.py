@@ -27,7 +27,7 @@ class BlueScope(Scope):
         self.config['MM_config_path'] = 'C:\GitRepos\pyScope\Configs\BlueScope_config.cfg'
         self.config['tolerance'] = {'X': 0.1, 'Y': 0.1, 'Z': 0.1,'Exposure': 0.1}
         self.config['limits'] = {
-            'Y': (-42000.0, 42000.0), 'X': (-68000.0, 68000.0), 'Z': (0, 8000.0),
+            'Y': (-42000.0, 42000.0), 'X': (-68000.0, 68000.0), 'Z': (-2000.0, 2000.0),
             'Shutter': (False, True),'Autoshutter': (False, True),
             'Exposure': (0, 10000), 'Binning': ['1'], 
             'Channel': ['FarRed', 'DeepBlue', 'Green', 'Orange'], 
