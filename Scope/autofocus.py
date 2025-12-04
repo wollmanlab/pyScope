@@ -156,19 +156,19 @@ class ImageScanAutofocus(Autofocus):
         if 'fine' in windows:
             selected_windows.append(self.fine_window)
             window_types.append('fine')
-        window_colors = {'coarse': 'black', 'medium': 'orange', 'fine': 'cyan'}
-        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
-        ax1.set_xlabel('Z Position (μm)')
-        ax1.set_ylabel('Focus Metric')
-        ax1.set_title('Focus Metrics vs Z Position')
-        ax1.grid(True, alpha=0.3)
-        ax2.set_title('Best Focus Image')
-        ax2.axis('off')
-        plt.ion()
-        plt.show()
+        # window_colors = {'coarse': 'black', 'medium': 'orange', 'fine': 'cyan'}
+        # fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+        # ax1.set_xlabel('Z Position (μm)')
+        # ax1.set_ylabel('Focus Metric')
+        # ax1.set_title('Focus Metrics vs Z Position')
+        # ax1.grid(True, alpha=0.3)
+        # ax2.set_title('Best Focus Image')
+        # ax2.axis('off')
+        # plt.ion()
+        # plt.show()
         for window_idx, (window_width, window_stepsize) in enumerate(selected_windows):
             window_type = window_types[window_idx]
-            color = window_colors[window_type]
+            # color = window_colors[window_type]
             starting_Z = scope.Z
             steps = np.arange(starting_Z - window_width,starting_Z + window_width,window_stepsize)
             metrics = np.full(len(steps), np.nan)
@@ -193,23 +193,23 @@ class ImageScanAutofocus(Autofocus):
             self.log(f"Best step: {best_step} with metric: {np.max(fine_metrics)}",level='info')
             self.log(f"info {zip(steps,metrics)}",level='info')
             scope.Z = best_step
-            best_image = scope.snapImage()
-            vmin,vmax = np.percentile(best_image, [5,95])
-            ax1.set_xlim([fine_steps.min(), fine_steps.max()])
-            ax1.plot(fine_steps, fine_metrics, color=color, linewidth=2, label=f'{window_type}')
-            ax1.scatter(valid_steps, valid_metrics, color=color, s=30, alpha=0.6)
-            ax1.legend()
-            ax2.clear()
-            ax2.imshow(best_image, cmap='gray', aspect='auto', vmin=vmin, vmax=vmax)
-            ax2.set_title(f'Best Focus Image ({window_type})')
-            ax2.axis('off')
-            plt.draw()
-            plt.pause(0.1)
+            # best_image = scope.snapImage()
+            # vmin,vmax = np.percentile(best_image, [5,95])
+            # ax1.set_xlim([fine_steps.min(), fine_steps.max()])
+            # ax1.plot(fine_steps, fine_metrics, color=color, linewidth=2, label=f'{window_type}')
+            # ax1.scatter(valid_steps, valid_metrics, color=color, s=30, alpha=0.6)
+            # ax1.legend()
+            # ax2.clear()
+            # ax2.imshow(best_image, cmap='gray', aspect='auto', vmin=vmin, vmax=vmax)
+            # ax2.set_title(f'Best Focus Image ({window_type})')
+            # ax2.axis('off')
+            # plt.draw()
+            # plt.pause(0.1)
         scope.Channel = previous_channel
         scope.Exposure = previous_exposure
         scope.Binning = previous_binning
-        plt.pause(30)
-        plt.close(fig)
+        # plt.pause(30)
+        # plt.close(fig)
         return scope.Z
 
     def calculate_metric(self, image):
