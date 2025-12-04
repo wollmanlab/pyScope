@@ -215,7 +215,7 @@ class Scope:
             if not crashed:
                 self.status = "offline"
             else:
-                self.status = f"Crashed:{self.staus.split(':')[-1]}"
+                self.status = f"Crashed:{self.status.split(':')[-1]}"
             self.log('Continuous monitoring terminated - status set to offline')
 
     def interpret_command(self, current_message):
