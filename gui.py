@@ -501,18 +501,6 @@ class StatusPanel:
                                     font=GUI_FONTS['small'])
         self.progress_info.pack(anchor='w')
         
-        # Status display on the right
-        self.status_frame = tk.Frame(self.control_frame, bg=GUI_COLORS['frame'])
-        self.status_frame.pack(side='right')
-        
-        tk.Label(self.status_frame, text="Status:", bg=GUI_COLORS['frame'], 
-                fg=GUI_COLORS['text'], font=GUI_FONTS['body']).pack(side='left')
-        
-        self.status_label = tk.Label(self.status_frame, text="Not Started", 
-                                   bg=GUI_COLORS['frame'], fg=GUI_COLORS['warning'],
-                                   font=GUI_FONTS['body'])
-        self.status_label.pack(side='left', padx=(10, 0))
-        
         # Create send status frame below the control frame
         self.send_frame = tk.Frame(self.frame, bg=GUI_COLORS['frame'])
         self.send_frame.pack(fill='x', padx=10, pady=(0, 10))
@@ -522,6 +510,15 @@ class StatusPanel:
                                    fg=GUI_COLORS['text'], font=GUI_FONTS['body'],
                                    insertbackground=GUI_COLORS['text'])
         self.send_entry.pack(side='left', fill='x', expand=True)
+        # Status display on the right of send frame
+        self.status_frame = tk.Frame(self.send_frame, bg=GUI_COLORS['frame'])
+        self.status_frame.pack(side='right')
+        tk.Label(self.status_frame, text="Status:", bg=GUI_COLORS['frame'], 
+                fg=GUI_COLORS['text'], font=GUI_FONTS['body']).pack(side='left')
+        self.status_label = tk.Label(self.status_frame, text="Not Started", 
+                                   bg=GUI_COLORS['frame'], fg=GUI_COLORS['warning'],
+                                   font=GUI_FONTS['body'])
+        self.status_label.pack(side='left', padx=(10, 0))
         
         # Load initial status from file if file_handler is available
         self.load_initial_status()
