@@ -513,6 +513,16 @@ class StatusPanel:
                                    font=GUI_FONTS['body'])
         self.status_label.pack(side='left', padx=(10, 0))
         
+        # Create send status frame below the control frame
+        self.send_frame = tk.Frame(self.frame, bg=GUI_COLORS['frame'])
+        self.send_frame.pack(fill='x', padx=10, pady=(0, 10))
+        self.send_btn = create_button(self.send_frame, "Send", command=self.send_status)
+        self.send_btn.pack(side='left', padx=(0, 5))
+        self.send_entry = tk.Entry(self.send_frame, bg=GUI_COLORS['frame'], 
+                                   fg=GUI_COLORS['text'], font=GUI_FONTS['body'],
+                                   insertbackground=GUI_COLORS['text'])
+        self.send_entry.pack(side='left', fill='x', expand=True)
+        
         # Load initial status from file if file_handler is available
         self.load_initial_status()
 
@@ -539,6 +549,17 @@ class StatusPanel:
                 
         except Exception as e:
             print(f"Error loading initial status for {self.panel_name}: {e}")
+    
+    def send_status(self):
+        """Send custom status text to the status file."""
+        try:
+            status_text = self.send_entry.get().strip()
+            if status_text:
+                self.file_handler.save_status(self.system_name, status_text)
+                self.set_status(status_text)
+                self.send_entry.delete(0, tk.END)
+        except Exception as e:
+            print(f"Error sending status for {self.panel_name}: {e}")
     
     def pause(self):
         """Pause the system."""
