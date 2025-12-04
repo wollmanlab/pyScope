@@ -864,9 +864,10 @@ class SystemGUI:
         self.create_experimental_setup_block(grid_frame)
         self.create_scope_block(grid_frame)
         self.create_fluidics_block(grid_frame)
-        
         # Store reference to grid_frame for resize handling
         self.grid_frame = grid_frame
+        # Start with dynamic panel hidden - show when Create is clicked
+        self.hide_dynamic_panel()
     
     def setup_grid_proportions(self, grid_frame):
         """Set up grid proportions with dynamic minimum sizes based on window size."""
@@ -902,7 +903,13 @@ class SystemGUI:
     def _update_grid_proportions(self):
         """Update grid proportions after window resize."""
         if hasattr(self, 'grid_frame'):
-            self.setup_grid_proportions(self.grid_frame)
+            if hasattr(self, 'dynamic_panel_visible') and not self.dynamic_panel_visible:
+                # Dynamic panel is hidden - column 0 takes full width
+                self.grid_frame.grid_columnconfigure(0, weight=1, minsize=0)
+                self.grid_frame.grid_columnconfigure(1, weight=0, minsize=0)
+            else:
+                # Dynamic panel is visible - use normal proportions
+                self.setup_grid_proportions(self.grid_frame)
     
     def create_embedded_panel(self, parent):
         """Create the embedded GUI panel for hosting other GUIs."""
@@ -2837,9 +2844,9 @@ class SystemGUI:
             # Show completion message
             for widget in self.experimental_setup_frame.winfo_children():
                 widget.destroy()
-
             self.update_experiment_info()
-            
+            self.update_experiment_control_display()
+            self.hide_dynamic_panel()
         except Exception as e:
             self.config_error_label.config(text=f"ERROR: {str(e)}")
             self.log(f"Error saving experiment configuration: {e}", level='error')
@@ -2939,14 +2946,33 @@ class SystemGUI:
                              font=GUI_FONTS['heading'])
         frame.grid(row=0, column=1, rowspan=3, sticky='nsew', padx=10, pady=10)
         frame.grid_propagate(False)  # Prevent frame from expanding beyond allocated space
-        
+        self.dynamic_panel_frame = frame  # Store reference for hide/show
+        self.dynamic_panel_visible = True
         # Create main container for embedded content
         self.experimental_setup_frame = tk.Frame(frame, bg=GUI_COLORS['background'], 
                                                 relief='sunken', bd=2)
         self.experimental_setup_frame.pack(expand=True, fill='both', padx=5, pady=5)
-        
         # Initial state - show welcome message
         self.show_experimental_setup_welcome()
+    
+    def hide_dynamic_panel(self):
+        """Hide the dynamic panel and expand the left column."""
+        if not self.dynamic_panel_visible:
+            return
+        self.dynamic_panel_frame.grid_remove()
+        self.dynamic_panel_visible = False
+        # Reconfigure grid: column 1 hidden, column 0 expands to full width
+        self.grid_frame.grid_columnconfigure(0, weight=1, minsize=0)
+        self.grid_frame.grid_columnconfigure(1, weight=0, minsize=0)
+    
+    def show_dynamic_panel(self):
+        """Show the dynamic panel and restore grid layout."""
+        if self.dynamic_panel_visible:
+            return
+        self.dynamic_panel_frame.grid()
+        self.dynamic_panel_visible = True
+        # Restore column weights with proper proportions
+        self._update_grid_proportions()
     
     def show_experimental_setup_welcome(self):
         """Show welcome screen in experimental setup panel."""
@@ -3782,12 +3808,11 @@ class SystemGUI:
             self.log("GUI: Starting experiment creation...")
             self.experiment_status_panel.set_status("Creating...", GUI_COLORS['info'])
             self.root.update()
-            
+            self.show_dynamic_panel()
             # Show startup GUI in experimental setup panel
             self.show_startup_gui_in_setup()
             self.experiment_status_panel.set_status("Ready", GUI_COLORS['success'])
             self.log("GUI: Experiment creation started - use experimental setup panel to continue")
-                
         except Exception as e:
             self.experiment_status_panel.set_status("Error", GUI_COLORS['error'])
             self.log(f"GUI: Error creating experiment: {e}", level='error')
@@ -3827,7 +3852,6 @@ class SystemGUI:
             self.reset_gui_to_startup()
             self.experiment_status_panel.set_status("Reset Complete", GUI_COLORS['success'])
             self.log("GUI: Experiment reset completed successfully")
-            
         except Exception as e:
             self.experiment_status_panel.set_status("Reset Error", GUI_COLORS['error'])
             self.log(f"GUI: Error resetting experiment: {e}", level='error')
