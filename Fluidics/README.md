@@ -98,5 +98,9 @@ The Fluidics class runs a continuous monitoring loop (`continuous_monitoring()`)
 ### Further reading for the Fluidics Class
 - See [fluidics.py](fluidics.py) for details on the attributes and methods for carrying out the two above tasks.
 
+## Cleaning Instructions
+
+In `Fluidics_status.txt` write "Command:Clean*[]*TBS+3"
+
 ## Comments on file version
 For a file with suffix _v2, _v3, ..., _vN, the latest version is always the actively used one unless otherwise specified.   
