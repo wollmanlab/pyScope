@@ -457,6 +457,8 @@ class Experiment():
         task_number += 1
         self.tasks.loc[task_number,'Scope'] = f"Acquire*{str(chambers)}*preview"
         task_number += 1
+        self.tasks.loc[task_number,'Scope'] = f"ManualReview*{str(chambers)}*UserInput"
+        task_number += 1
         
 
         first_stitch_tracked = set()
