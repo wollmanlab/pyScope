@@ -40,7 +40,7 @@ class OrangeScope(Scope):
             
         self.config['axis_mapping'] = {'stage_x': 'plate_x', 'stage_y': 'plate_y'}
         self.config['ImageShape'] = np.array([2048,2448])
-        self.config['PixelSize'] = 0.343
+        self.config['PixelSize'] = 0.490
         self.tolerance = self.config['tolerance']
         self.limits = self.config['limits']
         self.offsets = self.config['offsets']
