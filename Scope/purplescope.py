@@ -25,7 +25,7 @@ class PurpleScope(Scope):
         super().__init__(enable_core)
         self.config = {}
         self.config['MM_config_path'] = 'C:\GitRepos\pyScope\Configs\PurpleScope_config.cfg'
-        self.config['tolerance'] = {'X': 0.1, 'Y': 0.1, 'Z': 0.1,'Exposure': 0.1}
+        self.config['tolerance'] = {'X': 1, 'Y': 1, 'Z': 0.1,'Exposure': 0.1}
         self.config['limits'] = {
             'Y': (-42000, 42000), 'X': (-68000, 68000), 'Z': (-2000, 3000),
             'Shutter': (False, True),'Autoshutter': (False, True),
@@ -40,7 +40,7 @@ class PurpleScope(Scope):
             
         self.config['axis_mapping'] = {'stage_x': 'plate_x', 'stage_y': 'plate_y'}
         self.config['ImageShape'] = np.array([2048,2448])
-        self.config['PixelSize'] = 0.343
+        self.config['PixelSize'] = 0.428
         self.tolerance = self.config['tolerance']
         self.limits = self.config['limits']
         self.offsets = self.config['offsets']
