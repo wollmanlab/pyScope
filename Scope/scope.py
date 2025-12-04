@@ -260,6 +260,9 @@ class Scope:
         elif protocol == 'Acquire': #FIXME "Acquire*['A1', 'A2']*hybe11" 
             self.log(f"Acquiring images for: {chambers}, {name}, {other}")
             self.acquire(chambers,name,other)
+        elif protocol == 'ManualReview':
+            self.log(f"Manual reviewing images for: {chambers}, {name}, {other}")
+            self.manual_review(chambers,name,other)
         else:
             self.log(f"Unknown protocol: {protocol}", level='warning')
         # Clean up task files after protocol completion (both real and simulated)
@@ -465,6 +468,16 @@ class Scope:
         else:
             self.log(f"Unknown autofocus method: {autofocus_method}",level='error')
             return
+
+    def manual_review(self, chambers, name, other):
+        """Manual review of setup.
+        pause the experiment to allow the user to review the setup.
+        displays a gui asking the user to click okay when done.
+        Args:
+            chambers (list): List of chamber/well names to review images for.
+        """
+        self.log(f"Manual reviewing setup for: {chambers}, {name}, {other}",level='info')
+        self._show_focus_popup("Please review the setup and click okay when done")
 
 
     # def setup(self,chambers,name,other):
