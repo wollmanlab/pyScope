@@ -569,7 +569,7 @@ class StatusPanel:
             self.log(f"{self.panel_name} paused - stored previous status: {self.previous_status}")
             
             # Write paused status with previous message info
-            paused_status = f"Paused:{self.previous_status.split(':')[-1] if ':' in self.previous_status else self.previous_status}"
+            paused_status = f"Paused:{self.previous_status.split('Command:')[-1].split('Running:')[-1] if ':' in self.previous_status else self.previous_status}"
             self.file_handler.save_status(self.system_name, paused_status)
             
             # Update status label to match what was written to the file
@@ -3830,7 +3830,7 @@ class SystemGUI:
             for device in ['Experiment','Scope','Fluidics']:
                 self.log(f"GUI: Stopping {device}...")
                 current_message = self.file_handler.get_status(device)
-                new_message = f"Stop:{current_message.split(':')[-1]}"
+                new_message = f"Stop:{current_message.split('Command:')[-1].split('Running:')[-1]}"
                 self.file_handler.save_status(device, new_message)
                 self.log(f"GUI: {device} stopped")
             self.log("GUI: Experiment stopped")
@@ -3889,15 +3889,15 @@ class SystemGUI:
             # files_to_remove = [
             #     'Experiment_state.json',
             #     'Positions.csv', 
-            #     'Experiment_tasks.csv',
+            #     'Experiment_tasks.tsv',
             #     'Experiment_task_idx.txt',
             #     'Experiment_status.txt',
             #     'Scope_state.json',
-            #     'Scope_tasks.csv',
+            #     'Scope_tasks.tsv',
             #     'Scope_task_idx.txt', 
             #     'Scope_status.txt',
             #     'Fluidics_state.json',
-            #     'Fluidics_tasks.csv',
+            #     'Fluidics_tasks.tsv',
             #     'Fluidics_task_idx.txt',
             #     'Fluidics_status.txt',
             #     'scope_task.txt'  # Scope task trigger file

@@ -2,6 +2,7 @@ import time
 import os
 import json
 import pandas as pd
+import traceback
 from typing import Dict
 from Scope.positions import Positions
 from Scope.autofocus import Autofocus
@@ -96,13 +97,14 @@ class Experiment():
                     self.interpret_command(status)
                 time.sleep(1)
         except Exception as e:
-            self.log(f"Error in continuous monitoring: {e}", level='warning')
+            error_traceback = traceback.format_exc()
+            self.log(f"Error in continuous monitoring: {e}\n{error_traceback}", level='warning')
             crashed = True
         finally:
             if not crashed:
                 self.status = "offline"
             else:
-                self.status = f"Crashed:{self.status.split(':')[-1]}"
+                self.status = f"Crashed:{self.status.split('Command:')[-1].split('Running:')[-1]}"
             self.log('Continuous monitoring terminated - status set to offline')
 
     def interpret_command(self, current_message):
@@ -116,7 +118,7 @@ class Experiment():
         """
         self.log(f"Interpreting Command: {current_message}")
         self.busy = True
-        message = current_message.split(':')[-1]
+        message = current_message.split('Command:')[-1]
         self.status = "Running:"+message
         self.execute_protocol(message)
         self.status = "Finished:"+message
@@ -168,7 +170,7 @@ class Experiment():
         
         Args:
             message (str): Protocol command message. Supported commands:
-                - 'Execute Tasks': Execute all tasks in Experiment_tasks.csv
+                - 'Execute Tasks': Execute all tasks in Experiment_tasks.tsv
                 - 'Create Tasks': Create tasks from experiment configuration
         """
         if 'Execute Tasks' in message:
@@ -257,7 +259,7 @@ class Experiment():
     def _recover_state(self):
         """Load all saved state files to recover experiment state.
         
-        Validates that required files exist (Experiment_tasks.csv, Positions.csv,
+        Validates that required files exist (Experiment_tasks.tsv, Positions.csv,
         Experiment_state.json) before allowing recovery.
         
         Returns:
@@ -272,8 +274,8 @@ class Experiment():
             # Check if tasks file exists
             tasks_df = self.file_handler.get_tasks("Experiment")
             if tasks_df.empty:
-                self.log('No Experiment_tasks.csv found - cannot recover without tasks', level='error')
-                raise Exception("Cannot recover: Experiment_tasks.csv not found")
+                self.log('No Experiment_tasks.tsv found - cannot recover without tasks', level='error')
+                raise Exception("Cannot recover: Experiment_tasks.tsv not found")
             
             # Check if positions file exists
             positions_df = self.file_handler.Positions
@@ -398,7 +400,7 @@ class Experiment():
         - Setup tasks: SetFocus, Acquire preview, FilterPositions, SetupAutoFocus
         - Main tasks: Fluidics and Scope protocols organized by group and round
         
-        Tasks are saved to Experiment_tasks.csv with columns for each system
+        Tasks are saved to Experiment_tasks.tsv with columns for each system
         (Scope, Fluidics). Each task row contains protocol commands for the
         appropriate systems.
         

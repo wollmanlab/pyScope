@@ -8,6 +8,7 @@ import threading
 import sys
 import os
 import ast
+import traceback
 from math import floor,ceil
 import json
 # Adding all subdirectories in the directory of fluidics.py to the path of python.
@@ -120,13 +121,14 @@ class Fluidics(object):
                     self.interpret_command(status)
                 time.sleep(1)
         except Exception as e:
-            self.log(f"Error in continuous monitoring: {e}", level='warning')
+            error_traceback = traceback.format_exc()
+            self.log(f"Error in continuous monitoring: {e}\n{error_traceback}", level='warning')
             crashed = True  
         finally:
             if not crashed:
                 self.status = "offline"
             else:
-                self.status = f"Crashed:{self.status.split(':')[-1]}"
+                self.status = f"Crashed:{self.status.split('Command:')[-1].split('Running:')[-1]}"
             self.log('Continuous monitoring terminated - status set to offline')
 
     def interpret_command(self, current_message):
@@ -139,7 +141,7 @@ class Fluidics(object):
         self.log(f"Interpreting Command: {current_message}")
         self.busy = True
         # interpret message
-        message = current_message.split(':')[-1]
+        message = current_message.split('Command:')[-1]
         self.status = "Running:"+message
         protocol,chambers,other = self.decode_message(message)
         self.execute_protocol(protocol,chambers,other)

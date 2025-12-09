@@ -272,15 +272,15 @@ class FileHandler:
         return os.path.join(self.system_state_dir, f"{system_prefix}_state.json")
     
     def _get_tasks_file_path(self, system_prefix: str) -> str:
-        """Get the full path to a system's tasks CSV file.
+        """Get the full path to a system's tasks TSV file.
         
         Args:
             system_prefix (str): System prefix (e.g., 'Experiment', 'Scope', 'Fluidics').
         
         Returns:
-            str: Full path to {system_prefix}_tasks.csv in the State directory.
+            str: Full path to {system_prefix}_tasks.tsv in the State directory.
         """
-        return os.path.join(self.system_state_dir, f"{system_prefix}_tasks.csv")
+        return os.path.join(self.system_state_dir, f"{system_prefix}_tasks.tsv")
     
     def _get_task_idx_file_path(self, system_prefix: str) -> str:
         """Get the full path to a system's task index file.
@@ -341,7 +341,7 @@ class FileHandler:
             self.log(f'Error saving {system_prefix} state: {e}', level='warning', system_prefix=system_prefix)
     
     def get_tasks(self, system_prefix: str) -> pd.DataFrame:
-        """Load tasks DataFrame from a system's tasks CSV file.
+        """Load tasks DataFrame from a system's tasks TSV file.
         
         Args:
             system_prefix (str): System prefix (e.g., 'Experiment', 'Scope', 'Fluidics').
@@ -350,17 +350,28 @@ class FileHandler:
             pd.DataFrame: Tasks DataFrame. Returns empty DataFrame if file doesn't exist.
         """
         tasks_file = self._get_tasks_file_path(system_prefix)
-        return self._load_csv(tasks_file)
+        try:
+            if os.path.exists(tasks_file):
+                return pd.read_csv(tasks_file, sep='\t')
+            else:
+                return pd.DataFrame()
+        except Exception as e:
+            self.log(f'Error loading {tasks_file}: {e}', level='warning', system_prefix='FileHandler')
+            return pd.DataFrame()
     
     def save_tasks(self, system_prefix: str, tasks_df: pd.DataFrame):
-        """Save tasks DataFrame to a system's tasks CSV file.
+        """Save tasks DataFrame to a system's tasks TSV file.
         
         Args:
             system_prefix (str): System prefix (e.g., 'Experiment', 'Scope', 'Fluidics').
             tasks_df (pd.DataFrame): Tasks DataFrame to save.
         """
         tasks_file = self._get_tasks_file_path(system_prefix)
-        self._save_csv(tasks_df, tasks_file)
+        try:
+            if not tasks_df.empty:
+                tasks_df.to_csv(tasks_file, index=False, sep='\t')
+        except Exception as e:
+            self.log(f'Error saving TSV to {tasks_file}: {e}', level='warning', system_prefix='FileHandler')
     
     def get_task_idx(self, system_prefix: str) -> int:
         """Load current task index from a system's task index file.
@@ -709,7 +720,7 @@ class FileHandler:
                         with open(dest_log_path, 'w') as dst:
                             dst.writelines(lines[start_line:])
 
-        for file_type in ['*_state.json', '*_tasks.csv', '*_task_idx.txt', '*_status.txt']:
+        for file_type in ['*_state.json', '*_tasks.tsv', '*_task_idx.txt', '*_status.txt']:
             state_files = glob.glob(os.path.join(self.system_state_dir, file_type))
             for state_file in state_files:
                 dest_path = os.path.join(acquisition_state_dir, os.path.basename(state_file))

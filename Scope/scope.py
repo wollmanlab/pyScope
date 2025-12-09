@@ -4,6 +4,7 @@ import os
 import json
 import ast
 import pandas as pd
+import traceback
 from pycromanager import Core,Studio
 from typing import Dict, Any
 from file_handler import FileHandler
@@ -209,13 +210,14 @@ class Scope:
                 
                 time.sleep(1)
         except Exception as e:
-            self.log(f"Error in continuous monitoring: {e}", level='warning')
+            error_traceback = traceback.format_exc()
+            self.log(f"Error in continuous monitoring: {e}\n{error_traceback}", level='warning')
             crashed = True
         finally:
             if not crashed:
                 self.status = "offline"
             else:
-                self.status = f"Crashed:{self.status.split(':')[-1]}"
+                self.status = f"Crashed:{self.status.split('Command:')[-1].split('Running:')[-1]}"
             self.log('Continuous monitoring terminated - status set to offline')
 
     def interpret_command(self, current_message):
@@ -229,7 +231,7 @@ class Scope:
         """
         self.log(f"Interpreting Command: {current_message}")
         self.busy = True
-        message = current_message.split(':')[-1]
+        message = current_message.split('Command:')[-1]
         self.status = "Running:"+message
         self.execute_protocol(message)
         self.status = "Finished:"+message
@@ -286,8 +288,12 @@ class Scope:
                 - name (str): Protocol name parameter
                 - other (str): Additional parameters
         """
+        self.log(f"Decoding message: {message}",level='debug')
+        self.log(f"Message type: {type(message)}",level='debug')
+        self.log(f"{message.split('*')}",level='debug')
         protocol,chambers,other = message.split('*')
         if '+' in other:
+            self.log(f"Message contains +: {other}",level='debug')
             name = other.split('+')[0]
             other = other.split('+')[1]
         else:
