@@ -71,7 +71,8 @@ class OrangeFluidics(Fluidics):
             'E':{'valve':4,'port':6},
             'F':{'valve':4,'port':7},
             'Air':{'valve':4,'port':9},
-            'Hybe1':{'valve':2,'port':1},
+            # 'Hybe1':{'valve':2,'port':1}, # Broken clogged valve
+            'Hybe1':{'valve':3,'port':4}, # On a different Valve than the rest
             'Hybe2':{'valve':2,'port':2},
             'Hybe3':{'valve':2,'port':3},
             'Hybe4':{'valve':2,'port':4},
