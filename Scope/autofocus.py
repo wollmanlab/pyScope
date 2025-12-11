@@ -144,7 +144,10 @@ class ImageScanAutofocus(Autofocus):
         previous_binning = scope.Binning
         scope.Channel = self.channel
         scope.Exposure = self.exposure
-        scope.Binning = self.binning
+        try:
+            scope.Binning = self.binning
+        except Exception as e:
+            self.log(f"Error setting binning: {e}",level='warning')
         selected_windows = []
         window_types = []
         if 'coarse' in windows:

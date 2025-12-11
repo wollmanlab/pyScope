@@ -27,7 +27,7 @@ class PurpleScope(Scope):
         self.config['MM_config_path'] = 'C:\GitRepos\pyScope\Configs\PurpleScope_config.cfg'
         self.config['tolerance'] = {'X': 1, 'Y': 1, 'Z': 0.1,'Exposure': 0.1}
         self.config['limits'] = {
-            'Y': (-42000, 42000), 'X': (-68000, 68000), 'Z': (-2000, 3000),
+            'Y': (-42000, 34500), 'X': (-53500, 68000), 'Z': (-2000, 3000),
             'Shutter': (False, True),'Autoshutter': (False, True),
             'Exposure': (0, 10000), 'Binning': ['1'], 
             'Channel': ['FarRed', 'DeepBlue'], 
