@@ -34,7 +34,7 @@ class PurpleScope(Scope):
             'Time': (0, 1e8)
         }
         # self.config['offsets'] = {'X': 0, 'Y': 0, 'Z': 0}
-        self.config['offsets'] = {'X': 0, 'Y': 0, 'Z': 0}
+        self.config['offsets'] = {'X': 0, 'Y': -1000, 'Z': 0}
         # for key in self.config['offsets']:
             # self.config['offsets'][key] = (self.config['limits'][key][0] + self.config['limits'][key][1]) / 2
             
