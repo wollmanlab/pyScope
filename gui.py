@@ -790,7 +790,7 @@ class SystemGUI:
         Args:
             experiment_instance: The Experiment instance to control and monitor
         """
-        self.file_handler = FileHandler()
+        self.file_handler = FileHandler(verbose=True)
         self.system = system
         self.system_prefix = system
         self.experiment = Experiment()

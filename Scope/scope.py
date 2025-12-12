@@ -74,7 +74,7 @@ class Scope:
         }
         self.offsets = {'X': 0, 'Y': 0, 'Z': 0}
         self.axis_mapping = {'stage_x': 'plate_x', 'stage_y': 'plate_y'}
-        self.overlap = 0.1
+        self.overlap = 0.1 # may want different overlap for different projects / exps
         
         # Microscope state
         self.state = {
@@ -1493,3 +1493,29 @@ class Scope:
     def name(self):
         """Get the name of the class."""
         return self.__class__.__name__
+
+import socket
+import importlib
+
+if __name__ == "__main__":
+    # Determine system type from PC name
+    pc_name = socket.gethostname()
+    # Find which part before 'Scope' is system
+    if 'Scope' in pc_name:
+        system = pc_name.split('Scope')[0].capitalize()
+    else:
+        # fallback to default system name
+        system = 'Generic'
+    module_name = f"Scope.{system.lower()}scope"
+    try:
+        module = importlib.import_module(module_name)
+        class_name = f"{system}Scope"
+        scope_class = getattr(module, class_name)
+    except Exception as e:
+        print(f"Error loading specific scope module: {e}")
+        from Scope.scope import Scope
+        scope_class = Scope
+        
+    scope = scope_class(enable_core=True)
+    scope.file_handler.verbose = True
+    scope.continuous_monitoring()
