@@ -519,11 +519,7 @@ class Experiment():
         self.log("Tasks created and saved successfully")
 
 
-if __name__ == '__main__':
-    import socket
-    from gui import create_experiment_gui
-    
-    # Get PC name and use it as the system
-    pc_name = socket.gethostname()
-    system = pc_name.split('Scope')[0].capitalize()
-    create_experiment_gui(system=system)
+if __name__ == "__main__":
+    experiment = Experiment()
+    experiment.file_handler.verbose = True
+    experiment.continuous_monitoring()

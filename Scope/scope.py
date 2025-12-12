@@ -1503,10 +1503,12 @@ if __name__ == "__main__":
     # Find which part before 'Scope' is system
     if 'Scope' in pc_name:
         system = pc_name.split('Scope')[0].capitalize()
+        module_name = f"Scope.{system.lower()}scope"
+        print(f"Using {system} scope")
     else:
         # fallback to default system name
-        system = 'Generic'
-    module_name = f"Scope.{system.lower()}scope"
+        print("No system found, using default scope")
+        module_name = f"Scope.scope"
     try:
         module = importlib.import_module(module_name)
         class_name = f"{system}Scope"

@@ -439,21 +439,41 @@ class Fluidics(object):
             total_time = total_time-(minutes*60)
             self.log('Estimated Total Time: '+str(int(hours))+'h'+str(int(minutes))+'m'+str(int(total_time))+'s')
 
-# Load the subclass selected by user.
-if __name__ == '__main__':
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-f", "--fluidics_class", type=str, dest="fluidics_class", default="Fluidics", action='store', help="Which Fluidics Class to use")
-    args = parser.parse_args()
-
-    fluidics_class = args.fluidics_class
-    system_prefix = fluidics_class.lower().split('fluidics')[0].capitalize()
-    module = importlib.import_module(f"{system_prefix.lower()}fluidics")
-    class_name = f"{system_prefix}Fluidics"
-    fluidics_class = getattr(module, class_name)
-    self = fluidics_class(gui=False)
-    while True:
-        self.continuous_monitoring()
+if __name__ == "__main__":
+    import socket
+    from file_handler import FileHandler
+    file_handler = FileHandler()
+    # Determine system type from PC name
+    pc_name = socket.gethostname()
+    # Find which part before 'Scope' is system
+    if 'Scope' in pc_name:
+        system = pc_name.split('Scope')[0].capitalize()
+        module_name = f"Fluidics.{system.lower()}fluidics"
+        file_handler.log(f"Using {system} Fluidics", level='info', system_prefix='Fluidics')
+    else:
+        # fallback to default system name
+        file_handler.log("No system found, using default fluidics", level='info', system_prefix='Fluidics')
+        module_name = f"Fluidics.fluidics"
+    try:
+        file_handler.log(f"Loading {module_name}", level='info', system_prefix='Fluidics')
+        module = importlib.import_module(module_name)
+        class_name = f"{system}Fluidics"
+        fluidics_class = getattr(module, class_name)
+        file_handler.log(f"Loaded {class_name}", level='info', system_prefix='Fluidics')
+    except Exception as e:
+        file_handler.log(f"Error loading specific scope module: {e}", level='warning', system_prefix='Fluidics')
+        from Fluidics.fluidics import Fluidics
+        fluidics_class = Fluidics
+        
+    try:
+        fluidics = fluidics_class()
+        fluidics.file_handler.verbose = True
+        fluidics.continuous_monitoring()
+    except Exception as e:
+        # Print error traceback
+        file_handler.log(traceback.format_exc(), level='warning', system_prefix='Fluidics')
+        file_handler.log(f"Error creating {fluidics_class}: {e}", level='warning', system_prefix='Fluidics')
+        raise Exception(f"Error creating {fluidics_class}: {e}")
 
 
     

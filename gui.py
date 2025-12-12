@@ -13,6 +13,8 @@ import time
 import os
 import json
 import pandas as pd
+import subprocess
+import sys
 from datetime import datetime
 from typing import Dict, List, Tuple, Optional, Callable, Any
 from Scope.scope import Scope
@@ -446,9 +448,8 @@ class StatusPanel:
         self.file_handler = file_handler
         self.system_prefix = system_prefix
         
-        # Threading support for launched instances
-        self.launched_instance = None
-        self.launched_thread = None
+        # Process support for launched instances
+        self.launched_process = None
         self.is_launched = False
         
         # Store previous status for pause/resume functionality
@@ -615,7 +616,7 @@ class StatusPanel:
             print(f"Error resuming {self.panel_name}: {e}")
     
     def launch(self):
-        """Launch a threaded instance of the system."""
+        """Launch a subprocess instance of the system in a new terminal."""
         if self.is_launched:
             self.kill()
             return
@@ -624,36 +625,42 @@ class StatusPanel:
         self.launch_btn.config(text="Launch", bg=GUI_COLORS['success'], fg='white')
         
         try:
-            # Import the appropriate class based on system_name
+            # Get Python executable path (use current interpreter)
+            python_exe = sys.executable
+            
+            # Get the working directory (project root - where gui.py is located)
+            project_root = os.path.dirname(os.path.abspath(__file__))
+            if not project_root:
+                project_root = os.getcwd()
+            
+            # Determine command based on system_name
             if self.system_name == "Experiment":
-                from experiment import Experiment
-                self.launched_instance = Experiment()
-                self.log(f"{self.panel_name}: Instantiating Experiment class")
+                cmd = [python_exe, "experiment.py"]
+                self.log(f"{self.panel_name}: Launching Experiment in new terminal")
             elif self.system_name == "Scope":
-                module = importlib.import_module(f"Scope.{self.system_prefix.lower()}scope")
-                class_name = f"{self.system_prefix}Scope"
-                scope_class = getattr(module, class_name)
-                self.log(f"{self.panel_name}: Instantiating Scope class")
-                self.launched_instance = scope_class()
+                cmd = [python_exe, "-m", "Scope.scope"]
+                self.log(f"{self.panel_name}: Launching Scope in new terminal")
             elif self.system_name == "Fluidics":
-                module = importlib.import_module(f"Fluidics.{self.system_prefix.lower()}fluidics")
-                class_name = f"{self.system_prefix}Fluidics"
-                fluidics_class = getattr(module, class_name)
-                self.log(f"{self.panel_name}: Instantiating Fluidics class")
-                self.launched_instance = fluidics_class()
+                cmd = [python_exe, "-m", "Fluidics.fluidics"]
+                self.log(f"{self.panel_name}: Launching Fluidics in new terminal")
             else:
                 print(f"Unknown system: {self.system_name}")
                 return
             
-            # # Set status to Idle when launching
-            # self.launched_instance.status = "Idle"
-            
-            # Start the continuous_monitoring function in a separate thread
-            self.launched_thread = threading.Thread(
-                target=self.launched_instance.continuous_monitoring,
-                daemon=True
-            )
-            self.launched_thread.start()
+            # Launch process in new terminal window (Windows)
+            if sys.platform == 'win32':
+                # Use CREATE_NEW_CONSOLE to open in new terminal window
+                self.launched_process = subprocess.Popen(
+                    cmd,
+                    cwd=project_root,
+                    creationflags=subprocess.CREATE_NEW_CONSOLE
+                )
+            else:
+                # For Linux/Mac, use xterm or similar (you may need to adjust)
+                self.launched_process = subprocess.Popen(
+                    cmd,
+                    cwd=project_root
+                )
             
             self.is_launched = True
             
@@ -672,41 +679,53 @@ class StatusPanel:
             if self.launch_callback:
                 self.launch_callback()
             
-            print(f"{self.panel_name} launched successfully")
+            print(f"{self.panel_name} launched successfully in new terminal (PID: {self.launched_process.pid})")
             
         except Exception as e:
             print(f"Error launching {self.panel_name}: {e}")
+            import traceback
+            traceback.print_exc()
             # Set Launch button to orange to indicate error
             self.launch_btn.config(text="Launch", bg=GUI_COLORS['warning'], fg='white')
             # Update status to show error
             self.status_label.config(text="Launch Error", fg=GUI_COLORS['error'])
     
     def kill(self):
-        """Kill the launched instance by setting status to Stop."""
+        """Kill the launched process by terminating it."""
         try:
             if not self.is_launched:
                 print(f"{self.panel_name} is not launched")
                 return
             
-            # Set status to Stop to terminate the instance
-            # self.file_handler.save_status(self.system_name, "Stop")
-            
-            # Wait for thread to finish (with timeout)
-            if self.launched_thread and self.launched_thread.is_alive():
-                self.launched_thread.join(timeout=2.0)
+            # Terminate the process
+            if self.launched_process:
+                try:
+                    # Try graceful termination first
+                    self.launched_process.terminate()
+                    
+                    # Wait a bit for graceful shutdown
+                    try:
+                        self.launched_process.wait(timeout=2.0)
+                    except subprocess.TimeoutExpired:
+                        # Force kill if it doesn't terminate gracefully
+                        self.launched_process.kill()
+                        self.launched_process.wait()
+                    
+                    print(f"{self.panel_name} process terminated (PID: {self.launched_process.pid})")
+                except ProcessLookupError:
+                    # Process already terminated
+                    print(f"{self.panel_name} process already terminated")
+                except Exception as e:
+                    print(f"Error terminating {self.panel_name} process: {e}")
             
             # Reset state
             self.is_launched = False
-            self.launched_instance = None
-            self.launched_thread = None
+            self.launched_process = None
             
             # Update button appearance
             self.launch_btn.config(text="Launch", bg=GUI_COLORS['success'], fg='white')
             
-            # Update status to match what was written to the file
-            self.status_label.config(text="Stop", fg=GUI_COLORS['error'])
-            
-            # Ensure status label is always in sync with file
+            # Refresh status from file to show current status
             self.refresh_status_from_file()
             
             # Call custom kill callback if provided
@@ -717,6 +736,8 @@ class StatusPanel:
             
         except Exception as e:
             print(f"Error killing {self.panel_name}: {e}")
+            import traceback
+            traceback.print_exc()
     
     def update_progress(self, progress_info):
         """Update the progress bar display."""
@@ -822,6 +843,23 @@ class SystemGUI:
         self.root.title(f"PyScope : {system}")
         self.root.state('zoomed')  # Windows fullscreen
         # For Linux/Mac, use: self.root.attributes('-zoomed', True)
+        
+        # Set window icon
+        icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.ico")
+        if os.path.exists(icon_path):
+            try:
+                self.root.iconbitmap(icon_path)
+            except Exception as e:
+                # Fallback: try with PNG if ICO fails (some systems support PNG)
+                png_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logo.png")
+                if os.path.exists(png_path):
+                    try:
+                        # Try iconphoto for PNG (works on some systems)
+                        # Store as instance variable to prevent garbage collection
+                        self.icon_image = tk.PhotoImage(file=png_path)
+                        self.root.iconphoto(True, self.icon_image)
+                    except Exception:
+                        pass  # Icon setting failed, continue without icon
         
         apply_dark_theme(self.root)
         self.style = create_dark_style()
@@ -3971,4 +4009,8 @@ def create_experiment_gui(system='Cyan'):
 
 
 if __name__ == '__main__':
-    create_experiment_gui(system='Cyan')
+    import socket
+    # Get PC name and use it as the system
+    pc_name = socket.gethostname()
+    system = pc_name.split('Scope')[0].capitalize()
+    create_experiment_gui(system=system)
