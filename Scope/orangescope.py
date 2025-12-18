@@ -27,7 +27,7 @@ class OrangeScope(Scope):
         self.config['MM_config_path'] = 'C:\GitRepos\pyScope\Configs\OrangeScope_config.cfg'
         self.config['tolerance'] = {'X': 0.1, 'Y': 0.1, 'Z': 0.1,'Exposure': 0.1}
         self.config['limits'] = {
-            'Y': (-37500.0, 37500.0), 'X': (-55000.0, 55000.0), 'Z': (0.0, 6000.0),
+            'Y': (-37500.0, 37500.0), 'X': (-55000.0, 55000.0), 'Z': (0.0, 8000.0),
             'Shutter': (False, True),'Autoshutter': (False, True),
             'Exposure': (0, 10000), 'Binning': ['1'], 
             'Channel': ['FarRed', 'DeepBlue', 'Green', 'Orange'], 
