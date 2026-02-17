@@ -1234,7 +1234,29 @@ class Scope:
                         self.log(f"Error waiting for {key}: {e}", level='warning')
                         time.sleep(0.05)
                 check_idx = 0
+                settle_timeout = max_wait_time
+                settle_start_time = time.time()
+                retry_interval = 1.0
+                last_retry_time = settle_start_time
                 while not self.already_set(key, value):
+                    elapsed = time.time() - settle_start_time
+                    if elapsed >= settle_timeout:
+                        current_value = self.get(key)
+                        self.log(
+                            f"Timeout waiting for {key} to reach {value}; current value is {current_value}",
+                            level='warning'
+                        )
+                        break
+
+                    # Re-issue the command periodically in case the stage stalls.
+                    if ('Z' in key) and (time.time() - last_retry_time >= retry_interval):
+                        try:
+                            self.core.set_position(float(value))
+                            self.log(f"Retrying {key} move to {value}", level='debug')
+                        except Exception as e:
+                            self.log(f"Error retrying {key} move to {value}: {e}", level='warning')
+                        last_retry_time = time.time()
+
                     if check_idx > 2:
                         self.log(f'{key}: {value} is not the current value {self.get(key)}', level='debug')
                     check_idx+=1
