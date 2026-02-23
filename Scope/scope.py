@@ -1197,7 +1197,8 @@ class Scope:
                 self.core.set_xy_position(float(self.X), float(value))
             elif key == 'XY':
                 self.core.set_xy_position(float(value[0]), float(value[1]))
-            elif key == 'Z': 
+            elif key == 'Z':
+                self.log(f"Moving Z to {float(value)}", level='info')
                 self.core.set_position(float(value))
             elif key == 'Exposure': 
                 self.core.set_exposure(value)
@@ -1234,33 +1235,17 @@ class Scope:
                         self.log(f"Error waiting for {key}: {e}", level='warning')
                         time.sleep(0.05)
                 check_idx = 0
-                settle_timeout = max_wait_time
-                settle_start_time = time.time()
-                retry_interval = 1.0
-                last_retry_time = settle_start_time
                 while not self.already_set(key, value):
-                    elapsed = time.time() - settle_start_time
-                    if elapsed >= settle_timeout:
-                        current_value = self.get(key)
-                        self.log(
-                            f"Timeout waiting for {key} to reach {value}; current value is {current_value}",
-                            level='warning'
-                        )
-                        break
-
-                    # Re-issue the command periodically in case the stage stalls.
-                    if ('Z' in key) and (time.time() - last_retry_time >= retry_interval):
-                        try:
-                            self.core.set_position(float(value))
-                            self.log(f"Retrying {key} move to {value}", level='debug')
-                        except Exception as e:
-                            self.log(f"Error retrying {key} move to {value}: {e}", level='warning')
-                        last_retry_time = time.time()
-
-                    if check_idx > 2:
-                        self.log(f'{key}: {value} is not the current value {self.get(key)}', level='debug')
-                    check_idx+=1
+                    if 'Z' in key:
+                        self.core.set_position(float(value))
+                        self.core.wait_for_device(self.core.get_focus_device())
+                    else:
+                        self.core.set_xy_position(float(value[0]), float(value[1]))
+                        self.core.wait_for_device(self.core.get_xy_stage_device())
+                    self.log(f"Failed to move {key} try {check_idx} times to {float(value)}", level='info')
+                    check_idx += 1
                     time.sleep(0.05)
+
             if key == 'XY':
                 self.log(f'X: {value[0]}', level='debug')
                 self.state['X'] = value[0]
@@ -1380,8 +1365,7 @@ class Scope:
         self.set('XY', value)
         # self.set('X', value[0])
         # self.set('Y', value[1])
-        return
-    
+        return    
     @property
     def XYZ(self): 
         return (self.get('X'), self.get('Y'), self.get('Z'))
